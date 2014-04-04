@@ -1,0 +1,12 @@
+<ivy-module version="2.0">
+    <info organisation="com.dstevens" module="elysium"/>
+        <configurations>
+        <conf name="binaries" description="binary jars"/>
+        <conf name="test" visibility="private"/>
+    </configurations>
+    <dependencies>
+        <dependency org="org.apache.commons" name="commons-lang3" rev="3.3.1" conf="binaries->default"/>
+    	<dependency org="org.springframework" name="spring-core" rev="4.0.3.RELEASE" conf="binaries->default"/>
+        <dependency org="org.mockito" name="mockito-all" rev="1.8.4" conf="test->default"/>
+    </dependencies>
+</ivy-module>
