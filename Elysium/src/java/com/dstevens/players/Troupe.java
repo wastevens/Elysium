@@ -3,6 +3,9 @@ package com.dstevens.players;
 import static com.dstevens.collections.Lists.list;
 
 import java.util.List;
+import javax.persistence.*;
+
+import com.dstevens.utilities.ObjectExtensions;
 
 public class Troupe {
 
@@ -18,12 +21,17 @@ public class Troupe {
         this.players = players;
     }
     
+    @Entity
+    @Table(name="troupe")
     public static class PersistableTroupe {
+        @Id
         public Long id;
+        @Column(name="name")
         public String name;
+        @Column(name="setting")
         public Setting setting;
         
-        private PersistableTroupe(long id, String name, Setting setting) {
+        public PersistableTroupe(Long id, String name, Setting setting) {
             this.id = id;
             this.name = name;
             this.setting = setting;
@@ -36,6 +44,21 @@ public class Troupe {
         
         public static PersistableTroupe fromTroup(Troupe troupe) {
             return new PersistableTroupe(troupe.id, troupe.name, troupe.setting);
+        }
+        
+        @Override
+        public boolean equals(Object that) {
+            return ObjectExtensions.equals(this, that);
+        }
+        
+        @Override
+        public int hashCode() {
+            return ObjectExtensions.hashCodeFor(this);
+        }
+        
+        @Override
+        public String toString() {
+            return ObjectExtensions.toStringFor(this);
         }
     }
     
