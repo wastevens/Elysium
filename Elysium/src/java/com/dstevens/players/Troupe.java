@@ -3,7 +3,6 @@ package com.dstevens.players;
 import static com.dstevens.collections.Lists.list;
 
 import java.util.List;
-
 import javax.persistence.*;
 
 import com.dstevens.utilities.ObjectExtensions;
@@ -15,11 +14,59 @@ public class Troupe {
     private final Setting setting;
     private final List<Player> players;
     
-    private Troupe(long id, String name, Setting setting, List<Player> players) {
+    Troupe(long id, String name, Setting setting, List<Player> players) {
         this.id = id;
         this.name = name;
         this.setting = setting;
         this.players = players;
+    }
+    
+    public final long getId() {
+        return id;
+    }
+
+    public final Troupe withName(String name) {
+        return new Troupe(id, name, setting, players);
+    }
+    
+    public final String getName() {
+        return name;
+    }
+
+    public final Troupe withSetting(Setting setting) {
+        return new Troupe(id, name, setting, players);
+    }
+    
+    public final Setting getSetting() {
+        return setting;
+    }
+
+    public final Troupe withPlayer(Player player) {
+        players.add(player);
+        return new Troupe(id, name, setting, players);
+    }
+    
+    public final List<Player> getPlayers() {
+        return players;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Troupe) {
+            Troupe that = Troupe.class.cast(obj);
+            return this.id == that.id;
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return (int) id;
+    }
+    
+    @Override
+    public String toString() {
+        return ObjectExtensions.toStringFor(this);
     }
     
     @Entity
