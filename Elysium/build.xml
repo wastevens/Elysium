@@ -26,7 +26,7 @@
 </target>
 
 <target name="resolve" description="--> retrieve dependencies with ivy" depends="clean, flush">
-	<ivy:retrieve conf="binaries,test" pattern="lib/[conf]/[artifact](-[classifier]).[ext]"/>
+	<ivy:retrieve conf="binaries,test,sources,javadoc" pattern="lib/[conf]/[artifact](-[classifier]).[ext]"/>
 	<copy todir="${lib.dir}/binaries">
       <fileset dir="E:/Users/Walter Stevens/workspace/LocalRepo/">
               <exclude name="**/Ponder*.jar"/>

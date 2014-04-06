@@ -1,17 +1,28 @@
 <ivy-module version="2.0">
     <info organisation="com.dstevens" module="elysium"/>
-        <configurations>
-        <conf name="binaries" description="binary jars"/>
-        <conf name="test" visibility="private"/>
+    <configurations>
+      <conf name="binaries" description="binary jars"/>
+      <conf name="sources" visibility="public"/>
+      <conf name="javadoc" visibility="public"/>
+      <conf name="test" visibility="private"/>
     </configurations>
     <dependencies>
-        <dependency org="org.hibernate" name="hibernate-core" rev="4.3.4.Final" conf="binaries->default"/>
-        <dependency org="org.hibernate" name="hibernate-annotations" rev="3.5.6-Final" conf="binaries->default"/>
-        <dependency org="mysql" name="mysql-connector-java" rev="5.1.30" conf="binaries->default"/>
-    	<dependency org="org.springframework" name="spring-context" rev="4.0.3.RELEASE" conf="binaries->default"/>
-    	<dependency org="org.springframework.data" name="spring-data-jpa" rev="1.5.1.RELEASE" conf="binaries->default"/>
+        <dependency org="org.hibernate" name="hibernate-core" rev="4.3.4.Final" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+        <dependency org="org.hibernate" name="hibernate-entitymanager" rev="4.3.4.Final" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+        <dependency org="mysql" name="mysql-connector-java" rev="5.1.30" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+        
+    	<dependency org="org.springframework" name="spring-context" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+    	<dependency org="org.springframework.data" name="spring-data-jpa" rev="1.5.1.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+    	<dependency org="org.springframework" name="spring-aop" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+    	<dependency org="org.springframework" name="spring-beans" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+    	<dependency org="org.springframework" name="spring-core" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+    	<dependency org="org.springframework" name="spring-expression" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+    	<dependency org="org.springframework" name="spring-instrument" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+    	<dependency org="org.springframework" name="spring-aspects" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+    	<dependency org="org.springframework" name="spring-orm" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+    	<dependency org="org.springframework" name="spring-tx" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
     	
-    	<dependency org="org.springframework" name="spring-test" rev="4.0.3.RELEASE" transitive="false" conf="test->default"/>
-        <dependency org="org.mockito" name="mockito-all" rev="1.8.4" conf="test->default"/>
+    	<dependency org="org.springframework" name="spring-test" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;test->default"/>
+        <dependency org="org.mockito" name="mockito-all" rev="1.8.4" conf="sources->sources;javadoc->javadoc;test->default"/>
     </dependencies>
 </ivy-module>

@@ -3,6 +3,7 @@ package com.dstevens.players;
 import java.util.List;
 import javax.persistence.*;
 
+import com.dstevens.collections.Lists;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
@@ -19,6 +20,7 @@ public class Troupe {
     @Column(name="setting") 
     private Setting setting;
     
+    @Transient
     private List<Player> players;
     
     //Used only by Hibernate
@@ -26,7 +28,11 @@ public class Troupe {
     private Troupe() {
     }
     
-    Troupe(long id, String name, Setting setting, List<Player> players) {
+    public static Troupe newTroupe(String name, Setting setting) {
+        return new Troupe(null, name, setting, Lists.<Player>list());
+    }
+    
+    private Troupe(Long id, String name, Setting setting, List<Player> players) {
         this.id = id;
         this.name = name;
         this.setting = setting;
