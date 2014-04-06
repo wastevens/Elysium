@@ -1,5 +1,7 @@
 package com.dstevens.players;
 
+import static com.dstevens.collections.Lists.listWith;
+
 import java.util.List;
 import javax.persistence.*;
 
@@ -12,24 +14,23 @@ public class Troupe {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    private final Long id;
     
     @Column(name="name") 
-    private String name;
+    private final String name;
     
     @Column(name="setting") 
-    private Setting setting;
+    private final Setting setting;
     
     @Transient
-    private List<Player> players;
-    
-    //Used only by Hibernate
-    @SuppressWarnings("unused")
-    private Troupe() {
-    }
+    private final List<Player> players;
     
     public static Troupe newTroupe(String name, Setting setting) {
         return new Troupe(null, name, setting, Lists.<Player>list());
+    }
+    
+    private Troupe() {
+        this(null, null, null, Lists.<Player>list());
     }
     
     private Troupe(Long id, String name, Setting setting, List<Player> players) {
@@ -39,7 +40,7 @@ public class Troupe {
         this.players = players;
     }
     
-    public final long getId() {
+    public final Long getId() {
         return id;
     }
 
@@ -60,8 +61,7 @@ public class Troupe {
     }
 
     public final Troupe withPlayer(Player player) {
-        players.add(player);
-        return new Troupe(id, name, setting, players);
+        return new Troupe(id, name, setting, listWith(players, player));
     }
     
     public final List<Player> getPlayers() {

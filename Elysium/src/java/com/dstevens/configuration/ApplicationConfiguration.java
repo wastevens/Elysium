@@ -11,9 +11,7 @@ public class ApplicationConfiguration {
         private final AnnotationConfigApplicationContext context;
         
         private ApplicationConfigurationSingleton() {
-            context = new AnnotationConfigApplicationContext();
-            context.scan("com.dstevens");
-            context.refresh();
+            context = new AnnotationConfigApplicationContext("com.dstevens");
         }
     }
     

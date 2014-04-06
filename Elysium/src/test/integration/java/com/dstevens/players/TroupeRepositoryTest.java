@@ -2,6 +2,7 @@ package com.dstevens.players;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
+import org.springframework.context.ApplicationContext;
 
 import com.dstevens.configuration.ApplicationConfiguration;
 
@@ -11,7 +12,8 @@ public class TroupeRepositoryTest {
 
     @BeforeClass
     public static void setUp() {
-        repository = ApplicationConfiguration.appConfig().getBean(TroupeRepository.class);
+        ApplicationContext appConfig = ApplicationConfiguration.appConfig();
+        repository = appConfig.getBean(TroupeRepository.class);
     }
     
     @Test

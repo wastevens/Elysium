@@ -11,13 +11,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories
+@EnableJpaRepositories("com.dstevens")
 @EnableTransactionManagement
 public class PersistanceConfiguration {
 
     
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
        factoryBean.setDataSource(dataSource());
@@ -30,17 +30,16 @@ public class PersistanceConfiguration {
         SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
         dataSource.setUrl("jdbc:mysql://localhost:3306/elysium");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUsername("root");
+        dataSource.setUsername("admin");
         dataSource.setPassword("admin");
+        dataSource.setSuppressClose(true);
         return dataSource;
     }
 
     @Bean
     public PlatformTransactionManager transactionManager(){
        JpaTransactionManager transactionManager = new JpaTransactionManager();
-       transactionManager.setEntityManagerFactory(
-        this.entityManagerFactoryBean().getObject() );
-       
+       transactionManager.setEntityManagerFactory(this.entityManagerFactory().getObject());
        return transactionManager;
     }
     
