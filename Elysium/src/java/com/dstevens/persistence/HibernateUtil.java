@@ -10,13 +10,17 @@ public class HibernateUtil {
     private static SessionFactory sessionFactory = createSessionFactory();
 
     private static final SessionFactory createSessionFactory() {
-        Configuration configuration = new Configuration();
-        System.out.println("Configuring...");
-        configuration.configure();
-        System.out.println("Configuration successful");
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        return sessionFactory;
+        try {
+            Configuration configuration = new Configuration();
+            configuration.configure();
+            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            return sessionFactory;
+        } catch(Exception e) {
+            System.err.println(e);
+            e.printStackTrace();
+            return null;
+        }
     }
   
     public static SessionFactory getSessionFactory() {

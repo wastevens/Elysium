@@ -25,6 +25,7 @@ public class Troupe {
     @Table(name="troupe")
     public static class PersistableTroupe {
         @Id
+        @GeneratedValue(strategy=GenerationType.IDENTITY)
         public Long id;
         @Column(name="name")
         public String name;

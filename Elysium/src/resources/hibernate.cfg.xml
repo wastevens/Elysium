@@ -1,9 +1,9 @@
 <?xml version='1.0'?>
-
-<hibernate-configuration
-        xmlns="http://www.hibernate.org/xsd/hibernate-configuration"
-        xsi:schemaLocation="http://www.hibernate.org/xsd/hibernate-configuration hibernate-configuration-4.0.xsd"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+      
+<hibernate-configuration>
   <session-factory>
     <!-- Database connection settings -->
     <property name='connection.driver_class'>com.mysql.jdbc.Driver</property>
@@ -26,6 +26,6 @@
     <!-- Echo all executed SQL to stdout -->
     <property name="show_sql">true</property>
     
-    <mapping-class="com.dstevensplayers.Troupe.PersistableTroupe"/>
+    <mapping class="com.dstevens.players.Troupe$PersistableTroupe" />
   </session-factory>
 </hibernate-configuration>
