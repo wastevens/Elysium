@@ -3,6 +3,7 @@ package com.dstevens.players;
 import java.io.Serializable;
 
 import org.hibernate.*;
+import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
 
 import com.dstevens.persistence.HibernateUtil;
@@ -24,8 +25,18 @@ public class TroupePersistenceTest {
         Serializable savedTroupe = session.save(troupeToPersist);
         session.getTransaction().commit();
         session.close();
+        session = factory.openSession();
+        session.beginTransaction();
+        
+        Object uniqueResult = session.createCriteria(PersistableTroupe.class).add(Restrictions.eq("id", savedTroupe)).uniqueResult();
+        
         System.out.println("Post: " + troupeToPersist);
         System.out.println("Saved: " + savedTroupe);
+        System.out.println("Found: " + uniqueResult);
+        
+        session.delete(uniqueResult);
+        session.getTransaction().commit();
+        session.close();
     }
     
 }

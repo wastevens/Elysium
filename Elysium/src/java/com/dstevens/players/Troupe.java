@@ -3,6 +3,7 @@ package com.dstevens.players;
 import static com.dstevens.collections.Lists.list;
 
 import java.util.List;
+
 import javax.persistence.*;
 
 import com.dstevens.utilities.ObjectExtensions;
@@ -31,6 +32,11 @@ public class Troupe {
         public String name;
         @Column(name="setting")
         public Setting setting;
+        
+        //Used only by Hibernate
+        @SuppressWarnings("unused")
+        private PersistableTroupe() {
+        }
         
         public PersistableTroupe(Long id, String name, Setting setting) {
             this.id = id;
