@@ -9,6 +9,7 @@
     <dependencies>
         <dependency org="org.hibernate" name="hibernate-core" rev="4.3.4.Final" conf="sources->sources;javadoc->javadoc;binaries->default"/>
         <dependency org="org.hibernate" name="hibernate-entitymanager" rev="4.3.4.Final" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+        <dependency org="org.hibernate" name="hibernate-tools" rev="4.3.1.CR1" conf="sources->sources;javadoc->javadoc;binaries->default"/>
         <dependency org="mysql" name="mysql-connector-java" rev="5.1.30" conf="sources->sources;javadoc->javadoc;binaries->default"/>
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.6" conf="sources->sources;javadoc->javadoc;binaries->default"/>
         
