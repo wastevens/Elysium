@@ -8,8 +8,9 @@
         <dependency org="org.hibernate" name="hibernate-core" rev="4.3.4.Final" conf="binaries->default"/>
         <dependency org="org.hibernate" name="hibernate-annotations" rev="3.5.6-Final" conf="binaries->default"/>
         <dependency org="mysql" name="mysql-connector-java" rev="5.1.30" conf="binaries->default"/>
-        <dependency org="org.apache.commons" name="commons-lang3" rev="3.3.1" conf="binaries->default"/>
-    	<dependency org="org.springframework" name="spring-core" rev="4.0.3.RELEASE" conf="binaries->default"/>
+    	<dependency org="org.springframework.data" name="spring-data-jpa" rev="1.5.1.RELEASE" conf="binaries->default"/>
+    	
+    	<dependency org="org.springframework" name="spring-test" rev="4.0.3.RELEASE" transitive="false" conf="test->default"/>
         <dependency org="org.mockito" name="mockito-all" rev="1.8.4" conf="test->default"/>
     </dependencies>
 </ivy-module>

@@ -71,32 +71,32 @@ public class Troupe {
     
     @Entity
     @Table(name="troupe")
-    public static class PersistableTroupe {
+    static class PersistableTroupe {
         @Id
         @GeneratedValue(strategy=GenerationType.IDENTITY)
-        public Long id;
+        private Long id;
         @Column(name="name")
-        public String name;
+        private String name;
         @Column(name="setting")
-        public Setting setting;
+        private Setting setting;
         
         //Used only by Hibernate
         @SuppressWarnings("unused")
         private PersistableTroupe() {
         }
         
-        public PersistableTroupe(Long id, String name, Setting setting) {
+        PersistableTroupe(Long id, String name, Setting setting) {
             this.id = id;
             this.name = name;
             this.setting = setting;
         }
 
-        public Troupe toTroupe() {
+        Troupe toTroupe() {
             List<Player> noPlayers = list();
             return new Troupe(id, name, setting, noPlayers);
         }
         
-        public static PersistableTroupe fromTroup(Troupe troupe) {
+        static PersistableTroupe fromTroup(Troupe troupe) {
             return new PersistableTroupe(troupe.id, troupe.name, troupe.setting);
         }
         

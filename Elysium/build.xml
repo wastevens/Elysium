@@ -19,8 +19,13 @@
 <delete dir="${dist.dir}"/>
 <delete dir="E:/Users/Walter Stevens/workspace/LocalRepo/" includes="${project.name}*.jar" />
 </target>
+	
+<target name="flush">
+<echo>Cleaning the ${lib.dir}</echo>
+<delete dir="${lib.dir}"/>
+</target>
 
-<target name="resolve" description="--> retrieve dependencies with ivy" depends="clean">
+<target name="resolve" description="--> retrieve dependencies with ivy" depends="clean, flush">
 	<ivy:retrieve conf="binaries,test" pattern="lib/[conf]/[artifact](-[classifier]).[ext]"/>
 	<copy todir="${lib.dir}/binaries">
       <fileset dir="E:/Users/Walter Stevens/workspace/LocalRepo/">
