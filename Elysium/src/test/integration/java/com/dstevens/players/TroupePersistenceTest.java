@@ -28,7 +28,7 @@ public class TroupePersistenceTest {
         session = factory.openSession();
         session.beginTransaction();
         
-        Object uniqueResult = session.createCriteria(PersistableTroupe.class).add(Restrictions.eq("id", savedTroupe)).uniqueResult();
+        PersistableTroupe uniqueResult = PersistableTroupe.class.cast(session.createCriteria(PersistableTroupe.class).add(Restrictions.eq("id", savedTroupe)).uniqueResult());
         
         System.out.println("Post: " + troupeToPersist);
         System.out.println("Saved: " + savedTroupe);
