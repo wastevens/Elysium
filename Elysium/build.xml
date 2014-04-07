@@ -58,19 +58,8 @@
 	</copy>
 </target>
 
-<path id="schemaExportClasspath">
-  <path refid="classpath"/>
-	<fileset dir="${dist.dir}">
-	  <include name="**/*.jar"/>
-	</fileset>
-</path>
-	
-<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="classpath" />
-<target name="schemaexport" description="Exports a generated schema to DB and file">
-    <hibernatetool destdir="${basedir}/src/resources">
-      <classpath refid="schemaExportClasspath"/>
-      <annotationConfiguration configurationfile="${basedir}/src/resources/hibernate.cfg.xml"/>
-      <hbm2ddl outputfilename="elysium-schema.sql" export="false" update="false" drop="true" create="true"/>
-    </hibernatetool>
+<target name="schemaexport" depends="jar">
+	<ant antfile="build-schema.xml" target="schemaexport" />
 </target>
+	
 </project>

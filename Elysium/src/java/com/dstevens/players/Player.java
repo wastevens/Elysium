@@ -10,7 +10,7 @@ import com.dstevens.collections.Lists;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
-@Table(name="player")
+@Table(name="Player")
 public class Player {
 
     @Id

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<project name="${project.name}" basedir=".">
+
+<property file="build.properties"/>
+
+<path id="classpath">
+  <pathelement path="${classpath}"/>
+  <fileset dir="${lib.dir}">
+    <include name="**/*.jar"/>
+    <exclude name="**/*javadoc*"/>
+    <exclude name="**/*source*"/>
+    <exclude name="**/*test*"/>
+  </fileset>
+</path>
+
+<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="classpath" />
+<target name="schemaexport" description="Exports a generated schema to DB and file">
+	<path id="schemaExportClasspath">
+	  <path refid="classpath"/>
+		<fileset dir="${dist.dir}">
+		  <include name="**/*.jar"/>
+		</fileset>
+	</path>
+	
+    <hibernatetool destdir="${basedir}/src/resources">
+      <classpath refid="schemaExportClasspath"/>
+      <annotationConfiguration configurationfile="${basedir}/src/resources/hibernate.cfg.xml"/>
+      <hbm2ddl outputfilename="elysium-schema.sql" export="false" update="false" drop="true" create="true"/>
+    </hibernatetool>
+</target>
+</project>

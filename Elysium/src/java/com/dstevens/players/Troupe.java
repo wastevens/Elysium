@@ -9,7 +9,7 @@ import com.dstevens.collections.Lists;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
-@Table(name="troupe")
+@Table(name="Troupe")
 public class Troupe {
 
     @Id
@@ -22,7 +22,10 @@ public class Troupe {
     @Column(name="setting") 
     private final Setting setting;
     
-    @Transient
+    @OneToMany
+    @JoinTable(name="TroupePlayers",
+               joinColumns = @JoinColumn(name="troupe_id"),
+               inverseJoinColumns = @JoinColumn(name="player_id"))
     private final List<Player> players;
     
     public static Troupe newTroupe(String name, Setting setting) {
