@@ -1,11 +1,12 @@
 package com.dstevens.players;
 
-import static com.dstevens.collections.Lists.listWith;
+import static com.dstevens.collections.Sets.*;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
-import com.dstevens.collections.Lists;
+import com.dstevens.collections.Sets;
+import com.dstevens.configuration.IdGenerator;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
@@ -13,8 +14,7 @@ import com.dstevens.utilities.ObjectExtensions;
 public class Troupe {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private final Long id;
+    private final String id;
     
     @Column(name="name") 
     private final String name;
@@ -22,28 +22,28 @@ public class Troupe {
     @Column(name="setting") 
     private final Setting setting;
     
-    @OneToMany
+    @ManyToMany(cascade={CascadeType.ALL})
     @JoinTable(name="TroupePlayers",
                joinColumns = @JoinColumn(name="troupe_id"),
                inverseJoinColumns = @JoinColumn(name="player_id"))
-    private final List<Player> players;
+    private final Set<Player> players;
     
     public static Troupe newTroupe(String name, Setting setting) {
-        return new Troupe(null, name, setting, Lists.<Player>list());
+        return new Troupe(IdGenerator.createId(), name, setting, Sets.<Player>set());
     }
     
     private Troupe() {
-        this(null, null, null, Lists.<Player>list());
+        this(IdGenerator.createId(), null, null, Sets.<Player>set());
     }
     
-    private Troupe(Long id, String name, Setting setting, List<Player> players) {
+    private Troupe(String id, String name, Setting setting, Set<Player> players) {
         this.id = id;
         this.name = name;
         this.setting = setting;
         this.players = players;
     }
     
-    public final Long getId() {
+    public final String getId() {
         return id;
     }
 
@@ -64,10 +64,18 @@ public class Troupe {
     }
 
     public final Troupe withPlayer(Player player) {
-        return new Troupe(id, name, setting, listWith(players, player));
+        return new Troupe(id, name, setting, setWith(players, player));
     }
     
-    public final List<Player> getPlayers() {
+    public final Troupe withoutPlayer(Player player) {
+        return new Troupe(id, name, setting, setWithout(players, player));
+    }
+    
+    public final Troupe clearPlayers() {
+        return new Troupe(id, name, setting, Sets.<Player>set());
+    }
+    
+    public final Set<Player> getPlayers() {
         return players;
     }
 
@@ -75,8 +83,6 @@ public class Troupe {
     public boolean equals(Object obj) {
         if (obj instanceof Troupe) {
             Troupe that = Troupe.class.cast(obj);
-            if (this.id == null || that.id == null)
-                return false;
             return this.id.equals(that.id);
         }
         return false;
@@ -84,12 +90,11 @@ public class Troupe {
     
     @Override
     public int hashCode() {
-        return id.intValue();
+        return id.hashCode();
     }
     
     @Override
     public String toString() {
         return ObjectExtensions.toStringFor(this);
     }
-    
 }

@@ -1,12 +1,13 @@
 package com.dstevens.players;
 
-import static com.dstevens.collections.Lists.listWith;
+import static com.dstevens.collections.Sets.setWith;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.collections.Lists;
+import com.dstevens.collections.Sets;
+import com.dstevens.configuration.IdGenerator;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
@@ -14,39 +15,45 @@ import com.dstevens.utilities.ObjectExtensions;
 public class Player {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private final Long id;
+    private final String id;
     
     @Column(name="name")
     private final String name;
     
-    @Column(name="setting")
+    @Column(name="email")
     private final String email;
     
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="TroupePlayers",
+               joinColumns = @JoinColumn(name="player_id"),
+               inverseJoinColumns = @JoinColumn(name="troupe_id"))
+    private final Set<Troupe> troupes;
+    
     @Transient
-    private final List<PlayerCharacter> characters;
+    private final Set<PlayerCharacter> characters;
     
     public static Player newPlayer(String name, String email) {
-        return new Player(null, name, email, Lists.<PlayerCharacter>list());
+        return new Player(IdGenerator.createId(), name, email, Sets.<Troupe>set(), Sets.<PlayerCharacter>set());
     }
     
     private Player() {
-        this(null, null, null, Lists.<PlayerCharacter>list());
+        this(IdGenerator.createId(), null, null, Sets.<Troupe>set(), Sets.<PlayerCharacter>set());
     }
     
-    private Player(Long id, String name, String email, List<PlayerCharacter> characters) {
+    private Player(String id, String name, String email, Set<Troupe> troupes, Set<PlayerCharacter> characters) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.troupes = troupes;
         this.characters = characters;
     }
     
-    public final Long getId() {
+    public final String getId() {
         return id;
     }
 
     public final Player withName(String name) {
-        return new Player(id, name, email, characters);
+        return new Player(id, name, email, troupes, characters);
     }
     
     public final String getName() {
@@ -54,7 +61,7 @@ public class Player {
     }
 
     public final Player withEmail(String email) {
-        return new Player(id, name, email, characters);
+        return new Player(id, name, email, troupes, characters);
     }
     
     public final String getEmail() {
@@ -62,10 +69,10 @@ public class Player {
     }
 
     public final Player withPlayer(PlayerCharacter character) {
-        return new Player(id, name, email, listWith(characters, character));
+        return new Player(id, name, email, troupes, setWith(characters, character));
     }
     
-    public final List<PlayerCharacter> getCharacters() {
+    public final Set<PlayerCharacter> getCharacters() {
         return characters;
     }
 
@@ -73,8 +80,6 @@ public class Player {
     public boolean equals(Object obj) {
         if (obj instanceof Player) {
             Player that = Player.class.cast(obj);
-            if (this.id == null || that.id == null)
-                return false;
             return this.id.equals(that.id);
         }
         return false;
@@ -82,7 +87,7 @@ public class Player {
     
     @Override
     public int hashCode() {
-        return id.intValue();
+        return id.hashCode();
     }
     
     @Override
