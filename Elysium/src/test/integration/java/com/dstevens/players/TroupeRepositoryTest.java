@@ -9,39 +9,44 @@ import com.dstevens.configuration.ApplicationConfiguration;
 
 public class TroupeRepositoryTest {
 
-    private static TroupeRepository repository;
-    private static PlayerRepository playerRepository;
+    private static final ApplicationContext APP_CONFIG = ApplicationConfiguration.appConfig();
+    
+    private TroupeRepository troupeRepository;
+    private TroupeFactory troupeFactory;
+    private PlayerRepository playerRepository;
+    private PlayerFactory playerFactory;
 
-    @BeforeClass
-    public static void setUp() {
-        ApplicationContext appConfig = ApplicationConfiguration.appConfig();
-        repository = appConfig.getBean(TroupeRepository.class);
-        playerRepository = appConfig.getBean(PlayerRepository.class);
+    @Before
+    public void setUp() {
+        troupeRepository = APP_CONFIG.getBean(TroupeRepository.class);
+        troupeFactory    = APP_CONFIG.getBean(TroupeFactory.class);
+        playerRepository = APP_CONFIG.getBean(PlayerRepository.class);
+        playerFactory    = APP_CONFIG.getBean(PlayerFactory.class);
     }
     
     @Test
     public void testTroupeRepository() {
-        Troupe troupeToSave = Troupe.newTroupe("some name", Setting.ANARCH);
-        Troupe savedTroupe = repository.save(troupeToSave);
+        Troupe troupeToSave = troupeFactory.createTroupe("some name", Setting.ANARCH);
+        Troupe savedTroupe = troupeRepository.save(troupeToSave);
         try {
             assertEquals(troupeToSave, savedTroupe);
             assertEquals(troupeToSave.getName(), savedTroupe.getName());
             assertEquals(troupeToSave.getSetting(), savedTroupe.getSetting());
         } finally {
-            repository.delete(savedTroupe);
+            troupeRepository.delete(savedTroupe);
         }
     }
     
     @Test
     public void testChangingNameAndSetting() {
-        Troupe troupeToSave = Troupe.newTroupe("some name", Setting.ANARCH);
-        Troupe savedTroupe = repository.save(troupeToSave);
+        Troupe troupeToSave = troupeFactory.createTroupe("some name", Setting.ANARCH);
+        Troupe savedTroupe = troupeRepository.save(troupeToSave);
         try {
             assertEquals(troupeToSave, savedTroupe);
             assertEquals(troupeToSave.getName(), savedTroupe.getName());
             assertEquals(troupeToSave.getSetting(), savedTroupe.getSetting());
             
-            Troupe modifiedSavedTroupe = repository.save(savedTroupe.withName("new name").withSetting(Setting.CAMARILLA));
+            Troupe modifiedSavedTroupe = troupeRepository.save(savedTroupe.withName("new name").withSetting(Setting.CAMARILLA));
             
             assertEquals(troupeToSave, modifiedSavedTroupe);
             assertEquals(savedTroupe, modifiedSavedTroupe);
@@ -51,27 +56,27 @@ public class TroupeRepositoryTest {
             assertEquals(Setting.ANARCH, savedTroupe.getSetting());
             
         } finally {
-            repository.delete(savedTroupe);
+            troupeRepository.delete(savedTroupe);
         }
     }
     
     @Test
     public void testWithPlayers() {
-        Troupe troupeToSave = Troupe.newTroupe("some name", Setting.ANARCH);
-        Troupe savedTroupe = repository.save(troupeToSave);
-        Player player1 = Player.newPlayer("player 1 name", "player 1 email");
-        Player player2 = Player.newPlayer("player 2 name", "player 2 email");
-        Player player3 = Player.newPlayer("player 3 name", "player 3 email");
+        Troupe troupeToSave = troupeFactory.createTroupe("some name", Setting.ANARCH);
+        Troupe savedTroupe = troupeRepository.save(troupeToSave);
+        Player player1 = playerFactory.createPlayer("player 1 name", "player 1 email");
+        Player player2 = playerFactory.createPlayer("player 2 name", "player 2 email");
+        Player player3 = playerFactory.createPlayer("player 3 name", "player 3 email");
         try {
-            Troupe troupeWithPlayers = repository.save(savedTroupe.withPlayer(player1).withPlayer(player2));
+            Troupe troupeWithPlayers = troupeRepository.save(savedTroupe.withPlayer(player1).withPlayer(player2));
             assertEquals(Sets.set(player1, player2), troupeWithPlayers.getPlayers());
             
-            Troupe troupeWithAnotherPlayer = repository.save(troupeWithPlayers.withPlayer(player3));
+            Troupe troupeWithAnotherPlayer = troupeRepository.save(troupeWithPlayers.withPlayer(player3));
             
             assertEquals(Sets.set(player1, player2, player3), troupeWithAnotherPlayer.getPlayers());
         } finally {
-            repository.save(savedTroupe.clearPlayers());
-            repository.delete(savedTroupe);
+            troupeRepository.save(savedTroupe.clearPlayers());
+            troupeRepository.delete(savedTroupe);
             playerRepository.delete(player1);
             playerRepository.delete(player2);
             playerRepository.delete(player3);

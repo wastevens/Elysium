@@ -3,11 +3,10 @@ package com.dstevens.players;
 import static com.dstevens.collections.Sets.setWith;
 
 import java.util.Set;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.collections.Sets;
-import com.dstevens.configuration.IdGenerator;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
@@ -31,16 +30,14 @@ public class Player {
     
     @Transient
     private final Set<PlayerCharacter> characters;
-    
-    public static Player newPlayer(String name, String email) {
-        return new Player(IdGenerator.createId(), name, email, Sets.<Troupe>set(), Sets.<PlayerCharacter>set());
-    }
-    
+
+    //Used only for hibernate
+    @SuppressWarnings("unused")
     private Player() {
-        this(IdGenerator.createId(), null, null, Sets.<Troupe>set(), Sets.<PlayerCharacter>set());
+        this(null, null, null, null, null);
     }
     
-    private Player(String id, String name, String email, Set<Troupe> troupes, Set<PlayerCharacter> characters) {
+    Player(String id, String name, String email, Set<Troupe> troupes, Set<PlayerCharacter> characters) {
         this.id = id;
         this.name = name;
         this.email = email;

@@ -3,10 +3,10 @@ package com.dstevens.players;
 import static com.dstevens.collections.Sets.*;
 
 import java.util.Set;
+
 import javax.persistence.*;
 
 import com.dstevens.collections.Sets;
-import com.dstevens.configuration.IdGenerator;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
@@ -28,15 +28,13 @@ public class Troupe {
                inverseJoinColumns = @JoinColumn(name="player_id"))
     private final Set<Player> players;
     
-    public static Troupe newTroupe(String name, Setting setting) {
-        return new Troupe(IdGenerator.createId(), name, setting, Sets.<Player>set());
-    }
-    
+    //Used only for hibernate
+    @SuppressWarnings("unused")
     private Troupe() {
-        this(IdGenerator.createId(), null, null, Sets.<Player>set());
+        this(null, null, null, null);
     }
     
-    private Troupe(String id, String name, Setting setting, Set<Player> players) {
+    Troupe(String id, String name, Setting setting, Set<Player> players) {
         this.id = id;
         this.name = name;
         this.setting = setting;
