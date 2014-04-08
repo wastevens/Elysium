@@ -3,9 +3,11 @@ package com.dstevens.persistence;
 import java.util.Date;
 import javax.persistence.*;
 
+import com.dstevens.utilities.ObjectExtensions;
+
 @Entity
 @Table(name="Auditable")
-public class Auditable<E extends Identified> {
+public class Auditable<E> {
 
     @Id
     private final String id;
@@ -27,5 +29,23 @@ public class Auditable<E extends Identified> {
         this.timestamp = timestamp;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Auditable) {
+            Auditable<?> that = this.getClass().cast(obj);
+            return this.id.equals(that.id);
+        }
+        return false;
+    }
     
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return ObjectExtensions.toStringFor(this);
+    }
+
 }

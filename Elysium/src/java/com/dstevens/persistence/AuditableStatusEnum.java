@@ -1,6 +1,6 @@
 package com.dstevens.persistence;
 
-public enum AuditableStatusEnum {
+public enum AuditableStatusEnum implements AuditableStatus {
 
     AVAILABLE,
     DELETED;
