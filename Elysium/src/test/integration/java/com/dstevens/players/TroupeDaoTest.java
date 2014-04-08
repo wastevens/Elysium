@@ -7,20 +7,20 @@ import org.springframework.context.ApplicationContext;
 import com.dstevens.collections.Sets;
 import com.dstevens.configuration.ApplicationConfiguration;
 
-public class TroupeRepositoryTest {
+public class TroupeDaoTest {
 
     private static final ApplicationContext APP_CONFIG = ApplicationConfiguration.appConfig();
     
-    private TroupeRepository troupeRepository;
+    private TroupeDao troupeRepository;
     private TroupeFactory troupeFactory;
-    private PlayerRepository playerRepository;
+    private PlayerDao playerRepository;
     private PlayerFactory playerFactory;
 
     @Before
     public void setUp() {
-        troupeRepository = APP_CONFIG.getBean(TroupeRepository.class);
+        troupeRepository = APP_CONFIG.getBean(TroupeDao.class);
         troupeFactory    = APP_CONFIG.getBean(TroupeFactory.class);
-        playerRepository = APP_CONFIG.getBean(PlayerRepository.class);
+        playerRepository = APP_CONFIG.getBean(PlayerDao.class);
         playerFactory    = APP_CONFIG.getBean(PlayerFactory.class);
     }
     

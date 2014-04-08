@@ -3,15 +3,15 @@ package com.dstevens.players;
 import static com.dstevens.collections.Sets.setWith;
 
 import java.util.Set;
-
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.persistence.Identified;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="Player")
-public class Player {
+public class Player implements Identified {
 
     @Id
     private final String id;

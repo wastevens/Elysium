@@ -2,5 +2,5 @@ package com.dstevens.players;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface TroupeRepository extends CrudRepository<Troupe, String> {
+public interface TroupeDao extends CrudRepository<Troupe, String> {
 }
