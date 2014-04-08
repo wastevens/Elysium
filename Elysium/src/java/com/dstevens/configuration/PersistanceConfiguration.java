@@ -1,8 +1,8 @@
 package com.dstevens.configuration;
 
 import java.util.Properties;
-
 import javax.sql.DataSource;
+
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -34,6 +34,7 @@ public class PersistanceConfiguration {
         properties.setProperty("hibernate.format_sql", "true");
         properties.setProperty("hibernate.use_sql_comments", "false");
         properties.setProperty("hibernate.auto_close_session", "true");
+        properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
         properties.setProperty("hibernate.c3p0.acquire_increment", "5");
         properties.setProperty("hibernate.c3p0.idle_test_period", "1800");
         properties.setProperty("hibernate.c3p0.max_size", "600");

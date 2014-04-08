@@ -30,7 +30,7 @@ public class Troupe implements Identified {
     
     //Used only for hibernate
     @SuppressWarnings("unused")
-    private Troupe() {
+    public Troupe() {
         this(null, null, null, null);
     }
     

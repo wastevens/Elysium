@@ -1,5 +1,7 @@
 package com.dstevens.players;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,18 +13,21 @@ public class TroupeRepository {
     private TroupeDao troupeDao;
     private AuditableDao auditableDao;
     private AuditableFactory auditableFactory;
+    private TroupeFactory factory;
 
     @Autowired
-    public TroupeRepository(TroupeDao troupeDao, AuditableDao auditableDao, AuditableFactory auditableFactory) {
+    public TroupeRepository(TroupeDao troupeDao, TroupeFactory factory, AuditableDao auditableDao, AuditableFactory auditableFactory) {
         this.troupeDao = troupeDao;
+        this.factory = factory;
         this.auditableDao = auditableDao;
         this.auditableFactory = auditableFactory;
     }
     
-    public Troupe save(Troupe troupe) {
+    @Transactional
+    public Troupe createTroupe(String name, Setting setting) {
+        Troupe troupe = factory.createTroupe(name, setting);
         Troupe save = troupeDao.save(troupe);
-        Auditable<Troupe> auditableFor = auditableFactory.auditableFor(troupe, AuditableStatusEnum.AVAILABLE);
-        auditableDao.save(auditableFor);
+        auditableDao.save(auditableFactory.auditableFor(troupe, "Created"));
         return save;
     }
     

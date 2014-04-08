@@ -1,5 +1,8 @@
 package com.dstevens.persistence;
 
-public interface AuditableStatus {
+public enum AuditableStatus {
 
+    AVAILABLE,
+    DELETED;
+    
 }

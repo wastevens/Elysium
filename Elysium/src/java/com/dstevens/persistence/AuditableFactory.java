@@ -17,8 +17,8 @@ public class AuditableFactory {
         this.clockProvider = clockProvider;
     }
     
-    public <E> Auditable<E> auditableFor(E foo, AuditableStatus available) {
-        return new Auditable<E>(idGenerator.createId(), foo, available, Date.from(clockProvider.getClock().instant()));
+    public <E> Auditable<E> auditableFor(E foo, String auditMessage) {
+        return new Auditable<E>(idGenerator.createId(), foo, Date.from(clockProvider.getClock().instant()), auditMessage);
     }
     
 }
