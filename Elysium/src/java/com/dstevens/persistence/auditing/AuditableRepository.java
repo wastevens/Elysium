@@ -1,4 +1,4 @@
-package com.dstevens.persistence;
+package com.dstevens.persistence.auditing;
 
 
 public interface AuditableRepository<E extends Auditable<E>> {

@@ -6,6 +6,7 @@ import org.junit.*;
 import org.mockito.*;
 
 import com.dstevens.persistence.*;
+import com.dstevens.persistence.auditing.*;
 
 public class TroupeRepositoryTest {
 

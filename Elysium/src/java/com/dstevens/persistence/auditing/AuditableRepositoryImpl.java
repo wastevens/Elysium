@@ -1,6 +1,8 @@
-package com.dstevens.persistence;
+package com.dstevens.persistence.auditing;
 
 import java.util.Date;
+
+import com.dstevens.persistence.*;
 
 public class AuditableRepositoryImpl<E extends Auditable<E>> implements AuditableRepository<E> {
 

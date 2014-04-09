@@ -1,4 +1,6 @@
-package com.dstevens.persistence;
+package com.dstevens.persistence.auditing;
+
+import com.dstevens.persistence.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

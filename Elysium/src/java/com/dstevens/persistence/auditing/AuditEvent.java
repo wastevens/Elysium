@@ -1,4 +1,4 @@
-package com.dstevens.persistence;
+package com.dstevens.persistence.auditing;
 
 import java.util.Date;
 import javax.persistence.*;

@@ -6,6 +6,8 @@ import static org.mockito.Mockito.when;
 import java.time.*;
 import java.util.Date;
 
+import com.dstevens.persistence.auditing.*;
+
 import org.junit.*;
 import org.mockito.*;
 

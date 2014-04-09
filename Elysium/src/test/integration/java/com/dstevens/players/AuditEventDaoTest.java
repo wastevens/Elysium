@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.persistence.*;
+import com.dstevens.persistence.auditing.*;
 
 public class AuditEventDaoTest {
 

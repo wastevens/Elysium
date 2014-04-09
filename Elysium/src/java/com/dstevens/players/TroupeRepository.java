@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dstevens.persistence.*;
+import com.dstevens.persistence.auditing.*;
 
 @Repository
 public class TroupeRepository implements AuditableRepository<Troupe> {

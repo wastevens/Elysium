@@ -3,10 +3,11 @@ package com.dstevens.players;
 import static com.dstevens.collections.Sets.*;
 
 import java.util.*;
+
 import javax.persistence.*;
 
 import com.dstevens.collections.Sets;
-import com.dstevens.persistence.Auditable;
+import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
