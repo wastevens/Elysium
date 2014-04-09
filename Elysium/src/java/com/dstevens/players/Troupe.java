@@ -2,7 +2,7 @@ package com.dstevens.players;
 
 import static com.dstevens.collections.Sets.*;
 
-import java.util.Set;
+import java.util.*;
 import javax.persistence.*;
 
 import com.dstevens.collections.Sets;
@@ -26,56 +26,72 @@ public class Troupe {
                joinColumns = @JoinColumn(name="troupe_id"),
                inverseJoinColumns = @JoinColumn(name="player_id"))
     private final Set<Player> players;
+
+    @Column(name="deleted_at")
+    private final Date deleteTimestamp;
     
     //Used only for hibernate
     @Deprecated
     public Troupe() {
-        this(null, null, null, null);
+        this(null, null, null, null, null);
     }
     
     Troupe(String id, String name, Setting setting, Set<Player> players) {
+        this(id, name, setting, players, null);
+    }
+    
+    private Troupe(String id, String name, Setting setting, Set<Player> players, Date deleteTimestamp) {
         this.id = id;
         this.name = name;
         this.setting = setting;
         this.players = players;
+        this.deleteTimestamp = deleteTimestamp;
     }
     
-    public final String getId() {
+    public String getId() {
         return id;
     }
 
-    public final Troupe withName(String name) {
-        return new Troupe(id, name, setting, players);
+    public Troupe withName(String name) {
+        return new Troupe(id, name, setting, players, deleteTimestamp);
     }
     
-    public final String getName() {
+    public String getName() {
         return name;
     }
 
-    public final Troupe withSetting(Setting setting) {
-        return new Troupe(id, name, setting, players);
+    public Troupe withSetting(Setting setting) {
+        return new Troupe(id, name, setting, players, deleteTimestamp);
     }
     
-    public final Setting getSetting() {
+    public Setting getSetting() {
         return setting;
     }
 
-    public final Troupe withPlayer(Player player) {
-        return new Troupe(id, name, setting, setWith(players, player));
+    public Troupe withPlayer(Player player) {
+        return new Troupe(id, name, setting, setWith(players, player), deleteTimestamp);
     }
     
-    public final Troupe withoutPlayer(Player player) {
-        return new Troupe(id, name, setting, setWithout(players, player));
+    public Troupe withoutPlayer(Player player) {
+        return new Troupe(id, name, setting, setWithout(players, player), deleteTimestamp);
     }
     
-    public final Troupe clearPlayers() {
-        return new Troupe(id, name, setting, Sets.<Player>set());
+    public Troupe clearPlayers() {
+        return new Troupe(id, name, setting, Sets.<Player>set(), deleteTimestamp);
     }
     
-    public final Set<Player> getPlayers() {
+    public Set<Player> getPlayers() {
         return players;
     }
 
+    public Troupe deleteAt(Date deleteTimestamp) {
+        return new Troupe(id, name, setting, players, deleteTimestamp);
+    }
+    
+    public Troupe undelete() {
+        return new Troupe(id, name, setting, players, null);
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Troupe) {
