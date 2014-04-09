@@ -2,10 +2,6 @@ package com.dstevens.players;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-
-import java.time.*;
-import java.util.Date;
-
 import org.junit.*;
 import org.mockito.*;
 
@@ -13,18 +9,11 @@ import com.dstevens.persistence.*;
 
 public class TroupeRepositoryTest {
 
-    private static final String TROUPE_NAME = "troupe name";
-    private static final Setting TROUPE_SETTING = Setting.ANARCH;
-    private static final Instant NOW = Instant.ofEpochMilli(2357L);
-    
+    @Mock private AuditableRepositoryProvider auditableRepositoryProvider;
     @Mock private TroupeDao troupeDao;
-    @Mock private TroupeFactory troupeFactory;
-    @Mock private AuditEventRepository auditableRepository;
+    @Mock private AuditableRepository<Troupe> auditableRepository;
     @Mock private Troupe troupe;
     @Mock private Troupe savedTroupe;
-    @Mock private Troupe deletedTroupe;
-    @Mock private ClockProvider clockProvider;
-    @Mock private Clock clock;
     
     private TroupeRepository troupeRepository;
 
@@ -32,56 +21,41 @@ public class TroupeRepositoryTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         
-        when(troupeFactory.createTroupe(TROUPE_NAME, TROUPE_SETTING)).thenReturn(troupe);
-        when(clockProvider.getClock()).thenReturn(clock);
-        when(clock.instant()).thenReturn(NOW);
+        when(auditableRepositoryProvider.repositoryFor(troupeDao)).thenReturn(auditableRepository);
         
-        troupeRepository = new TroupeRepository(troupeDao, troupeFactory, auditableRepository, clockProvider);
+        troupeRepository = new TroupeRepository(troupeDao, auditableRepositoryProvider);
     }
     
     @Test
     public void testThatEventsAreRecordedForCreate() {
-        when(troupeDao.save(troupe)).thenReturn(savedTroupe);
-        
-        assertEquals(savedTroupe, troupeRepository.createTroupe(TROUPE_NAME, TROUPE_SETTING));
-        verify(auditableRepository).recordAuditableFor(savedTroupe, "Created");
+        when(auditableRepository.create(troupe)).thenReturn(savedTroupe);
+        assertEquals(savedTroupe, troupeRepository.create(troupe));
     }
     
     @Test
     public void testThatEventsAreRecordedForUpdate() {
-        when(troupeDao.save(troupe)).thenReturn(savedTroupe);
-        
-        troupeRepository.updateTroupe(troupe);
-        
-        verify(auditableRepository).recordAuditableFor(savedTroupe, "Updated");
+        when(auditableRepository.update(troupe)).thenReturn(savedTroupe);
+        assertEquals(savedTroupe, troupeRepository.update(troupe));
     }
     
     @Test
     public void testThatEventsAreRecordedForSoftDelete() {
-        when(troupe.deleteAt(Date.from(NOW))).thenReturn(deletedTroupe);
-        when(troupeDao.save(deletedTroupe)).thenReturn(savedTroupe);
+        troupeRepository.delete(troupe);
         
-        troupeRepository.deleteTroupe(troupe);
-        
-        verify(auditableRepository).recordAuditableFor(savedTroupe, "Deleted");
+        verify(auditableRepository).delete(troupe);
     }
     
     @Test
     public void testThatEventsAreRecordedForUndelete() {
-        when(deletedTroupe.undelete()).thenReturn(troupe);
-        when(troupeDao.save(troupe)).thenReturn(savedTroupe);
-        
-        assertEquals(savedTroupe, troupeRepository.undeleteTroupe(deletedTroupe));
-        
-        verify(auditableRepository).recordAuditableFor(savedTroupe, "Undeleted");
+        when(auditableRepository.undelete(troupe)).thenReturn(savedTroupe);
+        assertEquals(savedTroupe, troupeRepository.undelete(troupe));
     }
     
     @Test
     public void testThatEventsArePurgedWhenTroupeIsHardDeleted() {
-        troupeRepository.hardDeleteTroupe(troupe);
+        troupeRepository.hardDelete(troupe);
         
-        verify(troupeDao).delete(troupe);
-        verify(auditableRepository).purgeAuditablesFor(troupe);
+        verify(auditableRepository).hardDelete(troupe);
     }
     
     

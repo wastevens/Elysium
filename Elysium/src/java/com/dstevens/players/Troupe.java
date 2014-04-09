@@ -6,11 +6,12 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.dstevens.collections.Sets;
+import com.dstevens.persistence.SoftDeletable;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="Troupe")
-public class Troupe {
+public class Troupe implements SoftDeletable<Troupe> {
 
     @Id
     private final String id;
@@ -84,7 +85,7 @@ public class Troupe {
         return players;
     }
 
-    public Troupe deleteAt(Date deleteTimestamp) {
+    public Troupe delete(Date deleteTimestamp) {
         return new Troupe(id, name, setting, players, deleteTimestamp);
     }
     

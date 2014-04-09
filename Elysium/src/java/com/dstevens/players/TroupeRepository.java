@@ -1,54 +1,37 @@
 package com.dstevens.players;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dstevens.persistence.*;
 
 @Repository
-public class TroupeRepository {
+public class TroupeRepository implements AuditableRepository<Troupe> {
 
-    private TroupeDao troupeDao;
-    private TroupeFactory troupeFactory;
-    private AuditEventRepository auditableRepository;
-    private ClockProvider clockProvider;
+    private AuditableRepository<Troupe> repository;
 
     @Autowired
-    public TroupeRepository(TroupeDao troupeDao, TroupeFactory troupeFactory, AuditEventRepository auditableRepository, ClockProvider clockProvider) {
-        this.troupeDao = troupeDao;
-        this.troupeFactory = troupeFactory;
-        this.auditableRepository = auditableRepository;
-        this.clockProvider = clockProvider;
+    public TroupeRepository(TroupeDao dao, AuditableRepositoryProvider repositoryProvider) {
+        this.repository = repositoryProvider.repositoryFor(dao);
     }
     
-    public Troupe createTroupe(String name, Setting setting) {
-        return saveTroupe(troupeFactory.createTroupe(name, setting), "Created");
+    public Troupe create(Troupe troupe) {
+        return repository.create(troupe);
     }
     
-    public Troupe updateTroupe(Troupe troupe) {
-        return saveTroupe(troupe, "Updated");
+    public Troupe update(Troupe troupe) {
+        return repository.update(troupe);
     }
     
-    public void deleteTroupe(Troupe troupe) {
-        saveTroupe(troupe.deleteAt(Date.from(clockProvider.getClock().instant())), "Deleted");
+    public void delete(Troupe troupe) {
+        repository.delete(troupe);
     }
     
-    public Troupe undeleteTroupe(Troupe troupe) {
-        return saveTroupe(troupe.undelete(), "Undeleted");
+    public Troupe undelete(Troupe troupe) {
+        return repository.undelete(troupe);
     }
     
-    public void hardDeleteTroupe(Troupe troupe) {
-        troupeDao.delete(troupe);
-        auditableRepository.purgeAuditablesFor(troupe);
+    public void hardDelete(Troupe troupe) {
+        repository.hardDelete(troupe);
     }
-    
-    private Troupe saveTroupe(Troupe troupe, String message) {
-        Troupe savedTroupe = troupeDao.save(troupe);
-        auditableRepository.recordAuditableFor(savedTroupe, message);
-        return savedTroupe;
-    }
-    
-    
 }
