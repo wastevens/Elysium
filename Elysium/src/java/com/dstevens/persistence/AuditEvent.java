@@ -12,7 +12,7 @@ import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="Auditable")
-public class Auditable<E> {
+public class AuditEvent<E> {
 
     @Id
     private final String id;
@@ -37,11 +37,11 @@ public class Auditable<E> {
     
     //Hibernate only
     @Deprecated
-    public Auditable() {
+    public AuditEvent() {
         this(null, null, null, null);
     }
     
-    public Auditable(String id, E audited, Date timestamp, String auditMessage) {
+    public AuditEvent(String id, E audited, Date timestamp, String auditMessage) {
         this.id = id;
         this.audited = audited;
         this.timestamp = timestamp;
@@ -66,8 +66,8 @@ public class Auditable<E> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Auditable) {
-            Auditable<?> that = this.getClass().cast(obj);
+        if (obj instanceof AuditEvent) {
+            AuditEvent<?> that = this.getClass().cast(obj);
             return this.id.equals(that.id);
         }
         return false;

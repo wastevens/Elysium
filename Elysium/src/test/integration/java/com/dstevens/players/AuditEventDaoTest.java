@@ -13,18 +13,18 @@ import org.springframework.context.ApplicationContext;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.persistence.*;
 
-public class AuditableDaoTest {
+public class AuditEventDaoTest {
 
     private static final ApplicationContext APP_CONFIG = ApplicationConfiguration.appConfig();
 
     @Mock private IdGenerator idGenerator;
     @Mock private ClockProvider clockProvider;
     @Mock private Clock clock;
-    private AuditableFactory auditableFactory;
+    private AuditEventFactory auditableFactory;
     
     private TroupeFactory troupeFactory;
     private TroupeDao troupeDao;
-    private AuditableDao auditableDao;
+    private AuditEventDao auditableDao;
 
     private Troupe troupe1;
     private Troupe troupe2;
@@ -34,9 +34,9 @@ public class AuditableDaoTest {
         MockitoAnnotations.initMocks(this);
         
         troupeDao = APP_CONFIG.getBean(TroupeDao.class);
-        auditableDao = APP_CONFIG.getBean(AuditableDao.class);
+        auditableDao = APP_CONFIG.getBean(AuditEventDao.class);
         troupeFactory = APP_CONFIG.getBean(TroupeFactory.class);
-        auditableFactory = new AuditableFactory(idGenerator, clockProvider);
+        auditableFactory = new AuditEventFactory(idGenerator, clockProvider);
         
         when(idGenerator.createId()).thenReturn("id 1").thenReturn("id 2").thenReturn("id 3").
                                      thenReturn("id 4").thenReturn("id 5").thenReturn("id 6");
@@ -51,12 +51,12 @@ public class AuditableDaoTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testFindAuditEvents() throws InterruptedException {
-        Auditable<Troupe> auditable1ForTroupe1 = auditableFactory.auditableFor(troupe1, "Create for troupe 1");
-        Auditable<Troupe> auditable1ForTroupe2 = auditableFactory.auditableFor(troupe2, "Create for troupe 2");
-        Auditable<Troupe> auditable2ForTroupe1 = auditableFactory.auditableFor(troupe1, "Update for troupe 1");
-        Auditable<Troupe> auditable2ForTroupe2 = auditableFactory.auditableFor(troupe2, "Update for troupe 2");
-        Auditable<Troupe> auditable3ForTroupe1 = auditableFactory.auditableFor(troupe1, "Another Update for troup 1");
-        Auditable<Troupe> auditable3ForTroupe2 = auditableFactory.auditableFor(troupe2, "Another Update for troup 2");
+        AuditEvent<Troupe> auditable1ForTroupe1 = auditableFactory.auditableFor(troupe1, "Create for troupe 1");
+        AuditEvent<Troupe> auditable1ForTroupe2 = auditableFactory.auditableFor(troupe2, "Create for troupe 2");
+        AuditEvent<Troupe> auditable2ForTroupe1 = auditableFactory.auditableFor(troupe1, "Update for troupe 1");
+        AuditEvent<Troupe> auditable2ForTroupe2 = auditableFactory.auditableFor(troupe2, "Update for troupe 2");
+        AuditEvent<Troupe> auditable3ForTroupe1 = auditableFactory.auditableFor(troupe1, "Another Update for troup 1");
+        AuditEvent<Troupe> auditable3ForTroupe2 = auditableFactory.auditableFor(troupe2, "Another Update for troup 2");
         
         auditableDao.save(auditable1ForTroupe1);
         auditableDao.save(auditable1ForTroupe2);

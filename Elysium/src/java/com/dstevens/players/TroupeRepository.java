@@ -12,11 +12,11 @@ public class TroupeRepository {
 
     private TroupeDao troupeDao;
     private TroupeFactory troupeFactory;
-    private AuditableRepository auditableRepository;
+    private AuditEventRepository auditableRepository;
     private ClockProvider clockProvider;
 
     @Autowired
-    public TroupeRepository(TroupeDao troupeDao, TroupeFactory troupeFactory, AuditableRepository auditableRepository, ClockProvider clockProvider) {
+    public TroupeRepository(TroupeDao troupeDao, TroupeFactory troupeFactory, AuditEventRepository auditableRepository, ClockProvider clockProvider) {
         this.troupeDao = troupeDao;
         this.troupeFactory = troupeFactory;
         this.auditableRepository = auditableRepository;

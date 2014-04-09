@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AuditableRepository {
+public class AuditEventRepository {
 
-    private AuditableDao auditableDao;
-    private AuditableFactory auditableFactory;
+    private AuditEventDao auditableDao;
+    private AuditEventFactory auditableFactory;
 
     @Autowired
-    public AuditableRepository(AuditableDao auditableDao, AuditableFactory auditableFactory) {
+    public AuditEventRepository(AuditEventDao auditableDao, AuditEventFactory auditableFactory) {
         this.auditableDao = auditableDao;
         this.auditableFactory = auditableFactory;
     }

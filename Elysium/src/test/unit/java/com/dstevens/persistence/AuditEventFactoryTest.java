@@ -9,7 +9,7 @@ import java.util.Date;
 import org.junit.*;
 import org.mockito.*;
 
-public class AuditableFactoryTest {
+public class AuditEventFactoryTest {
     
     private static final String ID = "some ID";
     private Instant NOW = Instant.ofEpochMilli(2357L);
@@ -18,7 +18,7 @@ public class AuditableFactoryTest {
     @Mock private ClockProvider clockProvider;
     @Mock private Clock clock;
     
-    private AuditableFactory factory;
+    private AuditEventFactory factory;
     
     @Before
     public void setUp() {
@@ -28,13 +28,13 @@ public class AuditableFactoryTest {
         when(clockProvider.getClock()).thenReturn(clock);
         when(clock.instant()).thenReturn(NOW);
         
-        factory = new AuditableFactory(idGenerator, clockProvider);
+        factory = new AuditEventFactory(idGenerator, clockProvider);
     }
     
     @Test
     public void testFactory() {
         Object audited = new Object();
-        assertEqualValues(new Auditable<>(ID, audited, Date.from(NOW), "audit message"), 
+        assertEqualValues(new AuditEvent<>(ID, audited, Date.from(NOW), "audit message"), 
                           factory.auditableFor(audited, "audit message"));
     }
     

@@ -19,7 +19,7 @@ public class TroupeRepositoryTest {
     
     @Mock private TroupeDao troupeDao;
     @Mock private TroupeFactory troupeFactory;
-    @Mock private AuditableRepository auditableRepository;
+    @Mock private AuditEventRepository auditableRepository;
     @Mock private Troupe troupe;
     @Mock private Troupe savedTroupe;
     @Mock private Troupe deletedTroupe;

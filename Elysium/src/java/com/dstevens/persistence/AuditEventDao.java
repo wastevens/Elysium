@@ -6,16 +6,16 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.CrudRepository;
 
-public interface AuditableDao extends CrudRepository<Auditable<?>, String> {
+public interface AuditEventDao extends CrudRepository<AuditEvent<?>, String> {
 
     @Query("SELECT a FROM Auditable a WHERE a.audited = ?1 ORDER BY a.timestamp DESC")
-    <E> List<Auditable<E>> findAllAuditEventsFor(E e);
+    <E> List<AuditEvent<E>> findAllAuditEventsFor(E e);
     
     @Query("SELECT a FROM Auditable a WHERE a.timestamp = (select MAX(b.timestamp) FROM Auditable b WHERE b.audited = ?1)")
-    <E> Auditable<E> findMostRecentAuditEventFor(E e);
+    <E> AuditEvent<E> findMostRecentAuditEventFor(E e);
     
     @Query("SELECT a FROM Auditable a WHERE a.timestamp = (select MIN(b.timestamp) FROM Auditable b WHERE b.audited = ?1)")
-    <E> Auditable<E> findFirstAuditEventFor(E e);
+    <E> AuditEvent<E> findFirstAuditEventFor(E e);
     
     @Modifying
     @Transactional
