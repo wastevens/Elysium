@@ -1,5 +1,7 @@
 package com.dstevens.players;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
 import org.junit.*;
@@ -27,14 +29,16 @@ public class TroupeRepositoryTest {
     }
     
     @Test
-    public void testTroupeRepositoryRecordsAuditMessage() {
-        List<Auditable<Troupe>> findByAudited = auditableDao.findByAudited(troupe);
-        System.out.println(findByAudited);
-        auditableDao.delete(findByAudited);
+    public void testTroupeRepositoryRecordsAuditMessageOnCreate() {
+        List<Auditable<Troupe>> findByAudited = auditableDao.findAllAuditEventsFor(troupe);
+        assertEquals(1, findByAudited.size());
+        assertEquals("Created", findByAudited.get(0).getAuditMessage());
+        assertEquals(troupe, findByAudited.get(0).getAudited());
     }
     
     @After
     public void tearDown() {
         troupeDao.delete(troupe);
+        auditableDao.deleteAuditEventsFor(troupe);
     }
 }
