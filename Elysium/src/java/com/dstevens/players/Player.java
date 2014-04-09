@@ -6,12 +6,11 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.persistence.Identified;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="Player")
-public class Player implements Identified {
+public class Player {
 
     @Id
     private final String id;
@@ -32,8 +31,8 @@ public class Player implements Identified {
     private final Set<PlayerCharacter> characters;
 
     //Used only for hibernate
-    @SuppressWarnings("unused")
-    private Player() {
+    @Deprecated
+    public Player() {
         this(null, null, null, null, null);
     }
     

@@ -34,7 +34,6 @@ public class AuditableFactoryTest {
     @Test
     public void testFactory() {
         Object audited = new Object();
-        AuditableStatus status = AuditableStatus.AVAILABLE;
         assertEqualValues(new Auditable<>(ID, audited, Date.from(NOW), "audit message"), 
                           factory.auditableFor(audited, "audit message"));
     }

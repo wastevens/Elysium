@@ -6,12 +6,11 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.dstevens.collections.Sets;
-import com.dstevens.persistence.Identified;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="Troupe")
-public class Troupe implements Identified {
+public class Troupe {
 
     @Id
     private final String id;
@@ -29,7 +28,7 @@ public class Troupe implements Identified {
     private final Set<Player> players;
     
     //Used only for hibernate
-    @SuppressWarnings("unused")
+    @Deprecated
     public Troupe() {
         this(null, null, null, null);
     }

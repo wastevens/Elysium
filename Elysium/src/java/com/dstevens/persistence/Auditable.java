@@ -36,7 +36,7 @@ public class Auditable<E> {
     private final String auditMessage;
     
     //Hibernate only
-    @SuppressWarnings("unused")
+    @Deprecated
     public Auditable() {
         this(null, null, null, null);
     }
