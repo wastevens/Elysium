@@ -6,12 +6,12 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.dstevens.collections.Sets;
-import com.dstevens.persistence.SoftDeletable;
+import com.dstevens.persistence.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="Troupe")
-public class Troupe implements SoftDeletable<Troupe> {
+public class Troupe implements Auditable<Troupe> {
 
     @Id
     private final String id;

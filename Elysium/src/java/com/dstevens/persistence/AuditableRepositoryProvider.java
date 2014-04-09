@@ -15,7 +15,7 @@ public class AuditableRepositoryProvider {
         this.clockProvider = clockProvider;
     }
     
-    public <E extends SoftDeletable<E>> AuditableRepository<E> repositoryFor(ElysiumDao<E> dao) {
+    public <E extends Auditable<E>> AuditableRepository<E> repositoryFor(ElysiumDao<E> dao) {
         return new AuditableRepositoryImpl<>(dao, auditableRepository, clockProvider);
     }
     

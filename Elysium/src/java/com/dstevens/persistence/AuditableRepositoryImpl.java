@@ -2,7 +2,7 @@ package com.dstevens.persistence;
 
 import java.util.Date;
 
-public class AuditableRepositoryImpl<E extends SoftDeletable<E>> implements AuditableRepository<E> {
+public class AuditableRepositoryImpl<E extends Auditable<E>> implements AuditableRepository<E> {
 
     private ElysiumDao<E> dao;
     private AuditEventRepository auditableRepository;

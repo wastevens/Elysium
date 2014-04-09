@@ -1,7 +1,7 @@
 package com.dstevens.persistence;
 
 
-public interface AuditableRepository<E extends SoftDeletable<E>> {
+public interface AuditableRepository<E extends Auditable<E>> {
 
     E create(E e);
     
