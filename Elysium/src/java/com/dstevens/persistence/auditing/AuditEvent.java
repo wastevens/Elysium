@@ -11,7 +11,7 @@ import com.dstevens.players.*;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
-@Table(name="Auditable")
+@Table(name="AuditEvent")
 public class AuditEvent<E> {
 
     @Id

@@ -2,15 +2,17 @@ package com.dstevens.persistence.auditing;
 
 import java.util.Date;
 
-import com.dstevens.persistence.*;
+import org.springframework.data.repository.CrudRepository;
+
+import com.dstevens.persistence.ClockProvider;
 
 public class AuditableRepositoryImpl<E extends Auditable<E>> implements AuditableRepository<E> {
 
-    private ElysiumDao<E> dao;
+    private CrudRepository<E, String> dao;
     private AuditEventRepository auditableRepository;
     private ClockProvider clockProvider;
 
-    public AuditableRepositoryImpl(ElysiumDao<E> dao, AuditEventRepository auditableRepository, ClockProvider clockProvider) {
+    public AuditableRepositoryImpl(CrudRepository<E, String> dao, AuditEventRepository auditableRepository, ClockProvider clockProvider) {
         this.dao = dao;
         this.auditableRepository = auditableRepository;
         this.clockProvider = clockProvider;

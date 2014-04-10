@@ -1,6 +1,6 @@
 package com.dstevens.players;
 
-import com.dstevens.persistence.ElysiumDao;
+import org.springframework.data.repository.CrudRepository;
 
-public interface TroupeDao extends ElysiumDao<Troupe> {
+public interface TroupeDao extends CrudRepository<Troupe, String> {
 }

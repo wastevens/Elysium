@@ -1,9 +1,10 @@
 package com.dstevens.persistence.auditing;
 
-import com.dstevens.persistence.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
+
+import com.dstevens.persistence.ClockProvider;
 
 @Service
 public class AuditableRepositoryProvider {
@@ -17,7 +18,7 @@ public class AuditableRepositoryProvider {
         this.clockProvider = clockProvider;
     }
     
-    public <E extends Auditable<E>> AuditableRepository<E> repositoryFor(ElysiumDao<E> dao) {
+    public <E extends Auditable<E>> AuditableRepository<E> repositoryFor(CrudRepository<E, String> dao) {
         return new AuditableRepositoryImpl<>(dao, auditableRepository, clockProvider);
     }
     

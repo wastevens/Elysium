@@ -15,6 +15,7 @@
         
     	<dependency org="org.springframework" name="spring-context" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
     	<dependency org="org.springframework.data" name="spring-data-jpa" rev="1.5.1.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
+    	<dependency org="org.springframework.data" name="spring-data-commons" rev="1.7.1.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
     	<dependency org="org.springframework" name="spring-aop" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
     	<dependency org="org.springframework" name="spring-beans" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
     	<dependency org="org.springframework" name="spring-core" rev="4.0.3.RELEASE" conf="sources->sources;javadoc->javadoc;binaries->default"/>
