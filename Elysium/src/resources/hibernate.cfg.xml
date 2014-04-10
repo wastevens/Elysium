@@ -8,7 +8,6 @@
     <mapping package="com.dstevens.players"/>
     <mapping class="com.dstevens.players.Troupe"/>
     <mapping class="com.dstevens.players.Player"/>
-    <mapping class="com.dstevens.persistence.Auditable"/>
-    
+    <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>
 </hibernate-configuration>
