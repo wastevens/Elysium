@@ -4,6 +4,7 @@ import com.dstevens.characters.traits.DetailLevel;
 
 public enum Skill {
 
+    
     ACADEMICS(DetailLevel.REQUIRES_FOCUS),
     ANIMAL_KEN,
     ATHLETICS,
