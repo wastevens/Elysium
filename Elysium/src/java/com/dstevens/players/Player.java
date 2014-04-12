@@ -1,18 +1,21 @@
 package com.dstevens.players;
 
 import static com.dstevens.collections.Sets.*;
+import static com.dstevens.comparators.Comparators.nullSafe;
+import static com.dstevens.comparators.ChainComparator.compare;
 
 import java.util.*;
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.collections.Sets;
+import com.dstevens.comparators.*;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="Player")
-public class Player implements Auditable<Player> {
+public class Player implements Auditable<Player>, Comparable<Player> {
 
     @Id
     private final String id;
@@ -132,4 +135,24 @@ public class Player implements Auditable<Player> {
     public String toString() {
         return ObjectExtensions.toStringFor(this);
     }
+
+    @Override
+    public int compareTo(Player that) {
+        return compare(BY_DELETED_TIMESTMAP).then(BY_NAME).compare(this, that);
+    }
+    
+    private static final Comparator<Player> BY_DELETED_TIMESTMAP = new Comparator<Player>() {
+        @Override
+        public int compare(Player o1, Player o2) {
+            return nullSafe(DateComparator.INSTANCE).compare(o1.deleteTimestamp, o2.deleteTimestamp);
+        } 
+    };
+    
+    
+    private static final Comparator<Player> BY_NAME = new Comparator<Player>() {
+        @Override
+        public int compare(Player o1, Player o2) {
+            return nullSafe(StringComparator.INSTANCE).compare(o1.name, o2.name);
+        } 
+    };
 }
