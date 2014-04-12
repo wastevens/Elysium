@@ -1,5 +1,5 @@
 package com.dstevens.characters.skills;
 
-public class AddedFile {
+public class RenamingFile {
 
 }
