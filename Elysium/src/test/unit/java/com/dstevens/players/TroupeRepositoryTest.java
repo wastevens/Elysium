@@ -33,6 +33,11 @@ public class TroupeRepositoryTest {
     }
     
     @Test
+    public void testThatNameUniquenessAmongstNonDeletedTroupesIsEnforced() {
+        auditableRepository.create(troupe);
+    }
+    
+    @Test
     public void testThatEventsAreRecordedForUpdate() {
         when(auditableRepository.update(troupe)).thenReturn(savedTroupe);
         assertEquals(savedTroupe, troupeRepository.update(troupe));
