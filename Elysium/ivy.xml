@@ -13,10 +13,12 @@
       <artifact name="${project.name}-sources" type="source" ext="jar" conf="sources"/>
     </publications>
     <dependencies>
-        <dependency org="com.dstevens" name="TheWheel" rev="1.0.5" conf="default;sources" />
-        <dependency org="org.hibernate" name="hibernate-core" rev="4.3.4.Final" conf="default;sources;javadoc"/>
-        <dependency org="org.hibernate" name="hibernate-entitymanager" rev="4.3.4.Final" conf="default;sources;javadoc"/>
+        <dependency org="com.dstevens" name="TheWheel" rev="1.0.5" conf="default;sources"/>
+        
+        <dependency org="org.hibernate" name="hibernate-core" rev="4.3.5.Final" conf="default;sources;javadoc"/>
+        <dependency org="org.hibernate" name="hibernate-entitymanager" rev="4.3.5.Final" conf="default;sources;javadoc"/>
         <dependency org="org.hibernate" name="hibernate-tools" rev="4.3.1.CR1" conf="default;sources;javadoc"/>
+        <dependency org="org.hibernate.common" name="hibernate-commons-annotations" rev="4.0.4.Final" conf="default;sources;javadoc"/>
         <dependency org="mysql" name="mysql-connector-java" rev="5.1.30" conf="default;sources;javadoc"/>
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.6" conf="default;sources;javadoc"/>
     	<dependency org="org.springframework" name="spring-context" rev="4.0.3.RELEASE" conf="default;sources;javadoc"/>

@@ -1,9 +1,9 @@
 package com.dstevens.players;
 
 import static com.dstevens.collections.Sets.*;
-import static java.util.Comparator.*;
 
 import java.util.*;
+import java.util.function.Function;
 import javax.persistence.*;
 
 import com.dstevens.collections.Sets;
@@ -115,7 +115,21 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
 
     @Override
     public int compareTo(Troupe that) {
-        Comparator<Troupe> comparingByDeletedAt = comparing((Troupe t) -> t.deleteTimestamp, nullsFirst(naturalOrder()));
-        return comparingByDeletedAt.thenComparing((Troupe t) -> t.name).compare(this, that);
+        Function<Troupe, Date> byDeletedTimestamp = new Function<Troupe, Date>() {
+            @Override
+            public Date apply(Troupe t) {
+                return t.deleteTimestamp;
+            }
+        };
+        Function<Troupe, String> byName = new Function<Troupe, String>() {
+            @Override
+            public String apply(Troupe t) {
+                return t.name;
+            }
+        };
+        return Comparator.comparing(byDeletedTimestamp, Comparator.nullsLast(Comparator.naturalOrder())).
+                      thenComparing(Comparator.comparing(byName)).
+                      compare(this, that);
     }
+
 }
