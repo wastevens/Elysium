@@ -148,7 +148,7 @@ public class Player implements Auditable<Player>, Comparable<Player> {
                 return p.name;
             }
         };
-        return Comparator.comparing(byDeletedTimestamp, Comparator.nullsLast(Comparator.naturalOrder())).
+        return Comparator.comparing(byDeletedTimestamp, Comparator.nullsFirst(Comparator.naturalOrder())).
                       thenComparing(Comparator.comparing(byName)).
                       compare(this, that);
     }

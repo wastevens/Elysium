@@ -127,7 +127,7 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
                 return t.name;
             }
         };
-        return Comparator.comparing(byDeletedTimestamp, Comparator.nullsLast(Comparator.naturalOrder())).
+        return Comparator.comparing(byDeletedTimestamp, Comparator.nullsFirst(Comparator.naturalOrder())).
                       thenComparing(Comparator.comparing(byName)).
                       compare(this, that);
     }

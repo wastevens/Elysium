@@ -40,58 +40,58 @@ public class PlayerTest {
         assertNotEqualTo("Not a enclosing_type");
     }
     
-//    @Test
-//    public void testOrdersByName() {
-//        Player p1 = player("Alice");
-//        Player p2 = player("Betty");
-//        Player p3 = player("Chris");
-//        Player p4 = player("David");
-//        
-//        List<Player> initialList = list(p2, p4, p1, p3);
-//        List<Player> expectedList = list(p1, p2, p3, p4);
-//        assertEquals(expectedList, sort(initialList));
-//    }
-//    
-//    @Test
-//    public void testOrdersByDeletedTimestamp() {
-//        Player p1 = player("David").delete(new Date(1001L));
-//        Player p2 = player("Chris").delete(new Date(1002L));
-//        Player p3 = player("Betty").delete(new Date(1003L));
-//        Player p4 = player("Alice").delete(new Date(1004L));
-//        
-//        List<Player> initialList = list(p2, p4, p1, p3);
-//        List<Player> expectedList = list(p1, p2, p3, p4);
-//        assertEquals(expectedList, sort(initialList));
-//    }
-//    
-//    @Test
-//    public void testOrdersByNameWhenDeletedTimestampsEqual() {
-//        Player p1 = player("Alice").delete(new Date(1000L));
-//        Player p2 = player("Betty").delete(new Date(1000L));
-//        Player p3 = player("Chris").delete(new Date(1000L));
-//        Player p4 = player("David").delete(new Date(1000L));
-//        
-//        List<Player> initialList = list(p2, p4, p1, p3);
-//        List<Player> expectedList = list(p1, p2, p3, p4);
-//        assertEquals(expectedList, sort(initialList));
-//    }
-//    
-//    @Test
-//    public void testOrdersByDeletedTimestampPresenceThenByName() {
-//        Player p1 = player("Eugene");
-//        Player p2 = player("Fred");
-//        Player p3 = player("George");
-//        Player p4 = player("Harry");
-//        Player deletedP1 = player("David").delete(new Date(1001L));
-//        Player deletedP2 = player("Chris").delete(new Date(1002L));
-//        Player deletedP3 = player("Betty").delete(new Date(1003L));
-//        Player deletedP4 = player("Alice").delete(new Date(1004L));
-//        
-//        List<Player> initialList = list(deletedP2, deletedP4, deletedP1, deletedP3, p2, p4, p1, p3);
-//        List<Player> expectedList = list(p1, p2, p3, p4, deletedP1, deletedP2, deletedP3, deletedP4);
-//        List<Player> sort = sort(initialList);
-//        assertEquals(expectedList, sort);
-//    }
+    @Test
+    public void testOrdersByName() {
+        Player p1 = player("Alice");
+        Player p2 = player("Betty");
+        Player p3 = player("Chris");
+        Player p4 = player("David");
+        
+        List<Player> initialList = list(p2, p4, p1, p3);
+        List<Player> expectedList = list(p1, p2, p3, p4);
+        assertEquals(expectedList, sort(initialList));
+    }
+    
+    @Test
+    public void testOrdersByDeletedTimestamp() {
+        Player p1 = player("David").delete(new Date(1001L));
+        Player p2 = player("Chris").delete(new Date(1002L));
+        Player p3 = player("Betty").delete(new Date(1003L));
+        Player p4 = player("Alice").delete(new Date(1004L));
+        
+        List<Player> initialList = list(p2, p4, p1, p3);
+        List<Player> expectedList = list(p1, p2, p3, p4);
+        assertEquals(expectedList, sort(initialList));
+    }
+    
+    @Test
+    public void testOrdersByNameWhenDeletedTimestampsEqual() {
+        Player p1 = player("Alice").delete(new Date(1000L));
+        Player p2 = player("Betty").delete(new Date(1000L));
+        Player p3 = player("Chris").delete(new Date(1000L));
+        Player p4 = player("David").delete(new Date(1000L));
+        
+        List<Player> initialList = list(p2, p4, p1, p3);
+        List<Player> expectedList = list(p1, p2, p3, p4);
+        assertEquals(expectedList, sort(initialList));
+    }
+    
+    @Test
+    public void testOrdersByDeletedTimestampPresenceThenByName() {
+        Player p1 = player("Eugene");
+        Player p2 = player("Fred");
+        Player p3 = player("George");
+        Player p4 = player("Harry");
+        Player deletedP1 = player("David").delete(new Date(1001L));
+        Player deletedP2 = player("Chris").delete(new Date(1002L));
+        Player deletedP3 = player("Betty").delete(new Date(1003L));
+        Player deletedP4 = player("Alice").delete(new Date(1004L));
+        
+        List<Player> initialList = list(deletedP2, deletedP4, deletedP1, deletedP3, p2, p4, p1, p3);
+        List<Player> expectedList = list(p1, p2, p3, p4, deletedP1, deletedP2, deletedP3, deletedP4);
+        List<Player> sort = sort(initialList);
+        assertEquals(expectedList, sort);
+    }
     
     private Player player(String name) {
         return new Player(name, name, "", Sets.<Troupe>set(), Sets.<PlayerCharacter>set());
