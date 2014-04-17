@@ -2,24 +2,24 @@ package com.dstevens.persistence.auditing;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-import com.dstevens.persistence.ClockProvider;
+import com.dstevens.suppliers.ClockSupplier;
 
-@Service
+@Repository
 public class AuditableRepositoryProvider {
 
     private final AuditEventRepository auditableRepository;
-    private final ClockProvider clockProvider;
+    private final ClockSupplier clockSupplier;
 
     @Autowired
-    public AuditableRepositoryProvider(AuditEventRepository auditableRepository, ClockProvider clockProvider) {
+    public AuditableRepositoryProvider(AuditEventRepository auditableRepository, ClockSupplier clockSupplier) {
         this.auditableRepository = auditableRepository;
-        this.clockProvider = clockProvider;
+        this.clockSupplier = clockSupplier;
     }
     
     public <E extends Auditable<E>> AuditableRepository<E> repositoryFor(CrudRepository<E, String> dao) {
-        return new AuditableRepositoryImpl<>(dao, auditableRepository, clockProvider);
+        return new AuditableRepositoryImpl<>(dao, auditableRepository, clockSupplier);
     }
     
 }

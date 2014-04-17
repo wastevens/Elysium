@@ -2,25 +2,25 @@ package com.dstevens.persistence.auditing;
 
 import java.util.Date;
 
-import com.dstevens.persistence.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.dstevens.suppliers.*;
 
 @Service
 public class AuditEventFactory {
 
-    private IdGenerator idGenerator;
-    private ClockProvider clockProvider;
+    private IdSupplier idSupplier;
+    private ClockSupplier clockSupplier;
 
     @Autowired
-    public AuditEventFactory(IdGenerator idGenerator, ClockProvider clockProvider) {
-        this.idGenerator = idGenerator;
-        this.clockProvider = clockProvider;
+    public AuditEventFactory(IdSupplier idSupplier, ClockSupplier clockSupplier) {
+        this.idSupplier = idSupplier;
+        this.clockSupplier = clockSupplier;
     }
     
     public <E> AuditEvent<E> auditableFor(E foo, String auditMessage) {
-        return new AuditEvent<E>(idGenerator.createId(), foo, Date.from(clockProvider.getClock().instant()), auditMessage);
+        return new AuditEvent<E>(idSupplier.get(), foo, Date.from(clockSupplier.get().instant()), auditMessage);
     }
     
 }

@@ -1,11 +1,11 @@
 package com.dstevens.players;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.dstevens.persistence.auditing.*;
 
-@Repository
+@Service
 public class TroupeRepository extends AbstractAuditableRepository<Troupe> {
 
     @Autowired

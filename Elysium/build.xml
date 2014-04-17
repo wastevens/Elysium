@@ -20,8 +20,13 @@
 </target>
 	
 <target name="flush">
-<echo>Cleaning the ${lib.dir}</echo>
-<delete dir="${lib.dir}"/>
+  <echo>Cleaning the ${lib.dir}</echo>
+  <delete dir="${lib.dir}"/>
+</target>
+	
+<target name="cleancache" depends="flush">
+  <echo>Cleaning the lib cache</echo>
+  <ivy:cleancache/>
 </target>
 
 <target name="resolve" description="--> retrieve dependencies with ivy" depends="clean, flush">
@@ -43,9 +48,29 @@
   </javac>
 </target>
 
+<pathconvert property="manifest.classpath" pathsep=" ">
+  <path refid="classpath"/>
+  <mapper>
+    <chainedmapper>
+      <flattenmapper/>
+      <globmapper from="*.jar" to="lib/default/*.jar"/>
+    </chainedmapper>
+  </mapper>
+</pathconvert>	
+	
 <target name="jar" depends="compile">
 <echo>Jar the compiled files</echo>
-<jar basedir="${build.dir}" destfile="${dist.dir}/${project.name}.jar" />
+<jar basedir="${build.dir}" destfile="${dist.dir}/${project.name}.jar">
+  <manifest>
+    <attribute name="Specification-Title" value="${project.name}" />
+    <attribute name="Specification-Version" value="${version.major}.${version.minor}.${version.revision}"/>
+    <attribute name="Specification-Vendor" value="dstevens"/>
+    <attribute name="Implementation-Title" value="common"/>
+    <attribute name="Implementation-Version" value="${version.major}.${version.minor}.${version.revision}"/> 
+    <attribute name="Implementation-Vendor" value="dstevens"/>
+    <attribute name="Class-Path" value="${manifest.classpath}"/>
+  </manifest>
+</jar>
 </target>
 	
 <target name="sources-jar" depends="compile">

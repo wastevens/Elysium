@@ -11,18 +11,18 @@ import org.mockito.*;
 import org.springframework.context.ApplicationContext;
 
 import com.dstevens.configuration.ApplicationConfiguration;
-import com.dstevens.persistence.*;
 import com.dstevens.persistence.auditing.*;
+import com.dstevens.suppliers.*;
 
 public class AuditEventDaoTest {
 
     private static final ApplicationContext APP_CONFIG = ApplicationConfiguration.appConfig();
 
-    @Mock private IdGenerator idGenerator;
-    @Mock private ClockProvider clockProvider;
+    @Mock private IdSupplier idSupplier;
+    @Mock private ClockSupplier clockSupplier;
     @Mock private Clock clock;
-    private AuditEventFactory auditableFactory;
     
+    private AuditEventFactory auditableFactory;
     private TroupeFactory troupeFactory;
     private TroupeDao troupeDao;
     private AuditEventDao auditableDao;
@@ -37,11 +37,11 @@ public class AuditEventDaoTest {
         troupeDao = APP_CONFIG.getBean(TroupeDao.class);
         auditableDao = APP_CONFIG.getBean(AuditEventDao.class);
         troupeFactory = APP_CONFIG.getBean(TroupeFactory.class);
-        auditableFactory = new AuditEventFactory(idGenerator, clockProvider);
+        auditableFactory = new AuditEventFactory(idSupplier, clockSupplier);
         
-        when(idGenerator.createId()).thenReturn("id 1").thenReturn("id 2").thenReturn("id 3").
-                                     thenReturn("id 4").thenReturn("id 5").thenReturn("id 6");
-        when(clockProvider.getClock()).thenReturn(clock);
+        when(idSupplier.get()).thenReturn("id 1").thenReturn("id 2").thenReturn("id 3").
+                               thenReturn("id 4").thenReturn("id 5").thenReturn("id 6");
+        when(clockSupplier.get()).thenReturn(clock);
         when(clock.instant()).thenReturn(Instant.ofEpochMilli(10100L)).thenReturn(Instant.ofEpochMilli(20100L)).thenReturn(Instant.ofEpochMilli(30100L)).
                               thenReturn(Instant.ofEpochMilli(40100L)).thenReturn(Instant.ofEpochMilli(50100L)).thenReturn(Instant.ofEpochMilli(60100L));
         

@@ -5,20 +5,20 @@ import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.collections.Sets;
-import com.dstevens.persistence.IdGenerator;
+import com.dstevens.suppliers.IdSupplier;
 
 @Service
 public class PlayerFactory {
 
-    private IdGenerator idGenerator;
+    private IdSupplier idSupplier;
 
     @Autowired
-    public PlayerFactory(IdGenerator idGenerator) {
-        this.idGenerator = idGenerator;
+    public PlayerFactory(IdSupplier idSupplier) {
+        this.idSupplier = idSupplier;
     }
     
     public Player createPlayer(String name, String email) {
-        return new Player(idGenerator.createId(), name, email, Sets.<Troupe>set(), Sets.<PlayerCharacter>set());
+        return new Player(idSupplier.get(), name, email, Sets.<Troupe>set(), Sets.<PlayerCharacter>set());
     }
     
 }

@@ -4,18 +4,18 @@ import java.util.Date;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.dstevens.persistence.ClockProvider;
+import com.dstevens.suppliers.ClockSupplier;
 
 public class AuditableRepositoryImpl<E extends Auditable<E>> implements AuditableRepository<E> {
 
     private CrudRepository<E, String> dao;
     private AuditEventRepository auditableRepository;
-    private ClockProvider clockProvider;
+    private ClockSupplier clockSupplier;
 
-    public AuditableRepositoryImpl(CrudRepository<E, String> dao, AuditEventRepository auditableRepository, ClockProvider clockProvider) {
+    public AuditableRepositoryImpl(CrudRepository<E, String> dao, AuditEventRepository auditableRepository, ClockSupplier clockSupplier) {
         this.dao = dao;
         this.auditableRepository = auditableRepository;
-        this.clockProvider = clockProvider;
+        this.clockSupplier = clockSupplier;
     }
     
     @Override
@@ -30,7 +30,7 @@ public class AuditableRepositoryImpl<E extends Auditable<E>> implements Auditabl
 
     @Override
     public void delete(E e) {
-        save(e.delete(Date.from(clockProvider.getClock().instant())), "Deleted");
+        save(e.delete(Date.from(clockSupplier.get().instant())), "Deleted");
     }
 
     @Override
