@@ -136,18 +136,8 @@ public class Player implements Auditable<Player>, Comparable<Player> {
 
     @Override
     public int compareTo(Player that) {
-        Function<Player, Date> byDeletedTimestamp = new Function<Player, Date>() {
-            @Override
-            public Date apply(Player p) {
-                return p.deleteTimestamp;
-            }
-        };
-        Function<Player, String> byName = new Function<Player, String>() {
-            @Override
-            public String apply(Player p) {
-                return p.name;
-            }
-        };
+        Function<Player, Date>  byDeletedTimestamp = ((Player p) -> p.deleteTimestamp);
+        Function<Player, String> byName = ((Player p) -> p.name);
         return Comparator.comparing(byDeletedTimestamp, Comparator.nullsFirst(Comparator.naturalOrder())).
                       thenComparing(Comparator.comparing(byName)).
                       compare(this, that);

@@ -115,18 +115,8 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
 
     @Override
     public int compareTo(Troupe that) {
-        Function<Troupe, Date> byDeletedTimestamp = new Function<Troupe, Date>() {
-            @Override
-            public Date apply(Troupe t) {
-                return t.deleteTimestamp;
-            }
-        };
-        Function<Troupe, String> byName = new Function<Troupe, String>() {
-            @Override
-            public String apply(Troupe t) {
-                return t.name;
-            }
-        };
+        Function<Troupe, Date>  byDeletedTimestamp = ((Troupe t) -> t.deleteTimestamp);
+        Function<Troupe, String> byName = ((Troupe t) -> t.name);
         return Comparator.comparing(byDeletedTimestamp, Comparator.nullsFirst(Comparator.naturalOrder())).
                       thenComparing(Comparator.comparing(byName)).
                       compare(this, that);
