@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories("com.dstevens")
 @EnableTransactionManagement
 public class PersistanceConfiguration {
-
     
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
