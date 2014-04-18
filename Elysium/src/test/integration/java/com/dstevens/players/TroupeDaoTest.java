@@ -92,7 +92,9 @@ public class TroupeDaoTest {
         Player player1 = playerFactory.createPlayer("player 1 name", "player 1 email");
         Player player2 = playerFactory.createPlayer("player 2 name", "player 2 email");
         Player player3 = playerFactory.createPlayer("player 3 name", "player 3 email");
-        Troupe troupeWithPlayers = troupeDao.save(savedTroupe.withPlayer(player1).withPlayer(player2));
+        Troupe withPlayer = savedTroupe.withPlayer(player1);
+        Troupe withPlayer2 = withPlayer.withPlayer(player2);
+        Troupe troupeWithPlayers = troupeDao.save(withPlayer2);
         assertEquals(Sets.set(player1, player2), troupeWithPlayers.getPlayers());
         
         Troupe troupeWithAnotherPlayer = troupeDao.save(troupeWithPlayers.withPlayer(player3));

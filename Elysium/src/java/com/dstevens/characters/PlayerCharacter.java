@@ -17,17 +17,13 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @Id
     private final String id;
     
-    @ManyToOne(cascade={CascadeType.ALL})
-    @JoinTable(name="PlayerPlayerCharacters",
-               joinColumns = @JoinColumn(name="player_character_id"),
-               inverseJoinColumns = @JoinColumn(name="player_id"))
-    private final Player player;
+    @OneToOne
+    @JoinColumn(name="player_id")
+    private Player player;
     
-    @ManyToOne(cascade={CascadeType.ALL})
-    @JoinTable(name="TroupePlayerCharacters",
-               joinColumns = @JoinColumn(name="player_character_id"),
-               inverseJoinColumns = @JoinColumn(name="troupe_id"))
-    private final Troupe troupe;
+    @OneToOne
+    @JoinColumn(name="troupe_id")
+    private Troupe troupe;
     
     @Column(name="deleted_at")
     private final Date deleteTimestamp;
@@ -51,6 +47,10 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this(null, null, null, null, null);
     }
     
+    PlayerCharacter(String id, Troupe troupe, Player player, String name) {
+        this(id, player, troupe, name, null);
+    }
+    
     private PlayerCharacter(String id, Player player, Troupe troupe, String name, Date deleteTimestamp) {
         this.id = id;
         this.player = player;
@@ -70,9 +70,18 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     public String getName() {
         return name;
     }
+
+    public void ofPlayer(Player player) {
+        this.player = player;
+    }
     
     public Player getPlayer() {
         return player;
+    }
+    
+
+    public void inTrouope(Troupe troupe) {
+        this.troupe = troupe;
     }
     
     public Troupe getTroupe() {
@@ -116,5 +125,4 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                       thenComparing(Comparator.comparing(byName)).
                       compare(this, that);
     }
-
 }

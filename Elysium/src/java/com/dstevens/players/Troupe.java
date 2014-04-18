@@ -28,12 +28,9 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     @JoinTable(name="TroupePlayers",
                joinColumns = @JoinColumn(name="troupe_id"),
                inverseJoinColumns = @JoinColumn(name="player_id"))
-    private final Set<Player> players;
+    private Set<Player> players;
 
-    @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="TroupePlayerCharacters",
-               joinColumns = @JoinColumn(name="troupe_id"),
-               inverseJoinColumns = @JoinColumn(name="player_character_id"))
+    @OneToMany(mappedBy= "troupe", cascade = {CascadeType.REMOVE})
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")
@@ -102,8 +99,8 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
         return new Troupe(id, name, setting, players, setWithout(characters, playerCharacter), deleteTimestamp);
     }
     
-    public Set<Player> getCharacters() {
-        return players;
+    public Set<PlayerCharacter> getCharacters() {
+        return characters;
     }
 
     public Troupe delete(Date deleteTimestamp) {

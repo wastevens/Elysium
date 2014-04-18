@@ -25,16 +25,13 @@ public class Player implements Auditable<Player>, Comparable<Player> {
     @Column(name="email")
     private final String email;
     
-    @ManyToMany(cascade={CascadeType.ALL})
+    @ManyToMany
     @JoinTable(name="TroupePlayers",
                joinColumns = @JoinColumn(name="player_id"),
                inverseJoinColumns = @JoinColumn(name="troupe_id"))
     private final Set<Troupe> troupes;
     
-    @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="PlayerPlayerCharacters",
-               joinColumns = @JoinColumn(name="player_id"),
-               inverseJoinColumns = @JoinColumn(name="player_character_id"))
+    @OneToMany(mappedBy="player", cascade = CascadeType.REMOVE)
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")
@@ -79,8 +76,9 @@ public class Player implements Auditable<Player>, Comparable<Player> {
         return email;
     }
 
-    public final Player addCharacter(PlayerCharacter character) {
-        return new Player(id, name, email, troupes, setWith(characters, character), deleteTimestamp);
+    public final void addCharacter(PlayerCharacter character) {
+        character.ofPlayer(this);
+        this.characters.add(character);
     }
     
     public final Player removeCharacter(PlayerCharacter character) {
