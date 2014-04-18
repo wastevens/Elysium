@@ -4,7 +4,6 @@
 <property file="build.properties"/>
 
 <path id="classpath">
-  <pathelement path="${classpath}"/>
   <fileset dir="${lib.dir}">
     <include name="**/*.jar"/>
     <exclude name="**/*javadoc*"/>
@@ -14,6 +13,9 @@
 </path>
 
 <target name="clean">
+	<property name="myclasspath" refid="classpath"/>
+		<!-- Emit the property to the ant console -->
+		<echo message="Classpath = ${myclasspath}"/>
 <echo>Cleaning the ${build.dir}</echo>
 <delete dir="${build.dir}"/>
 <delete dir="${dist.dir}"/>
@@ -88,7 +90,7 @@
       status="release" />
 </target>
 	
-<target name="schemaexport" depends="compile">
+<target name="schemaexport">
 	<ant antfile="build-schema.xml" target="schemaexport" />
 </target>
 	

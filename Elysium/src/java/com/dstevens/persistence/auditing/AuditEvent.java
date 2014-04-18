@@ -7,6 +7,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.*;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.players.*;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -26,7 +27,8 @@ public class AuditEvent<E> {
             metaType = "string",
             metaValues = {
                     @MetaValue( value = "Troupe", targetEntity = Troupe.class),
-                    @MetaValue( value = "Player", targetEntity = Player.class)
+                    @MetaValue( value = "Player", targetEntity = Player.class),
+                    @MetaValue( value = "PlayerCharacter", targetEntity = PlayerCharacter.class)
                 }
             )
     @JoinColumn(name="audited_id")

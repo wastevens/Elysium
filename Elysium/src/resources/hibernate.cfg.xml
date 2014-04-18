@@ -5,9 +5,10 @@
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <mapping package="com.dstevens.players"/>
+    <mapping package="com.dstevens"/>
     <mapping class="com.dstevens.players.Troupe"/>
     <mapping class="com.dstevens.players.Player"/>
+    <mapping class="com.dstevens.characters.PlayerCharacter"/>
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>
 </hibernate-configuration>

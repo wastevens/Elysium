@@ -4,6 +4,7 @@ import static com.dstevens.collections.Sets.*;
 
 import java.util.*;
 import java.util.function.Function;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -30,7 +31,10 @@ public class Player implements Auditable<Player>, Comparable<Player> {
                inverseJoinColumns = @JoinColumn(name="troupe_id"))
     private final Set<Troupe> troupes;
     
-    @Transient
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="PlayerPlayerCharacters",
+               joinColumns = @JoinColumn(name="player_id"),
+               inverseJoinColumns = @JoinColumn(name="player_character_id"))
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")

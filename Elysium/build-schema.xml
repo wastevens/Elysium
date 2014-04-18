@@ -2,10 +2,15 @@
 <project name="${project.name}" basedir=".">
 
 <property file="build.properties"/>
-
-<path id="classpath">
-  <pathelement path="${classpath}"/>
+	
+<path id="hibernate.classpath">
   <fileset dir="${lib.dir}">
+    <include name="**/*.jar"/>
+    <exclude name="**/*javadoc*"/>
+    <exclude name="**/*source*"/>
+    <exclude name="**/*test*"/>
+  </fileset>
+  <fileset dir="${dist.dir}">
     <include name="**/*.jar"/>
     <exclude name="**/*javadoc*"/>
     <exclude name="**/*source*"/>
@@ -13,13 +18,15 @@
   </fileset>
 </path>
 
-<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="classpath" />
+<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="hibernate.classpath" />
 <target name="schemaexport" description="Exports a generated schema to DB and file">
+	<property name="myclasspath" refid="hibernate.classpath"/>
+	<!-- Emit the property to the ant console -->
+	<echo message="Classpath = ${myclasspath}"/>
+	
 	<path id="schemaExportClasspath">
-	  <path refid="classpath"/>
-		<fileset dir="${dist.dir}">
-		  <include name="**/*.jar"/>
-		</fileset>
+	  <path refid="hibernate.classpath"/>
+	  <fileset file="${dist.dir}/${project.name}.jar" />
 	</path>
 	
     <hibernatetool destdir="${basedir}/src/resources">

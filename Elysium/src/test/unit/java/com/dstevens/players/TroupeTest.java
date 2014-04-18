@@ -1,7 +1,6 @@
 package com.dstevens.players;
 
 import static com.dstevens.collections.Lists.*;
-import static com.dstevens.collections.Sets.set;
 import static com.dstevens.testing.Assertions.assertListsEqual;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -10,7 +9,6 @@ import java.util.*;
 
 import org.junit.Test;
 
-import com.dstevens.collections.Sets;
 import com.dstevens.testing.EqualityTester;
 
 public class TroupeTest {
@@ -26,13 +24,13 @@ public class TroupeTest {
         Setting setting = Setting.CAMARILLA;
         Setting anotherSetting = Setting.values()[setting.ordinal()+1];
         
-        EqualityTester.testing(new Troupe(id, name, setting, set(player1, player2, player3))).
-                 assertEqualTo(new Troupe(id, name, setting, set(player1, player2, player3))).
-                 assertEqualTo(new Troupe(id, "Another " + name, setting, set(player1, player2, player3))).
-                 assertEqualTo(new Troupe(id, name, anotherSetting, set(player1, player2, player3))).
-                 assertEqualTo(new Troupe(id, name, setting, set(player1, player2))).
-                 assertEqualTo(new Troupe(id, name, setting, set(player1, player2, player3, player4))).
-              assertNotEqualTo(new Troupe("Another " + id, name, setting, set(player1, player2, player3))).
+        EqualityTester.testing(new Troupe(id, name, setting).withPlayer(player1).withPlayer(player2).withPlayer(player3)).
+                 assertEqualTo(new Troupe(id, name, setting).withPlayer(player1).withPlayer(player2).withPlayer(player3)).
+                 assertEqualTo(new Troupe(id, "Another " + name, setting).withPlayer(player1).withPlayer(player2).withPlayer(player3)).
+                 assertEqualTo(new Troupe(id, name, anotherSetting).withPlayer(player1).withPlayer(player2).withPlayer(player3)).
+                 assertEqualTo(new Troupe(id, name, setting).withPlayer(player1).withPlayer(player2)).
+                 assertEqualTo(new Troupe(id, name, setting).withPlayer(player1).withPlayer(player2).withPlayer(player3).withPlayer(player4)).
+              assertNotEqualTo(new Troupe("Another " + id, name, setting).withPlayer(player1).withPlayer(player2).withPlayer(player3)).
         assertNotEqualTo("Not a enclosing_type");
     }
     
@@ -89,7 +87,7 @@ public class TroupeTest {
     }
     
     private Troupe troupe(String name) {
-        return new Troupe(name, name, Setting.CAMARILLA, Sets.<Player>set());
+        return new Troupe(name, name, Setting.CAMARILLA);
     }
     
 }

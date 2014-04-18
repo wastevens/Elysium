@@ -17,19 +17,16 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     @Id
     private final String id;
     
-    @Column(name="name") 
+    @Transient
     private final String name;
     
-    @Column(name="setting") 
+    @Transient
     private final Setting setting;
     
-    @ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="TroupePlayers",
-               joinColumns = @JoinColumn(name="troupe_id"),
-               inverseJoinColumns = @JoinColumn(name="player_id"))
+    @Transient
     private final Set<Player> players;
 
-    @Column(name="deleted_at")
+    @Transient
     private final Date deleteTimestamp;
     
     //Used only for hibernate
@@ -38,8 +35,8 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
         this(null, null, null, null, null);
     }
     
-    Troupe(String id, String name, Setting setting, Set<Player> players) {
-        this(id, name, setting, players, null);
+    Troupe(String id, String name, Setting setting) {
+        this(id, name, setting, set(), null);
     }
     
     private Troupe(String id, String name, Setting setting, Set<Player> players, Date deleteTimestamp) {
