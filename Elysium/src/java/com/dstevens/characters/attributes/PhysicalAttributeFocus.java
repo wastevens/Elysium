@@ -1,6 +1,6 @@
 package com.dstevens.characters.attributes;
 
-public enum PhysicalAttributeFocus implements AttributeFocus {
+public enum PhysicalAttributeFocus {
 
     STRENGTH,
     DEXTERITY,

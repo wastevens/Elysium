@@ -31,8 +31,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @Column(name="name")
     private final String name;
     
-    @Embedded
-    private final PhysicalAttribute physicalTraits;
+    @OneToOne(cascade=CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private final PhysicalAttribute physicalAttribute;
     
     @Transient
     private List<CharacterSkill> skills;
@@ -45,20 +46,20 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
-        this(id, player, troupe, name, new PhysicalAttribute(0), null);
+        this(id, player, troupe, name, new PhysicalAttribute(id), null);
     }
     
-    private PlayerCharacter(String id, Player player, Troupe troupe, String name, PhysicalAttribute physicalTraits, Date deleteTimestamp) {
+    private PlayerCharacter(String id, Player player, Troupe troupe, String name, PhysicalAttribute physicalAttribute, Date deleteTimestamp) {
         this.id = id;
         this.player = player;
         this.troupe = troupe;
         this.name = name;
-        this.physicalTraits = physicalTraits;
+        this.physicalAttribute = physicalAttribute;
         this.deleteTimestamp = deleteTimestamp;
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, player, troupe, name, physicalTraits, deleteTimestamp);
+        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, deleteTimestamp);
     }
     
     public String getId() {
@@ -88,12 +89,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @Override
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, player, troupe, name, physicalTraits, timestamp);
+        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, timestamp);
     }
 
     @Override
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, player, troupe, name, physicalTraits, null);
+        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, null);
     }
     
     @Override

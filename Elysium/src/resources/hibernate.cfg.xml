@@ -9,6 +9,7 @@
     <mapping class="com.dstevens.players.Troupe"/>
     <mapping class="com.dstevens.players.Player"/>
     <mapping class="com.dstevens.characters.PlayerCharacter"/>
+    <mapping class="com.dstevens.characters.attributes.PhysicalAttribute"/>
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>
 </hibernate-configuration>
