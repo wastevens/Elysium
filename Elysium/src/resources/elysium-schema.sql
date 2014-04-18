@@ -15,10 +15,11 @@ create table AuditEvent (id varchar(255) not null, audit_message varchar(255), a
 create table Player (id varchar(255) not null, deleted_at datetime, email varchar(255), name varchar(255), primary key (id));
 create table PlayerCharacter (id varchar(255) not null, deleted_at datetime, name varchar(255), primary key (id));
 create table PlayerPlayerCharacters (player_id varchar(255), player_character_id varchar(255) not null, primary key (player_id, player_character_id));
-create table Troupe (id varchar(255) not null, primary key (id));
-create table TroupePlayerCharacters (troupe_id varchar(255), player_character_id varchar(255) not null, primary key (player_character_id));
-create table TroupePlayers (player_id varchar(255) not null, troupe_id varchar(255) not null, primary key (player_id, troupe_id));
+create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
+create table TroupePlayerCharacters (troupe_id varchar(255), player_character_id varchar(255) not null, primary key (troupe_id, player_character_id));
+create table TroupePlayers (player_id varchar(255) not null, troupe_id varchar(255) not null, primary key (troupe_id, player_id));
 alter table PlayerPlayerCharacters add constraint UK_407xikxs2n16vm06n8nfna1hl  unique (player_character_id);
+alter table TroupePlayerCharacters add constraint UK_4u5surlk2w3q1k6ly3juifp1e  unique (player_character_id);
 alter table PlayerPlayerCharacters add constraint FK_kbp7aw5ct1sphnq1ce7phgmog foreign key (player_id) references Player (id);
 alter table PlayerPlayerCharacters add constraint FK_407xikxs2n16vm06n8nfna1hl foreign key (player_character_id) references PlayerCharacter (id);
 alter table TroupePlayerCharacters add constraint FK_7fw6ag0gryhsw0pb7dbi370p0 foreign key (troupe_id) references Troupe (id);

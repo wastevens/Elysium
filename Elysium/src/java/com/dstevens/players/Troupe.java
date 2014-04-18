@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.function.Function;
 import javax.persistence.*;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.collections.Sets;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
@@ -17,33 +18,43 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     @Id
     private final String id;
     
-    @Transient
+    @Column(name="name")
     private final String name;
     
-    @Transient
+    @Column(name="setting")
     private final Setting setting;
     
-    @Transient
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="TroupePlayers",
+               joinColumns = @JoinColumn(name="troupe_id"),
+               inverseJoinColumns = @JoinColumn(name="player_id"))
     private final Set<Player> players;
 
-    @Transient
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="TroupePlayerCharacters",
+               joinColumns = @JoinColumn(name="troupe_id"),
+               inverseJoinColumns = @JoinColumn(name="player_character_id"))
+    private final Set<PlayerCharacter> characters;
+
+    @Column(name="deleted_at")
     private final Date deleteTimestamp;
     
     //Used only for hibernate
     @Deprecated
     public Troupe() {
-        this(null, null, null, null, null);
+        this(null, null, null);
     }
     
     Troupe(String id, String name, Setting setting) {
-        this(id, name, setting, set(), null);
+        this(id, name, setting, set(), set(), null);
     }
     
-    private Troupe(String id, String name, Setting setting, Set<Player> players, Date deleteTimestamp) {
+    private Troupe(String id, String name, Setting setting, Set<Player> players, Set<PlayerCharacter> characters, Date deleteTimestamp) {
         this.id = id;
         this.name = name;
         this.setting = setting;
         this.players = players;
+        this.characters = characters;
         this.deleteTimestamp = deleteTimestamp;
     }
     
@@ -52,7 +63,7 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     }
 
     public Troupe withName(String name) {
-        return new Troupe(id, name, setting, players, deleteTimestamp);
+        return new Troupe(id, name, setting, players, characters, deleteTimestamp);
     }
     
     public String getName() {
@@ -60,7 +71,7 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     }
 
     public Troupe withSetting(Setting setting) {
-        return new Troupe(id, name, setting, players, deleteTimestamp);
+        return new Troupe(id, name, setting, players, characters, deleteTimestamp);
     }
     
     public Setting getSetting() {
@@ -68,27 +79,39 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     }
 
     public Troupe withPlayer(Player player) {
-        return new Troupe(id, name, setting, setWith(players, player), deleteTimestamp);
+        return new Troupe(id, name, setting, setWith(players, player), characters, deleteTimestamp);
     }
     
     public Troupe withoutPlayer(Player player) {
-        return new Troupe(id, name, setting, setWithout(players, player), deleteTimestamp);
+        return new Troupe(id, name, setting, setWithout(players, player), characters, deleteTimestamp);
     }
     
     public Troupe clearPlayers() {
-        return new Troupe(id, name, setting, Sets.<Player>set(), deleteTimestamp);
+        return new Troupe(id, name, setting, Sets.<Player>set(), characters, deleteTimestamp);
     }
     
     public Set<Player> getPlayers() {
         return players;
     }
+    
+    public Troupe withCharacter(PlayerCharacter playerCharacter) {
+        return new Troupe(id, name, setting, players, setWith(characters, playerCharacter), deleteTimestamp);
+    }
+    
+    public Troupe withoutCharacter(PlayerCharacter playerCharacter) {
+        return new Troupe(id, name, setting, players, setWithout(characters, playerCharacter), deleteTimestamp);
+    }
+    
+    public Set<Player> getCharacters() {
+        return players;
+    }
 
     public Troupe delete(Date deleteTimestamp) {
-        return new Troupe(id, name, setting, players, deleteTimestamp);
+        return new Troupe(id, name, setting, players, characters, deleteTimestamp);
     }
     
     public Troupe undelete() {
-        return new Troupe(id, name, setting, players, null);
+        return new Troupe(id, name, setting, players, characters, null);
     }
     
     @Override
