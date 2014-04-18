@@ -81,8 +81,8 @@ public class TroupeDaoTest {
         Troupe troupe6 = troupeDao.save(troupeFactory.createTroupe(name, Setting.ANARCH));
         troupesToDelete.addAll(set(troupe1, troupe2, troupe3, troupe4, troupe5, troupe6));
         
-        assertEquals(set(troupe1, troupe2, troupe3, troupe4, troupe5, troupe6), setFrom(troupeDao.findTroupesNamed(name)));
-        assertEquals(set(troupe1, troupe3, troupe5, troupe6), setFrom(troupeDao.findUndeletedTroupesNamed(name)));
+        assertEquals(set(troupe1, troupe2, troupe3, troupe4, troupe5, troupe6), setFrom(troupeDao.findNamed(name)));
+        assertEquals(set(troupe1, troupe3, troupe5, troupe6), setFrom(troupeDao.findUndeletedNamed(name)));
     }
     
     @Test
