@@ -13,9 +13,6 @@
 </path>
 
 <target name="clean">
-	<property name="myclasspath" refid="classpath"/>
-		<!-- Emit the property to the ant console -->
-		<echo message="Classpath = ${myclasspath}"/>
 <echo>Cleaning the ${build.dir}</echo>
 <delete dir="${build.dir}"/>
 <delete dir="${dist.dir}"/>
@@ -50,6 +47,8 @@
   </javac>
 </target>
 
+<target name="jar" depends="compile">
+<echo>Jar the compiled files</echo>
 <pathconvert property="manifest.classpath" pathsep=" ">
   <path refid="classpath"/>
   <mapper>
@@ -59,9 +58,6 @@
     </chainedmapper>
   </mapper>
 </pathconvert>	
-	
-<target name="jar" depends="compile">
-<echo>Jar the compiled files</echo>
 <jar basedir="${build.dir}" destfile="${dist.dir}/${project.name}.jar">
   <manifest>
     <attribute name="Specification-Title" value="${project.name}" />
