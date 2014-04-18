@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.Function;
 import javax.persistence.*;
 
-import com.dstevens.characters.attributes.Attribute;
+import com.dstevens.characters.attributes.PhysicalAttribute;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.players.*;
@@ -31,36 +31,34 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @Column(name="name")
     private final String name;
     
-    @Transient
-    private Attribute physicalTraits;
-    @Transient
-    private Attribute socialTraits;
-    @Transient
-    private Attribute mentalTraits;
+    @Embedded
+    private final PhysicalAttribute physicalTraits;
     
     @Transient
     private List<CharacterSkill> skills;
 
     //Hibernate only
+    @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null);
+        this(null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
-        this(id, player, troupe, name, null);
+        this(id, player, troupe, name, new PhysicalAttribute(0), null);
     }
     
-    private PlayerCharacter(String id, Player player, Troupe troupe, String name, Date deleteTimestamp) {
+    private PlayerCharacter(String id, Player player, Troupe troupe, String name, PhysicalAttribute physicalTraits, Date deleteTimestamp) {
         this.id = id;
         this.player = player;
         this.troupe = troupe;
         this.name = name;
+        this.physicalTraits = physicalTraits;
         this.deleteTimestamp = deleteTimestamp;
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, player, troupe, name, deleteTimestamp);
+        return new PlayerCharacter(id, player, troupe, name, physicalTraits, deleteTimestamp);
     }
     
     public String getId() {
@@ -90,12 +88,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @Override
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, player, troupe, name, timestamp);
+        return new PlayerCharacter(id, player, troupe, name, physicalTraits, timestamp);
     }
 
     @Override
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, player, troupe, name, null);
+        return new PlayerCharacter(id, player, troupe, name, physicalTraits, null);
     }
     
     @Override

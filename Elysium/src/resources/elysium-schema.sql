@@ -9,7 +9,7 @@ drop table if exists Troupe;
 drop table if exists TroupePlayers;
 create table AuditEvent (id varchar(255) not null, audit_message varchar(255), audited_type varchar(255), audited_id varchar(255), timestamp datetime, primary key (id));
 create table Player (id varchar(255) not null, deleted_at datetime, email varchar(255), name varchar(255), primary key (id));
-create table PlayerCharacter (id varchar(255) not null, deleted_at datetime, name varchar(255), player_id varchar(255), troupe_id varchar(255), primary key (id));
+create table PlayerCharacter (id varchar(255) not null, deleted_at datetime, name varchar(255), dexterityFocus bit not null, rating integer not null, staminaFocus bit not null, strengthFocus bit not null, player_id varchar(255), troupe_id varchar(255), primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
 create table TroupePlayers (player_id varchar(255) not null, troupe_id varchar(255) not null, primary key (troupe_id, player_id));
 alter table PlayerCharacter add constraint FK_1wbxymbhm40bq5goo5laqy756 foreign key (player_id) references Player (id);
