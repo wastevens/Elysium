@@ -16,8 +16,6 @@ import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="PlayerCharacter")
-@SecondaryTable(name="PlayerCharacterSkills",
-                pkJoinColumns=@PrimaryKeyJoinColumn(name="character_id"))
 public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<PlayerCharacter> {
 
     @Id
