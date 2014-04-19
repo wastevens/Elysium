@@ -1,13 +1,12 @@
 package com.dstevens.players;
 
-import static com.dstevens.collections.Sets.*;
+import static com.dstevens.collections.Sets.set;
 
 import java.util.*;
 import java.util.function.Function;
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.collections.Sets;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 

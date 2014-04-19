@@ -2,9 +2,6 @@ package com.dstevens.characters;
 
 import static com.dstevens.collections.Sets.set;
 import static org.junit.Assert.assertEquals;
-
-import java.util.Set;
-
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 
