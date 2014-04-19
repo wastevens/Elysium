@@ -2,6 +2,9 @@ package com.dstevens.characters;
 
 import static com.dstevens.collections.Sets.set;
 import static org.junit.Assert.assertEquals;
+
+import java.util.Set;
+
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 
@@ -20,6 +23,10 @@ public class PlayerCharacterDaoTest {
     private TroupeFactory troupeFactory;
     private PlayerDao playerDao;
     private PlayerFactory playerFactory;
+    
+    private Troupe troupesToDelete;
+    private Player playersToDelete;
+    private PlayerCharacter charactersToDelete;
 
     @Before
     public void setUp() {
@@ -31,12 +38,21 @@ public class PlayerCharacterDaoTest {
         characterFactory    = APP_CONFIG.getBean(PlayerCharacterFactory.class);
     }
     
+    @After
+    public void tearDown() {
+        troupeDao.delete(troupesToDelete.getId());
+        playerDao.delete(playersToDelete.getId());
+        characterDao.delete(charactersToDelete.getId());
+    }
+    
     @Test
     public void testSave() {
-        Player player = playerDao.save(playerFactory.createPlayer("player name", "player email"));
         Troupe troupe = troupeDao.save(troupeFactory.createTroupe("troupe name", Setting.ANARCH));
-        PlayerCharacter unsaved = characterFactory.createPlayerCharacter(troupe, player, "character name");
-        PlayerCharacter character = characterDao.save(unsaved);
+        Player player = playerDao.save(playerFactory.createPlayer("player name", "player email").joinTroupe(troupe));
+        PlayerCharacter character = characterDao.save(characterFactory.createPlayerCharacter(troupe, player, "character name"));
+        troupesToDelete = troupe;
+        playersToDelete = player;
+        charactersToDelete = character;
         
         assertEquals(playerDao.findOne(player.getId()).getCharacters(), set(character));
         assertEquals(troupeDao.findOne(troupe.getId()).getCharacters(), set(character));
@@ -50,12 +66,6 @@ public class PlayerCharacterDaoTest {
         assertEquals(set(PhysicalAttributeFocus.STAMINA), foundCharacter.getPhysicalAttribute().getFocuses());
         assertEquals(set(PhysicalAttributeFocus.STAMINA), character.getPhysicalAttribute().getFocuses());
         assertEquals(set(PhysicalAttributeFocus.STAMINA), savedCharacter.getPhysicalAttribute().getFocuses());
-        
-        characterDao.delete(character.getId());
-        
-        assertEquals(playerDao.findOne(player.getId()).getCharacters(), set());
-        assertEquals(troupeDao.findOne(troupe.getId()).getCharacters(), set());
-        assertEquals(characterDao.count(), 0);
     }
     
 }

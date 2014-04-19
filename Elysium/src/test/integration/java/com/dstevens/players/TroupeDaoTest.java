@@ -8,7 +8,6 @@ import java.util.*;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 
-import com.dstevens.collections.Sets;
 import com.dstevens.configuration.ApplicationConfiguration;
 
 public class TroupeDaoTest {
@@ -63,10 +62,10 @@ public class TroupeDaoTest {
         
         assertEquals(troupeToSave, modifiedSavedTroupe);
         assertEquals(savedTroupe, modifiedSavedTroupe);
+        assertEquals("new name", savedTroupe.getName());
+        assertEquals(Setting.CAMARILLA, savedTroupe.getSetting());
         assertEquals("new name", modifiedSavedTroupe.getName());
         assertEquals(Setting.CAMARILLA, modifiedSavedTroupe.getSetting());
-        assertEquals("some name", savedTroupe.getName());
-        assertEquals(Setting.ANARCH, savedTroupe.getSetting());
             
     }
     
@@ -87,15 +86,12 @@ public class TroupeDaoTest {
     
     @Test
     public void testWithPlayers() {
-        Troupe troupeToSave = troupeFactory.createTroupe("some name", Setting.ANARCH);
-        Troupe savedTroupe = troupeDao.save(troupeToSave);
-        Player player1 = playerFactory.createPlayer("player 1 name", "player 1 email");
-        Player player2 = playerFactory.createPlayer("player 2 name", "player 2 email");
-        Player player3 = playerFactory.createPlayer("player 3 name", "player 3 email");
-        Troupe withPlayer = savedTroupe.withPlayer(player1);
-        Troupe withPlayer2 = withPlayer.withPlayer(player2);
-        Troupe troupeWithPlayers = troupeDao.save(withPlayer2);
-        assertEquals(Sets.set(player1, player2), troupeWithPlayers.getPlayers());
+        Troupe savedTroupe = troupeDao.save(troupeFactory.createTroupe("some name", Setting.ANARCH));
+        Player player1 = playerDao.save(playerFactory.createPlayer("player 1 name", "player 1 email"));
+        Player player2 = playerDao.save(playerFactory.createPlayer("player 2 name", "player 2 email"));
+        Player player3 = playerDao.save(playerFactory.createPlayer("player 3 name", "player 3 email"));
+        Troupe troupeWithPlayers = troupeDao.save(savedTroupe.withPlayer(player1).withPlayer(player2));
+        assertEquals(set(player1, player2), troupeWithPlayers.getPlayers());
         
         Troupe troupeWithAnotherPlayer = troupeDao.save(troupeWithPlayers.withPlayer(player3));
         troupesToDelete.add(troupeWithAnotherPlayer);

@@ -2,6 +2,7 @@ package com.dstevens.characters;
 
 import java.util.*;
 import java.util.function.Function;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.attributes.PhysicalAttribute;
@@ -21,11 +22,15 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private final Date deleteTimestamp;
     
     @OneToOne
-    @JoinColumn(name="player_id")
+    @JoinTable(name="PlayerPlayerCharacters",
+               joinColumns = @JoinColumn(name="character_id"),
+               inverseJoinColumns = @JoinColumn(name="player_id"))
     private Player player;
     
     @OneToOne
-    @JoinColumn(name="troupe_id")
+    @JoinTable(name="TroupePlayerCharacters",
+               joinColumns = @JoinColumn(name="character_id"),
+               inverseJoinColumns = @JoinColumn(name="troupe_id"))
     private Troupe troupe;
     
     @Column(name="name")
@@ -84,12 +89,22 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
+    public PlayerCharacter removePlayer() {
+        this.player = null;
+        return this;
+    }
+    
     public Player getPlayer() {
         return player;
     }
 
     public PlayerCharacter inTrouope(Troupe troupe) {
         this.troupe = troupe;
+        return this;
+    }
+    
+    public PlayerCharacter leaveTrouope() {
+        this.troupe = null;
         return this;
     }
     

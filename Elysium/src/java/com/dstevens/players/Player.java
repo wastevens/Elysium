@@ -31,7 +31,10 @@ public class Player implements Auditable<Player>, Comparable<Player> {
                inverseJoinColumns = @JoinColumn(name="troupe_id"))
     private final Set<Troupe> troupes;
     
-    @OneToMany(mappedBy="player", cascade = CascadeType.REMOVE)
+    @OneToMany
+    @JoinTable(name="PlayerPlayerCharacters",
+               joinColumns = @JoinColumn(name="player_id"),
+               inverseJoinColumns = @JoinColumn(name="character_id"))
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")

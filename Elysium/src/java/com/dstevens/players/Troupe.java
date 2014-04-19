@@ -19,18 +19,21 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     private final String id;
     
     @Column(name="name")
-    private final String name;
+    private String name;
     
     @Column(name="setting")
-    private final Setting setting;
+    private Setting setting;
     
-    @ManyToMany(cascade={CascadeType.ALL})
+    @ManyToMany
     @JoinTable(name="TroupePlayers",
                joinColumns = @JoinColumn(name="troupe_id"),
                inverseJoinColumns = @JoinColumn(name="player_id"))
-    private Set<Player> players;
+    private final Set<Player> players;
 
-    @OneToMany(mappedBy= "troupe", cascade = {CascadeType.REMOVE})
+    @OneToMany
+    @JoinTable(name="TroupePlayerCharacters",
+               joinColumns = @JoinColumn(name="troupe_id"),
+               inverseJoinColumns = @JoinColumn(name="character_id"))
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")
@@ -60,7 +63,8 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     }
 
     public Troupe withName(String name) {
-        return new Troupe(id, name, setting, players, characters, deleteTimestamp);
+        this.name = name;
+        return this;
     }
     
     public String getName() {
@@ -68,7 +72,8 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     }
 
     public Troupe withSetting(Setting setting) {
-        return new Troupe(id, name, setting, players, characters, deleteTimestamp);
+        this.setting = setting;
+        return this;
     }
     
     public Setting getSetting() {
@@ -76,27 +81,34 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     }
 
     public Troupe withPlayer(Player player) {
-        return new Troupe(id, name, setting, setWith(players, player), characters, deleteTimestamp);
+        this.players.add(player);
+        return this;
     }
     
     public Troupe withoutPlayer(Player player) {
-        return new Troupe(id, name, setting, setWithout(players, player), characters, deleteTimestamp);
+        this.players.remove(player);
+        return this;
     }
     
     public Troupe clearPlayers() {
-        return new Troupe(id, name, setting, Sets.<Player>set(), characters, deleteTimestamp);
+        this.players.clear();
+        return this;
     }
     
     public Set<Player> getPlayers() {
         return players;
     }
     
-    public Troupe withCharacter(PlayerCharacter playerCharacter) {
-        return new Troupe(id, name, setting, players, setWith(characters, playerCharacter), deleteTimestamp);
+    public Troupe withCharacter(PlayerCharacter character) {
+        character.inTrouope(this);
+        this.characters.add(character);
+        return this;
     }
     
-    public Troupe withoutCharacter(PlayerCharacter playerCharacter) {
-        return new Troupe(id, name, setting, players, setWithout(characters, playerCharacter), deleteTimestamp);
+    public Troupe withoutCharacter(PlayerCharacter character) {
+        character.leaveTrouope();
+        this.characters.remove(character);
+        return this;
     }
     
     public Set<PlayerCharacter> getCharacters() {
