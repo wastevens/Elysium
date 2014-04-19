@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 
-import com.dstevens.characters.attributes.PhysicalAttributeFocus;
+import com.dstevens.characters.attributes.PhysicalAttribute;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.players.*;
 
@@ -56,13 +56,13 @@ public class PlayerCharacterDaoTest {
         assertEquals(characterDao.findOne(character.getId()).getTroupe(), troupe);
         assertEquals(characterDao.findOne(character.getId()).getPlayer(), player);
         
-        PlayerCharacter savedCharacter = characterDao.save(character.withPhysicalAttribute(character.getPhysicalAttribute().withRating(7).withFocus(PhysicalAttributeFocus.STAMINA)));
+        PlayerCharacter savedCharacter = characterDao.save(character.withPhysicalAttribute(character.getPhysicalAttribute().withRating(7).withFocus(PhysicalAttribute.Focus.STAMINA)));
         
         PlayerCharacter foundCharacter = characterDao.findOne(character.getId());
         assertEquals(7, foundCharacter.getPhysicalAttribute().getRating());
-        assertEquals(set(PhysicalAttributeFocus.STAMINA), foundCharacter.getPhysicalAttribute().getFocuses());
-        assertEquals(set(PhysicalAttributeFocus.STAMINA), character.getPhysicalAttribute().getFocuses());
-        assertEquals(set(PhysicalAttributeFocus.STAMINA), savedCharacter.getPhysicalAttribute().getFocuses());
+        assertEquals(set(PhysicalAttribute.Focus.STAMINA), foundCharacter.getPhysicalAttribute().getFocuses());
+        assertEquals(set(PhysicalAttribute.Focus.STAMINA), character.getPhysicalAttribute().getFocuses());
+        assertEquals(set(PhysicalAttribute.Focus.STAMINA), savedCharacter.getPhysicalAttribute().getFocuses());
     }
     
 }

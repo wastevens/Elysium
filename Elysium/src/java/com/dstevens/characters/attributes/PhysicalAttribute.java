@@ -19,20 +19,20 @@ public class PhysicalAttribute {
     @ElementCollection
     @CollectionTable(name="PhysicalAttributeFocus", joinColumns=@JoinColumn(name="character_id"))
     @Column(name="focuses")
-    private final Set<PhysicalAttributeFocus> focuses;
+    private final Set<Focus> focuses;
     
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
     private PhysicalAttribute() {
-        this(null, 0, EnumSet.noneOf(PhysicalAttributeFocus.class));
+        this(null, 0, EnumSet.noneOf(Focus.class));
     }
     
     public PhysicalAttribute(String id) {
-        this(id, 0, EnumSet.noneOf(PhysicalAttributeFocus.class));
+        this(id, 0, EnumSet.noneOf(Focus.class));
     }
     
-    private PhysicalAttribute(String id, int rating, Set<PhysicalAttributeFocus> focuses) {
+    private PhysicalAttribute(String id, int rating, Set<Focus> focuses) {
         this.id = id;
         this.rating = rating;
         this.focuses = focuses;
@@ -47,16 +47,16 @@ public class PhysicalAttribute {
         return rating;
     }
 
-    public final Set<PhysicalAttributeFocus> getFocuses() {
+    public final Set<Focus> getFocuses() {
         return focuses;
     }
 
-    public PhysicalAttribute withFocus(PhysicalAttributeFocus focus) {
+    public PhysicalAttribute withFocus(Focus focus) {
         this.focuses.add(focus);
         return this;
     }
     
-    public PhysicalAttribute withoutFocus(PhysicalAttributeFocus focus) {
+    public PhysicalAttribute withoutFocus(Focus focus) {
         this.focuses.remove(focus);
         return this;
     }
@@ -78,6 +78,14 @@ public class PhysicalAttribute {
     @Override
     public String toString() {
         return ObjectExtensions.toStringFor(this);
+    }
+    
+    public static enum Focus {
+
+        STRENGTH,
+        DEXTERITY,
+        STAMINA;
+        
     }
     
 }
