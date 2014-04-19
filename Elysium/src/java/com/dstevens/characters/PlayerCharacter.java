@@ -2,10 +2,9 @@ package com.dstevens.characters;
 
 import java.util.*;
 import java.util.function.Function;
-
 import javax.persistence.*;
 
-import com.dstevens.characters.attributes.PhysicalAttribute;
+import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.players.*;
@@ -40,6 +39,14 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @PrimaryKeyJoinColumn
     private PhysicalAttribute physicalAttribute;
     
+    @OneToOne(cascade={CascadeType.ALL})
+    @PrimaryKeyJoinColumn
+    private MentalAttribute mentalAttribute;
+    
+    @OneToOne(cascade={CascadeType.ALL})
+    @PrimaryKeyJoinColumn
+    private SocialAttribute socialAttribute;
+    
     @Transient
     private List<CharacterSkill> skills;
 
@@ -47,24 +54,27 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
-        this(id, player, troupe, name, new PhysicalAttribute(id), null);
+        this(id, player, troupe, name, new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id), null);
     }
     
-    private PlayerCharacter(String id, Player player, Troupe troupe, String name, PhysicalAttribute physicalAttribute, Date deleteTimestamp) {
+    private PlayerCharacter(String id, Player player, Troupe troupe, String name, PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, Date deleteTimestamp) {
         this.id = id;
         this.player = player;
         this.troupe = troupe;
         this.name = name;
         this.physicalAttribute = physicalAttribute;
+        this.mentalAttribute = mentalAttribute;
+        this.socialAttribute = socialAttribute;
         this.deleteTimestamp = deleteTimestamp;
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, deleteTimestamp);
+        this.name = name;
+        return this;
     }
     
     public String getId() {
@@ -81,6 +91,24 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     public PlayerCharacter withPhysicalAttribute(PhysicalAttribute physicalAttribute) {
         this.physicalAttribute = physicalAttribute;
+        return this;
+    }
+    
+    public MentalAttribute getMentalAttribute() {
+        return mentalAttribute;
+    }
+    
+    public PlayerCharacter withMentalAttribute(MentalAttribute mentalAttribute) {
+        this.mentalAttribute = mentalAttribute;
+        return this;
+    }
+    
+    public SocialAttribute getSocialAttribute() {
+        return socialAttribute;
+    }
+    
+    public PlayerCharacter withSocialAttribute(SocialAttribute socialAttribute) {
+        this.socialAttribute = socialAttribute;
         return this;
     }
 
@@ -114,12 +142,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @Override
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, timestamp);
+        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, timestamp);
     }
 
     @Override
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, null);
+        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, null);
     }
     
     @Override

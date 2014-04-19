@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 
-import com.dstevens.characters.attributes.PhysicalAttribute;
+import com.dstevens.characters.attributes.*;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.players.*;
 
@@ -56,13 +56,17 @@ public class PlayerCharacterDaoTest {
         assertEquals(characterDao.findOne(character.getId()).getTroupe(), troupe);
         assertEquals(characterDao.findOne(character.getId()).getPlayer(), player);
         
-        PlayerCharacter savedCharacter = characterDao.save(character.withPhysicalAttribute(character.getPhysicalAttribute().withRating(7).withFocus(PhysicalAttribute.Focus.STAMINA)));
+        characterDao.save(character.withPhysicalAttribute(character.getPhysicalAttribute().withRating(7).withFocus(PhysicalAttribute.Focus.STAMINA)).
+                                    withMentalAttribute(character.getMentalAttribute().withRating(5).withFocus(MentalAttribute.Focus.INTELLIGENCE).withFocus(MentalAttribute.Focus.PERCEPTION)).
+                                    withSocialAttribute(character.getSocialAttribute().withRating(3).withFocus(SocialAttribute.Focus.CHARISMA).withFocus(SocialAttribute.Focus.APPEARANCE).withFocus(SocialAttribute.Focus.MANIPULATION)));
         
         PlayerCharacter foundCharacter = characterDao.findOne(character.getId());
         assertEquals(7, foundCharacter.getPhysicalAttribute().getRating());
         assertEquals(set(PhysicalAttribute.Focus.STAMINA), foundCharacter.getPhysicalAttribute().getFocuses());
-        assertEquals(set(PhysicalAttribute.Focus.STAMINA), character.getPhysicalAttribute().getFocuses());
-        assertEquals(set(PhysicalAttribute.Focus.STAMINA), savedCharacter.getPhysicalAttribute().getFocuses());
+        assertEquals(5, foundCharacter.getMentalAttribute().getRating());
+        assertEquals(set(MentalAttribute.Focus.INTELLIGENCE, MentalAttribute.Focus.PERCEPTION), foundCharacter.getMentalAttribute().getFocuses());
+        assertEquals(3, foundCharacter.getSocialAttribute().getRating());
+        assertEquals(set(SocialAttribute.Focus.CHARISMA, SocialAttribute.Focus.MANIPULATION, SocialAttribute.Focus.APPEARANCE), foundCharacter.getSocialAttribute().getFocuses());
     }
     
 }
