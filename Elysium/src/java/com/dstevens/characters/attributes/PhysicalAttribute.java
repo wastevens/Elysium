@@ -16,7 +16,9 @@ public class PhysicalAttribute {
     @Column(name="rating")
     private final int rating;
     
-    @Transient
+    @ElementCollection
+    @CollectionTable(name="PhysicalAttributeFocus", joinColumns=@JoinColumn(name="character_id"))
+    @Column(name="focuses")
     private final Set<PhysicalAttributeFocus> focuses;
     
     //Hibernate only
