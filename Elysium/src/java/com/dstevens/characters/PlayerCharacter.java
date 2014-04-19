@@ -51,11 +51,8 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @PrimaryKeyJoinColumn
     private SocialAttribute socialAttribute;
     
-    @ElementCollection
-    @CollectionTable(
-            name="CharacterSkills",
-            joinColumns=@JoinColumn(name="character_id")
-            )
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinColumn(name="character_id", referencedColumnName="id")
     private final Set<CharacterSkill> skills;
 
     //Hibernate only

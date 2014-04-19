@@ -1,7 +1,11 @@
 package com.dstevens.characters;
 
+import static com.dstevens.collections.Lists.*;
 import static com.dstevens.collections.Sets.set;
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 
@@ -16,6 +20,7 @@ public class PlayerCharacterDaoTest {
     
     private PlayerCharacterDao characterDao;
     private PlayerCharacterFactory characterFactory;
+    private CharacterSkillFactory skillFactory;
     
     private TroupeDao troupeDao;
     private TroupeFactory troupeFactory;
@@ -26,6 +31,7 @@ public class PlayerCharacterDaoTest {
     private Player player;
     private PlayerCharacter character;
 
+
     @Before
     public void setUp() {
         troupeDao       = APP_CONFIG.getBean(TroupeDao.class);
@@ -34,6 +40,7 @@ public class PlayerCharacterDaoTest {
         playerFactory    = APP_CONFIG.getBean(PlayerFactory.class);
         characterDao       = APP_CONFIG.getBean(PlayerCharacterDao.class);
         characterFactory    = APP_CONFIG.getBean(PlayerCharacterFactory.class);
+        skillFactory = APP_CONFIG.getBean(CharacterSkillFactory.class);
         
         troupe = troupeDao.save(troupeFactory.createTroupe("troupe name", Setting.ANARCH));
         player = playerDao.save(playerFactory.createPlayer("player name", "player email").joinTroupe(troupe));
@@ -72,11 +79,32 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testSaveWithSkills() {
-        characterDao.save(character.withSkill(new CharacterSkill(Skill.ATHLETICS, 2)).
-                withSkill(new CharacterSkill(Skill.CRAFTS, 3, "Pottery")));
-
+        CharacterSkill athletics = skillFactory.skillFor(character, Skill.ATHLETICS, 2);
+        CharacterSkill pottery = skillFactory.skillFor(character, Skill.CRAFTS, 3, "Pottery");
+        CharacterSkill painting = skillFactory.skillFor(character, Skill.CRAFTS, 4, "Painting");
+        CharacterSkill academics = skillFactory.skillFor(character, Skill.ACADEMICS, 5, set("Underwater Basket Weaving", "Ancient Greek Poems"));
+        
+        characterDao.save(character.withSkill(athletics).withSkill(pottery).withSkill(painting).withSkill(academics));
         PlayerCharacter characterWithSkills = characterDao.findOne(character.getId());
-        assertEquals(set(new CharacterSkill(Skill.ATHLETICS, 2), new CharacterSkill(Skill.CRAFTS, 3, "Pottery")), 
-                     characterWithSkills.getSkills());
+        assertEquals(set(athletics, pottery, painting, academics), characterWithSkills.getSkills());
+        
+        List<CharacterSkill> sortedSkills = sort(listFrom(character.getSkills()));
+        assertEquals(Skill.ACADEMICS, sortedSkills.get(0).getSkill());
+        assertEquals(5, sortedSkills.get(0).getRating());
+        assertEquals(set("Underwater Basket Weaving", "Ancient Greek Poems"), sortedSkills.get(0).getFocuses());
+        
+        assertEquals(Skill.ATHLETICS, sortedSkills.get(1).getSkill());
+        assertEquals(2, sortedSkills.get(1).getRating());
+        
+        assertEquals(Skill.CRAFTS, sortedSkills.get(2).getSkill());
+        assertEquals(4, sortedSkills.get(2).getRating());
+        assertEquals("Painting", sortedSkills.get(2).getSpecialization());
+        
+        assertEquals(Skill.CRAFTS, sortedSkills.get(3).getSkill());
+        assertEquals(3, sortedSkills.get(3).getRating());
+        assertEquals("Pottery", sortedSkills.get(3).getSpecialization());
+        
+        
+        
     }
 }

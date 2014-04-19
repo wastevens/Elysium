@@ -1,12 +1,23 @@
 package com.dstevens.characters.skills;
 
-import java.util.List;
+import static com.dstevens.collections.Sets.set;
+
+import java.util.*;
+import java.util.function.Function;
+
 import javax.persistence.*;
 
 import com.dstevens.utilities.ObjectExtensions;
 
-@Embeddable
-public class CharacterSkill {
+@Entity
+@Table(name="CharacterSkills")
+public class CharacterSkill implements Comparable<CharacterSkill> {
+    
+    @Id
+    private final String id;
+    
+    @Column(name="character_id")
+    private String characterId;
     
     @Column(name="skill")
     private final Skill skill;
@@ -17,46 +28,70 @@ public class CharacterSkill {
     @Column(name="rating")
     private int rating;
     
-    @Transient
-    private List<String> focuses;
-    
+    @ElementCollection
+    @CollectionTable(name="CharacterSkillFocuses")
+    @Column(name="focus")
+    private Set<String> focuses;
+
+    //Hibernate only
+    @SuppressWarnings("unused")
+    @Deprecated
     private CharacterSkill() {
-        this(null, 0, null);
+        this(null, null, null, 0, null, set());
     }
     
-    public CharacterSkill(Skill skill, int rating) {
-        this(skill, rating, null);
-    }
-    
-    public CharacterSkill(Skill skill, int rating, String specialization) {
+    public CharacterSkill(String id, String characterId, Skill skill, int rating, String specialization, Set<String> focuses) {
+        this.id = id;
+        this.characterId = characterId;
         this.skill = skill;
         this.rating = rating;
         this.specialization = specialization;
+        this.focuses = focuses;
     }
-    
+
+    public final String getId() {
+        return id;
+    }
+
+    public final Skill getSkill() {
+        return skill;
+    }
+
+    public final String getSpecialization() {
+        return specialization;
+    }
+
+    public final int getRating() {
+        return rating;
+    }
+
+    public final Set<String> getFocuses() {
+        return focuses;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof CharacterSkill) {
-            CharacterSkill that = (CharacterSkill) obj;
-            if (this.skill.equals(that.skill)) {
-                if (this.specialization == null && that.specialization == null) {
-                    return true;
-                }
-                if (this.specialization != null && that.specialization != null) {
-                    return this.specialization.equalsIgnoreCase(that.specialization);
-                }
-            }
+            CharacterSkill that = CharacterSkill.class.cast(obj);
+            return this.id.equals(that.id);
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return ObjectExtensions.hashCodeFor(this);
+        return id.hashCode();
     }
     
     @Override
     public String toString() {
         return ObjectExtensions.toStringFor(this);
+    }
+
+    @Override
+    public int compareTo(CharacterSkill that) {
+        Function<CharacterSkill, Skill> bySkill = ((CharacterSkill s )-> s.skill);
+        Function<CharacterSkill, String> bySpecialization = ((CharacterSkill s )-> s.specialization);
+        return Comparator.comparing(bySkill).thenComparing(Comparator.comparing(bySpecialization)).compare(this, that); 
     }
 }
