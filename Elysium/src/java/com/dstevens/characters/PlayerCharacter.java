@@ -1,5 +1,7 @@
 package com.dstevens.characters;
 
+import static com.dstevens.collections.Sets.set;
+
 import java.util.*;
 import java.util.function.Function;
 import javax.persistence.*;
@@ -12,6 +14,8 @@ import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="PlayerCharacter")
+@SecondaryTable(name="PlayerCharacterSkills",
+                pkJoinColumns=@PrimaryKeyJoinColumn(name="character_id"))
 public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<PlayerCharacter> {
 
     @Id
@@ -47,21 +51,25 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @PrimaryKeyJoinColumn
     private SocialAttribute socialAttribute;
     
-    @Transient
-    private List<CharacterSkill> skills;
+    @ElementCollection
+    @CollectionTable(
+            name="CharacterSkills",
+            joinColumns=@JoinColumn(name="character_id")
+            )
+    private final Set<CharacterSkill> skills;
 
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
-        this(id, player, troupe, name, new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id), null);
+        this(id, player, troupe, name, new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id), set(), null);
     }
     
-    private PlayerCharacter(String id, Player player, Troupe troupe, String name, PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, Date deleteTimestamp) {
+    private PlayerCharacter(String id, Player player, Troupe troupe, String name, PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, Set<CharacterSkill> skills, Date deleteTimestamp) {
         this.id = id;
         this.player = player;
         this.troupe = troupe;
@@ -70,6 +78,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.mentalAttribute = mentalAttribute;
         this.socialAttribute = socialAttribute;
         this.deleteTimestamp = deleteTimestamp;
+        this.skills = skills;
     }
     
     public PlayerCharacter withName(String name) {
@@ -112,6 +121,20 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
 
+    public Set<CharacterSkill> getSkills() {
+        return skills;
+    }
+    
+    public PlayerCharacter withSkill(CharacterSkill skill) {
+        this.skills.add(skill);
+        return this;
+    }
+    
+    public PlayerCharacter withoutSkill(CharacterSkill skill) {
+        this.skills.remove(skill);
+        return this;
+    }
+    
     public PlayerCharacter belongingToPlayer(Player player) {
         this.player = player;
         return this;
@@ -142,12 +165,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @Override
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, timestamp);
+        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, skills, timestamp);
     }
 
     @Override
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, null);
+        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, skills, null);
     }
     
     @Override

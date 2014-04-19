@@ -1,36 +1,62 @@
 package com.dstevens.characters.skills;
 
-import static com.dstevens.collections.Lists.list;
-
 import java.util.List;
+import javax.persistence.*;
 
+import com.dstevens.utilities.ObjectExtensions;
+
+@Embeddable
 public class CharacterSkill {
-
-    private static final String NO_SPECIALIZATION = null;
-    private static final List<String> NO_FOCUSES = list();
     
+    @Column(name="skill")
     private final Skill skill;
-    private final int rating;
-    private final String specialization;
-    private final List<String> focuses;
+    
+    @Column(name="specialization")
+    private String specialization;
+    
+    @Column(name="rating")
+    private int rating;
+    
+    @Transient
+    private List<String> focuses;
+    
+    private CharacterSkill() {
+        this(null, 0, null);
+    }
     
     public CharacterSkill(Skill skill, int rating) {
-        this(skill, rating, NO_SPECIALIZATION, NO_FOCUSES);
+        this(skill, rating, null);
     }
     
     public CharacterSkill(Skill skill, int rating, String specialization) {
-        this(skill, rating, specialization, NO_FOCUSES);
-    }
-    
-    public CharacterSkill(Skill skill, int rating, List<String> focuses) {
-        this(skill, rating, NO_SPECIALIZATION, focuses);
-    }
-
-    private CharacterSkill(Skill skill, int rating, String specialization, List<String> focuses) {
         this.skill = skill;
         this.rating = rating;
         this.specialization = specialization;
-        this.focuses = focuses;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof CharacterSkill) {
+            CharacterSkill that = (CharacterSkill) obj;
+            if (this.skill.equals(that.skill)) {
+                if (this.specialization == null && that.specialization == null) {
+                    return true;
+                }
+                if (this.specialization != null && that.specialization != null) {
+                    return this.specialization.equalsIgnoreCase(that.specialization);
+                }
+            }
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return ObjectExtensions.hashCodeFor(this);
+    }
+    
+    @Override
+    public String toString() {
+        return ObjectExtensions.toStringFor(this);
+    }
 }

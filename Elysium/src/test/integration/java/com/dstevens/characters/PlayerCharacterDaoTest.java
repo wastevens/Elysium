@@ -6,6 +6,7 @@ import org.junit.*;
 import org.springframework.context.ApplicationContext;
 
 import com.dstevens.characters.attributes.*;
+import com.dstevens.characters.skills.*;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.players.*;
 
@@ -67,6 +68,12 @@ public class PlayerCharacterDaoTest {
         assertEquals(set(MentalAttribute.Focus.INTELLIGENCE, MentalAttribute.Focus.PERCEPTION), foundCharacter.getMentalAttribute().getFocuses());
         assertEquals(3, foundCharacter.getSocialAttribute().getRating());
         assertEquals(set(SocialAttribute.Focus.CHARISMA, SocialAttribute.Focus.MANIPULATION, SocialAttribute.Focus.APPEARANCE), foundCharacter.getSocialAttribute().getFocuses());
+        
+        characterDao.save(foundCharacter.withSkill(new CharacterSkill(Skill.ATHLETICS, 2)).
+                                         withSkill(new CharacterSkill(Skill.CRAFTS, 3, "Pottery")));
+        
+        PlayerCharacter characterWithSkills = characterDao.findOne(character.getId());
+        assertEquals(set(new CharacterSkill(Skill.ATHLETICS, 2), new CharacterSkill(Skill.CRAFTS, 3, "Pottery")), characterWithSkills.getSkills());
     }
     
 }
