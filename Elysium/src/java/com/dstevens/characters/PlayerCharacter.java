@@ -7,6 +7,8 @@ import java.util.function.Function;
 import javax.persistence.*;
 
 import com.dstevens.characters.attributes.*;
+import com.dstevens.characters.backgrounds.CharacterBackground;
+import com.dstevens.characters.power.CharacterPower;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.players.*;
@@ -54,19 +56,33 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @OneToMany(cascade={CascadeType.ALL})
     @JoinColumn(name="character_id", referencedColumnName="id")
     private final Set<CharacterSkill> skills;
+    
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinColumn(name="character_id", referencedColumnName="id")
+    private final Set<CharacterBackground> backgrounds;
 
+    @ElementCollection
+    @CollectionTable(
+            name="CharacterPowers",
+            joinColumns=@JoinColumn(name="character_id")
+            )
+    private final Set<CharacterPower> powers;
+    
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
-        this(id, player, troupe, name, new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id), set(), null);
+        this(id, player, troupe, name, new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id), set(), set(), set(), null);
     }
     
-    private PlayerCharacter(String id, Player player, Troupe troupe, String name, PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, Set<CharacterSkill> skills, Date deleteTimestamp) {
+    private PlayerCharacter(String id, Player player, Troupe troupe, String name, 
+                            PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, 
+                            Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, Set<CharacterPower> powers, 
+                            Date deleteTimestamp) {
         this.id = id;
         this.player = player;
         this.troupe = troupe;
@@ -74,8 +90,10 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.physicalAttribute = physicalAttribute;
         this.mentalAttribute = mentalAttribute;
         this.socialAttribute = socialAttribute;
-        this.deleteTimestamp = deleteTimestamp;
         this.skills = skills;
+        this.backgrounds = backgrounds;
+        this.powers = powers;
+        this.deleteTimestamp = deleteTimestamp;
     }
     
     public PlayerCharacter withName(String name) {
@@ -131,6 +149,34 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.skills.remove(skill);
         return this;
     }
+
+    public Set<CharacterBackground> getBackgrounds() {
+        return backgrounds;
+    }
+    
+    public PlayerCharacter withBackground(CharacterBackground background) {
+        this.backgrounds.add(background);
+        return this;
+    }
+    
+    public PlayerCharacter withoutBackground(CharacterBackground background) {
+        this.backgrounds.remove(background);
+        return this;
+    }
+    
+    public Set<CharacterPower> getPowers() {
+        return powers;
+    }
+    
+    public PlayerCharacter withPower(CharacterPower power) {
+        this.powers.add(power);
+        return this;
+    }
+    
+    public PlayerCharacter withoutPower(CharacterPower power) {
+        this.powers.remove(power);
+        return this;
+    }
     
     public PlayerCharacter belongingToPlayer(Player player) {
         this.player = player;
@@ -162,12 +208,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @Override
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, skills, timestamp);
+        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, skills, backgrounds, powers, timestamp);
     }
 
     @Override
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, skills, null);
+        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, skills, backgrounds, powers, null);
     }
     
     @Override

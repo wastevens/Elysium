@@ -2,14 +2,17 @@ package com.dstevens.characters;
 
 import static com.dstevens.collections.Lists.*;
 import static com.dstevens.collections.Sets.set;
+import static com.dstevens.testing.Assertions.assertListsEqual;
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
+import java.util.*;
 
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 
 import com.dstevens.characters.attributes.*;
+import com.dstevens.characters.backgrounds.*;
+import com.dstevens.characters.power.*;
 import com.dstevens.characters.skills.*;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.players.*;
@@ -21,6 +24,7 @@ public class PlayerCharacterDaoTest {
     private PlayerCharacterDao characterDao;
     private PlayerCharacterFactory characterFactory;
     private CharacterSkillFactory skillFactory;
+    private CharacterBackgroundFactory backgroundFactory;
     
     private TroupeDao troupeDao;
     private TroupeFactory troupeFactory;
@@ -31,7 +35,6 @@ public class PlayerCharacterDaoTest {
     private Player player;
     private PlayerCharacter character;
 
-
     @Before
     public void setUp() {
         troupeDao       = APP_CONFIG.getBean(TroupeDao.class);
@@ -41,6 +44,7 @@ public class PlayerCharacterDaoTest {
         characterDao       = APP_CONFIG.getBean(PlayerCharacterDao.class);
         characterFactory    = APP_CONFIG.getBean(PlayerCharacterFactory.class);
         skillFactory = APP_CONFIG.getBean(CharacterSkillFactory.class);
+        backgroundFactory = APP_CONFIG.getBean(CharacterBackgroundFactory.class);
         
         troupe = troupeDao.save(troupeFactory.createTroupe("troupe name", Setting.ANARCH));
         player = playerDao.save(playerFactory.createPlayer("player name", "player email").joinTroupe(troupe));
@@ -86,25 +90,63 @@ public class PlayerCharacterDaoTest {
         
         characterDao.save(character.withSkill(athletics).withSkill(pottery).withSkill(painting).withSkill(academics));
         PlayerCharacter characterWithSkills = characterDao.findOne(character.getId());
-        assertEquals(set(athletics, pottery, painting, academics), characterWithSkills.getSkills());
         
-        List<CharacterSkill> sortedSkills = sort(listFrom(character.getSkills()));
-        assertEquals(Skill.ACADEMICS, sortedSkills.get(0).getSkill());
-        assertEquals(5, sortedSkills.get(0).getRating());
-        assertEquals(set("Underwater Basket Weaving", "Ancient Greek Poems"), sortedSkills.get(0).getFocuses());
+        List<CharacterSkill> sortedExpected = sort(listFrom(set(athletics, pottery, painting, academics)));
+        List<CharacterSkill> sortedActual = sort(listFrom(characterWithSkills.getSkills()));
+        assertListsEqual(sortedExpected, sortedActual);
         
-        assertEquals(Skill.ATHLETICS, sortedSkills.get(1).getSkill());
-        assertEquals(2, sortedSkills.get(1).getRating());
+        for (int i=0;i<sortedExpected.size();i++) {
+            assertSkillValuesEqual(sortedExpected.get(i), sortedActual.get(i));
+        }
+    }
+    
+    private void assertSkillValuesEqual(CharacterSkill expected, CharacterSkill actual) {
+        assertEquals(expected.getSkill(), actual.getSkill());
+        assertEquals(expected.getFocuses(), actual.getFocuses());
+        assertEquals(expected.getRating(), actual.getRating());
+        assertEquals(expected.getSpecialization(), actual.getSpecialization());
+    }
+    
+    @Test
+    public void testSaveWithBackground() {
+        CharacterBackground resources = backgroundFactory.backgroundFor(character, Background.RESOURCES, 2);
+        CharacterBackground contacts = backgroundFactory.backgroundFor(character, Background.CONTACTS, 3, set("Bob", "Joe"));
+        CharacterBackground alternateIdentity1 = backgroundFactory.backgroundFor(character, Background.ALTERNATE_IDENTITY, 1, "Jimmy");
+        CharacterBackground alternateIdentity2 = backgroundFactory.backgroundFor(character, Background.ALTERNATE_IDENTITY, 1, "Johny");
+        CharacterBackground haven1 = backgroundFactory.backgroundFor(character, Background.HAVEN, 2, "That place", set("Location", "Luxury"));
+        CharacterBackground haven2 = backgroundFactory.backgroundFor(character, Background.HAVEN, 2, "That other place", set("Location", "Security"));
         
-        assertEquals(Skill.CRAFTS, sortedSkills.get(2).getSkill());
-        assertEquals(4, sortedSkills.get(2).getRating());
-        assertEquals("Painting", sortedSkills.get(2).getSpecialization());
         
-        assertEquals(Skill.CRAFTS, sortedSkills.get(3).getSkill());
-        assertEquals(3, sortedSkills.get(3).getRating());
-        assertEquals("Pottery", sortedSkills.get(3).getSpecialization());
+        characterDao.save(character.withBackground(haven2).
+                                    withBackground(haven1).
+                                    withBackground(resources).
+                                    withBackground(alternateIdentity2).
+                                    withBackground(contacts).
+                                    withBackground(alternateIdentity1));
+        PlayerCharacter characterWithBackgrounds = characterDao.findOne(character.getId());
         
+        List<CharacterBackground> sortedExpected = sort(listFrom(set(resources, contacts, alternateIdentity1, alternateIdentity2, haven1, haven2)));
+        List<CharacterBackground> sortedActual = sort(listFrom(characterWithBackgrounds.getBackgrounds()));
+        assertListsEqual(sortedExpected, sortedActual);
+        for (int i=0;i<sortedExpected.size();i++) {
+            assertBackgroundValuesEqual(sortedExpected.get(i), sortedActual.get(i));
+        }
+    }
+    
+    private void assertBackgroundValuesEqual(CharacterBackground expected, CharacterBackground actual) {
+        assertEquals(expected.getBackground(), actual.getBackground());
+        assertEquals(expected.getFocuses(), actual.getFocuses());
+        assertEquals(expected.getRating(), actual.getRating());
+        assertEquals(expected.getSpecialization(), actual.getSpecialization());
+    }
+    
+    @Test
+    public void testSaveWithPowers() {
+        characterDao.save(character.withPower(new CharacterPower(Power.ANIMALISM, 2)).withPower(new CharacterPower(Power.QUIETUS, 4)));
         
+        PlayerCharacter characterWithPowers = characterDao.findOne(character.getId());
         
+        assertEquals(set(new CharacterPower(Power.ANIMALISM, 2), new CharacterPower(Power.QUIETUS, 4)),
+                     characterWithPowers.getPowers());
     }
 }

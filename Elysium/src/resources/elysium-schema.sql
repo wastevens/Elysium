@@ -1,3 +1,6 @@
+alter table CharacterBackgroundFocuses drop foreign key FK_4qcem68m5nd0oorn5wl7026lv;
+alter table CharacterBackgrounds drop foreign key FK_qpb6qx3ftrx3cvwq58pohfla9;
+alter table CharacterPowers drop foreign key FK_46ali60b7rrspd27exibyvs74;
 alter table CharacterSkillFocuses drop foreign key FK_csdgm0guwoth8oipoocrveid5;
 alter table CharacterSkills drop foreign key FK_5kfiec2mlewwqsadpa7hu2tkv;
 alter table MentalAttributeFocus drop foreign key FK_38t6simowsb7yh5tjrneuou59;
@@ -11,6 +14,9 @@ alter table TroupePlayerCharacters drop foreign key FK_7gtgrvxyhpg9a16a8mxtn6t4j
 alter table TroupePlayers drop foreign key FK_jp8wcfbseex1hvlwwm8ig7y2i;
 alter table TroupePlayers drop foreign key FK_hqwwgbic7k81k6tmmowmmsu6f;
 drop table if exists AuditEvent;
+drop table if exists CharacterBackgroundFocuses;
+drop table if exists CharacterBackgrounds;
+drop table if exists CharacterPowers;
 drop table if exists CharacterSkillFocuses;
 drop table if exists CharacterSkills;
 drop table if exists MentalAttribute;
@@ -27,6 +33,9 @@ drop table if exists Troupe;
 drop table if exists TroupePlayerCharacters;
 drop table if exists TroupePlayers;
 create table AuditEvent (id varchar(255) not null, audit_message varchar(255), audited_type varchar(255), audited_id varchar(255), timestamp datetime, primary key (id));
+create table CharacterBackgroundFocuses (CharacterBackground_id varchar(255) not null, focus varchar(255));
+create table CharacterBackgrounds (id varchar(255) not null, background integer, character_id varchar(255), rating integer, specialization varchar(255), primary key (id));
+create table CharacterPowers (character_id varchar(255) not null, power integer, rating integer not null, primary key (character_id, rating));
 create table CharacterSkillFocuses (CharacterSkill_id varchar(255) not null, focus varchar(255));
 create table CharacterSkills (id varchar(255) not null, character_id varchar(255), rating integer, skill integer, specialization varchar(255), primary key (id));
 create table MentalAttribute (character_id varchar(255) not null, rating integer, primary key (character_id));
@@ -44,6 +53,9 @@ create table TroupePlayerCharacters (troupe_id varchar(255), character_id varcha
 create table TroupePlayers (player_id varchar(255) not null, troupe_id varchar(255) not null, primary key (troupe_id, player_id));
 alter table PlayerPlayerCharacters add constraint UK_pen5pjh79qieycqn88f8f0oku  unique (character_id);
 alter table TroupePlayerCharacters add constraint UK_7gtgrvxyhpg9a16a8mxtn6t4j  unique (character_id);
+alter table CharacterBackgroundFocuses add constraint FK_4qcem68m5nd0oorn5wl7026lv foreign key (CharacterBackground_id) references CharacterBackgrounds (id);
+alter table CharacterBackgrounds add constraint FK_qpb6qx3ftrx3cvwq58pohfla9 foreign key (character_id) references PlayerCharacter (id);
+alter table CharacterPowers add constraint FK_46ali60b7rrspd27exibyvs74 foreign key (character_id) references PlayerCharacter (id);
 alter table CharacterSkillFocuses add constraint FK_csdgm0guwoth8oipoocrveid5 foreign key (CharacterSkill_id) references CharacterSkills (id);
 alter table CharacterSkills add constraint FK_5kfiec2mlewwqsadpa7hu2tkv foreign key (character_id) references PlayerCharacter (id);
 alter table MentalAttributeFocus add constraint FK_38t6simowsb7yh5tjrneuou59 foreign key (character_id) references MentalAttribute (character_id);
