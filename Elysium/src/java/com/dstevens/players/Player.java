@@ -77,7 +77,7 @@ public class Player implements Auditable<Player>, Comparable<Player> {
     }
 
     public final void addCharacter(PlayerCharacter character) {
-        character.ofPlayer(this);
+        character.belongingToPlayer(this);
         this.characters.add(character);
     }
     

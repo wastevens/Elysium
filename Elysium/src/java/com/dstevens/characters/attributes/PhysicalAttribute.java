@@ -14,7 +14,7 @@ public class PhysicalAttribute {
     private final String id;
     
     @Column(name="rating")
-    private final int rating;
+    private int rating;
     
     @ElementCollection
     @CollectionTable(name="PhysicalAttributeFocus", joinColumns=@JoinColumn(name="character_id"))
@@ -37,15 +37,42 @@ public class PhysicalAttribute {
         this.rating = rating;
         this.focuses = focuses;
     }
+
+    public PhysicalAttribute withRating(int rating) {
+        this.rating = rating;
+        return this;
+    }
+    
+    public final int getRating() {
+        return rating;
+    }
+
+    public final Set<PhysicalAttributeFocus> getFocuses() {
+        return focuses;
+    }
+
+    public PhysicalAttribute withFocus(PhysicalAttributeFocus focus) {
+        this.focuses.add(focus);
+        return this;
+    }
+    
+    public PhysicalAttribute withoutFocus(PhysicalAttributeFocus focus) {
+        this.focuses.remove(focus);
+        return this;
+    }
     
     @Override
-    public boolean equals(Object that) {
-        return ObjectExtensions.equals(this, that);
+    public boolean equals(Object obj) {
+        if (obj instanceof PhysicalAttribute) {
+            PhysicalAttribute that = PhysicalAttribute.class.cast(obj);
+            return this.id.equals(that.id);
+        }
+        return false;
     }
     
     @Override
     public int hashCode() {
-        return ObjectExtensions.hashCodeFor(this);
+        return id.hashCode();
     }
     
     @Override

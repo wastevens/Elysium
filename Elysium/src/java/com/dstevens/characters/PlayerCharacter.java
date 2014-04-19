@@ -17,6 +17,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @Id
     private final String id;
     
+    @Column(name="deleted_at")
+    private final Date deleteTimestamp;
+    
     @OneToOne
     @JoinColumn(name="player_id")
     private Player player;
@@ -25,15 +28,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @JoinColumn(name="troupe_id")
     private Troupe troupe;
     
-    @Column(name="deleted_at")
-    private final Date deleteTimestamp;
-    
     @Column(name="name")
-    private final String name;
+    private String name;
     
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade={CascadeType.ALL})
     @PrimaryKeyJoinColumn
-    private final PhysicalAttribute physicalAttribute;
+    private PhysicalAttribute physicalAttribute;
     
     @Transient
     private List<CharacterSkill> skills;
@@ -70,17 +70,27 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return name;
     }
 
-    public void ofPlayer(Player player) {
+    public PhysicalAttribute getPhysicalAttribute() {
+        return physicalAttribute;
+    }
+    
+    public PlayerCharacter withPhysicalAttribute(PhysicalAttribute physicalAttribute) {
+        this.physicalAttribute = physicalAttribute;
+        return this;
+    }
+
+    public PlayerCharacter belongingToPlayer(Player player) {
         this.player = player;
+        return this;
     }
     
     public Player getPlayer() {
         return player;
     }
-    
 
-    public void inTrouope(Troupe troupe) {
+    public PlayerCharacter inTrouope(Troupe troupe) {
         this.troupe = troupe;
+        return this;
     }
     
     public Troupe getTroupe() {
