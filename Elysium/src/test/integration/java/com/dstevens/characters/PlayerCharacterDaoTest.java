@@ -143,12 +143,18 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testSaveWithPowers() {
-        characterDao.save(character.withPower(new CharacterPower(Power.ANIMALISM, 2)).withPower(new CharacterPower(Power.QUIETUS, 4)));
+        characterDao.save(character.withPower(new CharacterPower(Power.ANIMALISM, 2)).
+                                    withPower(new CharacterPower(Power.QUIETUS, 4)).
+                                    withElderPower(ElderPower.ACID_BLOOD).
+                                    withElderPower(ElderPower.CRIMSON_FURY));
+        
         
         PlayerCharacter characterWithPowers = characterDao.findOne(character.getId());
         
         assertEquals(set(new CharacterPower(Power.ANIMALISM, 2), new CharacterPower(Power.QUIETUS, 4)),
                      characterWithPowers.getPowers());
+        assertEquals(set(ElderPower.ACID_BLOOD, ElderPower.CRIMSON_FURY),
+                     characterWithPowers.getElderPowers());
     }
     
     @Test

@@ -9,7 +9,7 @@ import javax.persistence.*;
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.magic.*;
-import com.dstevens.characters.power.CharacterPower;
+import com.dstevens.characters.power.*;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.players.*;
@@ -68,6 +68,11 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private final Set<CharacterPower> powers;
     
     @ElementCollection
+    @CollectionTable(name="CharacterElderPowers")
+    @Column(name="neromantic_ritual")
+    private final Set<ElderPower> elderPowers;
+    
+    @ElementCollection
     @CollectionTable(
             name="CharacterThamaturgicalPaths",
             joinColumns=@JoinColumn(name="character_id")
@@ -101,13 +106,13 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
         this(id, player, troupe, name, 
              new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id), 
-             set(), set(), set(),
+             set(), set(), set(), set(),
              set(), null, set(),
              set(), null, set(),
              null);
@@ -115,7 +120,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     private PlayerCharacter(String id, Player player, Troupe troupe, String name, 
                             PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, 
-                            Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, Set<CharacterPower> powers, 
+                            Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, Set<CharacterPower> powers, Set<ElderPower> elderPowers, 
                             Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, Set<ThaumaturgicalRitual> thaumaturgicalRituals,
                             Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals,
                             Date deleteTimestamp) {
@@ -129,6 +134,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.skills = skills;
         this.backgrounds = backgrounds;
         this.powers = powers;
+        this.elderPowers = elderPowers;
         this.thaumaturgicalPaths = thaumaturgicalPaths;
         this.primaryThaumaturgicalPath = primaryThaumaturgicalPath;
         this.thaumaturgicalRituals = thaumaturgicalRituals;
@@ -217,6 +223,20 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     public PlayerCharacter withoutPower(CharacterPower power) {
         this.powers.remove(power);
+        return this;
+    }
+    
+    public Set<ElderPower> getElderPowers() {
+        return elderPowers;
+    }
+    
+    public PlayerCharacter withElderPower(ElderPower power) {
+        this.elderPowers.add(power);
+        return this;
+    }
+    
+    public PlayerCharacter withoutElderPower(ElderPower power) {
+        this.elderPowers.remove(power);
         return this;
     }
     
@@ -326,7 +346,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     public PlayerCharacter delete(Date timestamp) {
         return new PlayerCharacter(id, player, troupe, name, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
-                                   skills, backgrounds, powers, 
+                                   skills, backgrounds, powers, elderPowers,
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
                                    timestamp);
@@ -336,7 +356,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     public PlayerCharacter undelete() {
         return new PlayerCharacter(id, player, troupe, name, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
-                                   skills, backgrounds, powers, 
+                                   skills, backgrounds, powers, elderPowers,
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
                                    null);

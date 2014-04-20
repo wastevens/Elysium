@@ -1,0 +1,78 @@
+package com.dstevens.characters.power;
+
+public enum ElderPower {
+
+    CRIMSON_FURY(Power.ANIMALISM),
+    INTIMIDATE_THE_BEAST(Power.ANIMALISM),
+    
+    CLAIRVOYANCE(Power.AUSPEX),
+    PSYCHIC_ASSAULT(Power.AUSPEX),
+    
+    QUICKNESS(Power.CELERITY),
+    PROJECTILE(Power.CELERITY),
+    
+    SHARED_NIGHTMARE(Power.CHIMERSTRY),
+    ARMY_OF_APPARITIONS(Power.CHIMERSTRY),
+    
+    INFERNAL_COMPACT(Power.DAIMOINON),
+    
+    LINGERING_MALAISE(Power.DEMENTATION),
+    DENY(Power.DEMENTATION),
+    
+    MASS_MANIPULATION(Power.DOMINATE),
+    TYRANTS_GAZE(Power.DOMINATE),
+    
+    PERSONAL_ARMOR(Power.FORTITUDE),
+    REPAIR_THE_UNDEAD_FLESH(Power.FORTITUDE),
+    
+    SHATTERING_CRESCENDO(Power.MELPOMINEE),
+    PERSISTENT_ECHO(Power.MELPOMINEE),
+    
+    STEAL_THE_MIND(Power.MYTHERCERIA),
+    
+    UNBURDEN_THE_BEASTIAL_SOUL(Power.OBEAH),
+    
+    CACHE(Power.OBFUSCATE),
+    PHANTOM_HUNTER(Power.OBFUSCATE),
+    
+    SHADOWSTEP(Power.OBTENEBRATION),
+    SHADOW_TWIN(Power.OBTENEBRATION),
+    
+    FORCE(Power.POTENCE),
+    FLICK(Power.POTENCE),
+    
+    PARALYZING_GLANCE(Power.PRESENCE),
+    LOVE(Power.PRESENCE),
+    
+    EARTH_CONTROL(Power.PROTEAN),
+    SHAPE_MASTERY(Power.PROTEAN),
+    
+    BLOOD_SWEAT(Power.QUIETUS),
+    BAALS_BLOODY_TALONS(Power.QUIETUS),
+    
+    SEED_OF_CORRUPTION(Power.SERPENTIS),
+    DIVINE_IMAGE(Power.SERPENTIS),
+    
+    KISS_OF_LACHESIS(Power.TEMPORSIS),
+    
+    CORRUPT_THE_FLESH(Power.THANATOSIS),
+    
+    FIERY_AGONY(Power.VALEREN),
+    
+    BREATH_OF_THE_DRAGON(Power.VICISSITUDE),
+    ACID_BLOOD(Power.VICISSITUDE),
+    
+    BULWARK(Power.VISCERATIKA),
+    FURNACE_OF_STEEL(Power.VISCERATIKA);
+    
+    private Power power;
+
+    public Power getPower() {
+        return power;
+    }
+    
+    private ElderPower(Power power) {
+        this.power = power;
+    }
+    
+}
