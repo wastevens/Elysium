@@ -5,13 +5,14 @@ import static com.dstevens.collections.Sets.set;
 import static com.dstevens.testing.Assertions.assertListsEqual;
 import static org.junit.Assert.assertEquals;
 
-import java.util.*;
+import java.util.List;
 
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.*;
+import com.dstevens.characters.magic.*;
 import com.dstevens.characters.power.*;
 import com.dstevens.characters.skills.*;
 import com.dstevens.configuration.ApplicationConfiguration;
@@ -148,5 +149,18 @@ public class PlayerCharacterDaoTest {
         
         assertEquals(set(new CharacterPower(Power.ANIMALISM, 2), new CharacterPower(Power.QUIETUS, 4)),
                      characterWithPowers.getPowers());
+    }
+    
+    @Test
+    public void testSaveWithThaumaturgy() {
+        characterDao.save(character.withThaumaturgicalPath(new CharacterThaumaturgy(Thaumaturgy.LURE_OF_FLAMES, 2)).
+                                    withThaumaturgicalPath(new CharacterThaumaturgy(Thaumaturgy.PATH_OF_CONJURING, 3)).
+                                    setPrimaryThaumaturgicalPath(Thaumaturgy.PATH_OF_CONJURING));
+        
+        PlayerCharacter characterWithPowers = characterDao.findOne(character.getId());
+        
+        assertEquals(set(new CharacterThaumaturgy(Thaumaturgy.LURE_OF_FLAMES, 2), new CharacterThaumaturgy(Thaumaturgy.PATH_OF_CONJURING, 3)),
+                     characterWithPowers.getThaumaturgicalPaths());
+        assertEquals(Thaumaturgy.PATH_OF_CONJURING, characterWithPowers.getPrimaryThaumaturgicalPath());
     }
 }

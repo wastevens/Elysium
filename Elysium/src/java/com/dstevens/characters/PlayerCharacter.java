@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.CharacterBackground;
+import com.dstevens.characters.magic.*;
 import com.dstevens.characters.power.CharacterPower;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.persistence.auditing.Auditable;
@@ -66,20 +67,34 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
             )
     private final Set<CharacterPower> powers;
     
+    @ElementCollection
+    @CollectionTable(
+            name="CharacterThamaturgy",
+            joinColumns=@JoinColumn(name="character_id")
+            )
+    private final Set<CharacterThaumaturgy> thaumaturgicalPaths;
+    
+    private Thaumaturgy primaryThaumaturgicalPath;
+    
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
-        this(id, player, troupe, name, new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id), set(), set(), set(), null);
+        this(id, player, troupe, name, 
+             new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id), 
+             set(), set(), set(),
+             set(), null,
+             null);
     }
     
     private PlayerCharacter(String id, Player player, Troupe troupe, String name, 
                             PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, 
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, Set<CharacterPower> powers, 
+                            Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath,
                             Date deleteTimestamp) {
         this.id = id;
         this.player = player;
@@ -91,6 +106,8 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.skills = skills;
         this.backgrounds = backgrounds;
         this.powers = powers;
+        this.thaumaturgicalPaths = thaumaturgicalPaths;
+        this.primaryThaumaturgicalPath = primaryThaumaturgicalPath;
         this.deleteTimestamp = deleteTimestamp;
     }
     
@@ -176,6 +193,29 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
+    public Set<CharacterThaumaturgy> getThaumaturgicalPaths() {
+        return thaumaturgicalPaths;
+    }
+    
+    public PlayerCharacter withThaumaturgicalPath(CharacterThaumaturgy path) {
+        this.thaumaturgicalPaths.add(path);
+        return this;
+    }
+    
+    public PlayerCharacter withoutThaumaturgicalPath(CharacterThaumaturgy path) {
+        this.thaumaturgicalPaths.remove(path);
+        return this;
+    }
+    
+    public Thaumaturgy getPrimaryThaumaturgicalPath() {
+        return primaryThaumaturgicalPath;
+    }
+    
+    public PlayerCharacter setPrimaryThaumaturgicalPath(Thaumaturgy path) {
+        this.primaryThaumaturgicalPath = path;
+        return this;
+    }
+    
     public PlayerCharacter belongingToPlayer(Player player) {
         this.player = player;
         return this;
@@ -206,12 +246,20 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @Override
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, skills, backgrounds, powers, timestamp);
+        return new PlayerCharacter(id, player, troupe, name, 
+                                   physicalAttribute, mentalAttribute, socialAttribute, 
+                                   skills, backgrounds, powers, 
+                                   thaumaturgicalPaths, primaryThaumaturgicalPath, 
+                                   timestamp);
     }
 
     @Override
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, player, troupe, name, physicalAttribute, mentalAttribute, socialAttribute, skills, backgrounds, powers, null);
+        return new PlayerCharacter(id, player, troupe, name, 
+                                   physicalAttribute, mentalAttribute, socialAttribute, 
+                                   skills, backgrounds, powers, 
+                                   thaumaturgicalPaths, primaryThaumaturgicalPath, 
+                                   null);
     }
     
     @Override
