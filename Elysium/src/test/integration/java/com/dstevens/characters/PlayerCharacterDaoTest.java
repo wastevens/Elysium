@@ -143,8 +143,8 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testSaveWithPowers() {
-        characterDao.save(character.withPower(new CharacterPower(Power.ANIMALISM, 2)).
-                                    withPower(new CharacterPower(Power.QUIETUS, 4)).
+        characterDao.save(character.withDiscipline(new CharacterDiscipline(Discipline.ANIMALISM, 2)).
+                                    withDiscipline(new CharacterDiscipline(Discipline.QUIETUS, 4)).
                                     withElderPower(ElderPower.ACID_BLOOD).
                                     withElderPower(ElderPower.CRIMSON_FURY).
                                     withTechnique(Technique.AN_DA_SHEALLADH).
@@ -153,8 +153,8 @@ public class PlayerCharacterDaoTest {
         
         PlayerCharacter characterWithPowers = characterDao.findOne(character.getId());
         
-        assertEquals(set(new CharacterPower(Power.ANIMALISM, 2), new CharacterPower(Power.QUIETUS, 4)),
-                     characterWithPowers.getPowers());
+        assertEquals(set(new CharacterDiscipline(Discipline.ANIMALISM, 2), new CharacterDiscipline(Discipline.QUIETUS, 4)),
+                     characterWithPowers.getDisciplines());
         assertEquals(set(ElderPower.ACID_BLOOD, ElderPower.CRIMSON_FURY),
                      characterWithPowers.getElderPowers());
         assertEquals(set(Technique.AN_DA_SHEALLADH, Technique.FEARFUL_BLOW),

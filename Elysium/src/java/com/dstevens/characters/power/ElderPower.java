@@ -2,76 +2,76 @@ package com.dstevens.characters.power;
 
 public enum ElderPower {
 
-    CRIMSON_FURY(Power.ANIMALISM),
-    INTIMIDATE_THE_BEAST(Power.ANIMALISM),
+    CRIMSON_FURY(Discipline.ANIMALISM),
+    INTIMIDATE_THE_BEAST(Discipline.ANIMALISM),
     
-    CLAIRVOYANCE(Power.AUSPEX),
-    PSYCHIC_ASSAULT(Power.AUSPEX),
+    CLAIRVOYANCE(Discipline.AUSPEX),
+    PSYCHIC_ASSAULT(Discipline.AUSPEX),
     
-    QUICKNESS(Power.CELERITY),
-    PROJECTILE(Power.CELERITY),
+    QUICKNESS(Discipline.CELERITY),
+    PROJECTILE(Discipline.CELERITY),
     
-    SHARED_NIGHTMARE(Power.CHIMERSTRY),
-    ARMY_OF_APPARITIONS(Power.CHIMERSTRY),
+    SHARED_NIGHTMARE(Discipline.CHIMERSTRY),
+    ARMY_OF_APPARITIONS(Discipline.CHIMERSTRY),
     
-    INFERNAL_COMPACT(Power.DAIMOINON),
+    INFERNAL_COMPACT(Discipline.DAIMOINON),
     
-    LINGERING_MALAISE(Power.DEMENTATION),
-    DENY(Power.DEMENTATION),
+    LINGERING_MALAISE(Discipline.DEMENTATION),
+    DENY(Discipline.DEMENTATION),
     
-    MASS_MANIPULATION(Power.DOMINATE),
-    TYRANTS_GAZE(Power.DOMINATE),
+    MASS_MANIPULATION(Discipline.DOMINATE),
+    TYRANTS_GAZE(Discipline.DOMINATE),
     
-    PERSONAL_ARMOR(Power.FORTITUDE),
-    REPAIR_THE_UNDEAD_FLESH(Power.FORTITUDE),
+    PERSONAL_ARMOR(Discipline.FORTITUDE),
+    REPAIR_THE_UNDEAD_FLESH(Discipline.FORTITUDE),
     
-    SHATTERING_CRESCENDO(Power.MELPOMINEE),
-    PERSISTENT_ECHO(Power.MELPOMINEE),
+    SHATTERING_CRESCENDO(Discipline.MELPOMINEE),
+    PERSISTENT_ECHO(Discipline.MELPOMINEE),
     
-    STEAL_THE_MIND(Power.MYTHERCERIA),
+    STEAL_THE_MIND(Discipline.MYTHERCERIA),
     
-    UNBURDEN_THE_BEASTIAL_SOUL(Power.OBEAH),
+    UNBURDEN_THE_BEASTIAL_SOUL(Discipline.OBEAH),
     
-    CACHE(Power.OBFUSCATE),
-    PHANTOM_HUNTER(Power.OBFUSCATE),
+    CACHE(Discipline.OBFUSCATE),
+    PHANTOM_HUNTER(Discipline.OBFUSCATE),
     
-    SHADOWSTEP(Power.OBTENEBRATION),
-    SHADOW_TWIN(Power.OBTENEBRATION),
+    SHADOWSTEP(Discipline.OBTENEBRATION),
+    SHADOW_TWIN(Discipline.OBTENEBRATION),
     
-    FORCE(Power.POTENCE),
-    FLICK(Power.POTENCE),
+    FORCE(Discipline.POTENCE),
+    FLICK(Discipline.POTENCE),
     
-    PARALYZING_GLANCE(Power.PRESENCE),
-    LOVE(Power.PRESENCE),
+    PARALYZING_GLANCE(Discipline.PRESENCE),
+    LOVE(Discipline.PRESENCE),
     
-    EARTH_CONTROL(Power.PROTEAN),
-    SHAPE_MASTERY(Power.PROTEAN),
+    EARTH_CONTROL(Discipline.PROTEAN),
+    SHAPE_MASTERY(Discipline.PROTEAN),
     
-    BLOOD_SWEAT(Power.QUIETUS),
-    BAALS_BLOODY_TALONS(Power.QUIETUS),
+    BLOOD_SWEAT(Discipline.QUIETUS),
+    BAALS_BLOODY_TALONS(Discipline.QUIETUS),
     
-    SEED_OF_CORRUPTION(Power.SERPENTIS),
-    DIVINE_IMAGE(Power.SERPENTIS),
+    SEED_OF_CORRUPTION(Discipline.SERPENTIS),
+    DIVINE_IMAGE(Discipline.SERPENTIS),
     
-    KISS_OF_LACHESIS(Power.TEMPORSIS),
+    KISS_OF_LACHESIS(Discipline.TEMPORSIS),
     
-    CORRUPT_THE_FLESH(Power.THANATOSIS),
+    CORRUPT_THE_FLESH(Discipline.THANATOSIS),
     
-    FIERY_AGONY(Power.VALEREN),
+    FIERY_AGONY(Discipline.VALEREN),
     
-    BREATH_OF_THE_DRAGON(Power.VICISSITUDE),
-    ACID_BLOOD(Power.VICISSITUDE),
+    BREATH_OF_THE_DRAGON(Discipline.VICISSITUDE),
+    ACID_BLOOD(Discipline.VICISSITUDE),
     
-    BULWARK(Power.VISCERATIKA),
-    FURNACE_OF_STEEL(Power.VISCERATIKA);
+    BULWARK(Discipline.VISCERATIKA),
+    FURNACE_OF_STEEL(Discipline.VISCERATIKA);
     
-    private Power power;
+    private Discipline power;
 
-    public Power getPower() {
+    public Discipline getPower() {
         return power;
     }
     
-    private ElderPower(Power power) {
+    private ElderPower(Discipline power) {
         this.power = power;
     }
     

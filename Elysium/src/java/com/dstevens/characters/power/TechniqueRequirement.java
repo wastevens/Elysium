@@ -4,19 +4,19 @@ import com.dstevens.utilities.ObjectExtensions;
 
 public class TechniqueRequirement {
 
-    private final Power power;
+    private final Discipline power;
     private final int rating;
 
-    private TechniqueRequirement(Power power, int rating) {
+    private TechniqueRequirement(Discipline power, int rating) {
         this.power = power;
         this.rating = rating;
     }
 
-    public static TechniqueRequirement required(Power power, int rating) {
+    public static TechniqueRequirement required(Discipline power, int rating) {
         return new TechniqueRequirement(power, rating);
     }
     
-    public final Power getPower() {
+    public final Discipline getPower() {
         return power;
     }
 

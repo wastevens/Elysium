@@ -62,16 +62,16 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
 
     @ElementCollection
     @CollectionTable(
-            name="CharacterPowers",
+            name="CharacterDisciplines",
             joinColumns=@JoinColumn(name="character_id")
             )
-    private final Set<CharacterPower> powers;
+    private final Set<CharacterDiscipline> disciplines;
     
 //    @ElementCollection
 //    @CollectionTable(name="InClanDisciplines")
 //    @Column(name="in_clan_discipline")
     @Transient
-    private final Set<Power> inClanDisciplines;
+    private final Set<Discipline> inClanDisciplines;
     
     @ElementCollection
     @CollectionTable(name="CharacterElderPowers")
@@ -132,8 +132,8 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     private PlayerCharacter(String id, Player player, Troupe troupe, String name, 
                             PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, 
-                            Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, Set<Power> inClanDisciplines, 
-                            Set<CharacterPower> powers, Set<ElderPower> elderPowers, Set<Technique> techniques, 
+                            Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, Set<Discipline> inClanDisciplines, 
+                            Set<CharacterDiscipline> disciplines, Set<ElderPower> elderPowers, Set<Technique> techniques, 
                             Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, Set<ThaumaturgicalRitual> thaumaturgicalRituals,
                             Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals,
                             Date deleteTimestamp) {
@@ -147,7 +147,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.skills = skills;
         this.backgrounds = backgrounds;
         this.inClanDisciplines = inClanDisciplines;
-        this.powers = powers;
+        this.disciplines = disciplines;
         this.elderPowers = elderPowers;
         this.techniques = techniques;
         this.thaumaturgicalPaths = thaumaturgicalPaths;
@@ -227,31 +227,31 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public Set<Power> getInClanDisciplines() {
+    public Set<Discipline> getInClanDisciplines() {
         return inClanDisciplines;
     }
     
-    public PlayerCharacter withInClanDisciplines(Power power) {
+    public PlayerCharacter withInClanDisciplines(Discipline power) {
         this.inClanDisciplines.add(power);
         return this;
     }
     
-    public PlayerCharacter withoutInClanDisciplines(Power power) {
+    public PlayerCharacter withoutInClanDisciplines(Discipline power) {
         this.inClanDisciplines.remove(power);
         return this;
     }
     
-    public Set<CharacterPower> getPowers() {
-        return powers;
+    public Set<CharacterDiscipline> getDisciplines() {
+        return disciplines;
     }
     
-    public PlayerCharacter withPower(CharacterPower power) {
-        this.powers.add(power);
+    public PlayerCharacter withDiscipline(CharacterDiscipline power) {
+        this.disciplines.add(power);
         return this;
     }
     
-    public PlayerCharacter withoutPower(CharacterPower power) {
-        this.powers.remove(power);
+    public PlayerCharacter withoutDiscipline(CharacterDiscipline power) {
+        this.disciplines.remove(power);
         return this;
     }
     
@@ -390,7 +390,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return new PlayerCharacter(id, player, troupe, name, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, inClanDisciplines, 
-                                   powers, elderPowers, techniques,
+                                   disciplines, elderPowers, techniques,
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
                                    timestamp);
@@ -401,7 +401,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return new PlayerCharacter(id, player, troupe, name, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, inClanDisciplines, 
-                                   powers, elderPowers, techniques,
+                                   disciplines, elderPowers, techniques,
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
                                    null);

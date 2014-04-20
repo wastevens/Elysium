@@ -7,24 +7,24 @@ import javax.persistence.Embeddable;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Embeddable
-public class CharacterPower implements Comparable<CharacterPower> {
+public class CharacterDiscipline implements Comparable<CharacterDiscipline> {
 
-    private final Power power;
+    private final Discipline power;
     private int rating;
     
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
-    private CharacterPower() {
+    private CharacterDiscipline() {
         this(null, 0);
     }
     
-    public CharacterPower(Power power, int rating) {
+    public CharacterDiscipline(Discipline power, int rating) {
         this.power = power;
         this.rating = rating;
     }
     
-    public final Power getPower() {
+    public final Discipline getPower() {
         return power;
     }
 
@@ -32,8 +32,8 @@ public class CharacterPower implements Comparable<CharacterPower> {
         return rating;
     }
     
-    public CharacterPower withRating(int rating) {
-        return new CharacterPower(power, rating);
+    public CharacterDiscipline withRating(int rating) {
+        return new CharacterDiscipline(power, rating);
     }
     
     @Override
@@ -52,8 +52,8 @@ public class CharacterPower implements Comparable<CharacterPower> {
     }
 
     @Override
-    public int compareTo(CharacterPower that) {
-        Function<CharacterPower, Power> byPower = ((CharacterPower c) -> c.power);
+    public int compareTo(CharacterDiscipline that) {
+        Function<CharacterDiscipline, Discipline> byPower = ((CharacterDiscipline c) -> c.power);
         return Comparator.comparing(byPower).compare(this, that);
     }
     
