@@ -12,8 +12,8 @@ import org.springframework.context.ApplicationContext;
 
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.*;
-import com.dstevens.characters.magic.*;
-import com.dstevens.characters.power.*;
+import com.dstevens.characters.powers.*;
+import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.players.*;

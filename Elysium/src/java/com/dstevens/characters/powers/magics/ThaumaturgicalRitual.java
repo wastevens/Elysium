@@ -1,4 +1,4 @@
-package com.dstevens.characters.magic;
+package com.dstevens.characters.powers.magics;
 
 public enum ThaumaturgicalRitual {
 

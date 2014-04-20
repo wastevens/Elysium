@@ -1,4 +1,4 @@
-package com.dstevens.characters.power;
+package com.dstevens.characters.powers;
 
 public enum ElderPower {
 

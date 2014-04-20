@@ -1,4 +1,4 @@
-package com.dstevens.characters.magic;
+package com.dstevens.characters.powers.magics;
 
 import java.util.Comparator;
 import java.util.function.Function;
@@ -7,24 +7,24 @@ import javax.persistence.Embeddable;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Embeddable
-public class CharacterNecromancy implements Comparable<CharacterNecromancy> {
+public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy> {
 
-    private final Necromancy path;
+    private final Thaumaturgy path;
     private int rating;
     
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
-    private CharacterNecromancy() {
+    private CharacterThaumaturgy() {
         this(null, 0);
     }
     
-    public CharacterNecromancy(Necromancy path, int rating) {
+    public CharacterThaumaturgy(Thaumaturgy path, int rating) {
         this.path = path;
         this.rating = rating;
     }
     
-    public final Necromancy getPath() {
+    public final Thaumaturgy getPath() {
         return path;
     }
 
@@ -32,8 +32,8 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy> {
         return rating;
     }
     
-    public CharacterNecromancy withRating(int rating) {
-        return new CharacterNecromancy(path, rating);
+    public CharacterThaumaturgy withRating(int rating) {
+        return new CharacterThaumaturgy(path, rating);
     }
     
     @Override
@@ -52,8 +52,8 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy> {
     }
 
     @Override
-    public int compareTo(CharacterNecromancy that) {
-        Function<CharacterNecromancy, Necromancy> byPower = ((CharacterNecromancy c) -> c.path);
+    public int compareTo(CharacterThaumaturgy that) {
+        Function<CharacterThaumaturgy, Thaumaturgy> byPower = ((CharacterThaumaturgy c) -> c.path);
         return Comparator.comparing(byPower).compare(this, that);
     }
     

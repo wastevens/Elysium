@@ -1,4 +1,4 @@
-package com.dstevens.characters.magic;
+package com.dstevens.characters.powers;
 
 import java.util.Comparator;
 import java.util.function.Function;
@@ -7,33 +7,33 @@ import javax.persistence.Embeddable;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Embeddable
-public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy> {
+public class CharacterDiscipline implements Comparable<CharacterDiscipline> {
 
-    private final Thaumaturgy path;
+    private final Discipline power;
     private int rating;
     
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
-    private CharacterThaumaturgy() {
+    private CharacterDiscipline() {
         this(null, 0);
     }
     
-    public CharacterThaumaturgy(Thaumaturgy path, int rating) {
-        this.path = path;
+    public CharacterDiscipline(Discipline power, int rating) {
+        this.power = power;
         this.rating = rating;
     }
     
-    public final Thaumaturgy getPath() {
-        return path;
+    public final Discipline getPower() {
+        return power;
     }
 
     public final int getRating() {
         return rating;
     }
     
-    public CharacterThaumaturgy withRating(int rating) {
-        return new CharacterThaumaturgy(path, rating);
+    public CharacterDiscipline withRating(int rating) {
+        return new CharacterDiscipline(power, rating);
     }
     
     @Override
@@ -52,8 +52,8 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy> {
     }
 
     @Override
-    public int compareTo(CharacterThaumaturgy that) {
-        Function<CharacterThaumaturgy, Thaumaturgy> byPower = ((CharacterThaumaturgy c) -> c.path);
+    public int compareTo(CharacterDiscipline that) {
+        Function<CharacterDiscipline, Discipline> byPower = ((CharacterDiscipline c) -> c.power);
         return Comparator.comparing(byPower).compare(this, that);
     }
     

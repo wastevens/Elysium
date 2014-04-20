@@ -1,6 +1,6 @@
-package com.dstevens.characters.magic;
+package com.dstevens.characters.powers.magics;
 
-import com.dstevens.characters.power.Power;
+import com.dstevens.characters.powers.Power;
 
 public enum Necromancy implements Power {
 
