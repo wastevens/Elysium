@@ -168,4 +168,22 @@ public class PlayerCharacterDaoTest {
                      characterWithPowers.getThaumaturgicalRituals());
         
     }
+    
+    @Test
+    public void testSaveWithNecromancy() {
+        characterDao.save(character.withNecromanticPath(new CharacterNecromancy(Necromancy.ASH_PATH, 2)).
+                                    withNecromanticPath(new CharacterNecromancy(Necromancy.MORTIS_PATH, 3)).
+                                    setPrimaryNecromanticPath(Necromancy.MORTIS_PATH).
+                                    withNecromanticRitual(NecromanticRitual.BASTONE_DIABOLICO).
+                                    withNecromanticRitual(NecromanticRitual.MOLDERING_PRESENCE));
+        
+        PlayerCharacter characterWithPowers = characterDao.findOne(character.getId());
+        
+        assertEquals(set(new CharacterNecromancy(Necromancy.ASH_PATH, 2), new CharacterNecromancy(Necromancy.MORTIS_PATH, 3)),
+                     characterWithPowers.getNecromanticPaths());
+        assertEquals(Necromancy.MORTIS_PATH, characterWithPowers.getPrimaryNecromanticPath());
+        assertEquals(set(NecromanticRitual.BASTONE_DIABOLICO, NecromanticRitual.MOLDERING_PRESENCE),
+                     characterWithPowers.getNecromanticRituals());
+        
+    }
 }

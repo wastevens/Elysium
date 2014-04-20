@@ -82,17 +82,33 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @Column(name="thaumaturgical_ritual")
     private final Set<ThaumaturgicalRitual> thaumaturgicalRituals;
     
+    @ElementCollection
+    @CollectionTable(
+            name="CharacterNecromanticPaths",
+            joinColumns=@JoinColumn(name="character_id")
+            )
+    private final Set<CharacterNecromancy> necromanticPaths;
+    
+    @Column(name="primary_necromantic_path")
+    private Necromancy primaryNecromanticPath;
+    
+    @ElementCollection
+    @CollectionTable(name="CharacterThamaturgicalRituals")
+    @Column(name="neromantic_ritual")
+    private final Set<NecromanticRitual> necromanticRituals;
+    
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
         this(id, player, troupe, name, 
              new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id), 
              set(), set(), set(),
+             set(), null, set(),
              set(), null, set(),
              null);
     }
@@ -101,6 +117,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                             PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, 
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, Set<CharacterPower> powers, 
                             Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, Set<ThaumaturgicalRitual> thaumaturgicalRituals,
+                            Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals,
                             Date deleteTimestamp) {
         this.id = id;
         this.player = player;
@@ -115,6 +132,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.thaumaturgicalPaths = thaumaturgicalPaths;
         this.primaryThaumaturgicalPath = primaryThaumaturgicalPath;
         this.thaumaturgicalRituals = thaumaturgicalRituals;
+        this.necromanticPaths = necromanticPaths;
+        this.primaryNecromanticPath = primaryNecromanticPath;
+        this.necromanticRituals = necromanticRituals;
         this.deleteTimestamp = deleteTimestamp;
     }
     
@@ -218,6 +238,11 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return primaryThaumaturgicalPath;
     }
     
+    public PlayerCharacter setPrimaryThaumaturgicalPath(Thaumaturgy path) {
+        this.primaryThaumaturgicalPath = path;
+        return this;
+    }
+    
     public Set<ThaumaturgicalRitual> getThaumaturgicalRituals() {
         return thaumaturgicalRituals;
     }
@@ -232,8 +257,40 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public PlayerCharacter setPrimaryThaumaturgicalPath(Thaumaturgy path) {
-        this.primaryThaumaturgicalPath = path;
+    public Set<CharacterNecromancy> getNecromanticPaths() {
+        return necromanticPaths;
+    }
+    
+    public PlayerCharacter withNecromanticPath(CharacterNecromancy path) {
+        this.necromanticPaths.add(path);
+        return this;
+    }
+    
+    public PlayerCharacter withoutNecromanticPath(CharacterNecromancy path) {
+        this.necromanticPaths.remove(path);
+        return this;
+    }
+    
+    public Necromancy getPrimaryNecromanticPath() {
+        return primaryNecromanticPath;
+    }
+    
+    public PlayerCharacter setPrimaryNecromanticPath(Necromancy path) {
+        this.primaryNecromanticPath = path;
+        return this;
+    }
+
+    public Set<NecromanticRitual> getNecromanticRituals() {
+        return necromanticRituals;
+    }
+    
+    public PlayerCharacter withNecromanticRitual(NecromanticRitual ritual) {
+        this.necromanticRituals.add(ritual);
+        return this;
+    }
+    
+    public PlayerCharacter withoutNecromanticRitual(NecromanticRitual ritual) {
+        this.necromanticRituals.remove(ritual);
         return this;
     }
     
@@ -271,6 +328,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, powers, 
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
+                                   necromanticPaths, primaryNecromanticPath, necromanticRituals,
                                    timestamp);
     }
 
@@ -280,6 +338,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, powers, 
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
+                                   necromanticPaths, primaryNecromanticPath, necromanticRituals,
                                    null);
     }
     
