@@ -1,6 +1,8 @@
 package com.dstevens.characters.magic;
 
-public enum Necromancy {
+import com.dstevens.characters.power.Power;
+
+public enum Necromancy implements Power {
 
     SEPULCHRE_PATH,
     BONE_PATH,

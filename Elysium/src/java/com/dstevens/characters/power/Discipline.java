@@ -1,6 +1,6 @@
 package com.dstevens.characters.power;
 
-public enum Discipline {
+public enum Discipline implements Power {
 
     ANIMALISM,
     AUSPEX,

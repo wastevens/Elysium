@@ -1,6 +1,8 @@
 package com.dstevens.characters.magic;
 
-public enum Thaumaturgy {
+import com.dstevens.characters.power.Power;
+
+public enum Thaumaturgy implements Power {
 
     PATH_OF_BLOOD,
     PATH_OF_CONJURING,
