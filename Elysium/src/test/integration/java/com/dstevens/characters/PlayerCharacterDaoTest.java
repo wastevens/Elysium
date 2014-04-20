@@ -155,12 +155,17 @@ public class PlayerCharacterDaoTest {
     public void testSaveWithThaumaturgy() {
         characterDao.save(character.withThaumaturgicalPath(new CharacterThaumaturgy(Thaumaturgy.LURE_OF_FLAMES, 2)).
                                     withThaumaturgicalPath(new CharacterThaumaturgy(Thaumaturgy.PATH_OF_CONJURING, 3)).
-                                    setPrimaryThaumaturgicalPath(Thaumaturgy.PATH_OF_CONJURING));
+                                    setPrimaryThaumaturgicalPath(Thaumaturgy.PATH_OF_CONJURING).
+                                    withThaumaturgicalRitual(ThaumaturgicalRitual.BANISH_BIG_BROTHER).
+                                    withThaumaturgicalRitual(ThaumaturgicalRitual.DETECT_THE_HIDDEN_OBSERVER));
         
         PlayerCharacter characterWithPowers = characterDao.findOne(character.getId());
         
         assertEquals(set(new CharacterThaumaturgy(Thaumaturgy.LURE_OF_FLAMES, 2), new CharacterThaumaturgy(Thaumaturgy.PATH_OF_CONJURING, 3)),
                      characterWithPowers.getThaumaturgicalPaths());
         assertEquals(Thaumaturgy.PATH_OF_CONJURING, characterWithPowers.getPrimaryThaumaturgicalPath());
+        assertEquals(set(ThaumaturgicalRitual.BANISH_BIG_BROTHER, ThaumaturgicalRitual.DETECT_THE_HIDDEN_OBSERVER),
+                     characterWithPowers.getThaumaturgicalRituals());
+        
     }
 }

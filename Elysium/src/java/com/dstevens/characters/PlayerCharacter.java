@@ -69,32 +69,38 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @ElementCollection
     @CollectionTable(
-            name="CharacterThamaturgy",
+            name="CharacterThamaturgicalPaths",
             joinColumns=@JoinColumn(name="character_id")
             )
     private final Set<CharacterThaumaturgy> thaumaturgicalPaths;
     
+    @Column(name="primary_thaumaturgical_path")
     private Thaumaturgy primaryThaumaturgicalPath;
+    
+    @ElementCollection
+    @CollectionTable(name="CharacterThamaturgicalRituals")
+    @Column(name="thaumaturgical_ritual")
+    private final Set<ThaumaturgicalRitual> thaumaturgicalRituals;
     
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
         this(id, player, troupe, name, 
              new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id), 
              set(), set(), set(),
-             set(), null,
+             set(), null, set(),
              null);
     }
     
     private PlayerCharacter(String id, Player player, Troupe troupe, String name, 
                             PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, 
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, Set<CharacterPower> powers, 
-                            Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath,
+                            Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, Set<ThaumaturgicalRitual> thaumaturgicalRituals,
                             Date deleteTimestamp) {
         this.id = id;
         this.player = player;
@@ -108,6 +114,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.powers = powers;
         this.thaumaturgicalPaths = thaumaturgicalPaths;
         this.primaryThaumaturgicalPath = primaryThaumaturgicalPath;
+        this.thaumaturgicalRituals = thaumaturgicalRituals;
         this.deleteTimestamp = deleteTimestamp;
     }
     
@@ -211,6 +218,20 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return primaryThaumaturgicalPath;
     }
     
+    public Set<ThaumaturgicalRitual> getThaumaturgicalRituals() {
+        return thaumaturgicalRituals;
+    }
+    
+    public PlayerCharacter withThaumaturgicalRitual(ThaumaturgicalRitual ritual) {
+        this.thaumaturgicalRituals.add(ritual);
+        return this;
+    }
+    
+    public PlayerCharacter withoutThaumaturgicalRitual(ThaumaturgicalRitual ritual) {
+        this.thaumaturgicalRituals.remove(ritual);
+        return this;
+    }
+    
     public PlayerCharacter setPrimaryThaumaturgicalPath(Thaumaturgy path) {
         this.primaryThaumaturgicalPath = path;
         return this;
@@ -249,7 +270,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return new PlayerCharacter(id, player, troupe, name, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, powers, 
-                                   thaumaturgicalPaths, primaryThaumaturgicalPath, 
+                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    timestamp);
     }
 
@@ -258,7 +279,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return new PlayerCharacter(id, player, troupe, name, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, powers, 
-                                   thaumaturgicalPaths, primaryThaumaturgicalPath, 
+                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    null);
     }
     
