@@ -67,11 +67,20 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
             )
     private final Set<CharacterDiscipline> disciplines;
     
-//    @ElementCollection
-//    @CollectionTable(name="InClanDisciplines")
-//    @Column(name="in_clan_discipline")
-    @Transient
+    @ElementCollection
+    @CollectionTable(name="InClanDisciplines")
+    @Column(name="in_clan_discipline")
     private final Set<Discipline> inClanDisciplines;
+
+    @ElementCollection
+    @CollectionTable(name="InClanThaumaturgy")
+    @Column(name="in_clan_thaumaturgy")
+    private final Set<Thaumaturgy> inClanThaumaturgicalPaths;
+    
+    @ElementCollection
+    @CollectionTable(name="InClanNecromancy")
+    @Column(name="in_clan_necromancy")
+    private final Set<Necromancy> inClanNecromanticPaths;
     
     @ElementCollection
     @CollectionTable(name="CharacterElderPowers")
@@ -117,13 +126,14 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
         this(id, player, troupe, name, 
              new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id),
-             set(), set(), set(), 
+             set(), set(), 
+             set(), set(), set(),
              set(), set(), set(),
              set(), null, set(),
              set(), null, set(),
@@ -132,7 +142,8 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     private PlayerCharacter(String id, Player player, Troupe troupe, String name, 
                             PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, 
-                            Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, Set<Discipline> inClanDisciplines, 
+                            Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
+                            Set<Discipline> inClanDisciplines, Set<Thaumaturgy> inClanThaumaturgicalPaths, Set<Necromancy> inClanNecromanticPaths,
                             Set<CharacterDiscipline> disciplines, Set<ElderPower> elderPowers, Set<Technique> techniques, 
                             Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, Set<ThaumaturgicalRitual> thaumaturgicalRituals,
                             Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals,
@@ -147,6 +158,8 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.skills = skills;
         this.backgrounds = backgrounds;
         this.inClanDisciplines = inClanDisciplines;
+        this.inClanThaumaturgicalPaths = inClanThaumaturgicalPaths;
+        this.inClanNecromanticPaths = inClanNecromanticPaths;
         this.disciplines = disciplines;
         this.elderPowers = elderPowers;
         this.techniques = techniques;
@@ -227,17 +240,37 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public Set<Discipline> getInClanDisciplines() {
-        return inClanDisciplines;
+    public Set<Power> getInClanDisciplines() {
+        Set<Power> powers = set();
+        powers.addAll(inClanDisciplines);
+        powers.addAll(inClanThaumaturgicalPaths);
+        powers.addAll(inClanNecromanticPaths);
+        return powers;
     }
     
-    public PlayerCharacter withInClanDisciplines(Discipline power) {
-        this.inClanDisciplines.add(power);
+    public PlayerCharacter withInClanDisciplines(Power power) {
+        if (power instanceof Discipline) {
+            inClanDisciplines.add((Discipline) power);
+        }
+        if (power instanceof Thaumaturgy) {
+            inClanThaumaturgicalPaths.add((Thaumaturgy) power);
+        }
+        if (power instanceof Necromancy) {
+            inClanNecromanticPaths.add((Necromancy) power);
+        }
         return this;
     }
     
-    public PlayerCharacter withoutInClanDisciplines(Discipline power) {
-        this.inClanDisciplines.remove(power);
+    public PlayerCharacter withoutInClanDisciplines(Power power) {
+        if (power instanceof Discipline) {
+            inClanDisciplines.remove((Discipline) power);
+        }
+        if (power instanceof Thaumaturgy) {
+            inClanThaumaturgicalPaths.remove((Thaumaturgy) power);
+        }
+        if (power instanceof Necromancy) {
+            inClanNecromanticPaths.remove((Necromancy) power);
+        }
         return this;
     }
     
@@ -389,7 +422,8 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     public PlayerCharacter delete(Date timestamp) {
         return new PlayerCharacter(id, player, troupe, name, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
-                                   skills, backgrounds, inClanDisciplines, 
+                                   skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
                                    disciplines, elderPowers, techniques,
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
@@ -400,7 +434,8 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     public PlayerCharacter undelete() {
         return new PlayerCharacter(id, player, troupe, name, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
-                                   skills, backgrounds, inClanDisciplines, 
+                                   skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
                                    disciplines, elderPowers, techniques,
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,

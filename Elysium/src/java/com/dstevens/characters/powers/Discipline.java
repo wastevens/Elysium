@@ -1,5 +1,6 @@
 package com.dstevens.characters.powers;
 
+
 public enum Discipline implements Power {
 
     ANIMALISM,
