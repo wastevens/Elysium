@@ -32,6 +32,7 @@
     	<dependency org="org.springframework" name="spring-aspects" rev="4.0.3.RELEASE" conf="default;sources;javadoc"/>
     	<dependency org="org.springframework" name="spring-orm" rev="4.0.3.RELEASE" conf="default;sources;javadoc"/>
     	<dependency org="org.springframework" name="spring-tx" rev="4.0.3.RELEASE" conf="default;sources;javadoc"/>
+    	<dependency org="com.google.code.gson" name="gson" rev="2.2.4" conf="default;sources;javadoc"/>
     	
     	<dependency org="org.springframework" name="spring-test" rev="4.0.3.RELEASE" conf="testDefault->default;testSources->sources;testJavadoc->javadoc"/>
         <dependency org="org.mockito" name="mockito-all" rev="1.8.4" conf="testDefault->default;testSources->sources;testJavadoc->javadoc"/>
