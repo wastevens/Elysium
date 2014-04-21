@@ -65,7 +65,7 @@ create table MentalAttributeFocus (character_id varchar(255) not null, focuses i
 create table PhysicalAttribute (character_id varchar(255) not null, rating integer, primary key (character_id));
 create table PhysicalAttributeFocus (character_id varchar(255) not null, focuses integer);
 create table Player (id varchar(255) not null, deleted_at datetime, email varchar(255), name varchar(255), primary key (id));
-create table PlayerCharacter (id varchar(255) not null, deleted_at datetime, name varchar(255), primary_necromantic_path integer, primary_thaumaturgical_path integer, primary key (id));
+create table PlayerCharacter (id varchar(255) not null, bloodline integer, clan integer, deleted_at datetime, name varchar(255), primary_necromantic_path integer, primary_thaumaturgical_path integer, primary key (id));
 create table PlayerPlayerCharacters (player_id varchar(255), character_id varchar(255) not null, primary key (player_id, character_id));
 create table SocialAttribute (character_id varchar(255) not null, rating integer, primary key (character_id));
 create table SocialAttributeFocus (character_id varchar(255) not null, focuses integer);

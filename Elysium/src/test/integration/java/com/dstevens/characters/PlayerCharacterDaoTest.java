@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.*;
+import com.dstevens.characters.clans.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;
@@ -65,6 +66,12 @@ public class PlayerCharacterDaoTest {
         assertEquals(troupeDao.findOne(troupe.getId()).getCharacters(), set(character));
         assertEquals(characterDao.findOne(character.getId()).getTroupe(), troupe);
         assertEquals(characterDao.findOne(character.getId()).getPlayer(), player);
+        
+        characterDao.save(character.ofClan(Clan.VENTRUE).ofBloodline(Bloodline.COYOTE));
+        PlayerCharacter characterWithClan = characterDao.findOne(character.getId());
+        
+        assertEquals(Clan.VENTRUE, characterWithClan.getClan());
+        assertEquals(Bloodline.COYOTE, characterWithClan.getBloodline());
     }
     
     @Test

@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.CharacterBackground;
+import com.dstevens.characters.clans.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.CharacterSkill;
@@ -38,7 +39,13 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private Troupe troupe;
     
     @Column(name="name")
-    private String name;
+    private final String name;
+    
+    @Column(name="clan")
+    private final Clan clan;
+    
+    @Column(name="bloodline")
+    private final Bloodline bloodline;
     
     @OneToOne(cascade={CascadeType.ALL})
     @PrimaryKeyJoinColumn
@@ -126,11 +133,11 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
-        this(id, player, troupe, name, 
+        this(id, player, troupe, name, null, null, 
              new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id),
              set(), set(), 
              set(), set(), set(),
@@ -140,7 +147,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
              null);
     }
     
-    private PlayerCharacter(String id, Player player, Troupe troupe, String name, 
+    private PlayerCharacter(String id, Player player, Troupe troupe, String name, Clan clan, Bloodline bloodline,
                             PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, 
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
                             Set<Discipline> inClanDisciplines, Set<Thaumaturgy> inClanThaumaturgicalPaths, Set<Necromancy> inClanNecromanticPaths,
@@ -152,6 +159,8 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.player = player;
         this.troupe = troupe;
         this.name = name;
+        this.clan = clan;
+        this.bloodline = bloodline;
         this.physicalAttribute = physicalAttribute;
         this.mentalAttribute = mentalAttribute;
         this.socialAttribute = socialAttribute;
@@ -172,17 +181,53 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.deleteTimestamp = deleteTimestamp;
     }
     
-    public PlayerCharacter withName(String name) {
-        this.name = name;
-        return this;
-    }
-    
     public String getId() {
         return id;
     }
     
+    public PlayerCharacter withName(String name) {
+        return new PlayerCharacter(id, player, troupe, name, clan, bloodline, 
+                                   physicalAttribute, mentalAttribute, socialAttribute, 
+                                   skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
+                                   disciplines, elderPowers, techniques,
+                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
+                                   necromanticPaths, primaryNecromanticPath, necromanticRituals,
+                                   deleteTimestamp);
+    }
+    
     public String getName() {
         return name;
+    }
+    
+    public PlayerCharacter ofClan(Clan clan) {
+        return new PlayerCharacter(id, player, troupe, name, clan, bloodline, 
+                physicalAttribute, mentalAttribute, socialAttribute, 
+                skills, backgrounds, 
+                inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
+                disciplines, elderPowers, techniques,
+                thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
+                necromanticPaths, primaryNecromanticPath, necromanticRituals,
+                deleteTimestamp);
+    }
+    
+    public Clan getClan() {
+        return clan;
+    }
+    
+    public PlayerCharacter ofBloodline(Bloodline bloodline) {
+        return new PlayerCharacter(id, player, troupe, name, clan, bloodline, 
+                physicalAttribute, mentalAttribute, socialAttribute, 
+                skills, backgrounds, 
+                inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
+                disciplines, elderPowers, techniques,
+                thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
+                necromanticPaths, primaryNecromanticPath, necromanticRituals,
+                deleteTimestamp);
+    }
+    
+    public Bloodline getBloodline() {
+        return bloodline;
     }
 
     public PhysicalAttribute getPhysicalAttribute() {
@@ -420,7 +465,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @Override
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, player, troupe, name, 
+        return new PlayerCharacter(id, player, troupe, name, clan, bloodline, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
@@ -432,7 +477,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
 
     @Override
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, player, troupe, name, 
+        return new PlayerCharacter(id, player, troupe, name, clan, bloodline, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
