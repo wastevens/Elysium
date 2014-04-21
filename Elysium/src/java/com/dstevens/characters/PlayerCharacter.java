@@ -498,7 +498,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @Override
     public int hashCode() {
-        return ObjectExtensions.hashCodeFor(this);
+        return id.hashCode();
     }
     
     @Override
