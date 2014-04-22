@@ -19,7 +19,7 @@ public enum Clan {
     TZIMISCE(Bloodline.TZIMISCE, Bloodline.CARPATHIAN, Bloodline.KOLDUN),
     VENTRUE(Bloodline.VENTRUE, Bloodline.CRUSADER),
     CATIFF(Bloodline.CATIFF),
-    BAALI(Bloodline.BAALI, Bloodline.ANGELLIS_ALTER),
+    BAALI(Bloodline.BAALI, Bloodline.ANGELLIS_ATER),
     CAPPADOCIAN(Bloodline.CAPPADOCIAN, Bloodline.SAMEDI, Bloodline.LAMIA),
     RAVNOS(Bloodline.RAVNOS, Bloodline.BRAHMAN),
     SALUBRI(Bloodline.SALUBRI, Bloodline.HEALER),

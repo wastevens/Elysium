@@ -46,7 +46,7 @@ public enum Bloodline {
     CATIFF(set(), set(Discipline.ANIMALISM, Discipline.AUSPEX, Discipline.CELERITY, Discipline.DOMINATE, 
                       Discipline.FORTITUDE, Discipline.OBFUSCATE, Discipline.PRESENCE, Discipline.POTENCE), 3),
     BAALI(set((Power) Discipline.DAIMOINON, Discipline.OBFUSCATE, Discipline.PRESENCE)),
-    ANGELLIS_ALTER(set((Power) Discipline.DAIMOINON, Discipline.DOMINATE), set(Discipline.PRESENCE, Discipline.POTENCE, Discipline.OBFUSCATE)),
+    ANGELLIS_ATER(set((Power) Discipline.DAIMOINON, Discipline.DOMINATE), set(Discipline.PRESENCE, Discipline.POTENCE, Discipline.OBFUSCATE)),
     CAPPADOCIAN(set((Power) Discipline.AUSPEX, Discipline.FORTITUDE, Necromancy.MORTIS_PATH)),
     SAMEDI(set((Power) Discipline.FORTITUDE, Discipline.OBFUSCATE, Discipline.THANATOSIS)),
     LAMIA(set((Power) Discipline.FORTITUDE, Discipline.PRESENCE, Necromancy.MORTIS_PATH)),
