@@ -1,5 +1,6 @@
 package com.dstevens.characters.merits;
 
+@FlawAnnotation("General")
 public enum GeneralFlaw implements Flaw {
 
     ADDICTION(2),

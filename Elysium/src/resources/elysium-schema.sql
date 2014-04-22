@@ -55,7 +55,7 @@ create table CharacterBackgroundFocuses (CharacterBackground_id varchar(255) not
 create table CharacterBackgrounds (id varchar(255) not null, background integer, character_id varchar(255), rating integer, specialization varchar(255), primary key (id));
 create table CharacterDisciplines (character_id varchar(255) not null, power integer, rating integer not null, primary key (character_id, rating));
 create table CharacterElderPowers (PlayerCharacter_id varchar(255) not null, elder_power integer);
-create table CharacterFlaws (PlayerCharacter_id varchar(255) not null, details varchar(255), flaw_id integer);
+create table CharacterFlaws (PlayerCharacter_id varchar(255) not null, details varchar(255), flaw_id integer, flaw_type varchar(255));
 create table CharacterMerits (PlayerCharacter_id varchar(255) not null, details varchar(255), merit_id integer, merit_type varchar(255));
 create table CharacterNecromanticPaths (character_id varchar(255) not null, path integer, rating integer not null, primary key (character_id, rating));
 create table CharacterSkillFocuses (CharacterSkill_id varchar(255) not null, focus varchar(255));

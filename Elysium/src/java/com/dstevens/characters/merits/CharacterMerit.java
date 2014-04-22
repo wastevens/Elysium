@@ -1,10 +1,8 @@
 package com.dstevens.characters.merits;
 
-import java.util.*;
+import java.util.Comparator;
 import java.util.function.Function;
-
 import javax.persistence.*;
-import org.reflections.Reflections;
 
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -71,37 +69,5 @@ public class CharacterMerit implements Comparable<CharacterMerit> {
         Function<CharacterMerit, String> byDetails = ((CharacterMerit cm) -> cm.details);
         return Comparator.comparing(byMeritType).thenComparing(byMeritId).thenComparing(byDetails).compare(this, that);
     }
-    
-    private static final class MeritTranslator {
-
-        private MeritTranslator() {
-        }
-        
-        public static final Merit ofTypeWithId(String type, int id) {
-            Reflections reflections = new Reflections("com.dstevens.characters.merits");
-            Set<Class<?>> meritClasses = reflections.getTypesAnnotatedWith(MeritAnnotation.class);
-            for (Class<?> meritClass : meritClasses) {
-                if (meritClass.getAnnotation(MeritAnnotation.class).value().equals(type)) {
-                    return getMerit(id, meritClass);
-                }
-            }
-            throw new IllegalStateException("Could not find a merit of type " + type + " with id " + id);
-        }
-
-        @SuppressWarnings("unchecked")
-        private static Merit getMerit(int id, Class<?> meritClass) {
-            return ((Class<? extends Merit>) meritClass).getEnumConstants()[id];
-        }
-        
-        public static final String ofType(Enum<? extends Merit> merit) {
-            return merit.getClass().getAnnotation(MeritAnnotation.class).value();
-        }
-        
-        public static final int withId(Enum<? extends Merit> merit) {
-            return merit.ordinal();
-        }
-        
-    }
-
     
 }

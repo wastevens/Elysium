@@ -10,7 +10,10 @@ import com.dstevens.utilities.ObjectExtensions;
 public class CharacterFlaw implements Comparable<CharacterFlaw> {
 
     @Column(name="flaw_id")
-    int ordinal;
+    private int flawId;
+    
+    @Column(name="flaw_type")
+    private String flawType;
     
     @Column(name="details")
     private String details;
@@ -19,24 +22,25 @@ public class CharacterFlaw implements Comparable<CharacterFlaw> {
     @Deprecated
     @SuppressWarnings("unused")
     private CharacterFlaw() {
-        this(0, null);
+        this(0, null, null);
     }
     
     public CharacterFlaw(Enum<? extends Flaw> flaw) {
-        this(flaw.ordinal(), null);
+        this(FlawTranslator.withId(flaw), FlawTranslator.ofType(flaw), null);
     }
     
     public CharacterFlaw(Enum<? extends Flaw> flaw, String details) {
-        this(flaw.ordinal(), details);
+        this(FlawTranslator.withId(flaw), FlawTranslator.ofType(flaw), details);
     }
     
-    private CharacterFlaw(int ordinal, String details) {
-        this.ordinal = ordinal;
+    private CharacterFlaw(int flawId, String flawType, String details) {
+        this.flawId = flawId;
+        this.flawType = flawType;
         this.details = details;
     }
     
     public Flaw getFlaw() {
-        return GeneralFlaw.values()[ordinal];
+        return FlawTranslator.ofTypeWithId(flawType, flawId);
     }
     
     public String getDetails() {
@@ -60,9 +64,10 @@ public class CharacterFlaw implements Comparable<CharacterFlaw> {
 
     @Override
     public int compareTo(CharacterFlaw that) {
-        Function<CharacterFlaw, Integer> byOrdinal = ((CharacterFlaw cf) -> cf.ordinal);
-        Function<CharacterFlaw, String> byDetails = ((CharacterFlaw cf) -> cf.details);
-        return Comparator.comparing(byOrdinal).thenComparing(byDetails).compare(this, that);
+        Function<CharacterFlaw, String> byMeritType = ((CharacterFlaw cm) -> cm.flawType);
+        Function<CharacterFlaw, Integer> byMeritId = ((CharacterFlaw cm) -> cm.flawId);
+        Function<CharacterFlaw, String> byDetails = ((CharacterFlaw cm) -> cm.details);
+        return Comparator.comparing(byMeritType).thenComparing(byMeritId).thenComparing(byDetails).compare(this, that);
     }
     
 }

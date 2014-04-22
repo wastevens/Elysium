@@ -217,13 +217,14 @@ public class PlayerCharacterDaoTest {
         characterDao.save(character.withMerit(new CharacterMerit(RarityMerit.RARE)).
                                     withMerit(new CharacterMerit(ClanSpecificMerit.PARAGON, "Bob the Ventrue Assistant")).
                                     withFlaw(new CharacterFlaw(GeneralFlaw.BAD_SIGHT)).
-                                    withFlaw(new CharacterFlaw(GeneralFlaw.ADDICTION, "To meth!")));
+                                    withFlaw(new CharacterFlaw(GeneralFlaw.ADDICTION, "To meth!")).
+                                    withFlaw(new CharacterFlaw(SettingSpecificFlaw.DUBIOUS_LOYALTIES)));
         
         PlayerCharacter characterWithMerits = characterDao.findOne(character.getId());
         
         assertEquals(set(new CharacterMerit(RarityMerit.RARE), new CharacterMerit(ClanSpecificMerit.PARAGON, "Bob the Ventrue Assistant")),
                      characterWithMerits.getMerits());
-        assertEquals(set(new CharacterFlaw(GeneralFlaw.BAD_SIGHT), new CharacterFlaw(GeneralFlaw.ADDICTION, "To meth!")),
+        assertEquals(set(new CharacterFlaw(GeneralFlaw.BAD_SIGHT), new CharacterFlaw(GeneralFlaw.ADDICTION, "To meth!"), new CharacterFlaw(SettingSpecificFlaw.DUBIOUS_LOYALTIES)), 
                      characterWithMerits.getFlaws());
         
     }
