@@ -210,18 +210,21 @@ public class PlayerCharacterDaoTest {
         assertEquals(Necromancy.MORTIS_PATH, characterWithPowers.getPrimaryNecromanticPath());
         assertEquals(set(NecromanticRitual.BASTONE_DIABOLICO, NecromanticRitual.MOLDERING_PRESENCE),
                      characterWithPowers.getNecromanticRituals());
-        
     }
     
     @Test
-    public void testSaveWithMerits() {
+    public void testSaveWithMeritsAndFlaws() {
         characterDao.save(character.withMerit(new CharacterMerit(RarityMerit.RARE)).
-                                    withMerit(new CharacterMerit(ClanSpecificMerit.PARAGON, "Bob the Ventrue Assistant")));
+                                    withMerit(new CharacterMerit(ClanSpecificMerit.PARAGON, "Bob the Ventrue Assistant")).
+                                    withFlaw(new CharacterFlaw(GeneralFlaw.BAD_SIGHT)).
+                                    withFlaw(new CharacterFlaw(GeneralFlaw.ADDICTION, "To meth!")));
         
         PlayerCharacter characterWithMerits = characterDao.findOne(character.getId());
         
         assertEquals(set(new CharacterMerit(RarityMerit.RARE), new CharacterMerit(ClanSpecificMerit.PARAGON, "Bob the Ventrue Assistant")),
-                characterWithMerits.getMerits());
+                     characterWithMerits.getMerits());
+        assertEquals(set(new CharacterFlaw(GeneralFlaw.BAD_SIGHT), new CharacterFlaw(GeneralFlaw.ADDICTION, "To meth!")),
+                     characterWithMerits.getFlaws());
         
     }
 }
