@@ -2,6 +2,7 @@ alter table CharacterBackgroundFocuses drop foreign key FK_4qcem68m5nd0oorn5wl70
 alter table CharacterBackgrounds drop foreign key FK_qpb6qx3ftrx3cvwq58pohfla9;
 alter table CharacterDisciplines drop foreign key FK_29xtftybs69gp7w9dsgeibaal;
 alter table CharacterElderPowers drop foreign key FK_9xvhtifdwl1cmju12ho8fmshy;
+alter table CharacterMerits drop foreign key FK_gjbya9lym9wle0m04nwi3u9ia;
 alter table CharacterNecromanticPaths drop foreign key FK_2w5o2hjair8otn89tofydu17u;
 alter table CharacterSkillFocuses drop foreign key FK_csdgm0guwoth8oipoocrveid5;
 alter table CharacterSkills drop foreign key FK_5kfiec2mlewwqsadpa7hu2tkv;
@@ -25,6 +26,7 @@ drop table if exists CharacterBackgroundFocuses;
 drop table if exists CharacterBackgrounds;
 drop table if exists CharacterDisciplines;
 drop table if exists CharacterElderPowers;
+drop table if exists CharacterMerits;
 drop table if exists CharacterNecromanticPaths;
 drop table if exists CharacterSkillFocuses;
 drop table if exists CharacterSkills;
@@ -51,6 +53,7 @@ create table CharacterBackgroundFocuses (CharacterBackground_id varchar(255) not
 create table CharacterBackgrounds (id varchar(255) not null, background integer, character_id varchar(255), rating integer, specialization varchar(255), primary key (id));
 create table CharacterDisciplines (character_id varchar(255) not null, power integer, rating integer not null, primary key (character_id, rating));
 create table CharacterElderPowers (PlayerCharacter_id varchar(255) not null, elder_power integer);
+create table CharacterMerits (PlayerCharacter_id varchar(255) not null, details varchar(255), merit_id integer, merit_type varchar(255));
 create table CharacterNecromanticPaths (character_id varchar(255) not null, path integer, rating integer not null, primary key (character_id, rating));
 create table CharacterSkillFocuses (CharacterSkill_id varchar(255) not null, focus varchar(255));
 create table CharacterSkills (id varchar(255) not null, character_id varchar(255), rating integer, skill integer, specialization varchar(255), primary key (id));
@@ -78,6 +81,7 @@ alter table CharacterBackgroundFocuses add constraint FK_4qcem68m5nd0oorn5wl7026
 alter table CharacterBackgrounds add constraint FK_qpb6qx3ftrx3cvwq58pohfla9 foreign key (character_id) references PlayerCharacter (id);
 alter table CharacterDisciplines add constraint FK_29xtftybs69gp7w9dsgeibaal foreign key (character_id) references PlayerCharacter (id);
 alter table CharacterElderPowers add constraint FK_9xvhtifdwl1cmju12ho8fmshy foreign key (PlayerCharacter_id) references PlayerCharacter (id);
+alter table CharacterMerits add constraint FK_gjbya9lym9wle0m04nwi3u9ia foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table CharacterNecromanticPaths add constraint FK_2w5o2hjair8otn89tofydu17u foreign key (character_id) references PlayerCharacter (id);
 alter table CharacterSkillFocuses add constraint FK_csdgm0guwoth8oipoocrveid5 foreign key (CharacterSkill_id) references CharacterSkills (id);
 alter table CharacterSkills add constraint FK_5kfiec2mlewwqsadpa7hu2tkv foreign key (character_id) references PlayerCharacter (id);

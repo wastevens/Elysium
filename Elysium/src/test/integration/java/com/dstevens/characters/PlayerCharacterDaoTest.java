@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.*;
 import com.dstevens.characters.clans.*;
+import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;
@@ -209,6 +210,18 @@ public class PlayerCharacterDaoTest {
         assertEquals(Necromancy.MORTIS_PATH, characterWithPowers.getPrimaryNecromanticPath());
         assertEquals(set(NecromanticRitual.BASTONE_DIABOLICO, NecromanticRitual.MOLDERING_PRESENCE),
                      characterWithPowers.getNecromanticRituals());
+        
+    }
+    
+    @Test
+    public void testSaveWithMerits() {
+        characterDao.save(character.withMerit(new CharacterMerit(RarityMerit.RARE)).
+                                    withMerit(new CharacterMerit(ClanSpecificMerit.PARAGON, "Bob the Ventrue Assistant")));
+        
+        PlayerCharacter characterWithMerits = characterDao.findOne(character.getId());
+        
+        assertEquals(set(new CharacterMerit(RarityMerit.RARE), new CharacterMerit(ClanSpecificMerit.PARAGON, "Bob the Ventrue Assistant")),
+                characterWithMerits.getMerits());
         
     }
 }

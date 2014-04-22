@@ -9,6 +9,7 @@ import javax.persistence.*;
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.clans.*;
+import com.dstevens.characters.merits.CharacterMerit;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.CharacterSkill;
@@ -129,11 +130,16 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @Column(name="neromantic_ritual")
     private final Set<NecromanticRitual> necromanticRituals;
     
+    @ElementCollection
+    @CollectionTable(name="CharacterMerits") 
+    @Column(name="merit")
+    private final Set<CharacterMerit> merits;
+    
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
@@ -144,6 +150,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
              set(), set(), set(),
              set(), null, set(),
              set(), null, set(),
+             set(),
              null);
     }
     
@@ -154,6 +161,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                             Set<CharacterDiscipline> disciplines, Set<ElderPower> elderPowers, Set<Technique> techniques, 
                             Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, Set<ThaumaturgicalRitual> thaumaturgicalRituals,
                             Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals,
+                            Set<CharacterMerit> merits,
                             Date deleteTimestamp) {
         this.id = id;
         this.player = player;
@@ -178,6 +186,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.necromanticPaths = necromanticPaths;
         this.primaryNecromanticPath = primaryNecromanticPath;
         this.necromanticRituals = necromanticRituals;
+        this.merits = merits;
         this.deleteTimestamp = deleteTimestamp;
     }
     
@@ -193,6 +202,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    disciplines, elderPowers, techniques,
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
+                                   merits,
                                    deleteTimestamp);
     }
     
@@ -208,6 +218,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                 disciplines, elderPowers, techniques,
                 thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                 necromanticPaths, primaryNecromanticPath, necromanticRituals,
+                merits,
                 deleteTimestamp);
     }
     
@@ -223,6 +234,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                 disciplines, elderPowers, techniques,
                 thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                 necromanticPaths, primaryNecromanticPath, necromanticRituals,
+                merits,
                 deleteTimestamp);
     }
     
@@ -435,6 +447,20 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
+    public Set<CharacterMerit> getMerits() {
+        return merits;
+    }
+    
+    public PlayerCharacter withMerit(CharacterMerit merit) {
+        this.merits.add(merit);
+        return this;
+    }
+    
+    public PlayerCharacter withoutMerit(CharacterMerit merit) {
+        this.merits.remove(merit);
+        return this;
+    }
+    
     public PlayerCharacter belongingToPlayer(Player player) {
         this.player = player;
         return this;
@@ -472,6 +498,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    disciplines, elderPowers, techniques,
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
+                                   merits,
                                    timestamp);
     }
 
@@ -484,6 +511,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    disciplines, elderPowers, techniques,
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
+                                   merits,
                                    null);
     }
     
