@@ -33,8 +33,8 @@ public abstract class TraitChangeEvent {
         this.status = status;
     }
     
-    public final PlayerCharacter approve(PlayerCharacter character) {
-        return status.apply(character, this);
+    public final PlayerCharacter approve(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+        return status.apply(character, this, traitChangeFactory);
     }
     
     public final PlayerCharacter deny(PlayerCharacter character) {
@@ -49,7 +49,7 @@ public abstract class TraitChangeEvent {
         return this.status.equals(TraitChangeStatus.PENDING);
     }
     
-    public abstract PlayerCharacter apply(PlayerCharacter character);
+    public abstract PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory);
     
     @Override
     public final String toString() {

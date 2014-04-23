@@ -1,12 +1,10 @@
 package com.dstevens.characters.traits;
 
 import java.util.Set;
-
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.backgrounds.*;
-import com.dstevens.suppliers.IdSupplier;
 
 @Entity
 @DiscriminatorValue("Background")
@@ -46,8 +44,8 @@ public class SetBackgroundEvent extends TraitChangeEvent {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character) {
-        CharacterBackgroundFactory factory = new CharacterBackgroundFactory(new IdSupplier());
+    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+        CharacterBackgroundFactory factory = traitChangeFactory.characterBackgroundFactory();
         return character.withBackground(factory.backgroundFor(character, Background.values()[ordinal], rating, specialization, focuses));
     }
     

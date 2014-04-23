@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.skills.*;
-import com.dstevens.suppliers.IdSupplier;
 
 @Entity
 @DiscriminatorValue("Skill")
@@ -45,8 +44,8 @@ public class SetSkillEvent extends TraitChangeEvent {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character) {
-        CharacterSkillFactory factory = new CharacterSkillFactory(new IdSupplier());
+    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+        CharacterSkillFactory factory = traitChangeFactory.characterSkillFactory();
         return character.withSkill(factory.skillFor(character, Skill.values()[ordinal], rating, specialization, focuses));
     }
 

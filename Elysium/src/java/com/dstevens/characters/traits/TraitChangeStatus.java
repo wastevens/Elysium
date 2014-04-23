@@ -6,9 +6,9 @@ public enum TraitChangeStatus {
 
     PENDING() {
         @Override
-        public PlayerCharacter apply(PlayerCharacter character, TraitChangeEvent event) {
+        public PlayerCharacter apply(PlayerCharacter character, TraitChangeEvent event, TraitChangeFactory traitChangeFactory) {
             event.setStatus(TraitChangeStatus.APPLIED);
-            return event.apply(character);
+            return event.apply(character, traitChangeFactory);
         }
         
         @Override
@@ -19,7 +19,7 @@ public enum TraitChangeStatus {
     },
     DENIED() {
         @Override
-        public PlayerCharacter apply(PlayerCharacter character, TraitChangeEvent event) {
+        public PlayerCharacter apply(PlayerCharacter character, TraitChangeEvent event, TraitChangeFactory traitChangeFactory) {
             return character;
         }
 
@@ -30,7 +30,7 @@ public enum TraitChangeStatus {
     },
     APPLIED() {
         @Override
-        public PlayerCharacter apply(PlayerCharacter character, TraitChangeEvent event) {
+        public PlayerCharacter apply(PlayerCharacter character, TraitChangeEvent event, TraitChangeFactory traitChangeFactory) {
             return character;
         }
 
@@ -40,7 +40,7 @@ public enum TraitChangeStatus {
         }
     };
     
-    public abstract PlayerCharacter apply(PlayerCharacter character, TraitChangeEvent event);
+    public abstract PlayerCharacter apply(PlayerCharacter character, TraitChangeEvent event, TraitChangeFactory traitChangeFactory);
 
     public abstract PlayerCharacter deny(PlayerCharacter character, TraitChangeEvent traitChangeEvent);
     

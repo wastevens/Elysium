@@ -35,7 +35,8 @@ public class PlayerCharacterDaoTest {
     private PlayerDao playerDao;
     private PlayerFactory playerFactory;
     
-    private TraitChangeEventBuilderFactory traitChangeFactory;
+    private TraitChangeEventBuilderFactory traitChangeBuilderFactory;
+    private TraitChangeFactory traitChangeFactory;
     
     private Troupe troupe;
     private Player player;
@@ -51,7 +52,8 @@ public class PlayerCharacterDaoTest {
         characterFactory    = APP_CONFIG.getBean(PlayerCharacterFactory.class);
         skillFactory = APP_CONFIG.getBean(CharacterSkillFactory.class);
         backgroundFactory = APP_CONFIG.getBean(CharacterBackgroundFactory.class);
-        traitChangeFactory = APP_CONFIG.getBean(TraitChangeEventBuilderFactory.class);
+        traitChangeBuilderFactory = APP_CONFIG.getBean(TraitChangeEventBuilderFactory.class);
+        traitChangeFactory = APP_CONFIG.getBean(TraitChangeFactory.class);
         
         troupe = troupeDao.save(troupeFactory.createTroupe("troupe name", Setting.ANARCH));
         player = playerDao.save(playerFactory.createPlayer("player name", "player email").joinTroupe(troupe));
@@ -235,13 +237,13 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testTraitChanges() {
-        characterDao.save(character.withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.ACADEMICS, 2, set("Reading", "Writing"))).
-                                    withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.CRAFTS, 3, "Pottery")).
-                                    withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.CRAFTS, 3, "Writing")).
-                                    withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.ATHLETICS, 4)).
-                                    withTraitChangeEvent(traitChangeFactory.change(character).setBackground(Background.GENERATION, 2)).
-                                    withTraitChangeEvent(traitChangeFactory.change(character).setBackground(Background.FAME, 2, "Pottery")).
-                                    withTraitChangeEvent(traitChangeFactory.change(character).setBackground(Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury"))));
+        characterDao.save(character.withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.ACADEMICS, 2, set("Reading", "Writing"))).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.CRAFTS, 3, "Pottery")).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.CRAFTS, 3, "Writing")).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.ATHLETICS, 4)).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.GENERATION, 2)).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.FAME, 2, "Pottery")).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury"))));
         
         PlayerCharacter characterWithPendingChanges = characterDao.findOne(character.getId());
         
@@ -251,7 +253,7 @@ public class PlayerCharacterDaoTest {
         assertEquals(true, characterWithPendingChanges.getTraitChangeEvents().stream().anyMatch(((TraitChangeEvent t) -> t.isPending())));
         assertEquals(false, characterWithPendingChanges.getTraitChangeEvents().stream().allMatch(((TraitChangeEvent t) -> !t.isPending())));
         
-        characterWithPendingChanges.getTraitChangeEvents().forEach(((TraitChangeEvent t) -> t.approve(characterWithPendingChanges)));
+        characterWithPendingChanges.getTraitChangeEvents().forEach(((TraitChangeEvent t) -> t.approve(characterWithPendingChanges, traitChangeFactory)));
         characterDao.save(characterWithPendingChanges);
         
         PlayerCharacter characterWithApprovedChanges = characterDao.findOne(character.getId());

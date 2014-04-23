@@ -24,7 +24,7 @@ public class XpChangeEvent extends TraitChangeEvent {
     }
     
     @Override
-    public PlayerCharacter apply(PlayerCharacter character) {
+    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
         return character.setXp(character.getXp() - xp);
     }
 }
