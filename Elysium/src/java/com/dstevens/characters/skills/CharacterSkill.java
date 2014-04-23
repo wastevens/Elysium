@@ -4,14 +4,14 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.*;
 import java.util.function.Function;
-
 import javax.persistence.*;
 
+import com.dstevens.characters.traits.CharacterDefinedTrait;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="CharacterSkills")
-public class CharacterSkill implements Comparable<CharacterSkill> {
+public class CharacterSkill implements CharacterDefinedTrait, Comparable<CharacterSkill> {
     
     @Id
     private final String id;
@@ -56,9 +56,13 @@ public class CharacterSkill implements Comparable<CharacterSkill> {
     public final String getCharacterId() {
         return characterId;
     }
-
+    
     public final Skill getSkill() {
         return skill;
+    }
+    
+    public final int ordinal() {
+        return skill.ordinal();
     }
 
     public final String getSpecialization() {

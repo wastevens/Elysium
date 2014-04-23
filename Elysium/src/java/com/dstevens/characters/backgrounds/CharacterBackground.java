@@ -6,11 +6,12 @@ import java.util.*;
 import java.util.function.Function;
 import javax.persistence.*;
 
+import com.dstevens.characters.traits.CharacterDefinedTrait;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="CharacterBackgrounds")
-public class CharacterBackground implements Comparable<CharacterBackground> {
+public class CharacterBackground implements CharacterDefinedTrait, Comparable<CharacterBackground> {
     
     @Id
     private final String id;
@@ -58,6 +59,10 @@ public class CharacterBackground implements Comparable<CharacterBackground> {
     
     public final Background getBackground() {
         return background;
+    }
+    
+    public final int ordinal() {
+        return background.ordinal();
     }
 
     public final String getSpecialization() {
