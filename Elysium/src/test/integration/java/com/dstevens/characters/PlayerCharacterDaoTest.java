@@ -18,7 +18,6 @@ import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;
-import com.dstevens.characters.traits.*;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.players.*;
 

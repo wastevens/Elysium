@@ -5,7 +5,6 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.*;
 import java.util.function.Function;
-
 import javax.persistence.*;
 
 import com.dstevens.characters.attributes.*;
@@ -16,7 +15,6 @@ import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.CharacterSkill;
-import com.dstevens.characters.traits.*;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.players.*;
 import com.dstevens.utilities.ObjectExtensions;
