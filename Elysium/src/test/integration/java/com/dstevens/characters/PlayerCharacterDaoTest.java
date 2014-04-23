@@ -235,9 +235,13 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testTraitChanges() {
-        characterDao.save(character.withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.ATHLETICS, 2, set("Jumping", "Hiding"))).
+        characterDao.save(character.withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.ACADEMICS, 2, set("Reading", "Writing"))).
+                                    withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.CRAFTS, 3, "Pottery")).
+                                    withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.CRAFTS, 3, "Writing")).
+                                    withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.ATHLETICS, 4)).
                                     withTraitChangeEvent(traitChangeFactory.change(character).setBackground(Background.GENERATION, 2)).
-                                    withTraitChangeEvent(traitChangeFactory.change(character).setBackground(Background.RESOURCES, 3)));
+                                    withTraitChangeEvent(traitChangeFactory.change(character).setBackground(Background.FAME, 2, "Pottery")).
+                                    withTraitChangeEvent(traitChangeFactory.change(character).setBackground(Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury"))));
         
         PlayerCharacter characterWithPendingChanges = characterDao.findOne(character.getId());
         
@@ -255,19 +259,32 @@ public class PlayerCharacterDaoTest {
         assertEquals(false, characterWithApprovedChanges.getTraitChangeEvents().stream().anyMatch(((TraitChangeEvent t) -> t.isPending())));
         assertEquals(true, characterWithApprovedChanges.getTraitChangeEvents().stream().allMatch(((TraitChangeEvent t) -> !t.isPending())));
         
-        assertEquals(1, characterWithApprovedChanges.getSkills().size());
-        CharacterSkill skill = characterWithApprovedChanges.getSkills().iterator().next();
-        assertEquals(Skill.ATHLETICS, skill.getSkill());
-        assertEquals(2, skill.getRating());
-        System.out.println(skill.getFocuses());
-        assertEquals(set("Jumping", "Hiding"), skill.getFocuses());
+        assertEquals(4, characterWithApprovedChanges.getSkills().size());
+        List<CharacterSkill> skills = sort(listFrom(characterWithApprovedChanges.getSkills()));
         
-        assertEquals(2, characterWithApprovedChanges.getBackgrounds().size());
+        assertExpectedSkill(new CharacterSkill("", "", Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(0));
+        assertExpectedSkill(new CharacterSkill("", "", Skill.ATHLETICS, 4, null, set()), skills.get(1));
+        assertExpectedSkill(new CharacterSkill("", "", Skill.CRAFTS, 3, "Pottery", set()), skills.get(2));
+        assertExpectedSkill(new CharacterSkill("", "", Skill.CRAFTS, 3, "Writing", set()), skills.get(3));
+        
+        assertEquals(3, characterWithApprovedChanges.getBackgrounds().size());
         List<CharacterBackground> backgrounds = sort(listFrom(characterWithApprovedChanges.getBackgrounds()));
-        assertEquals(2, backgrounds.size());
-        assertEquals(Background.GENERATION, backgrounds.get(0).getBackground());
-        assertEquals(2, backgrounds.get(0).getRating());
-        assertEquals(Background.RESOURCES, backgrounds.get(1).getBackground());
-        assertEquals(3, backgrounds.get(1).getRating());
+        assertExpectedBackground(new CharacterBackground("", "", Background.FAME, 2, "Pottery", set()), backgrounds.get(0));
+        assertExpectedBackground(new CharacterBackground("", "", Background.GENERATION, 2, null, set()), backgrounds.get(1));
+        assertExpectedBackground(new CharacterBackground("", "", Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(2));
+    }
+
+    private void assertExpectedSkill(CharacterSkill expected, CharacterSkill actual) {
+        assertEquals(expected.getSkill(), actual.getSkill());
+        assertEquals(expected.getRating(), actual.getRating());
+        assertEquals(expected.getSpecialization(), actual.getSpecialization());
+        assertEquals(expected.getFocuses(), actual.getFocuses());
+    }
+    
+    private void assertExpectedBackground(CharacterBackground expected, CharacterBackground actual) {
+        assertEquals(expected.getBackground(), actual.getBackground());
+        assertEquals(expected.getRating(), actual.getRating());
+        assertEquals(expected.getSpecialization(), actual.getSpecialization());
+        assertEquals(expected.getFocuses(), actual.getFocuses());
     }
 }

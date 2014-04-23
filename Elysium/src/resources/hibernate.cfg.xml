@@ -18,6 +18,8 @@
     <mapping class="com.dstevens.characters.traits.TraitChangeEvent"/>
     <mapping class="com.dstevens.characters.traits.XpChangeEvent"/>
     <mapping class="com.dstevens.characters.traits.SetSkillEvent"/>
+    <mapping class="com.dstevens.characters.traits.SetBackgroundEvent"/>
+    <mapping class="com.dstevens.characters.traits.XpChangeEvent"/>
     
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>

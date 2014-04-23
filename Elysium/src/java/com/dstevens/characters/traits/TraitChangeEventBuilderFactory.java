@@ -60,6 +60,18 @@ public class TraitChangeEventBuilderFactory {
         public SetBackgroundEvent setBackground(Background background, int rating) {
             return new SetBackgroundEvent(idSupplier.get(), TraitChangeStatus.PENDING, backgroundFactory.backgroundFor(character, background, rating));
         }
+        
+        public SetBackgroundEvent setBackground(Background background, int rating, String specialization) {
+            return new SetBackgroundEvent(idSupplier.get(), TraitChangeStatus.PENDING, backgroundFactory.backgroundFor(character, background, rating, specialization));
+        }
+        
+        public SetBackgroundEvent setBackground(Background background, int rating, Set<String> focuses) {
+            return new SetBackgroundEvent(idSupplier.get(), TraitChangeStatus.PENDING, backgroundFactory.backgroundFor(character, background, rating, focuses));
+        }
+        
+        public SetBackgroundEvent setBackground(Background background, int rating, String specialization, Set<String> focuses) {
+            return new SetBackgroundEvent(idSupplier.get(), TraitChangeStatus.PENDING, backgroundFactory.backgroundFor(character, background, rating, specialization, focuses));
+        }
 
     }
 
