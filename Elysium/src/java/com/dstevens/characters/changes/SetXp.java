@@ -6,7 +6,7 @@ import com.dstevens.characters.PlayerCharacter;
 
 @Entity
 @DiscriminatorValue("XP")
-public class SetXp extends TraitChange {
+class SetXp extends SetTrait {
 
     @Column(name="rating")
     private int xp;
@@ -18,13 +18,13 @@ public class SetXp extends TraitChange {
         this(null, null, 0);
     }
     
-    public SetXp(String id, TraitChangeStatus status, int xp) {
+    protected SetXp(String id, TraitChangeStatus status, int xp) {
         super(id, status);
         this.xp = xp;
     }
     
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public final PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
         return character.setXp(character.getXp() - xp);
     }
 }

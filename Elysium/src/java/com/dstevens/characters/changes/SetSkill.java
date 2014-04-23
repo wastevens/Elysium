@@ -8,7 +8,7 @@ import com.dstevens.characters.skills.*;
 
 @Entity
 @DiscriminatorValue("Skill")
-public class SetSkill extends SetCharacterDefinedTrait {
+class SetSkill extends SetCharacterDefinedTrait {
 
     //Hibernate only
     @Deprecated
@@ -16,16 +16,16 @@ public class SetSkill extends SetCharacterDefinedTrait {
         super(null, null, 0, 0, null, null);
     }
     
-    public SetSkill(String id, TraitChangeStatus status, CharacterSkill skill) {
+    protected SetSkill(String id, TraitChangeStatus status, CharacterSkill skill) {
         super(id, status, skill);
     }
     
-    public SetSkill(String id, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+    protected SetSkill(String id, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
         super(id, status, ordinal, rating, specialization, focuses);
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public final PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
         CharacterSkillFactory factory = traitChangeFactory.characterSkillFactory();
         return character.withSkill(factory.skillFor(Skill.values()[ordinal()], rating(), specialization(), focuses()));
     }

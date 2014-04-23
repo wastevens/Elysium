@@ -6,7 +6,7 @@ import com.dstevens.characters.traits.RatedTrait;
 
 @Entity
 @DiscriminatorValue("RatedTrait")
-public abstract class SetRatedTrait extends TraitChange {
+abstract class SetRatedTrait extends SetTrait {
 
     @Column(name="ordinal")
     private final int ordinal;
@@ -14,11 +14,11 @@ public abstract class SetRatedTrait extends TraitChange {
     @Column(name="rating")
     private final int rating;
     
-    public SetRatedTrait(String id, TraitChangeStatus status, RatedTrait trait) {
+    protected SetRatedTrait(String id, TraitChangeStatus status, RatedTrait trait) {
         this(id, status, trait.ordinal(), trait.getRating());
     }
     
-    public SetRatedTrait(String id, TraitChangeStatus status, int ordinal, int rating) {
+    protected SetRatedTrait(String id, TraitChangeStatus status, int ordinal, int rating) {
         super(id, status);
         this.ordinal = ordinal;
         this.rating = rating;

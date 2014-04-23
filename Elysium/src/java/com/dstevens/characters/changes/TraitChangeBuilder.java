@@ -53,7 +53,7 @@ public class TraitChangeBuilder {
             return this;
         }
         
-        public abstract TraitChange getEvent();
+        public abstract SetTrait getEvent();
         
     }
     
@@ -63,7 +63,7 @@ public class TraitChangeBuilder {
             super(skill, rating);
         }
         
-        public final TraitChange getEvent() {
+        public final SetTrait getEvent() {
             return new SetSkill(idSupplier.get(), TraitChangeStatus.PENDING, 
                                 skillFactory.skillFor(trait, rating, specialization, focuses));
         }
@@ -76,7 +76,7 @@ public class TraitChangeBuilder {
             super(background, rating);
         }
         
-        public final TraitChange getEvent() {
+        public final SetTrait getEvent() {
             return new SetBackground(idSupplier.get(), TraitChangeStatus.PENDING, 
                                      backgroundFactory.backgroundFor(trait, rating, specialization, focuses));
         }
@@ -90,15 +90,15 @@ public class TraitChangeBuilder {
         return new SetBackgroundBuilder(background, rating);
     }
 
-    public TraitChange gainXp(int xp) {
+    public SetTrait gainXp(int xp) {
         return changeXp(-1 * xp);
     }
 
-    public TraitChange spendXp(int xp) {
+    public SetTrait spendXp(int xp) {
         return changeXp(xp);
     }
     
-    private TraitChange changeXp(int xp) {
+    private SetTrait changeXp(int xp) {
         return new SetXp(idSupplier.get(), TraitChangeStatus.PENDING, xp);
     }
 
