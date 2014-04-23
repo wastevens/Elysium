@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.*;
+import com.dstevens.characters.changes.*;
 import com.dstevens.characters.clans.*;
 import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;

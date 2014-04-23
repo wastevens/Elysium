@@ -1,6 +1,8 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.changes;
 
 import java.util.Set;
+
+import com.dstevens.characters.traits.CharacterDefinedTrait;
 
 import javax.persistence.*;
 

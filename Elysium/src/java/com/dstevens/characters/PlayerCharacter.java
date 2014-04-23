@@ -5,10 +5,12 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.*;
 import java.util.function.Function;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.CharacterBackground;
+import com.dstevens.characters.changes.*;
 import com.dstevens.characters.clans.*;
 import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;

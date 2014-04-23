@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.changes;
 
 import com.dstevens.characters.PlayerCharacter;
 

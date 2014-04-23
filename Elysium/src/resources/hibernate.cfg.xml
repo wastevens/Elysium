@@ -15,12 +15,12 @@
     <mapping class="com.dstevens.characters.attributes.MentalAttribute"/>
     <mapping class="com.dstevens.characters.attributes.SocialAttribute"/>
     
-    <mapping class="com.dstevens.characters.traits.TraitChangeEvent"/>
-    <mapping class="com.dstevens.characters.traits.SetCharacterDefinedTrait"/>
-    <mapping class="com.dstevens.characters.traits.XpChangeEvent"/>
-    <mapping class="com.dstevens.characters.traits.SetSkillEvent"/>
-    <mapping class="com.dstevens.characters.traits.SetBackgroundEvent"/>
-    <mapping class="com.dstevens.characters.traits.XpChangeEvent"/>
+    <mapping class="com.dstevens.characters.changes.TraitChangeEvent"/>
+    <mapping class="com.dstevens.characters.changes.SetCharacterDefinedTrait"/>
+    <mapping class="com.dstevens.characters.changes.XpChangeEvent"/>
+    <mapping class="com.dstevens.characters.changes.SetSkillEvent"/>
+    <mapping class="com.dstevens.characters.changes.SetBackgroundEvent"/>
+    <mapping class="com.dstevens.characters.changes.XpChangeEvent"/>
     
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>
