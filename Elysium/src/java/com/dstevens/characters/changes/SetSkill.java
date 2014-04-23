@@ -27,6 +27,6 @@ public class SetSkill extends SetCharacterDefinedTrait {
     @Override
     public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
         CharacterSkillFactory factory = traitChangeFactory.characterSkillFactory();
-        return character.withSkill(factory.skillFor(character, Skill.values()[ordinal()], rating(), specialization(), focuses()));
+        return character.withSkill(factory.skillFor(Skill.values()[ordinal()], rating(), specialization(), focuses()));
     }
 }

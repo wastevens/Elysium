@@ -16,9 +16,6 @@ public class CharacterSkill implements CharacterDefinedTrait, Comparable<Charact
     @Id
     private final String id;
     
-    @Column(name="character_id")
-    private String characterId;
-    
     @Column(name="skill")
     private final Skill skill;
     
@@ -37,12 +34,11 @@ public class CharacterSkill implements CharacterDefinedTrait, Comparable<Charact
     @SuppressWarnings("unused")
     @Deprecated
     private CharacterSkill() {
-        this(null, null, null, 0, null, set());
+        this(null, null, 0, null, set());
     }
     
-    public CharacterSkill(String id, String characterId, Skill skill, int rating, String specialization, Set<String> focuses) {
+    public CharacterSkill(String id, Skill skill, int rating, String specialization, Set<String> focuses) {
         this.id = id;
-        this.characterId = characterId;
         this.skill = skill;
         this.rating = rating;
         this.specialization = specialization;
@@ -51,10 +47,6 @@ public class CharacterSkill implements CharacterDefinedTrait, Comparable<Charact
 
     public final String getId() {
         return id;
-    }
-    
-    public final String getCharacterId() {
-        return characterId;
     }
     
     public final Skill getSkill() {

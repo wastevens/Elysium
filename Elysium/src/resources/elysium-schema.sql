@@ -63,7 +63,7 @@ create table CharacterFlaws (PlayerCharacter_id varchar(255) not null, details v
 create table CharacterMerits (PlayerCharacter_id varchar(255) not null, details varchar(255), merit_id integer, merit_type varchar(255));
 create table CharacterNecromanticPaths (character_id varchar(255) not null, path integer, rating integer not null, primary key (character_id, rating));
 create table CharacterSkillFocuses (CharacterSkill_id varchar(255) not null, focus varchar(255));
-create table CharacterSkills (id varchar(255) not null, character_id varchar(255), rating integer, skill integer, specialization varchar(255), primary key (id));
+create table CharacterSkills (id varchar(255) not null, rating integer, skill integer, specialization varchar(255), character_id varchar(255), primary key (id));
 create table CharacterTechniques (PlayerCharacter_id varchar(255) not null, technique integer);
 create table CharacterThamaturgicalPaths (character_id varchar(255) not null, path integer, rating integer not null, primary key (character_id, rating));
 create table CharacterThamaturgicalRituals (PlayerCharacter_id varchar(255) not null, thaumaturgical_ritual integer, neromantic_ritual integer);

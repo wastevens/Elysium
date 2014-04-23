@@ -7,7 +7,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.suppliers.IdSupplier;
 
 @Service
@@ -23,20 +22,20 @@ public class CharacterSkillFactory {
         this.idSupplier = idSupplier;
     }
     
-    public CharacterSkill skillFor(PlayerCharacter character, Skill skill, int rating) {
-        return new CharacterSkill(idSupplier.get(), character.getId(), skill, rating, NO_SPECIALIZATION, NO_FOCUSES);
+    public CharacterSkill skillFor(Skill skill, int rating) {
+        return skillFor(skill, rating, NO_SPECIALIZATION, NO_FOCUSES);
     }
     
-    public CharacterSkill skillFor(PlayerCharacter character, Skill skill, int rating, String specialization) {
-        return new CharacterSkill(idSupplier.get(), character.getId(), skill, rating, specialization, NO_FOCUSES);
+    public CharacterSkill skillFor(Skill skill, int rating, String specialization) {
+        return skillFor(skill, rating, specialization, NO_FOCUSES);
     }
     
-    public CharacterSkill skillFor(PlayerCharacter character, Skill skill, int rating, Set<String> focuses) {
-        return new CharacterSkill(idSupplier.get(), character.getId(), skill, rating, NO_SPECIALIZATION, focuses);
+    public CharacterSkill skillFor(Skill skill, int rating, Set<String> focuses) {
+        return skillFor(skill, rating, NO_SPECIALIZATION, focuses);
     }
     
-    public CharacterSkill skillFor(PlayerCharacter character, Skill skill, int rating,  String specialization, Set<String> focuses) {
-        return new CharacterSkill(idSupplier.get(), character.getId(), skill, rating, specialization, focuses);
+    public CharacterSkill skillFor(Skill skill, int rating, String specialization,  Set<String> focuses) {
+        return new CharacterSkill(idSupplier.get(), skill, rating, specialization, focuses);
     }
     
 }
