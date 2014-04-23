@@ -21,7 +21,7 @@ public class TraitChangeBuilderFactory {
 
     @Autowired
     public TraitChangeBuilderFactory(IdSupplier idSupplier, CharacterSkillFactory skillFactory,
-                                          CharacterBackgroundFactory backgroundFactory) {
+                                     CharacterBackgroundFactory backgroundFactory) {
         this.idSupplier = idSupplier;
         this.skillFactory = skillFactory;
         this.backgroundFactory = backgroundFactory;
@@ -46,37 +46,62 @@ public class TraitChangeBuilderFactory {
             this.backgroundFactory = backgroundFactory;
         }
         
-        public SetSkill setSkill(Skill skill, int rating) {
-            return setSkill(skill, rating, null, set());
+        public abstract class SetCharacterDefinedTraitBuilder<Trait extends Enum<?>> {
+            
+            protected Trait trait = null;
+            protected int rating = 0;
+            protected String specialization = null;
+            protected Set<String> focuses = set();
+
+            public SetCharacterDefinedTraitBuilder(Trait trait, int rating) {
+                this.trait = trait;
+                this.rating = rating;
+            }
+            
+            public SetCharacterDefinedTraitBuilder<Trait> withSpecialization(String specialization) {
+                this.specialization = specialization;
+                return this;
+            }
+            
+            public SetCharacterDefinedTraitBuilder<Trait> withFocuses(Set<String> focuses) {
+                this.focuses.addAll(focuses);
+                return this;
+            }
+            
+            public abstract TraitChange getEvent();
         }
         
-        public SetSkill setSkill(Skill skill, int rating, String specialization) {
-            return setSkill(skill, rating, specialization, set());
+        public class SetSkillBuilder extends SetCharacterDefinedTraitBuilder<Skill> {
+            
+            private SetSkillBuilder(Skill skill, int rating) {
+                super(skill, rating);
+            }
+            
+            public TraitChange getEvent() {
+                return new SetSkill(idSupplier.get(), TraitChangeStatus.PENDING, 
+                                    skillFactory.skillFor(character, trait, rating, specialization, focuses));
+            }
         }
         
-        public SetSkill setSkill(Skill skill, int rating, Set<String> focuses) {
-            return setSkill(skill, rating, null, focuses);
+        
+        public class SetBackgroundBuilder extends SetCharacterDefinedTraitBuilder<Background> {
+            
+            private SetBackgroundBuilder(Background background, int rating) {
+                super(background, rating);
+            }
+            
+            public TraitChange getEvent() {
+                return new SetBackground(idSupplier.get(), TraitChangeStatus.PENDING, 
+                                         backgroundFactory.backgroundFor(character, trait, rating, specialization, focuses));
+            }
         }
         
-        private SetSkill setSkill(Skill skill, int rating, String specialization, Set<String> focuses) {
-            return new SetSkill(idSupplier.get(), TraitChangeStatus.PENDING, 
-                                     skillFactory.skillFor(character, skill, rating, specialization, focuses));
+        public SetSkillBuilder forSkill(Skill skill, int rating) {
+            return new SetSkillBuilder(skill, rating);
         }
         
-        public SetBackground setBackground(Background background, int rating) {
-            return setBackground(background, rating, null, set());
-        }
-        
-        public SetBackground setBackground(Background background, int rating, String specialization) {
-            return setBackground(background, rating, specialization, set());
-        }
-        
-        public SetBackground setBackground(Background background, int rating, Set<String> focuses) {
-            return setBackground(background, rating, null, focuses);
-        }
-        
-        public SetBackground setBackground(Background background, int rating, String specialization, Set<String> focuses) {
-            return new SetBackground(idSupplier.get(), TraitChangeStatus.PENDING, backgroundFactory.backgroundFor(character, background, rating, specialization, focuses));
+        public SetBackgroundBuilder forBackground(Background background, int rating) {
+            return new SetBackgroundBuilder(background, rating);
         }
 
         public TraitChange gainXp(int xp) {

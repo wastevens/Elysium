@@ -237,14 +237,14 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testTraitChanges() {
-        characterDao.save(character.withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.ACADEMICS, 2, set("Reading", "Writing"))).
-                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.CRAFTS, 3, "Pottery")).
-                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.CRAFTS, 3, "Writing")).
-                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.ATHLETICS, 4)).
-                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.GENERATION, 1)).
-                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.FAME, 2, "Pottery")).
-                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.ALLIES, 3, set("Bob", "Jim", "George"))).
-                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury"))).
+        characterDao.save(character.withTraitChangeEvent(traitChangeBuilderFactory.change(character).forSkill(Skill.ACADEMICS, 2).withFocuses(set("Reading", "Writing")).getEvent()).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).forSkill(Skill.CRAFTS, 3).withSpecialization("Pottery").getEvent()).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).forSkill(Skill.CRAFTS, 3).withSpecialization("Writing").getEvent()).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).forSkill(Skill.ATHLETICS, 4).getEvent()).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).forBackground(Background.GENERATION, 1).getEvent()).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).forBackground(Background.FAME, 2).withSpecialization("Pottery").getEvent()).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).forBackground(Background.ALLIES, 3).withFocuses(set("Bob", "Jim", "George")).getEvent()).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).forBackground(Background.HAVEN, 4).withSpecialization("My House").withFocuses(set("Location", "Security", "Wards", "Luxury")).getEvent()).
                                     withTraitChangeEvent(traitChangeBuilderFactory.change(character).gainXp(10)).
                                     withTraitChangeEvent(traitChangeBuilderFactory.change(character).spendXp(1))
                                     );
