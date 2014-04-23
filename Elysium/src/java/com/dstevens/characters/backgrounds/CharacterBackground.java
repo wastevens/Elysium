@@ -16,9 +16,6 @@ public class CharacterBackground implements CharacterDefinedTrait, Comparable<Ch
     @Id
     private final String id;
     
-    @Column(name="character_id")
-    private String characterId;
-    
     @Column(name="background")
     private final Background background;
     
@@ -37,12 +34,11 @@ public class CharacterBackground implements CharacterDefinedTrait, Comparable<Ch
     @SuppressWarnings("unused")
     @Deprecated
     private CharacterBackground() {
-        this(null, null, null, 0, null, set());
+        this(null, null, 0, null, set());
     }
     
-    public CharacterBackground(String id, String characterId, Background background, int rating, String specialization, Set<String> focuses) {
+    public CharacterBackground(String id, Background background, int rating, String specialization, Set<String> focuses) {
         this.id = id;
-        this.characterId = characterId;
         this.background = background;
         this.rating = rating;
         this.specialization = specialization;
@@ -51,10 +47,6 @@ public class CharacterBackground implements CharacterDefinedTrait, Comparable<Ch
 
     public final String getId() {
         return id;
-    }
-
-    public final String getCharacterId() {
-        return characterId;
     }
     
     public final Background getBackground() {

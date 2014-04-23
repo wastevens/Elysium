@@ -124,12 +124,12 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testSaveWithBackground() {
-        CharacterBackground resources = backgroundFactory.backgroundFor(character, Background.RESOURCES, 2);
-        CharacterBackground contacts = backgroundFactory.backgroundFor(character, Background.CONTACTS, 3, set("Bob", "Joe"));
-        CharacterBackground alternateIdentity1 = backgroundFactory.backgroundFor(character, Background.ALTERNATE_IDENTITY, 1, "Jimmy");
-        CharacterBackground alternateIdentity2 = backgroundFactory.backgroundFor(character, Background.ALTERNATE_IDENTITY, 1, "Johny");
-        CharacterBackground haven1 = backgroundFactory.backgroundFor(character, Background.HAVEN, 2, "That place", set("Location", "Luxury"));
-        CharacterBackground haven2 = backgroundFactory.backgroundFor(character, Background.HAVEN, 2, "That other place", set("Location", "Security"));
+        CharacterBackground resources = backgroundFactory.backgroundFor(Background.RESOURCES, 2);
+        CharacterBackground contacts = backgroundFactory.backgroundFor(Background.CONTACTS, 3, set("Bob", "Joe"));
+        CharacterBackground alternateIdentity1 = backgroundFactory.backgroundFor(Background.ALTERNATE_IDENTITY, 1, "Jimmy");
+        CharacterBackground alternateIdentity2 = backgroundFactory.backgroundFor(Background.ALTERNATE_IDENTITY, 1, "Johny");
+        CharacterBackground haven1 = backgroundFactory.backgroundFor(Background.HAVEN, 2, "That place", set("Location", "Luxury"));
+        CharacterBackground haven2 = backgroundFactory.backgroundFor(Background.HAVEN, 2, "That other place", set("Location", "Security"));
         
         
         characterDao.save(character.withBackground(haven2).
@@ -275,10 +275,10 @@ public class PlayerCharacterDaoTest {
         List<CharacterBackground> backgrounds = sort(listFrom(twiceApproved.getBackgrounds()));  
         assertEquals(4, twiceApproved.getBackgrounds().size());
         backgrounds = sort(listFrom(twiceApproved.getBackgrounds()));
-        assertExpectedBackground(new CharacterBackground("", "", Background.ALLIES, 3, null, set("Bob", "Jim", "George")), backgrounds.get(0));
-        assertExpectedBackground(new CharacterBackground("", "", Background.FAME, 2, "Pottery", set()), backgrounds.get(1));
-        assertExpectedBackground(new CharacterBackground("", "", Background.GENERATION, 1, null, set()), backgrounds.get(2));
-        assertExpectedBackground(new CharacterBackground("", "", Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(3));
+        assertExpectedBackground(new CharacterBackground("", Background.ALLIES, 3, null, set("Bob", "Jim", "George")), backgrounds.get(0));
+        assertExpectedBackground(new CharacterBackground("", Background.FAME, 2, "Pottery", set()), backgrounds.get(1));
+        assertExpectedBackground(new CharacterBackground("", Background.GENERATION, 1, null, set()), backgrounds.get(2));
+        assertExpectedBackground(new CharacterBackground("", Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(3));
         
         assertEquals(10 - 1, twiceApproved.getXp());
     }
@@ -311,10 +311,10 @@ public class PlayerCharacterDaoTest {
         
         assertEquals(4, characterWithApprovedChanges.getBackgrounds().size());
         List<CharacterBackground> backgrounds = sort(listFrom(characterWithApprovedChanges.getBackgrounds()));
-        assertExpectedBackground(new CharacterBackground("", "", Background.ALLIES, 3, null, set("Bob", "Jim", "George")), backgrounds.get(0));
-        assertExpectedBackground(new CharacterBackground("", "", Background.FAME, 2, "Pottery", set()), backgrounds.get(1));
-        assertExpectedBackground(new CharacterBackground("", "", Background.GENERATION, 1, null, set()), backgrounds.get(2));
-        assertExpectedBackground(new CharacterBackground("", "", Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(3));
+        assertExpectedBackground(new CharacterBackground("", Background.ALLIES, 3, null, set("Bob", "Jim", "George")), backgrounds.get(0));
+        assertExpectedBackground(new CharacterBackground("", Background.FAME, 2, "Pottery", set()), backgrounds.get(1));
+        assertExpectedBackground(new CharacterBackground("", Background.GENERATION, 1, null, set()), backgrounds.get(2));
+        assertExpectedBackground(new CharacterBackground("", Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(3));
         
         assertEquals(10 - 1, characterWithApprovedChanges.getXp());
         

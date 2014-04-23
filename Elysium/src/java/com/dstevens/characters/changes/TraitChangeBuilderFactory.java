@@ -92,7 +92,7 @@ public class TraitChangeBuilderFactory {
             
             public TraitChange getEvent() {
                 return new SetBackground(idSupplier.get(), TraitChangeStatus.PENDING, 
-                                         backgroundFactory.backgroundFor(character, trait, rating, specialization, focuses));
+                                         backgroundFactory.backgroundFor(trait, rating, specialization, focuses));
             }
         }
         

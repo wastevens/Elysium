@@ -56,7 +56,7 @@ drop table if exists TroupePlayerCharacters;
 drop table if exists TroupePlayers;
 create table AuditEvent (id varchar(255) not null, audit_message varchar(255), audited_type varchar(255), audited_id varchar(255), timestamp datetime, primary key (id));
 create table CharacterBackgroundFocuses (CharacterBackground_id varchar(255) not null, focus varchar(255));
-create table CharacterBackgrounds (id varchar(255) not null, background integer, character_id varchar(255), rating integer, specialization varchar(255), primary key (id));
+create table CharacterBackgrounds (id varchar(255) not null, background integer, rating integer, specialization varchar(255), character_id varchar(255), primary key (id));
 create table CharacterDisciplines (character_id varchar(255) not null, power integer, rating integer not null, primary key (character_id, rating));
 create table CharacterElderPowers (PlayerCharacter_id varchar(255) not null, elder_power integer);
 create table CharacterFlaws (PlayerCharacter_id varchar(255) not null, details varchar(255), flaw_id integer, flaw_type varchar(255));
