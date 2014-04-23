@@ -1,21 +1,14 @@
 package com.dstevens.characters.changes;
 
 import java.util.Set;
+import javax.persistence.*;
 
 import com.dstevens.characters.traits.CharacterDefinedTrait;
 
-import javax.persistence.*;
-
 @Entity
 @DiscriminatorValue("CharactedDefinedTrait")
-public abstract class SetCharacterDefinedTrait extends TraitChange {
+public abstract class SetCharacterDefinedTrait extends SetRatedTrait {
 
-    @Column(name="ordinal")
-    private final int ordinal;
-    
-    @Column(name="rating")
-    private final int rating;
-    
     @Column(name="specialization")
     private final String specialization;
     
@@ -29,19 +22,9 @@ public abstract class SetCharacterDefinedTrait extends TraitChange {
     }
     
     public SetCharacterDefinedTrait(String id, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
-        super(id, status);
-        this.ordinal = ordinal;
-        this.rating = rating;
+        super(id, status, ordinal, rating);
         this.specialization = specialization;
         this.focuses = focuses;
-    }
-
-    protected final int ordinal() {
-        return ordinal;
-    }
-
-    protected final int rating() {
-        return rating;
     }
 
     protected final String specialization() {
