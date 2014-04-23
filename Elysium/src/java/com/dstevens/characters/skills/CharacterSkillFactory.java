@@ -35,4 +35,8 @@ public class CharacterSkillFactory {
         return new CharacterSkill(idSupplier.get(), character.getId(), skill, rating, NO_SPECIALIZATION, focuses);
     }
     
+    public CharacterSkill skillFor(PlayerCharacter character, Skill skill, int rating,  String specialization, Set<String> focuses) {
+        return new CharacterSkill(idSupplier.get(), character.getId(), skill, rating, specialization, focuses);
+    }
+    
 }

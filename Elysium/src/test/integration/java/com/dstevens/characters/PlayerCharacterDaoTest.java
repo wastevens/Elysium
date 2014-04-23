@@ -5,7 +5,7 @@ import static com.dstevens.collections.Sets.set;
 import static com.dstevens.testing.Assertions.assertListsEqual;
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
+import java.util.*;
 
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
@@ -17,6 +17,7 @@ import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;
+import com.dstevens.characters.traits.*;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.players.*;
 
@@ -226,6 +227,31 @@ public class PlayerCharacterDaoTest {
                      characterWithMerits.getMerits());
         assertEquals(set(new CharacterFlaw(GeneralFlaw.BAD_SIGHT), new CharacterFlaw(GeneralFlaw.ADDICTION, "To meth!"), new CharacterFlaw(SettingSpecificFlaw.DUBIOUS_LOYALTIES)), 
                      characterWithMerits.getFlaws());
+        
+    }
+    
+    @Test
+    public void testTraitChanges() {
+        characterDao.save(character.withTraitChangeEvent(new SetSkillEvent("some id", character.getId(), TraitChangeStatus.PENDING, Skill.ATHLETICS.ordinal(), 2, "Running", set("Jumping", "Hiding"))));
+        
+        PlayerCharacter characterWithPendingSkillChange = characterDao.findOne(character.getId());
+        
+        Set<CharacterSkill> noSkills = set();
+        assertEquals(noSkills, characterWithPendingSkillChange.getSkills());
+        
+        characterWithPendingSkillChange.getTraitChangeEvents().forEach(((TraitChangeEvent t) -> t.approve(characterWithPendingSkillChange)));
+        characterDao.save(characterWithPendingSkillChange);
+        
+        PlayerCharacter characterWithApprovedSkills = characterDao.findOne(character.getId());
+        
+        assertEquals(1, characterWithApprovedSkills.getSkills().size());
+        CharacterSkill skill = characterWithApprovedSkills.getSkills().iterator().next();
+        assertEquals(Skill.ATHLETICS, skill.getSkill());
+        assertEquals(2, skill.getRating());
+        assertEquals("Running", skill.getSpecialization());
+        System.out.println(skill.getFocuses());
+        assertEquals(set("Jumping", "Hiding"), skill.getFocuses());
+        
         
     }
 }

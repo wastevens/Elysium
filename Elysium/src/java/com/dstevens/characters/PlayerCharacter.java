@@ -1,5 +1,6 @@
 package com.dstevens.characters;
 
+import static com.dstevens.collections.Lists.list;
 import static com.dstevens.collections.Sets.set;
 
 import java.util.*;
@@ -13,6 +14,7 @@ import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.CharacterSkill;
+import com.dstevens.characters.traits.TraitChangeEvent;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.players.*;
 import com.dstevens.utilities.ObjectExtensions;
@@ -38,6 +40,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                joinColumns = @JoinColumn(name="character_id"),
                inverseJoinColumns = @JoinColumn(name="troupe_id"))
     private Troupe troupe;
+    
+    @Column(name="xp")
+    private int xp;
     
     @Column(name="name")
     private final String name;
@@ -140,15 +145,20 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @Column(name="flaw")
     private final Set<CharacterFlaw> flaws;
     
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinColumn(name="character_id", referencedColumnName="id")
+    @OrderColumn(name="order_by")
+    private final List<TraitChangeEvent> traitChangeEvents;
+    
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
     private PlayerCharacter() {
-        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Troupe troupe, Player player, String name) {
-        this(id, player, troupe, name, null, null, 
+        this(id, player, troupe, 0, name, null, null, 
              new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id),
              set(), set(), 
              set(), set(), set(),
@@ -156,10 +166,11 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
              set(), null, set(),
              set(), null, set(),
              set(), set(),
+             list(),
              null);
     }
     
-    private PlayerCharacter(String id, Player player, Troupe troupe, String name, Clan clan, Bloodline bloodline,
+    private PlayerCharacter(String id, Player player, Troupe troupe, int xp, String name, Clan clan, Bloodline bloodline,
                             PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, 
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
                             Set<Discipline> inClanDisciplines, Set<Thaumaturgy> inClanThaumaturgicalPaths, Set<Necromancy> inClanNecromanticPaths,
@@ -167,10 +178,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                             Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, Set<ThaumaturgicalRitual> thaumaturgicalRituals,
                             Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals,
                             Set<CharacterMerit> merits, Set<CharacterFlaw> flaws,
+                            List<TraitChangeEvent> traitChangeEvents,
                             Date deleteTimestamp) {
         this.id = id;
         this.player = player;
         this.troupe = troupe;
+        this.xp = xp;
         this.name = name;
         this.clan = clan;
         this.bloodline = bloodline;
@@ -193,6 +206,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.necromanticRituals = necromanticRituals;
         this.merits = merits;
         this.flaws = flaws;
+        this.traitChangeEvents = traitChangeEvents;
         this.deleteTimestamp = deleteTimestamp;
     }
     
@@ -201,7 +215,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, player, troupe, name, clan, bloodline, 
+        return new PlayerCharacter(id, player, troupe, xp, name, clan, bloodline, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
@@ -209,6 +223,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
                                    merits, flaws,
+                                   traitChangeEvents,
                                    deleteTimestamp);
     }
     
@@ -217,7 +232,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter ofClan(Clan clan) {
-        return new PlayerCharacter(id, player, troupe, name, clan, bloodline, 
+        return new PlayerCharacter(id, player, troupe, xp, name, clan, bloodline, 
                 physicalAttribute, mentalAttribute, socialAttribute, 
                 skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
@@ -225,6 +240,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                 thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                 necromanticPaths, primaryNecromanticPath, necromanticRituals,
                 merits, flaws,
+                traitChangeEvents,
                 deleteTimestamp);
     }
     
@@ -233,7 +249,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter ofBloodline(Bloodline bloodline) {
-        return new PlayerCharacter(id, player, troupe, name, clan, bloodline, 
+        return new PlayerCharacter(id, player, troupe, xp, name, clan, bloodline, 
                 physicalAttribute, mentalAttribute, socialAttribute, 
                 skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
@@ -241,6 +257,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                 thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                 necromanticPaths, primaryNecromanticPath, necromanticRituals,
                 merits, flaws,
+                traitChangeEvents,
                 deleteTimestamp);
     }
     
@@ -511,7 +528,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @Override
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, player, troupe, name, clan, bloodline, 
+        return new PlayerCharacter(id, player, troupe, xp, name, clan, bloodline, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
@@ -519,12 +536,13 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
                                    merits, flaws,
+                                   traitChangeEvents,
                                    timestamp);
     }
 
     @Override
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, player, troupe, name, clan, bloodline, 
+        return new PlayerCharacter(id, player, troupe, xp, name, clan, bloodline, 
                                    physicalAttribute, mentalAttribute, socialAttribute, 
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
@@ -532,6 +550,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
                                    necromanticPaths, primaryNecromanticPath, necromanticRituals,
                                    merits, flaws,
+                                   traitChangeEvents,
                                    null);
     }
     
@@ -561,5 +580,23 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return Comparator.comparing(byDeletedTimestamp, Comparator.nullsFirst(Comparator.naturalOrder())).
                       thenComparing(Comparator.comparing(byName)).
                       compare(this, that);
+    }
+
+    public int getXp() {
+        return xp;
+    }
+    
+    public PlayerCharacter setXp(int xp) {
+        this.xp = xp;
+        return this;
+    }
+    
+    public List<TraitChangeEvent> getTraitChangeEvents() {
+        return traitChangeEvents;
+    }
+    
+    public PlayerCharacter withTraitChangeEvent(TraitChangeEvent event) {
+        this.traitChangeEvents.add(event);
+        return this;
     }
 }
