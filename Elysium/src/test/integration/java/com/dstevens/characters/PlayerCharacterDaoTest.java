@@ -35,6 +35,8 @@ public class PlayerCharacterDaoTest {
     private PlayerDao playerDao;
     private PlayerFactory playerFactory;
     
+    private TraitChangeEventBuilderFactory traitChangeFactory;
+    
     private Troupe troupe;
     private Player player;
     private PlayerCharacter character;
@@ -49,6 +51,7 @@ public class PlayerCharacterDaoTest {
         characterFactory    = APP_CONFIG.getBean(PlayerCharacterFactory.class);
         skillFactory = APP_CONFIG.getBean(CharacterSkillFactory.class);
         backgroundFactory = APP_CONFIG.getBean(CharacterBackgroundFactory.class);
+        traitChangeFactory = APP_CONFIG.getBean(TraitChangeEventBuilderFactory.class);
         
         troupe = troupeDao.save(troupeFactory.createTroupe("troupe name", Setting.ANARCH));
         player = playerDao.save(playerFactory.createPlayer("player name", "player email").joinTroupe(troupe));
@@ -232,7 +235,7 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testTraitChanges() {
-        characterDao.save(character.withTraitChangeEvent(new SetSkillEvent("some id", character.getId(), TraitChangeStatus.PENDING, Skill.ATHLETICS.ordinal(), 2, "Running", set("Jumping", "Hiding"))));
+        characterDao.save(character.withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.ATHLETICS, 2, set("Jumping", "Hiding"))));
         
         PlayerCharacter characterWithPendingSkillChange = characterDao.findOne(character.getId());
         
@@ -248,7 +251,6 @@ public class PlayerCharacterDaoTest {
         CharacterSkill skill = characterWithApprovedSkills.getSkills().iterator().next();
         assertEquals(Skill.ATHLETICS, skill.getSkill());
         assertEquals(2, skill.getRating());
-        assertEquals("Running", skill.getSpecialization());
         System.out.println(skill.getFocuses());
         assertEquals(set("Jumping", "Hiding"), skill.getFocuses());
         

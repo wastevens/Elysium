@@ -52,6 +52,10 @@ public class CharacterSkill implements Comparable<CharacterSkill> {
     public final String getId() {
         return id;
     }
+    
+    public final String getCharacterId() {
+        return characterId;
+    }
 
     public final Skill getSkill() {
         return skill;

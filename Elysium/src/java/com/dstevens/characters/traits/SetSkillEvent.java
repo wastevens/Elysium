@@ -33,8 +33,13 @@ public class SetSkillEvent extends TraitChangeEvent {
         this(null, null, null, 0, 0, null, null);
     }
     
-    public SetSkillEvent(String id, String characterId, TraitChangeStatus status,
-                         int ordinal, int rating, String specialization, Set<String> focuses) {
+    public SetSkillEvent(String id, TraitChangeStatus status, CharacterSkill skill) {
+        this(id, skill.getCharacterId(), status, skill.getSkill().ordinal(), skill.getRating(), skill.getSpecialization(), skill.getFocuses());
+        
+    }
+
+    public SetSkillEvent(String id, String characterId, TraitChangeStatus status, int ordinal, int rating,
+            String specialization, Set<String> focuses) {
         super(id, characterId, status);
         this.ordinal = ordinal;
         this.rating = rating;
