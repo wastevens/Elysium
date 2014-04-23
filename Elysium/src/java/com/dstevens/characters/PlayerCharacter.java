@@ -14,7 +14,7 @@ import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.CharacterSkill;
-import com.dstevens.characters.traits.TraitChangeEvent;
+import com.dstevens.characters.traits.*;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.players.*;
 import com.dstevens.utilities.ObjectExtensions;
@@ -597,6 +597,16 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     public PlayerCharacter withTraitChangeEvent(TraitChangeEvent event) {
         this.traitChangeEvents.add(event);
+        return this;
+    }
+    
+    public PlayerCharacter approvePendingChange(TraitChangeEvent event, TraitChangeFactory traitChangeFactory) {
+        event.approve(this, traitChangeFactory);
+        return this;
+    }
+    
+    public PlayerCharacter approvePendingChanges(TraitChangeFactory traitChangeFactory) {
+        this.traitChangeEvents.forEach((TraitChangeEvent t) -> t.approve(this, traitChangeFactory));
         return this;
     }
 }

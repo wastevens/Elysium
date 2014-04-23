@@ -241,10 +241,49 @@ public class PlayerCharacterDaoTest {
                                     withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.CRAFTS, 3, "Pottery")).
                                     withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.CRAFTS, 3, "Writing")).
                                     withTraitChangeEvent(traitChangeBuilderFactory.change(character).setSkill(Skill.ATHLETICS, 4)).
-                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.GENERATION, 2)).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.GENERATION, 1)).
                                     withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.FAME, 2, "Pottery")).
-                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury"))));
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.ALLIES, 3, set("Bob", "Jim", "George"))).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).setBackground(Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury"))).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).gainXp(10)).
+                                    withTraitChangeEvent(traitChangeBuilderFactory.change(character).spendXp(1))
+                                    );
         
+        PlayerCharacter characterWithPendingChanges = findCharacterWithPendingChanges();
+        
+        characterDao.save(characterWithPendingChanges.approvePendingChanges(traitChangeFactory));
+        
+        PlayerCharacter characterWithApprovedChanges = verifyThatAllPendingChangesApproved();
+                
+        verifyThatMultipleApprovalsDoesNotApplyMultipleTimes(characterWithApprovedChanges);
+    }
+
+    private void verifyThatMultipleApprovalsDoesNotApplyMultipleTimes(PlayerCharacter characterWithApprovedChanges) {
+        PlayerCharacter twiceApproved = characterWithApprovedChanges.approvePendingChanges(traitChangeFactory);
+        
+        assertEquals(false, twiceApproved.getTraitChangeEvents().stream().anyMatch(((TraitChangeEvent t) -> t.isPending())));
+        assertEquals(true, twiceApproved.getTraitChangeEvents().stream().allMatch(((TraitChangeEvent t) -> !t.isPending())));
+        
+        assertEquals(4, twiceApproved.getSkills().size());
+        List<CharacterSkill> skills = sort(listFrom(twiceApproved.getSkills()));
+        
+        assertExpectedSkill(new CharacterSkill("", "", Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(0));
+        assertExpectedSkill(new CharacterSkill("", "", Skill.ATHLETICS, 4, null, set()), skills.get(1));
+        assertExpectedSkill(new CharacterSkill("", "", Skill.CRAFTS, 3, "Pottery", set()), skills.get(2));
+        assertExpectedSkill(new CharacterSkill("", "", Skill.CRAFTS, 3, "Writing", set()), skills.get(3));
+        
+        List<CharacterBackground> backgrounds = sort(listFrom(twiceApproved.getBackgrounds()));  
+        assertEquals(4, twiceApproved.getBackgrounds().size());
+        backgrounds = sort(listFrom(twiceApproved.getBackgrounds()));
+        assertExpectedBackground(new CharacterBackground("", "", Background.ALLIES, 3, null, set("Bob", "Jim", "George")), backgrounds.get(0));
+        assertExpectedBackground(new CharacterBackground("", "", Background.FAME, 2, "Pottery", set()), backgrounds.get(1));
+        assertExpectedBackground(new CharacterBackground("", "", Background.GENERATION, 1, null, set()), backgrounds.get(2));
+        assertExpectedBackground(new CharacterBackground("", "", Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(3));
+        
+        assertEquals(10 - 1, twiceApproved.getXp());
+    }
+
+    private PlayerCharacter findCharacterWithPendingChanges() {
         PlayerCharacter characterWithPendingChanges = characterDao.findOne(character.getId());
         
         assertEquals(set(), characterWithPendingChanges.getSkills());
@@ -252,10 +291,11 @@ public class PlayerCharacterDaoTest {
         
         assertEquals(true, characterWithPendingChanges.getTraitChangeEvents().stream().anyMatch(((TraitChangeEvent t) -> t.isPending())));
         assertEquals(false, characterWithPendingChanges.getTraitChangeEvents().stream().allMatch(((TraitChangeEvent t) -> !t.isPending())));
-        
-        characterWithPendingChanges.getTraitChangeEvents().forEach(((TraitChangeEvent t) -> t.approve(characterWithPendingChanges, traitChangeFactory)));
-        characterDao.save(characterWithPendingChanges);
-        
+        assertEquals(0, characterWithPendingChanges.getXp());
+        return characterWithPendingChanges;
+    }
+    
+    private PlayerCharacter verifyThatAllPendingChangesApproved() {
         PlayerCharacter characterWithApprovedChanges = characterDao.findOne(character.getId());
         
         assertEquals(false, characterWithApprovedChanges.getTraitChangeEvents().stream().anyMatch(((TraitChangeEvent t) -> t.isPending())));
@@ -269,11 +309,16 @@ public class PlayerCharacterDaoTest {
         assertExpectedSkill(new CharacterSkill("", "", Skill.CRAFTS, 3, "Pottery", set()), skills.get(2));
         assertExpectedSkill(new CharacterSkill("", "", Skill.CRAFTS, 3, "Writing", set()), skills.get(3));
         
-        assertEquals(3, characterWithApprovedChanges.getBackgrounds().size());
+        assertEquals(4, characterWithApprovedChanges.getBackgrounds().size());
         List<CharacterBackground> backgrounds = sort(listFrom(characterWithApprovedChanges.getBackgrounds()));
-        assertExpectedBackground(new CharacterBackground("", "", Background.FAME, 2, "Pottery", set()), backgrounds.get(0));
-        assertExpectedBackground(new CharacterBackground("", "", Background.GENERATION, 2, null, set()), backgrounds.get(1));
-        assertExpectedBackground(new CharacterBackground("", "", Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(2));
+        assertExpectedBackground(new CharacterBackground("", "", Background.ALLIES, 3, null, set("Bob", "Jim", "George")), backgrounds.get(0));
+        assertExpectedBackground(new CharacterBackground("", "", Background.FAME, 2, "Pottery", set()), backgrounds.get(1));
+        assertExpectedBackground(new CharacterBackground("", "", Background.GENERATION, 1, null, set()), backgrounds.get(2));
+        assertExpectedBackground(new CharacterBackground("", "", Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(3));
+        
+        assertEquals(10 - 1, characterWithApprovedChanges.getXp());
+        
+        return characterWithApprovedChanges;
     }
 
     private void assertExpectedSkill(CharacterSkill expected, CharacterSkill actual) {

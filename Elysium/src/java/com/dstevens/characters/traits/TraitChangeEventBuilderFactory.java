@@ -73,6 +73,14 @@ public class TraitChangeEventBuilderFactory {
             return new SetBackgroundEvent(idSupplier.get(), TraitChangeStatus.PENDING, backgroundFactory.backgroundFor(character, background, rating, specialization, focuses));
         }
 
+        public TraitChangeEvent gainXp(int xp) {
+            return new XpChangeEvent(idSupplier.get(), character.getId(), TraitChangeStatus.PENDING, -1*xp);
+        }
+
+        public TraitChangeEvent spendXp(int xp) {
+            return new XpChangeEvent(idSupplier.get(), character.getId(), TraitChangeStatus.PENDING, xp);
+        }
+
     }
 
 }
