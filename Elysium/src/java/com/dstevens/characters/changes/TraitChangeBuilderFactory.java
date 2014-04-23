@@ -96,11 +96,11 @@ public class TraitChangeBuilderFactory {
             }
         }
         
-        public SetSkillBuilder forSkill(Skill skill, int rating) {
+        public SetSkillBuilder setSkill(Skill skill, int rating) {
             return new SetSkillBuilder(skill, rating);
         }
         
-        public SetBackgroundBuilder forBackground(Background background, int rating) {
+        public SetBackgroundBuilder setBackground(Background background, int rating) {
             return new SetBackgroundBuilder(background, rating);
         }
 
