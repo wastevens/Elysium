@@ -148,7 +148,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @OneToMany(cascade={CascadeType.ALL})
     @JoinColumn(name="character_id", referencedColumnName="id")
     @OrderColumn(name="order_by")
-    private final List<TraitChangeEvent> traitChangeEvents;
+    private final List<TraitChange> traitChangeEvents;
     
     //Hibernate only
     @SuppressWarnings("unused")
@@ -178,7 +178,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                             Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, Set<ThaumaturgicalRitual> thaumaturgicalRituals,
                             Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals,
                             Set<CharacterMerit> merits, Set<CharacterFlaw> flaws,
-                            List<TraitChangeEvent> traitChangeEvents,
+                            List<TraitChange> traitChangeEvents,
                             Date deleteTimestamp) {
         this.id = id;
         this.player = player;
@@ -591,22 +591,22 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public List<TraitChangeEvent> getTraitChangeEvents() {
+    public List<TraitChange> getTraitChangeEvents() {
         return traitChangeEvents;
     }
     
-    public PlayerCharacter withTraitChangeEvent(TraitChangeEvent event) {
+    public PlayerCharacter withTraitChangeEvent(TraitChange event) {
         this.traitChangeEvents.add(event);
         return this;
     }
     
-    public PlayerCharacter approvePendingChange(TraitChangeEvent event, TraitChangeFactory traitChangeFactory) {
+    public PlayerCharacter approvePendingChange(TraitChange event, TraitChangeFactory traitChangeFactory) {
         event.approve(this, traitChangeFactory);
         return this;
     }
     
     public PlayerCharacter approvePendingChanges(TraitChangeFactory traitChangeFactory) {
-        this.traitChangeEvents.forEach((TraitChangeEvent t) -> t.approve(this, traitChangeFactory));
+        this.traitChangeEvents.forEach((TraitChange t) -> t.approve(this, traitChangeFactory));
         return this;
     }
 }

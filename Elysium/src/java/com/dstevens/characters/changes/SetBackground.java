@@ -8,19 +8,19 @@ import com.dstevens.characters.backgrounds.*;
 
 @Entity
 @DiscriminatorValue("Background")
-public class SetBackgroundEvent extends SetCharacterDefinedTrait {
+public class SetBackground extends SetCharacterDefinedTrait {
     
     //Hibernate only
     @Deprecated
-    private SetBackgroundEvent() {
+    private SetBackground() {
         super(null, null, null, 0, 0, null, null);
     }
     
-    public SetBackgroundEvent(String id, TraitChangeStatus status, CharacterBackground background) {
+    public SetBackground(String id, TraitChangeStatus status, CharacterBackground background) {
         super(id, status, background);
     }
     
-    public SetBackgroundEvent(String id, String characterId, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+    public SetBackground(String id, String characterId, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
         super(id, characterId, status, ordinal, rating, specialization, focuses);
     }
 

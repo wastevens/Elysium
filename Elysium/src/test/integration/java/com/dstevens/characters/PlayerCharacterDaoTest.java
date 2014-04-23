@@ -35,7 +35,7 @@ public class PlayerCharacterDaoTest {
     private PlayerDao playerDao;
     private PlayerFactory playerFactory;
     
-    private TraitChangeEventBuilderFactory traitChangeBuilderFactory;
+    private TraitChangeBuilderFactory traitChangeBuilderFactory;
     private TraitChangeFactory traitChangeFactory;
     
     private Troupe troupe;
@@ -52,7 +52,7 @@ public class PlayerCharacterDaoTest {
         characterFactory    = APP_CONFIG.getBean(PlayerCharacterFactory.class);
         skillFactory = APP_CONFIG.getBean(CharacterSkillFactory.class);
         backgroundFactory = APP_CONFIG.getBean(CharacterBackgroundFactory.class);
-        traitChangeBuilderFactory = APP_CONFIG.getBean(TraitChangeEventBuilderFactory.class);
+        traitChangeBuilderFactory = APP_CONFIG.getBean(TraitChangeBuilderFactory.class);
         traitChangeFactory = APP_CONFIG.getBean(TraitChangeFactory.class);
         
         troupe = troupeDao.save(troupeFactory.createTroupe("troupe name", Setting.ANARCH));
@@ -261,8 +261,8 @@ public class PlayerCharacterDaoTest {
     private void verifyThatMultipleApprovalsDoesNotApplyMultipleTimes(PlayerCharacter characterWithApprovedChanges) {
         PlayerCharacter twiceApproved = characterWithApprovedChanges.approvePendingChanges(traitChangeFactory);
         
-        assertEquals(false, twiceApproved.getTraitChangeEvents().stream().anyMatch(((TraitChangeEvent t) -> t.isPending())));
-        assertEquals(true, twiceApproved.getTraitChangeEvents().stream().allMatch(((TraitChangeEvent t) -> !t.isPending())));
+        assertEquals(false, twiceApproved.getTraitChangeEvents().stream().anyMatch(((TraitChange t) -> t.isPending())));
+        assertEquals(true, twiceApproved.getTraitChangeEvents().stream().allMatch(((TraitChange t) -> !t.isPending())));
         
         assertEquals(4, twiceApproved.getSkills().size());
         List<CharacterSkill> skills = sort(listFrom(twiceApproved.getSkills()));
@@ -289,8 +289,8 @@ public class PlayerCharacterDaoTest {
         assertEquals(set(), characterWithPendingChanges.getSkills());
         assertEquals(set(), characterWithPendingChanges.getBackgrounds());
         
-        assertEquals(true, characterWithPendingChanges.getTraitChangeEvents().stream().anyMatch(((TraitChangeEvent t) -> t.isPending())));
-        assertEquals(false, characterWithPendingChanges.getTraitChangeEvents().stream().allMatch(((TraitChangeEvent t) -> !t.isPending())));
+        assertEquals(true, characterWithPendingChanges.getTraitChangeEvents().stream().anyMatch(((TraitChange t) -> t.isPending())));
+        assertEquals(false, characterWithPendingChanges.getTraitChangeEvents().stream().allMatch(((TraitChange t) -> !t.isPending())));
         assertEquals(0, characterWithPendingChanges.getXp());
         return characterWithPendingChanges;
     }
@@ -298,8 +298,8 @@ public class PlayerCharacterDaoTest {
     private PlayerCharacter verifyThatAllPendingChangesApproved() {
         PlayerCharacter characterWithApprovedChanges = characterDao.findOne(character.getId());
         
-        assertEquals(false, characterWithApprovedChanges.getTraitChangeEvents().stream().anyMatch(((TraitChangeEvent t) -> t.isPending())));
-        assertEquals(true, characterWithApprovedChanges.getTraitChangeEvents().stream().allMatch(((TraitChangeEvent t) -> !t.isPending())));
+        assertEquals(false, characterWithApprovedChanges.getTraitChangeEvents().stream().anyMatch(((TraitChange t) -> t.isPending())));
+        assertEquals(true, characterWithApprovedChanges.getTraitChangeEvents().stream().allMatch(((TraitChange t) -> !t.isPending())));
         
         assertEquals(4, characterWithApprovedChanges.getSkills().size());
         List<CharacterSkill> skills = sort(listFrom(characterWithApprovedChanges.getSkills()));

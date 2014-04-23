@@ -9,7 +9,7 @@ import com.dstevens.utilities.ObjectExtensions;
 @Inheritance
 @DiscriminatorColumn(name="trait_change_type")
 @Table(name="TraitChanges")
-public abstract class TraitChangeEvent {
+public abstract class TraitChange {
 
     @Id
     private final String id;
@@ -23,11 +23,11 @@ public abstract class TraitChangeEvent {
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
-    private TraitChangeEvent() {
+    private TraitChange() {
         this(null, null, null);
     }
     
-    protected TraitChangeEvent(String id, String characterId, TraitChangeStatus status) {
+    protected TraitChange(String id, String characterId, TraitChangeStatus status) {
         this.id = id;
         this.characterId = characterId;
         this.status = status;

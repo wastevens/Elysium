@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("CharactedDefinedTrait")
-public abstract class SetCharacterDefinedTrait extends TraitChangeEvent {
+public abstract class SetCharacterDefinedTrait extends TraitChange {
 
     @Column(name="ordinal")
     private final int ordinal;

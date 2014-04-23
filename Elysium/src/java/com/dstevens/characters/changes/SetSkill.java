@@ -8,19 +8,19 @@ import com.dstevens.characters.skills.*;
 
 @Entity
 @DiscriminatorValue("Skill")
-public class SetSkillEvent extends SetCharacterDefinedTrait {
+public class SetSkill extends SetCharacterDefinedTrait {
 
     //Hibernate only
     @Deprecated
-    private SetSkillEvent() {
+    private SetSkill() {
         super(null, null, null, 0, 0, null, null);
     }
     
-    public SetSkillEvent(String id, TraitChangeStatus status, CharacterSkill skill) {
+    public SetSkill(String id, TraitChangeStatus status, CharacterSkill skill) {
         super(id, status, skill);
     }
     
-    public SetSkillEvent(String id, String characterId, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+    public SetSkill(String id, String characterId, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
         super(id, characterId, status, ordinal, rating, specialization, focuses);
     }
 

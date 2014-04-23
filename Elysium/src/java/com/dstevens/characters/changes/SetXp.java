@@ -6,7 +6,7 @@ import com.dstevens.characters.PlayerCharacter;
 
 @Entity
 @DiscriminatorValue("XP")
-public class XpChangeEvent extends TraitChangeEvent {
+public class SetXp extends TraitChange {
 
     @Column(name="rating")
     private int xp;
@@ -14,11 +14,11 @@ public class XpChangeEvent extends TraitChangeEvent {
     //Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
-    private XpChangeEvent() {
+    private SetXp() {
         this(null, null, null, 0);
     }
     
-    public XpChangeEvent(String id, String characterId, TraitChangeStatus status, int xp) {
+    public SetXp(String id, String characterId, TraitChangeStatus status, int xp) {
         super(id, characterId, status);
         this.xp = xp;
     }
