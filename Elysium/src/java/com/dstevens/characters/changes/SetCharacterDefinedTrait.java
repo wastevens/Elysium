@@ -25,11 +25,11 @@ public abstract class SetCharacterDefinedTrait extends TraitChange {
     private final Set<String> focuses;
     
     public SetCharacterDefinedTrait(String id, TraitChangeStatus status, CharacterDefinedTrait trait) {
-        this(id, trait.getCharacterId(), status, trait.ordinal(), trait.getRating(), trait.getSpecialization(), trait.getFocuses());
+        this(id, status, trait.ordinal(), trait.getRating(), trait.getSpecialization(), trait.getFocuses());
     }
     
-    public SetCharacterDefinedTrait(String id, String characterId, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
-        super(id, characterId, status);
+    public SetCharacterDefinedTrait(String id, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+        super(id, status);
         this.ordinal = ordinal;
         this.rating = rating;
         this.specialization = specialization;

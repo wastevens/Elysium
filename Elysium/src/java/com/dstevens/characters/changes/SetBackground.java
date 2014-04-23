@@ -13,15 +13,15 @@ public class SetBackground extends SetCharacterDefinedTrait {
     //Hibernate only
     @Deprecated
     private SetBackground() {
-        super(null, null, null, 0, 0, null, null);
+        super(null, null, 0, 0, null, null);
     }
     
     public SetBackground(String id, TraitChangeStatus status, CharacterBackground background) {
         super(id, status, background);
     }
     
-    public SetBackground(String id, String characterId, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
-        super(id, characterId, status, ordinal, rating, specialization, focuses);
+    public SetBackground(String id, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+        super(id, status, ordinal, rating, specialization, focuses);
     }
 
     @Override

@@ -113,7 +113,7 @@ public class TraitChangeBuilderFactory {
         }
         
         private TraitChange changeXp(int xp) {
-            return new SetXp(idSupplier.get(), character.getId(), TraitChangeStatus.PENDING, xp);
+            return new SetXp(idSupplier.get(), TraitChangeStatus.PENDING, xp);
         }
 
     }

@@ -15,11 +15,11 @@ public class SetXp extends TraitChange {
     @Deprecated
     @SuppressWarnings("unused")
     private SetXp() {
-        this(null, null, null, 0);
+        this(null, null, 0);
     }
     
-    public SetXp(String id, String characterId, TraitChangeStatus status, int xp) {
-        super(id, characterId, status);
+    public SetXp(String id, TraitChangeStatus status, int xp) {
+        super(id, status);
         this.xp = xp;
     }
     

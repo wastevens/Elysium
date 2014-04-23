@@ -14,9 +14,6 @@ public abstract class TraitChange {
     @Id
     private final String id;
     
-    @Column(name="character_id")
-    private final String characterId;
-    
     @Column(name="status")
     private TraitChangeStatus status;
     
@@ -24,12 +21,11 @@ public abstract class TraitChange {
     @SuppressWarnings("unused")
     @Deprecated
     private TraitChange() {
-        this(null, null, null);
+        this(null, null);
     }
     
-    protected TraitChange(String id, String characterId, TraitChangeStatus status) {
+    protected TraitChange(String id, TraitChangeStatus status) {
         this.id = id;
-        this.characterId = characterId;
         this.status = status;
     }
     
