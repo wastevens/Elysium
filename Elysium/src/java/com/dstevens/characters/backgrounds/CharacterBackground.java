@@ -52,6 +52,10 @@ public class CharacterBackground implements Comparable<CharacterBackground> {
         return id;
     }
 
+    public final String getCharacterId() {
+        return characterId;
+    }
+    
     public final Background getBackground() {
         return background;
     }

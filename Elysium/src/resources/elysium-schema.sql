@@ -18,7 +18,7 @@ alter table PhysicalAttributeFocus drop foreign key FK_dl819kw7t9nxad92pj55meseh
 alter table PlayerPlayerCharacters drop foreign key FK_kbp7aw5ct1sphnq1ce7phgmog;
 alter table PlayerPlayerCharacters drop foreign key FK_pen5pjh79qieycqn88f8f0oku;
 alter table SocialAttributeFocus drop foreign key FK_mt22vhigi1bjr6ra1dj9yqwqn;
-alter table TraitChangeFocuses drop foreign key FK_nariv87pf9728kp6ytvq9u2db;
+alter table TraitChangeFocuses drop foreign key FK_bf2an9cp4ko7yhnoo1odn284p;
 alter table TraitChanges drop foreign key FK_ojvoa61iti8tg2v4nn0j1orkr;
 alter table TraitChanges drop foreign key FK_k11wnuiumq0y1wjn68b0o4haq;
 alter table TroupePlayerCharacters drop foreign key FK_7fw6ag0gryhsw0pb7dbi370p0;
@@ -80,8 +80,8 @@ create table PlayerCharacter (id varchar(255) not null, bloodline integer, clan 
 create table PlayerPlayerCharacters (player_id varchar(255), character_id varchar(255) not null, primary key (player_id, character_id));
 create table SocialAttribute (character_id varchar(255) not null, rating integer, primary key (character_id));
 create table SocialAttributeFocus (character_id varchar(255) not null, focuses integer);
-create table TraitChangeFocuses (SetSkillEvent_id varchar(255) not null, focus varchar(255));
-create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, character_id varchar(255), status integer, rating integer, ordinal integer, specialization varchar(255), purchased_change_id varchar(255), order_by integer, primary key (id));
+create table TraitChangeFocuses (TraitChangeEvent_id varchar(255) not null, focus varchar(255));
+create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, character_id varchar(255), ordinal integer, rating integer, specialization varchar(255), status integer, purchased_change_id varchar(255), order_by integer, primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
 create table TroupePlayerCharacters (troupe_id varchar(255), character_id varchar(255) not null, primary key (troupe_id, character_id));
 create table TroupePlayers (player_id varchar(255) not null, troupe_id varchar(255) not null, primary key (troupe_id, player_id));
@@ -107,7 +107,7 @@ alter table PhysicalAttributeFocus add constraint FK_dl819kw7t9nxad92pj55meseh f
 alter table PlayerPlayerCharacters add constraint FK_kbp7aw5ct1sphnq1ce7phgmog foreign key (player_id) references Player (id);
 alter table PlayerPlayerCharacters add constraint FK_pen5pjh79qieycqn88f8f0oku foreign key (character_id) references PlayerCharacter (id);
 alter table SocialAttributeFocus add constraint FK_mt22vhigi1bjr6ra1dj9yqwqn foreign key (character_id) references SocialAttribute (character_id);
-alter table TraitChangeFocuses add constraint FK_nariv87pf9728kp6ytvq9u2db foreign key (SetSkillEvent_id) references TraitChanges (id);
+alter table TraitChangeFocuses add constraint FK_bf2an9cp4ko7yhnoo1odn284p foreign key (TraitChangeEvent_id) references TraitChanges (id);
 alter table TraitChanges add constraint FK_ojvoa61iti8tg2v4nn0j1orkr foreign key (purchased_change_id) references TraitChanges (id);
 alter table TraitChanges add constraint FK_k11wnuiumq0y1wjn68b0o4haq foreign key (character_id) references PlayerCharacter (id);
 alter table TroupePlayerCharacters add constraint FK_7fw6ag0gryhsw0pb7dbi370p0 foreign key (troupe_id) references Troupe (id);

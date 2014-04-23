@@ -1,5 +1,6 @@
 package com.dstevens.characters.traits;
 
+import static com.dstevens.collections.Sets.set;
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -8,9 +9,6 @@ import com.dstevens.characters.PlayerCharacter;
 @DiscriminatorValue("XP")
 public class XpChangeEvent extends TraitChangeEvent {
 
-    @Column(name="rating")
-    private final int xp;
-    
     @OneToOne
     @JoinColumn(name="purchased_change_id")
     private TraitChangeEvent purchasedChange;
@@ -23,15 +21,17 @@ public class XpChangeEvent extends TraitChangeEvent {
     }
     
     public XpChangeEvent(String id, String characterId, TraitChangeStatus status, int xp, TraitChangeEvent purchasedChange) {
-        super(id, characterId, status);
-        this.xp = xp;
+        super(id, characterId, status, 0, xp, null, set());
         this.purchasedChange = purchasedChange;
     }
     
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
-        character.setXp(character.getXp() - xp);
-        return purchasedChange.approve(character.setXp(character.getXp() - xp));
+        return purchasedChange.approve(character.setXp(character.getXp() - getXp()));
+    }
+    
+    private int getXp() {
+        return getRating();
     }
 
 }

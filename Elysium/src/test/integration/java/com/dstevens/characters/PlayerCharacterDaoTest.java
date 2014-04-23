@@ -5,7 +5,7 @@ import static com.dstevens.collections.Sets.set;
 import static com.dstevens.testing.Assertions.assertListsEqual;
 import static org.junit.Assert.assertEquals;
 
-import java.util.*;
+import java.util.List;
 
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
@@ -235,25 +235,39 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testTraitChanges() {
-        characterDao.save(character.withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.ATHLETICS, 2, set("Jumping", "Hiding"))));
+        characterDao.save(character.withTraitChangeEvent(traitChangeFactory.change(character).setSkill(Skill.ATHLETICS, 2, set("Jumping", "Hiding"))).
+                                    withTraitChangeEvent(traitChangeFactory.change(character).setBackground(Background.GENERATION, 2)).
+                                    withTraitChangeEvent(traitChangeFactory.change(character).setBackground(Background.RESOURCES, 3)));
         
-        PlayerCharacter characterWithPendingSkillChange = characterDao.findOne(character.getId());
+        PlayerCharacter characterWithPendingChanges = characterDao.findOne(character.getId());
         
-        Set<CharacterSkill> noSkills = set();
-        assertEquals(noSkills, characterWithPendingSkillChange.getSkills());
+        assertEquals(set(), characterWithPendingChanges.getSkills());
+        assertEquals(set(), characterWithPendingChanges.getBackgrounds());
         
-        characterWithPendingSkillChange.getTraitChangeEvents().forEach(((TraitChangeEvent t) -> t.approve(characterWithPendingSkillChange)));
-        characterDao.save(characterWithPendingSkillChange);
+        assertEquals(true, characterWithPendingChanges.getTraitChangeEvents().stream().anyMatch(((TraitChangeEvent t) -> t.isPending())));
+        assertEquals(false, characterWithPendingChanges.getTraitChangeEvents().stream().allMatch(((TraitChangeEvent t) -> !t.isPending())));
         
-        PlayerCharacter characterWithApprovedSkills = characterDao.findOne(character.getId());
+        characterWithPendingChanges.getTraitChangeEvents().forEach(((TraitChangeEvent t) -> t.approve(characterWithPendingChanges)));
+        characterDao.save(characterWithPendingChanges);
         
-        assertEquals(1, characterWithApprovedSkills.getSkills().size());
-        CharacterSkill skill = characterWithApprovedSkills.getSkills().iterator().next();
+        PlayerCharacter characterWithApprovedChanges = characterDao.findOne(character.getId());
+        
+        assertEquals(false, characterWithApprovedChanges.getTraitChangeEvents().stream().anyMatch(((TraitChangeEvent t) -> t.isPending())));
+        assertEquals(true, characterWithApprovedChanges.getTraitChangeEvents().stream().allMatch(((TraitChangeEvent t) -> !t.isPending())));
+        
+        assertEquals(1, characterWithApprovedChanges.getSkills().size());
+        CharacterSkill skill = characterWithApprovedChanges.getSkills().iterator().next();
         assertEquals(Skill.ATHLETICS, skill.getSkill());
         assertEquals(2, skill.getRating());
         System.out.println(skill.getFocuses());
         assertEquals(set("Jumping", "Hiding"), skill.getFocuses());
         
-        
+        assertEquals(2, characterWithApprovedChanges.getBackgrounds().size());
+        List<CharacterBackground> backgrounds = sort(listFrom(characterWithApprovedChanges.getBackgrounds()));
+        assertEquals(2, backgrounds.size());
+        assertEquals(Background.GENERATION, backgrounds.get(0).getBackground());
+        assertEquals(2, backgrounds.get(0).getRating());
+        assertEquals(Background.RESOURCES, backgrounds.get(1).getBackground());
+        assertEquals(3, backgrounds.get(1).getRating());
     }
 }

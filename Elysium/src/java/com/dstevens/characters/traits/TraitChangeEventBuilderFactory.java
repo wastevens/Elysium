@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.backgrounds.*;
 import com.dstevens.characters.skills.*;
 import com.dstevens.suppliers.IdSupplier;
 
@@ -14,15 +15,18 @@ public class TraitChangeEventBuilderFactory {
 
     private final IdSupplier idSupplier;
     private final CharacterSkillFactory skillFactory;
+    private final CharacterBackgroundFactory backgroundFactory;
 
     @Autowired
-    public TraitChangeEventBuilderFactory(IdSupplier idSupplier, CharacterSkillFactory skillFactory) {
+    public TraitChangeEventBuilderFactory(IdSupplier idSupplier, CharacterSkillFactory skillFactory,
+                                          CharacterBackgroundFactory backgroundFactory) {
         this.idSupplier = idSupplier;
         this.skillFactory = skillFactory;
+        this.backgroundFactory = backgroundFactory;
     }
     
     public TraitChangeEventBuilder change(PlayerCharacter character) {
-        return new TraitChangeEventBuilder(idSupplier, character, skillFactory);
+        return new TraitChangeEventBuilder(idSupplier, character, skillFactory, backgroundFactory);
     }
     
 
@@ -31,11 +35,14 @@ public class TraitChangeEventBuilderFactory {
         private IdSupplier idSupplier;
         private PlayerCharacter character;
         private CharacterSkillFactory skillFactory;
+        private CharacterBackgroundFactory backgroundFactory;
 
-        public TraitChangeEventBuilder(IdSupplier idSupplier, PlayerCharacter character, CharacterSkillFactory skillFactory) {
+        public TraitChangeEventBuilder(IdSupplier idSupplier, PlayerCharacter character, CharacterSkillFactory skillFactory,
+                                       CharacterBackgroundFactory backgroundFactory) {
             this.idSupplier = idSupplier;
             this.character = character;
             this.skillFactory = skillFactory;
+            this.backgroundFactory = backgroundFactory;
         }
         
         public SetSkillEvent setSkill(Skill skill, int rating) {
@@ -48,6 +55,10 @@ public class TraitChangeEventBuilderFactory {
         
         public SetSkillEvent setSkill(Skill skill, int rating, Set<String> focuses) {
             return new SetSkillEvent(idSupplier.get(), TraitChangeStatus.PENDING, skillFactory.skillFor(character, skill, rating, focuses));
+        }
+        
+        public SetBackgroundEvent setBackground(Background background, int rating) {
+            return new SetBackgroundEvent(idSupplier.get(), TraitChangeStatus.PENDING, backgroundFactory.backgroundFor(character, background, rating));
         }
 
     }
