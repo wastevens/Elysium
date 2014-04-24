@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.*;
 import com.dstevens.characters.changes.*;
+import com.dstevens.characters.changes.TraitChangeBuilder.SetMeritBuilder;
 import com.dstevens.characters.clans.*;
 import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;
@@ -237,6 +238,9 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testTraitChanges() {
+        SetMeritBuilder setMerit = traitChangeBuilder.setMerit(GeneralMerit.ACUTE_SENSE);
+        SetMeritBuilder withSpecialization = setMerit.withSpecialization("Eyesight");
+        SetTrait event = withSpecialization.getEvent();
         characterDao.save(character.withTraitChangeEvent(traitChangeBuilder.setSkill(Skill.ACADEMICS, 2).withFocuses(set("Reading", "Writing")).getEvent()).
                                     withTraitChangeEvent(traitChangeBuilder.setSkill(Skill.CRAFTS, 3).withSpecialization("Pottery").getEvent()).
                                     withTraitChangeEvent(traitChangeBuilder.setSkill(Skill.CRAFTS, 3).withSpecialization("Writing").getEvent()).
@@ -246,7 +250,15 @@ public class PlayerCharacterDaoTest {
                                     withTraitChangeEvent(traitChangeBuilder.setBackground(Background.ALLIES, 3).withFocuses(set("Bob", "Jim", "George")).getEvent()).
                                     withTraitChangeEvent(traitChangeBuilder.setBackground(Background.HAVEN, 4).withSpecialization("My House").withFocuses(set("Location", "Security", "Wards", "Luxury")).getEvent()).
                                     withTraitChangeEvent(traitChangeBuilder.gainXp(10)).
-                                    withTraitChangeEvent(traitChangeBuilder.spendXp(1))
+                                    withTraitChangeEvent(traitChangeBuilder.spendXp(1)).
+                                    withTraitChangeEvent(traitChangeBuilder.setDiscipline(Discipline.ANIMALISM, 3)).
+                                    withTraitChangeEvent(traitChangeBuilder.setThaumaturgy(Thaumaturgy.PATH_OF_BLOOD, 2)).
+                                    withTraitChangeEvent(traitChangeBuilder.setNecromancy(Necromancy.ASH_PATH, 2)).
+                                    withTraitChangeEvent(traitChangeBuilder.setThaumaturgicalRitual(ThaumaturgicalRitual.BIND_THE_ACCUSING_TONGUE)).
+                                    withTraitChangeEvent(traitChangeBuilder.setNecromanticRitual(NecromanticRitual.CHILL_OF_OBLIVION)).
+                                    withTraitChangeEvent(traitChangeBuilder.setElderPower(ElderPower.ARMY_OF_APPARITIONS)).
+                                    withTraitChangeEvent(traitChangeBuilder.setTechnique(Technique.ARMOR_OF_DARKNESS)).
+                                    withTraitChangeEvent(event)
                                     );
         
         PlayerCharacter characterWithPendingChanges = findCharacterWithPendingChanges();
@@ -254,10 +266,19 @@ public class PlayerCharacterDaoTest {
         characterDao.save(characterWithPendingChanges.approvePendingChanges(traitChangeFactory));
         
         PlayerCharacter characterWithApprovedChanges = verifyThatAllPendingChangesApproved();
-                
+        
+        assertEquals(set(new CharacterMerit(GeneralMerit.ACUTE_SENSE, "Eyesight")), characterWithApprovedChanges.getMerits());
+        assertEquals(set(Technique.ARMOR_OF_DARKNESS), characterWithApprovedChanges.getTechniques());
+        assertEquals(set(ElderPower.ARMY_OF_APPARITIONS), characterWithApprovedChanges.getElderPowers());
+        assertEquals(set(NecromanticRitual.CHILL_OF_OBLIVION), characterWithApprovedChanges.getNecromanticRituals());
+        assertEquals(set(ThaumaturgicalRitual.BIND_THE_ACCUSING_TONGUE), characterWithApprovedChanges.getThaumaturgicalRituals());
+        assertEquals(set(new CharacterThaumaturgy(Thaumaturgy.PATH_OF_BLOOD, 2)), characterWithApprovedChanges.getThaumaturgicalPaths());
+        assertEquals(set(new CharacterNecromancy(Necromancy.ASH_PATH, 2)), characterWithApprovedChanges.getNecromanticPaths());
+        assertEquals(set(new CharacterDiscipline(Discipline.ANIMALISM, 3)), characterWithApprovedChanges.getDisciplines());
+        
         verifyThatMultipleApprovalsDoesNotApplyMultipleTimes(characterWithApprovedChanges);
     }
-
+    
     private void verifyThatMultipleApprovalsDoesNotApplyMultipleTimes(PlayerCharacter characterWithApprovedChanges) {
         PlayerCharacter twiceApproved = characterWithApprovedChanges.approvePendingChanges(traitChangeFactory);
         
@@ -265,6 +286,7 @@ public class PlayerCharacterDaoTest {
         assertEquals(true, twiceApproved.getTraitChangeEvents().stream().allMatch(((SetTrait t) -> !t.isPending())));
         
         assertEquals(4, twiceApproved.getSkills().size());
+        
         List<CharacterSkill> skills = sort(listFrom(twiceApproved.getSkills()));
         
         assertExpectedSkill(new CharacterSkill("", Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(0));

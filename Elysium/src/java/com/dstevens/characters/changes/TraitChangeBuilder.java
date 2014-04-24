@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.backgrounds.*;
+import com.dstevens.characters.merits.Merit;
+import com.dstevens.characters.powers.*;
+import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;
 import com.dstevens.suppliers.IdSupplier;
 
@@ -57,6 +60,10 @@ public class TraitChangeBuilder {
         
     }
     
+    public SetSkillBuilder setSkill(Skill skill, int rating) {
+        return new SetSkillBuilder(skill, rating);
+    }
+    
     public class SetSkillBuilder extends SetCharacterDefinedTraitBuilder<Skill> {
         
         private SetSkillBuilder(Skill skill, int rating) {
@@ -69,6 +76,9 @@ public class TraitChangeBuilder {
         }
     }
     
+    public SetBackgroundBuilder setBackground(Background background, int rating) {
+        return new SetBackgroundBuilder(background, rating);
+    }
     
     public class SetBackgroundBuilder extends SetCharacterDefinedTraitBuilder<Background> {
         
@@ -82,14 +92,33 @@ public class TraitChangeBuilder {
         }
     }
     
-    public SetSkillBuilder setSkill(Skill skill, int rating) {
-        return new SetSkillBuilder(skill, rating);
+    public class SetMeritBuilder {
+        
+        private Merit merit;
+        private String specialization;
+
+        private SetMeritBuilder(Merit merit) {
+            this(merit, null);
+        }
+        
+        private SetMeritBuilder(Merit merit, String specialization) {
+            this.merit = merit;
+            this.specialization = specialization;
+        }
+        
+        public SetMeritBuilder withSpecialization(String specialization) {
+            return new SetMeritBuilder(merit, specialization);
+        }
+        
+        public final SetTrait getEvent() {
+            return new SetMerit(idSupplier.get(), TraitChangeStatus.PENDING, merit, specialization);
+        }
     }
     
-    public SetBackgroundBuilder setBackground(Background background, int rating) {
-        return new SetBackgroundBuilder(background, rating);
+    public SetMeritBuilder setMerit(Merit merit) {
+        return new SetMeritBuilder(merit);
     }
-
+    
     public SetTrait gainXp(int xp) {
         return changeXp(-1 * xp);
     }
@@ -102,4 +131,31 @@ public class TraitChangeBuilder {
         return new SetXp(idSupplier.get(), TraitChangeStatus.PENDING, xp);
     }
 
+    public SetTrait setDiscipline(Discipline power, int rating) {
+        return new SetDiscipline(idSupplier.get(), TraitChangeStatus.PENDING, power, rating);
+    }
+
+    public SetTrait setThaumaturgy(Thaumaturgy power, int rating) {
+        return new SetThaumaturgy(idSupplier.get(), TraitChangeStatus.PENDING, power, rating);
+    }
+    
+    public SetTrait setNecromancy(Necromancy power, int rating) {
+        return new SetNecromancy(idSupplier.get(), TraitChangeStatus.PENDING, power, rating);
+    }
+
+    public SetTrait setThaumaturgicalRitual(ThaumaturgicalRitual power) {
+        return new SetThaumaturgicalRitual(idSupplier.get(), TraitChangeStatus.PENDING, power);
+    }
+
+    public SetTrait setNecromanticRitual(NecromanticRitual power) {
+        return new SetNecromanticRitual(idSupplier.get(), TraitChangeStatus.PENDING, power);
+    }
+
+    public SetTrait setElderPower(ElderPower power) {
+        return new SetElderPower(idSupplier.get(), TraitChangeStatus.PENDING, power);
+    }
+
+    public SetTrait setTechnique(Technique power) {
+        return new SetTechnique(idSupplier.get(), TraitChangeStatus.PENDING, power);
+    }
 }

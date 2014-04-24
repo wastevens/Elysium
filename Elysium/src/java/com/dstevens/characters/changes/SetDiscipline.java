@@ -20,6 +20,10 @@ class SetDiscipline extends SetRatedTrait {
         super(id, status, power);
     }
     
+    protected SetDiscipline(String id, TraitChangeStatus status, Discipline power, int rating) {
+        super(id, status, power.ordinal(), rating);
+    }
+    
     protected SetDiscipline(String id, TraitChangeStatus status, int ordinal, int rating) {
         super(id, status, ordinal, rating);
     }

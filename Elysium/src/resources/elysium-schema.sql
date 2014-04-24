@@ -80,7 +80,7 @@ create table PlayerPlayerCharacters (player_id varchar(255), character_id varcha
 create table SocialAttribute (character_id varchar(255) not null, rating integer, primary key (character_id));
 create table SocialAttributeFocus (character_id varchar(255) not null, focuses integer);
 create table TraitChangeFocuses (SetCharacterDefinedTrait_id varchar(255) not null, focus varchar(255));
-create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, ordinal integer, rating integer, specialization varchar(255), character_id varchar(255), order_by integer, primary key (id));
+create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, ordinal integer, rating integer, specialization varchar(255), typeIdentifier varchar(255), character_id varchar(255), order_by integer, primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
 create table TroupePlayerCharacters (troupe_id varchar(255), character_id varchar(255) not null, primary key (troupe_id, character_id));
 create table TroupePlayers (player_id varchar(255) not null, troupe_id varchar(255) not null, primary key (troupe_id, player_id));
