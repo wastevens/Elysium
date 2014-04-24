@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.backgrounds.*;
-import com.dstevens.characters.merits.Merit;
+import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;
@@ -117,6 +117,33 @@ public class TraitChangeBuilder {
     
     public SetMeritBuilder setMerit(Merit merit) {
         return new SetMeritBuilder(merit);
+    }
+    
+    public class SetFlawBuilder {
+        
+        private Flaw flaw;
+        private String specialization;
+
+        private SetFlawBuilder(Flaw flaw) {
+            this(flaw, null);
+        }
+        
+        private SetFlawBuilder(Flaw flaw, String specialization) {
+            this.flaw = flaw;
+            this.specialization = specialization;
+        }
+        
+        public SetFlawBuilder withSpecialization(String specialization) {
+            return new SetFlawBuilder(flaw, specialization);
+        }
+        
+        public final SetTrait getEvent() {
+            return new SetFlaw(idSupplier.get(), TraitChangeStatus.PENDING, flaw, specialization);
+        }
+    }
+
+    public SetFlawBuilder setFlaw(Flaw flaw) {
+        return new SetFlawBuilder(flaw);
     }
     
     public SetTrait gainXp(int xp) {

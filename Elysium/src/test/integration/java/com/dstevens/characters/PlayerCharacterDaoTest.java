@@ -13,7 +13,6 @@ import org.springframework.context.ApplicationContext;
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.*;
 import com.dstevens.characters.changes.*;
-import com.dstevens.characters.changes.TraitChangeBuilder.SetMeritBuilder;
 import com.dstevens.characters.clans.*;
 import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;
@@ -238,9 +237,6 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testTraitChanges() {
-        SetMeritBuilder setMerit = traitChangeBuilder.setMerit(GeneralMerit.ACUTE_SENSE);
-        SetMeritBuilder withSpecialization = setMerit.withSpecialization("Eyesight");
-        SetTrait event = withSpecialization.getEvent();
         characterDao.save(character.withTraitChangeEvent(traitChangeBuilder.setSkill(Skill.ACADEMICS, 2).withFocuses(set("Reading", "Writing")).getEvent()).
                                     withTraitChangeEvent(traitChangeBuilder.setSkill(Skill.CRAFTS, 3).withSpecialization("Pottery").getEvent()).
                                     withTraitChangeEvent(traitChangeBuilder.setSkill(Skill.CRAFTS, 3).withSpecialization("Writing").getEvent()).
@@ -258,15 +254,27 @@ public class PlayerCharacterDaoTest {
                                     withTraitChangeEvent(traitChangeBuilder.setNecromanticRitual(NecromanticRitual.CHILL_OF_OBLIVION)).
                                     withTraitChangeEvent(traitChangeBuilder.setElderPower(ElderPower.ARMY_OF_APPARITIONS)).
                                     withTraitChangeEvent(traitChangeBuilder.setTechnique(Technique.ARMOR_OF_DARKNESS)).
-                                    withTraitChangeEvent(event)
+                                    withTraitChangeEvent(traitChangeBuilder.setFlaw(GeneralFlaw.ADDICTION).withSpecialization("Uppers").getEvent()).
+                                    withTraitChangeEvent(traitChangeBuilder.setMerit(GeneralMerit.ACUTE_SENSE).withSpecialization("Eyesight").getEvent())
                                     );
         
         PlayerCharacter characterWithPendingChanges = findCharacterWithPendingChanges();
+        
+        assertEquals(set(), characterWithPendingChanges.getFlaws());
+        assertEquals(set(), characterWithPendingChanges.getMerits());
+        assertEquals(set(), characterWithPendingChanges.getTechniques());
+        assertEquals(set(), characterWithPendingChanges.getElderPowers());
+        assertEquals(set(), characterWithPendingChanges.getNecromanticRituals());
+        assertEquals(set(), characterWithPendingChanges.getThaumaturgicalRituals());
+        assertEquals(set(), characterWithPendingChanges.getThaumaturgicalPaths());
+        assertEquals(set(), characterWithPendingChanges.getNecromanticPaths());
+        assertEquals(set(), characterWithPendingChanges.getDisciplines());
         
         characterDao.save(characterWithPendingChanges.approvePendingChanges(traitChangeFactory));
         
         PlayerCharacter characterWithApprovedChanges = verifyThatAllPendingChangesApproved();
         
+        assertEquals(set(new CharacterFlaw(GeneralFlaw.ADDICTION, "Uppers")), characterWithApprovedChanges.getFlaws());
         assertEquals(set(new CharacterMerit(GeneralMerit.ACUTE_SENSE, "Eyesight")), characterWithApprovedChanges.getMerits());
         assertEquals(set(Technique.ARMOR_OF_DARKNESS), characterWithApprovedChanges.getTechniques());
         assertEquals(set(ElderPower.ARMY_OF_APPARITIONS), characterWithApprovedChanges.getElderPowers());
