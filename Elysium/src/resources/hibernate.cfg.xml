@@ -24,6 +24,11 @@
     <mapping class="com.dstevens.characters.changes.SetDiscipline"/>
     <mapping class="com.dstevens.characters.changes.SetThaumaturgy"/>
     <mapping class="com.dstevens.characters.changes.SetNecromancy"/>
+    <mapping class="com.dstevens.characters.changes.SetThaumaturgicalRitual"/>
+    <mapping class="com.dstevens.characters.changes.SetNecromanticRitual"/>
+    <mapping class="com.dstevens.characters.changes.SetElderPower"/>
+    <mapping class="com.dstevens.characters.changes.SetTechnique"/>
+    <mapping class="com.dstevens.characters.changes.SetMerit"/>
     
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>

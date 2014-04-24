@@ -25,12 +25,12 @@ public class CharacterMerit implements Comparable<CharacterMerit> {
         this(0, null, null);
     }
     
-    public CharacterMerit(Enum<? extends Merit> merit) {
-        this(MeritTranslator.withId(merit), MeritTranslator.ofType(merit), null);
+    public CharacterMerit(Merit merit) {
+        this(merit, null);
     }
     
-    public CharacterMerit(Enum<? extends Merit> merit, String details) {
-        this(MeritTranslator.withId(merit), MeritTranslator.ofType(merit), details);
+    public CharacterMerit(Merit merit, String details) {
+        this(merit.ordinal(), merit.getType(), details);
     }
     
     private CharacterMerit(int meritId, String meritType, String details) {

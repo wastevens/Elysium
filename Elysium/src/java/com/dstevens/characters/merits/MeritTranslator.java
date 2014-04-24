@@ -25,11 +25,11 @@ public class MeritTranslator {
         return ((Class<? extends Merit>) meritClass).getEnumConstants()[id];
     }
     
-    public static final String ofType(Enum<? extends Merit> merit) {
-        return merit.getClass().getAnnotation(MeritAnnotation.class).value();
+    public static final String ofType(Merit merit) {
+        return merit.getType();
     }
     
-    public static final int withId(Enum<? extends Merit> merit) {
+    public static final int withId(Merit merit) {
         return merit.ordinal();
     }
     
