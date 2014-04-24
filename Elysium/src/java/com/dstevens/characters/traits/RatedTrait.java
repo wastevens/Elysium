@@ -1,8 +1,8 @@
 package com.dstevens.characters.traits;
 
-public interface RatedTrait {
+public interface RatedTrait extends EnumeratedTrait {
 
     int getRating();
-    int ordinal();
+
     
 }

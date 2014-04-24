@@ -7,7 +7,7 @@ import com.dstevens.characters.powers.magics.*;
 
 @Entity
 @DiscriminatorValue("Necromancy")
-public class SetNecromancy extends SetRatedTrait {
+class SetNecromancy extends SetRatedTrait {
 
     //Hibernate only
     @SuppressWarnings("unused")

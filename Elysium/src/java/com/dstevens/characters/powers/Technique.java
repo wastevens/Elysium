@@ -5,7 +5,9 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
-public enum Technique {
+import com.dstevens.characters.traits.EnumeratedTrait;
+
+public enum Technique  implements EnumeratedTrait {
 
     AN_DA_SHEALLADH(required(Discipline.DEMENTATION, 3), required(Discipline.AUSPEX, 2)),
     ANIMAL_SUCCULENCE(required(Discipline.ANIMALISM, 2), required(Discipline.FORTITUDE, 1)),

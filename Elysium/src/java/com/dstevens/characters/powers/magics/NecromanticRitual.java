@@ -1,6 +1,8 @@
 package com.dstevens.characters.powers.magics;
 
-public enum NecromanticRitual {
+import com.dstevens.characters.traits.EnumeratedTrait;
+
+public enum NecromanticRitual implements EnumeratedTrait {
 
     CALL_OF_THE_HUNGRY_DEAD(1),
     CIRCLE_OF_CERBERUS(1),

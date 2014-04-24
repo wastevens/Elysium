@@ -7,7 +7,7 @@ import com.dstevens.characters.powers.magics.*;
 
 @Entity
 @DiscriminatorValue("Thaumaturgy")
-public class SetThaumaturgy extends SetRatedTrait {
+class SetThaumaturgy extends SetRatedTrait {
 
     //Hibernate only
     @SuppressWarnings("unused")

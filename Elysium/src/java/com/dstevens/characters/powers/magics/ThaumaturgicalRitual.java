@@ -1,6 +1,8 @@
 package com.dstevens.characters.powers.magics;
 
-public enum ThaumaturgicalRitual {
+import com.dstevens.characters.traits.EnumeratedTrait;
+
+public enum ThaumaturgicalRitual implements EnumeratedTrait {
 
     BLOOD_MASTERY(1),
     BIND_THE_ACCUSING_TONGUE(1),

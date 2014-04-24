@@ -6,11 +6,8 @@ import com.dstevens.characters.traits.RatedTrait;
 
 @Entity
 @DiscriminatorValue("RatedTrait")
-abstract class SetRatedTrait extends SetTrait {
+abstract class SetRatedTrait extends SetEnumeratedTrait {
 
-    @Column(name="ordinal")
-    private final int ordinal;
-    
     @Column(name="rating")
     private final int rating;
     
@@ -19,13 +16,8 @@ abstract class SetRatedTrait extends SetTrait {
     }
     
     protected SetRatedTrait(String id, TraitChangeStatus status, int ordinal, int rating) {
-        super(id, status);
-        this.ordinal = ordinal;
+        super(id, status, ordinal);
         this.rating = rating;
-    }
-
-    protected final int ordinal() {
-        return ordinal;
     }
 
     protected final int rating() {

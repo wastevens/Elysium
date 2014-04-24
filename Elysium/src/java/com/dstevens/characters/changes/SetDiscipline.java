@@ -7,7 +7,7 @@ import com.dstevens.characters.powers.*;
 
 @Entity
 @DiscriminatorValue("Discipline")
-public class SetDiscipline extends SetRatedTrait {
+class SetDiscipline extends SetRatedTrait {
 
     //Hibernate only
     @SuppressWarnings("unused")
