@@ -4,10 +4,11 @@ import java.util.Comparator;
 import java.util.function.Function;
 import javax.persistence.Embeddable;
 
+import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Embeddable
-public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy> {
+public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, RatedTrait {
 
     private final Thaumaturgy path;
     private int rating;
@@ -30,6 +31,11 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy> {
 
     public final int getRating() {
         return rating;
+    }
+
+    @Override
+    public int ordinal() {
+        return path.ordinal();
     }
     
     public CharacterThaumaturgy withRating(int rating) {

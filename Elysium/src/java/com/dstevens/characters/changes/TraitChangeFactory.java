@@ -24,5 +24,4 @@ public class TraitChangeFactory {
     public CharacterSkillFactory characterSkillFactory() {
         return new CharacterSkillFactory(supplier);
     }
-    
 }

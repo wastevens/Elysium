@@ -4,10 +4,11 @@ import java.util.Comparator;
 import java.util.function.Function;
 import javax.persistence.Embeddable;
 
+import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Embeddable
-public class CharacterNecromancy implements Comparable<CharacterNecromancy> {
+public class CharacterNecromancy implements Comparable<CharacterNecromancy>, RatedTrait {
 
     private final Necromancy path;
     private int rating;
@@ -30,6 +31,11 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy> {
 
     public final int getRating() {
         return rating;
+    }
+    
+    @Override
+    public int ordinal() {
+        return path.ordinal();
     }
     
     public CharacterNecromancy withRating(int rating) {
