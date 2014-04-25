@@ -25,16 +25,10 @@ public class Player implements Auditable<Player>, Comparable<Player> {
     @Column(name="email")
     private final String email;
     
-    @ManyToMany
-    @JoinTable(name="TroupePlayers",
-               joinColumns = @JoinColumn(name="player_id"),
-               inverseJoinColumns = @JoinColumn(name="troupe_id"))
+    @ManyToMany(mappedBy="players")
     private final Set<Troupe> troupes;
     
-    @OneToMany
-    @JoinTable(name="PlayerPlayerCharacters",
-               joinColumns = @JoinColumn(name="player_id"),
-               inverseJoinColumns = @JoinColumn(name="character_id"))
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")

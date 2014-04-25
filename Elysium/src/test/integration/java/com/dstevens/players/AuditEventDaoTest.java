@@ -23,20 +23,26 @@ public class AuditEventDaoTest {
     @Mock private Clock clock;
     
     private AuditEventFactory auditableFactory;
+    private AuditEventDao auditableDao;
     private TroupeFactory troupeFactory;
     private TroupeDao troupeDao;
-    private AuditEventDao auditableDao;
+    private PlayerFactory playerFactory;
+    private PlayerDao playerDao;
 
     private Troupe troupe1;
     private Troupe troupe2;
+    private Player player1;
+    private Player player2;
     
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         
         troupeDao = APP_CONFIG.getBean(TroupeDao.class);
-        auditableDao = APP_CONFIG.getBean(AuditEventDao.class);
         troupeFactory = APP_CONFIG.getBean(TroupeFactory.class);
+        playerDao = APP_CONFIG.getBean(PlayerDao.class);
+        playerFactory = APP_CONFIG.getBean(PlayerFactory.class);
+        auditableDao = APP_CONFIG.getBean(AuditEventDao.class);
         auditableFactory = new AuditEventFactory(idSupplier, clockSupplier);
         
         when(idSupplier.get()).thenReturn("id 1").thenReturn("id 2").thenReturn("id 3").
@@ -46,7 +52,12 @@ public class AuditEventDaoTest {
                               thenReturn(Instant.ofEpochMilli(40100L)).thenReturn(Instant.ofEpochMilli(50100L)).thenReturn(Instant.ofEpochMilli(60100L));
         
         troupe1 = troupeDao.save(troupeFactory.createTroupe("name", Setting.CAMARILLA));
+        troupe1 = troupeDao.save(troupe1);
         troupe2 = troupeDao.save(troupeFactory.createTroupe("another name", Setting.CAMARILLA));
+        player1 = playerDao.save(playerFactory.createPlayer("name", "email").joinTroupe(troupe1));
+        player2 = playerDao.save(playerFactory.createPlayer("another name", "another email").joinTroupe(troupe2));
+        troupe1 = troupeDao.save(troupe1.withPlayer(player1));
+        troupe2 = troupeDao.save(troupe2.withPlayer(player2));
     }
     
     @SuppressWarnings("unchecked")
@@ -78,8 +89,11 @@ public class AuditEventDaoTest {
     
     @After
     public void tearDown() {
-        troupeDao.delete(troupe1);
-        troupeDao.delete(troupe2);
+        troupeDao.delete(troupe1.getId());
+        troupeDao.delete(troupe2.getId());
+        playerDao.delete(player1.getId());
+        playerDao.delete(player2.getId());
+        
         auditableDao.deleteAuditEventsFor(troupe1);
         auditableDao.deleteAuditEventsFor(troupe2);
     }

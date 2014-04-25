@@ -30,15 +30,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private final Date deleteTimestamp;
     
     @OneToOne
-    @JoinTable(name="PlayerPlayerCharacters",
-               joinColumns = @JoinColumn(name="character_id"),
-               inverseJoinColumns = @JoinColumn(name="player_id"))
     private Player player;
     
     @OneToOne
-    @JoinTable(name="TroupePlayerCharacters",
-               joinColumns = @JoinColumn(name="character_id"),
-               inverseJoinColumns = @JoinColumn(name="troupe_id"))
     private Troupe troupe;
     
     @Column(name="xp")
@@ -153,7 +147,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
-    private PlayerCharacter() {
+    public PlayerCharacter() {
         this(null, null, null, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     

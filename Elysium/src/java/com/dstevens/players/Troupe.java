@@ -23,16 +23,10 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     @Column(name="setting")
     private Setting setting;
     
-    @ManyToMany
-    @JoinTable(name="TroupePlayers",
-               joinColumns = @JoinColumn(name="troupe_id"),
-               inverseJoinColumns = @JoinColumn(name="player_id"))
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private final Set<Player> players;
 
-    @OneToMany
-    @JoinTable(name="TroupePlayerCharacters",
-               joinColumns = @JoinColumn(name="troupe_id"),
-               inverseJoinColumns = @JoinColumn(name="character_id"))
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")
