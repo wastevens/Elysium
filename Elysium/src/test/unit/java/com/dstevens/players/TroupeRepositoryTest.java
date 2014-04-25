@@ -1,5 +1,6 @@
 package com.dstevens.players;
 
+import static com.dstevens.collections.Lists.list;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import org.junit.*;
@@ -14,6 +15,7 @@ public class TroupeRepositoryTest {
     @Mock private AuditableRepository<Troupe> auditableRepository;
     @Mock private Troupe troupe;
     @Mock private Troupe savedTroupe;
+    @Mock private TroupeFactory troupeFactory;
     
     private TroupeRepository troupeRepository;
 
@@ -23,7 +25,7 @@ public class TroupeRepositoryTest {
         
         when(auditableRepositoryProvider.repositoryFor(troupeDao)).thenReturn(auditableRepository);
         
-        troupeRepository = new TroupeRepository(troupeDao, auditableRepositoryProvider);
+        troupeRepository = new TroupeRepository(troupeDao, auditableRepositoryProvider, troupeFactory);
     }
     
     @Test
@@ -56,6 +58,26 @@ public class TroupeRepositoryTest {
         troupeRepository.hardDelete(troupe);
         
         verify(auditableRepository).hardDelete(troupe);
+    }
+    
+    @Test
+    public void testThatEnsureExistsCreatesTroupeIfTroupeDoesNotExist() {
+        String troupeName = "Troupe Name";
+        Setting setting = Setting.CAMARILLA;
+        when(troupeDao.findNamed(troupeName)).thenReturn(list());
+        when(troupeFactory.createTroupe(troupeName, setting)).thenReturn(troupe);
+        when(auditableRepository.create(troupe)).thenReturn(savedTroupe);
+        
+        assertEquals(savedTroupe, troupeRepository.ensureExists(troupeName, setting));
+    }
+    
+    @Test
+    public void testThatEnsureExistsDoesNotCreateTroupeIfTroupeExists() {
+        String troupeName = "Troupe Name";
+        Setting setting = Setting.CAMARILLA;
+        when(troupeDao.findNamed(troupeName)).thenReturn(list(troupe));
+        
+        assertEquals(troupe, troupeRepository.ensureExists(troupeName, setting));
     }
     
     
