@@ -17,8 +17,6 @@ public class PlayerTest {
 
     @Test
     public void testEquals() {
-        Troupe troupe = mock(Troupe.class);
-        Troupe anotherTroupe = mock(Troupe.class);
         PlayerCharacter character1 = mock(PlayerCharacter.class);
         PlayerCharacter character2 = mock(PlayerCharacter.class);
         PlayerCharacter character3 = mock(PlayerCharacter.class);

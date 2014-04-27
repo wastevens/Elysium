@@ -56,10 +56,10 @@ public class PlayerCharacterDaoTest {
         traitChangeFactory = APP_CONFIG.getBean(TraitChangeFactory.class);
         
         troupe = troupeDao.save(troupeFactory.createTroupe("troupe name", Setting.ANARCH));
-        player = playerDao.save(playerFactory.createPlayer("player name", "player email", troupe));
+        player = playerDao.save(playerFactory.createPlayer("player name", "player email"));
         troupe = troupeDao.save(troupe.withPlayer(player));
         character = characterDao.save(characterFactory.createPlayerCharacter("character name"));
-        player = playerDao.save(player.addCharacter(character));
+        player = playerDao.save(player.withCharacter(character));
         troupe = troupeDao.save(troupe.withCharacter(character));
     }
     

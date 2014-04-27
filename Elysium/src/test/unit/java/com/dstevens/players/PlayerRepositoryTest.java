@@ -1,6 +1,5 @@
 package com.dstevens.players;
 
-import static com.dstevens.collections.Lists.list;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import org.junit.*;
@@ -12,6 +11,7 @@ public class PlayerRepositoryTest {
 
     @Mock private AuditableRepositoryProvider auditableRepositoryProvider;
     @Mock private PlayerDao dao;
+    @Mock private TroupeDao troupeDao;
     @Mock private AuditableRepository<Player> auditableRepository;
     @Mock private Player player;
     @Mock private Player savedPlayer;
@@ -26,7 +26,7 @@ public class PlayerRepositoryTest {
         
         when(auditableRepositoryProvider.repositoryFor(dao)).thenReturn(auditableRepository);
         
-        repository = new PlayerRepository(dao, auditableRepositoryProvider, factory);
+        repository = new PlayerRepository(dao, troupeDao, auditableRepositoryProvider, factory);
     }
     
     @Test
@@ -66,7 +66,7 @@ public class PlayerRepositoryTest {
         String playerName = "Player Name";
         String playerEmail = "Player Email";
         when(dao.findUndeletedWithEmail(playerEmail)).thenReturn(null);
-        when(factory.createPlayer(playerName, playerEmail, troupe)).thenReturn(player);
+        when(factory.createPlayer(playerName, playerEmail)).thenReturn(player);
         when(auditableRepository.create(player)).thenReturn(savedPlayer);
         
         assertEquals(savedPlayer, repository.ensureExists(playerName, playerEmail, troupe));
@@ -76,7 +76,7 @@ public class PlayerRepositoryTest {
     public void testThatEnsureExistsDoesNotCreateTroupeIfTroupeExists() {
         String playerName = "Player Name";
         String playerEmail = "Player Email";
-        when(dao.findNamed(playerName)).thenReturn(list(player));
+        when(dao.findUndeletedWithEmail(playerEmail)).thenReturn(player);
         
         assertEquals(player, repository.ensureExists(playerName, playerEmail, troupe));
     }

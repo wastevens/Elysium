@@ -4,11 +4,9 @@ import static com.dstevens.collections.Sets.*;
 
 import java.util.*;
 import java.util.function.Function;
-
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.collections.Sets;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -70,7 +68,7 @@ public class Player implements Auditable<Player>, Comparable<Player> {
         return email;
     }
 
-    public final Player addCharacter(PlayerCharacter character) {
+    public final Player withCharacter(PlayerCharacter character) {
         return new Player(id, name, email, setWith(characters, character), deleteTimestamp);
     }
     

@@ -12,6 +12,8 @@ public class PlayerCharacterRepositoryTest {
 
     @Mock private AuditableRepositoryProvider auditableRepositoryProvider;
     @Mock private PlayerCharacterDao dao;
+    @Mock private PlayerDao playerDao;
+    @Mock private TroupeDao troupeDao;
     @Mock private AuditableRepository<PlayerCharacter> auditableRepository;
     @Mock private PlayerCharacter playerCharacter;
     @Mock private PlayerCharacter savedPlayerCharacter;
@@ -27,7 +29,7 @@ public class PlayerCharacterRepositoryTest {
         
         when(auditableRepositoryProvider.repositoryFor(dao)).thenReturn(auditableRepository);
         
-        repository = new PlayerCharacterRepository(dao, auditableRepositoryProvider, factory);
+        repository = new PlayerCharacterRepository(dao, playerDao, troupeDao, auditableRepositoryProvider, factory);
     }
     
     @Test

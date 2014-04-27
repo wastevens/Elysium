@@ -28,7 +28,7 @@ public class PlayerDaoTest {
         playerFactory    = APP_CONFIG.getBean(PlayerFactory.class);
         
         troupe = troupeDao.save(troupeFactory.createTroupe("troupe", Setting.CAMARILLA));
-        player = playerFactory.createPlayer("name", "email", troupe);
+        player = playerFactory.createPlayer("name", "email");
     }
     
     @After

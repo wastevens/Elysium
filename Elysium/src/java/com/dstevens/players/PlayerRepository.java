@@ -8,21 +8,30 @@ import com.dstevens.persistence.auditing.*;
 @Service
 public class PlayerRepository extends AbstractAuditableRepository<Player> {
 
+    private TroupeDao troupeDao;
     private PlayerDao dao;
     private PlayerFactory factory;
 
     @Autowired
-    public PlayerRepository(PlayerDao dao, AuditableRepositoryProvider repositoryProvider, PlayerFactory factory) {
+    public PlayerRepository(PlayerDao dao, TroupeDao troupeDao, AuditableRepositoryProvider repositoryProvider, PlayerFactory factory) {
         super(repositoryProvider.repositoryFor(dao));
         this.dao = dao;
+        this.troupeDao = troupeDao;
         this.factory = factory;
     }
 
     public Player ensureExists(String playerName, String playerEmail, Troupe troupe) {
         Player player = dao.findUndeletedWithEmail(playerEmail);
         if (player != null) {
+            if (!troupe.getPlayers().contains(player)) {
+                troupeDao.save(troupe.withPlayer(player));
+            }
             return player;
         }
-        return create(factory.createPlayer(playerName, playerEmail, troupe));
+        Player createPlayer = factory.createPlayer(playerName, playerEmail);
+        Player newPlayer = create(createPlayer);
+        Troupe withPlayer = troupe.withPlayer(newPlayer);
+        troupeDao.save(withPlayer);
+        return newPlayer;
     }
 }

@@ -16,7 +16,6 @@ import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.persistence.auditing.Auditable;
-import com.dstevens.players.*;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
@@ -139,7 +138,6 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private final List<SetTrait> traitChangeEvents;
     
     //Hibernate only
-    @SuppressWarnings("unused")
     @Deprecated
     public PlayerCharacter() {
         this(null, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);

@@ -52,10 +52,9 @@ public class AuditEventDaoTest {
                               thenReturn(Instant.ofEpochMilli(40100L)).thenReturn(Instant.ofEpochMilli(50100L)).thenReturn(Instant.ofEpochMilli(60100L));
         
         troupe1 = troupeDao.save(troupeFactory.createTroupe("name", Setting.CAMARILLA));
-        troupe1 = troupeDao.save(troupe1);
         troupe2 = troupeDao.save(troupeFactory.createTroupe("another name", Setting.CAMARILLA));
-        player1 = playerDao.save(playerFactory.createPlayer("name", "email", troupe1));
-        player2 = playerDao.save(playerFactory.createPlayer("another name", "another email", troupe2));
+        player1 = playerDao.save(playerFactory.createPlayer("name", "email"));
+        player2 = playerDao.save(playerFactory.createPlayer("another name", "another email"));
         troupe1 = troupeDao.save(troupe1.withPlayer(player1));
         troupe2 = troupeDao.save(troupe2.withPlayer(player2));
     }
@@ -89,13 +88,13 @@ public class AuditEventDaoTest {
     
     @After
     public void tearDown() {
-        auditableDao.deleteAuditEventsFor(troupe1);
-        auditableDao.deleteAuditEventsFor(troupe2);
         playerDao.delete(player1.getId());
         playerDao.delete(player2.getId());
         troupeDao.delete(troupe1.getId());
         troupeDao.delete(troupe2.getId());
         
+        auditableDao.deleteAuditEventsFor(troupe1);
+        auditableDao.deleteAuditEventsFor(troupe2);
     }
     
 }

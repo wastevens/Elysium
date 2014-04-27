@@ -1,10 +1,9 @@
 package com.dstevens.players;
 
+import static com.dstevens.collections.Sets.set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.collections.Sets;
 import com.dstevens.suppliers.IdSupplier;
 
 @Service
@@ -17,8 +16,8 @@ public class PlayerFactory {
         this.idSupplier = idSupplier;
     }
     
-    public Player createPlayer(String name, String email, Troupe troupe) {
-        return new Player(idSupplier.get(), name, email, Sets.<PlayerCharacter>set());
+    public Player createPlayer(String name, String email) {
+        return new Player(idSupplier.get(), name, email, set());
     }
     
 }

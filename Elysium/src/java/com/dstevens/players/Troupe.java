@@ -1,6 +1,6 @@
 package com.dstevens.players;
 
-import static com.dstevens.collections.Sets.set;
+import static com.dstevens.collections.Sets.*;
 
 import java.util.*;
 import java.util.function.Function;
@@ -77,18 +77,16 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     }
 
     public Troupe withPlayer(Player player) {
-        this.players.add(player);
-        return this;
+        Set<Player> setWith = setWith(players, player);
+        return new Troupe(id, name, setting, setWith, characters, deleteTimestamp);
     }
     
     public Troupe withoutPlayer(Player player) {
-        this.players.remove(player);
-        return this;
+        return new Troupe(id, name, setting, setWithout(players, player), characters, deleteTimestamp);
     }
     
     public Troupe clearPlayers() {
-        this.players.clear();
-        return this;
+        return new Troupe(id, name, setting, set(), characters, deleteTimestamp);
     }
     
     public Set<Player> getPlayers() {
@@ -96,13 +94,11 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     }
     
     public Troupe withCharacter(PlayerCharacter character) {
-        this.characters.add(character);
-        return this;
+        return new Troupe(id, name, setting, players, setWith(characters, character), deleteTimestamp);
     }
     
     public Troupe withoutCharacter(PlayerCharacter character) {
-        this.characters.remove(character);
-        return this;
+        return new Troupe(id, name, setting, players, setWithout(characters, character), deleteTimestamp);
     }
     
     public Set<PlayerCharacter> getCharacters() {

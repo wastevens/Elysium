@@ -10,14 +10,21 @@ import com.dstevens.players.*;
 public class PlayerCharacterRepository extends AbstractAuditableRepository<PlayerCharacter> {
 
     private final PlayerCharacterFactory factory;
+    private PlayerDao playerDao;
+    private TroupeDao troupeDao;
 
     @Autowired
-    public PlayerCharacterRepository(PlayerCharacterDao dao, AuditableRepositoryProvider repositoryProvider, PlayerCharacterFactory factory) {
+    public PlayerCharacterRepository(PlayerCharacterDao dao, PlayerDao playerDao, TroupeDao troupeDao, AuditableRepositoryProvider repositoryProvider, PlayerCharacterFactory factory) {
         super(repositoryProvider.repositoryFor(dao));
+        this.playerDao = playerDao;
+        this.troupeDao = troupeDao;
         this.factory = factory;
     }
 
     public PlayerCharacter createNewCharacterFor(Troupe troupe, Player player, String name) {
-        return create(factory.createPlayerCharacter(name));
+        PlayerCharacter character = create(factory.createPlayerCharacter(name));
+        playerDao.save(player.withCharacter(character));
+        troupeDao.save(troupe.withCharacter(character));
+        return character;
     }
 }
