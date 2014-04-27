@@ -70,15 +70,4 @@ public class TroupeRepositoryTest {
         
         assertEquals(savedTroupe, troupeRepository.ensureExists(troupeName, setting));
     }
-    
-    @Test
-    public void testThatEnsureExistsDoesNotCreateTroupeIfTroupeExists() {
-        String troupeName = "Troupe Name";
-        Setting setting = Setting.CAMARILLA;
-        when(troupeDao.findNamed(troupeName)).thenReturn(list(troupe));
-        
-        assertEquals(troupe, troupeRepository.ensureExists(troupeName, setting));
-    }
-    
-    
 }

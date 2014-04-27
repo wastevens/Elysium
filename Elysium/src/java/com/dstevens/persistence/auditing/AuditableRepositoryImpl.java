@@ -25,7 +25,7 @@ public class AuditableRepositoryImpl<E extends Auditable<E>> implements Auditabl
 
     @Override
     public E update(E e) {
-        return save(e, "Updated");
+        return save(e);
     }
 
     @Override
@@ -48,6 +48,10 @@ public class AuditableRepositoryImpl<E extends Auditable<E>> implements Auditabl
         E saved = dao.save(e);
         auditableRepository.recordAuditableFor(saved, message);
         return saved;
+    }
+    
+    private E save(E e) {
+        return dao.save(e);
     }
 
 }

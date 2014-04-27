@@ -63,15 +63,5 @@ public class PlayerCharacterRepositoryTest {
         
         verify(auditableRepository).hardDelete(playerCharacter);
     }
-    
-    @Test
-    public void testCreateCharacterFor() {
-        String characterName = "Character name";
-        when(factory.createPlayerCharacter(characterName)).thenReturn(playerCharacter);
-        when(auditableRepository.create(playerCharacter)).thenReturn(savedPlayerCharacter);
-        
-        assertEquals(savedPlayerCharacter, repository.createNewCharacterFor(troupe, player, characterName));
-    }
-    
 }
 

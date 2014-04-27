@@ -496,6 +496,10 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    traitChangeEvents, null);
     }
     
+    public boolean isDeleted() {
+        return deleteTimestamp != null;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof PlayerCharacter) {
