@@ -2,8 +2,7 @@ package com.dstevens.characters.backgrounds;
 
 import static com.dstevens.collections.Sets.set;
 
-import java.util.*;
-import java.util.function.Function;
+import java.util.Set;
 import javax.persistence.*;
 
 import com.dstevens.characters.traits.CharacterDefinedTrait;
@@ -17,7 +16,7 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     private final String id;
     
     @Column(name="background")
-    private final Background background;
+    private final Background trait;
     
     @Column(name="specialization")
     private String specialization;
@@ -37,26 +36,22 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
         this(null, null, 0, null, set());
     }
     
-    public CharacterBackground(String id, Background background, int rating, String specialization, Set<String> focuses) {
+    public CharacterBackground(String id, Background trait, int rating, String specialization, Set<String> focuses) {
         this.id = id;
-        this.background = background;
+        this.trait = trait;
         this.rating = rating;
         this.specialization = specialization;
         this.focuses = focuses;
     }
 
-    public final Background getBackground() {
-        return background;
+    @Override
+    public final Background getTrait() {
+        return trait;
     }
 
     @Override
-    public final Background getTrait() {
-        return background;
-    }
-    
-    @Override
     public final int ordinal() {
-        return background.ordinal();
+        return trait.ordinal();
     }
 
     @Override
@@ -76,25 +71,12 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof CharacterBackground) {
-            CharacterBackground that = CharacterBackground.class.cast(obj);
-            return this.background.equals(that.background) &&
-                   this.rating == that.rating &&
-                   this.focuses.equals(that.focuses) &&
-                   nullsafeEquals(this.specialization, that.specialization);
-        }
-        return false;
-    }
-    
-    private boolean nullsafeEquals(String thisSpecialization, String thatSpecialization) {
-        if (thisSpecialization == thatSpecialization) return true;
-        if (thisSpecialization == null || thatSpecialization == null) return false;
-        return thisSpecialization.equals(thatSpecialization);
+        return characterDefinedTraitEquals(obj);
     }
 
     @Override
     public int hashCode() {
-        return background.hashCode() + rating + focuses.hashCode();
+        return characterDefinedTraitHashcode();
     }
     
     @Override
@@ -104,12 +86,6 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
 
     @Override
     public int compareTo(CharacterBackground that) {
-        Function<CharacterBackground, Integer> byRating = ((CharacterBackground s)-> s.rating);
-        Function<CharacterBackground, Background> bySkill = ((CharacterBackground s)-> s.background);
-        Function<CharacterBackground, String> bySpecialization = ((CharacterBackground s)-> s.specialization);
-        return Comparator.comparing(byRating).reversed().
-                      thenComparing(bySkill).
-                      thenComparing(Comparator.comparing(bySpecialization, Comparator.nullsLast(Comparator.naturalOrder()))).
-                      compare(this, that); 
+        return characterDefinedTraitComparator().compare(this, that);
     }
 }

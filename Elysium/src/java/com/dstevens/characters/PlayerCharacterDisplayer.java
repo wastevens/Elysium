@@ -1,7 +1,5 @@
 package com.dstevens.characters;
 
-import java.util.stream.Stream;
-
 import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.skills.CharacterSkill;
 
@@ -27,22 +25,22 @@ public class PlayerCharacterDisplayer {
 
     private String display(CharacterBackground bg) {
         if (isPresent(bg.getSpecialization())) {
-            return String.format("%1$s (%2$s):\t%3$s\n", bg.getBackground(), bg.getSpecialization(), bg.getRating());
+            return String.format("%1$s (%2$s):\t%3$s\n", bg.getTrait(), bg.getSpecialization(), bg.getRating());
         }
         if (!bg.getFocuses().isEmpty()) {
-            return String.format("%1$s:\t%2$s %3$s\n", bg.getBackground(), bg.getRating(), bg.getFocuses());
+            return String.format("%1$s:\t%2$s %3$s\n", bg.getTrait(), bg.getRating(), bg.getFocuses());
         }
-        return String.format("%1$s:\t%2$s\n", bg.getBackground(), bg.getRating());
+        return String.format("%1$s:\t%2$s\n", bg.getTrait(), bg.getRating());
     }
 
     private String display(CharacterSkill s) {
         if (isPresent(s.getSpecialization())) {
-            return String.format("%1$s (%2$s):\t %3$s\n", s.getSkill(), s.getSpecialization(), s.getRating());
+            return String.format("%1$s (%2$s):\t %3$s\n", s.getTrait(), s.getSpecialization(), s.getRating());
         }
         if (!s.getFocuses().isEmpty()) {
-            return String.format("%1$s:\t%2$s %3$s\n", s.getSkill(), s.getRating(), s.getFocuses());
+            return String.format("%1$s:\t%2$s %3$s\n", s.getTrait(), s.getRating(), s.getFocuses());
         }
-        return String.format("%1$s:\t%2$s\n", s.getSkill(), s.getRating());
+        return String.format("%1$s:\t%2$s\n", s.getTrait(), s.getRating());
     }
 
     private boolean isPresent(String specialization) {
