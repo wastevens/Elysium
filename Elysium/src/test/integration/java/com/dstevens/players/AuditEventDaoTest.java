@@ -89,13 +89,13 @@ public class AuditEventDaoTest {
     
     @After
     public void tearDown() {
-        troupeDao.delete(troupe1.getId());
-        troupeDao.delete(troupe2.getId());
-        playerDao.delete(player1.getId());
-        playerDao.delete(player2.getId());
-        
         auditableDao.deleteAuditEventsFor(troupe1);
         auditableDao.deleteAuditEventsFor(troupe2);
+        playerDao.delete(player1.getId());
+        playerDao.delete(player2.getId());
+        troupeDao.delete(troupe1.getId());
+        troupeDao.delete(troupe2.getId());
+        
     }
     
 }
