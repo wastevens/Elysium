@@ -25,10 +25,8 @@ public class Player implements Auditable<Player>, Comparable<Player> {
     @Column(name="email")
     private final String email;
     
-    @ManyToMany(mappedBy="players")
-    private final Set<Troupe> troupes;
-    
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinColumn(name="player_id", referencedColumnName="id")
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")
@@ -37,18 +35,17 @@ public class Player implements Auditable<Player>, Comparable<Player> {
     //Used only for hibernate
     @Deprecated
     public Player() {
-        this(null, null, null, null, null, null);
+        this(null, null, null, null);
     }
     
-    Player(String id, String name, String email, Set<Troupe> troupes, Set<PlayerCharacter> characters) {
-        this(id, name, email, troupes, characters, null);
+    Player(String id, String name, String email, Set<PlayerCharacter> characters) {
+        this(id, name, email, characters, null);
     }
     
-    private Player(String id, String name, String email, Set<Troupe> troupes, Set<PlayerCharacter> characters, Date deleteTimestamp) {
+    private Player(String id, String name, String email, Set<PlayerCharacter> characters, Date deleteTimestamp) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.troupes = troupes;
         this.characters = characters;
         this.deleteTimestamp = deleteTimestamp;
     }
@@ -58,7 +55,7 @@ public class Player implements Auditable<Player>, Comparable<Player> {
     }
 
     public final Player withName(String name) {
-        return new Player(id, name, email, troupes, characters, deleteTimestamp);
+        return new Player(id, name, email, characters, deleteTimestamp);
     }
     
     public final String getName() {
@@ -66,52 +63,35 @@ public class Player implements Auditable<Player>, Comparable<Player> {
     }
 
     public final Player withEmail(String email) {
-        return new Player(id, name, email, troupes, characters, deleteTimestamp);
+        return new Player(id, name, email, characters, deleteTimestamp);
     }
     
     public final String getEmail() {
         return email;
     }
 
-    public final void addCharacter(PlayerCharacter character) {
-        character.belongingToPlayer(this);
-        this.characters.add(character);
+    public final Player addCharacter(PlayerCharacter character) {
+        return new Player(id, name, email, setWith(characters, character), deleteTimestamp);
     }
     
     public final Player removeCharacter(PlayerCharacter character) {
-        return new Player(id, name, email, troupes, setWithout(characters, character), deleteTimestamp);
+        return new Player(id, name, email, setWithout(characters, character), deleteTimestamp);
     }
     
     public final Player clearCharacters() {
-        return new Player(id, name, email, troupes, Sets.<PlayerCharacter>set(), deleteTimestamp);
+        return new Player(id, name, email, set(), deleteTimestamp);
     }
     
     public final Set<PlayerCharacter> getCharacters() {
         return characters;
     }
 
-    public final Player joinTroupe(Troupe troupe) {
-        return new Player(id, name, email, setWith(troupes, troupe), characters, deleteTimestamp);
-    }
-    
-    public final Player leaveTroupe(Troupe troupe) {
-        return new Player(id, name, email, setWithout(troupes, troupe), characters, deleteTimestamp);
-    }
-    
-    public final Player leaveAllTroupes() {
-        return new Player(id, name, email, Sets.<Troupe>set(), characters, deleteTimestamp);
-    }
-    
-    public final Set<Troupe> getTroupes() {
-        return troupes;
-    }
-    
     public Player delete(Date deleteTimestamp) {
-        return new Player(id, name, email, troupes, characters, deleteTimestamp);
+        return new Player(id, name, email, characters, deleteTimestamp);
     }
     
     public Player undelete() {
-        return new Player(id, name, email, troupes, characters, null);
+        return new Player(id, name, email, characters, null);
     }
     
     @Override

@@ -29,12 +29,6 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @Column(name="deleted_at")
     private final Date deleteTimestamp;
     
-    @OneToOne
-    private Player player;
-    
-    @OneToOne
-    private Troupe troupe;
-    
     @Column(name="xp")
     private int xp;
     
@@ -148,35 +142,29 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @SuppressWarnings("unused")
     @Deprecated
     public PlayerCharacter() {
-        this(null, null, null, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
-    PlayerCharacter(String id, Troupe troupe, Player player, String name) {
-        this(id, player, troupe, 0, name, null, null, 
-             new PhysicalAttribute(id), new MentalAttribute(id), new SocialAttribute(id),
+    PlayerCharacter(String id, String name) {
+        this(id, 0, name, null, null, new PhysicalAttribute(id), new MentalAttribute(id), 
+             new SocialAttribute(id), set(), set(),
              set(), set(), 
              set(), set(), set(),
+             set(), set(), null,
+             set(), set(), null,
              set(), set(), set(),
-             set(), null, set(),
-             set(), null, set(),
-             set(), set(),
-             list(),
-             null);
+             list(), null);
     }
     
-    private PlayerCharacter(String id, Player player, Troupe troupe, int xp, String name, Clan clan, Bloodline bloodline,
-                            PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute, SocialAttribute socialAttribute, 
-                            Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
-                            Set<Discipline> inClanDisciplines, Set<Thaumaturgy> inClanThaumaturgicalPaths, Set<Necromancy> inClanNecromanticPaths,
-                            Set<CharacterDiscipline> disciplines, Set<ElderPower> elderPowers, Set<Technique> techniques, 
-                            Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, Set<ThaumaturgicalRitual> thaumaturgicalRituals,
-                            Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals,
-                            Set<CharacterMerit> merits, Set<CharacterFlaw> flaws,
-                            List<SetTrait> traitChangeEvents,
-                            Date deleteTimestamp) {
+    private PlayerCharacter(String id, int xp, String name, Clan clan, Bloodline bloodline, PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute,
+                            SocialAttribute socialAttribute, Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
+                            Set<Discipline> inClanDisciplines, Set<Thaumaturgy> inClanThaumaturgicalPaths, 
+                            Set<Necromancy> inClanNecromanticPaths, Set<CharacterDiscipline> disciplines, Set<ElderPower> elderPowers,
+                            Set<Technique> techniques, Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, 
+                            Set<ThaumaturgicalRitual> thaumaturgicalRituals, Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath,
+                            Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws,
+                            List<SetTrait> traitChangeEvents, Date deleteTimestamp) {
         this.id = id;
-        this.player = player;
-        this.troupe = troupe;
         this.xp = xp;
         this.name = name;
         this.clan = clan;
@@ -209,16 +197,14 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, player, troupe, xp, name, clan, bloodline, 
-                                   physicalAttribute, mentalAttribute, socialAttribute, 
-                                   skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                                   disciplines, elderPowers, techniques,
-                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
-                                   necromanticPaths, primaryNecromanticPath, necromanticRituals,
-                                   merits, flaws,
-                                   traitChangeEvents,
-                                   deleteTimestamp);
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, 
+                                   socialAttribute, skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, 
+                                   inClanNecromanticPaths, disciplines, elderPowers, 
+                                   techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
+                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
+                                   necromanticRituals, merits, flaws,
+                                   traitChangeEvents, deleteTimestamp);
     }
     
     public String getName() {
@@ -226,16 +212,14 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter ofClan(Clan clan) {
-        return new PlayerCharacter(id, player, troupe, xp, name, clan, bloodline, 
-                physicalAttribute, mentalAttribute, socialAttribute, 
-                skills, backgrounds, 
-                inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                disciplines, elderPowers, techniques,
-                thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
-                necromanticPaths, primaryNecromanticPath, necromanticRituals,
-                merits, flaws,
-                traitChangeEvents,
-                deleteTimestamp);
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, 
+                socialAttribute, skills, backgrounds, 
+                inClanDisciplines, inClanThaumaturgicalPaths, 
+                inClanNecromanticPaths, disciplines, elderPowers, 
+                techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
+                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
+                necromanticRituals, merits, flaws,
+                traitChangeEvents, deleteTimestamp);
     }
     
     public Clan getClan() {
@@ -243,16 +227,14 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter ofBloodline(Bloodline bloodline) {
-        return new PlayerCharacter(id, player, troupe, xp, name, clan, bloodline, 
-                physicalAttribute, mentalAttribute, socialAttribute, 
-                skills, backgrounds, 
-                inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                disciplines, elderPowers, techniques,
-                thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
-                necromanticPaths, primaryNecromanticPath, necromanticRituals,
-                merits, flaws,
-                traitChangeEvents,
-                deleteTimestamp);
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, 
+                socialAttribute, skills, backgrounds, 
+                inClanDisciplines, inClanThaumaturgicalPaths, 
+                inClanNecromanticPaths, disciplines, elderPowers, 
+                techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
+                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
+                necromanticRituals, merits, flaws,
+                traitChangeEvents, deleteTimestamp);
     }
     
     public Bloodline getBloodline() {
@@ -492,60 +474,28 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public PlayerCharacter belongingToPlayer(Player player) {
-        this.player = player;
-        return this;
-    }
-    
-    public PlayerCharacter removePlayer() {
-        this.player = null;
-        return this;
-    }
-    
-    public Player getPlayer() {
-        return player;
-    }
-
-    public PlayerCharacter inTrouope(Troupe troupe) {
-        this.troupe = troupe;
-        return this;
-    }
-    
-    public PlayerCharacter leaveTrouope() {
-        this.troupe = null;
-        return this;
-    }
-    
-    public Troupe getTroupe() {
-        return troupe;
-    }
-    
     @Override
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, player, troupe, xp, name, clan, bloodline, 
-                                   physicalAttribute, mentalAttribute, socialAttribute, 
-                                   skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                                   disciplines, elderPowers, techniques,
-                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
-                                   necromanticPaths, primaryNecromanticPath, necromanticRituals,
-                                   merits, flaws,
-                                   traitChangeEvents,
-                                   timestamp);
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, 
+                                   socialAttribute, skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, 
+                                   inClanNecromanticPaths, disciplines, elderPowers, 
+                                   techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
+                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
+                                   necromanticRituals, merits, flaws,
+                                   traitChangeEvents, timestamp);
     }
 
     @Override
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, player, troupe, xp, name, clan, bloodline, 
-                                   physicalAttribute, mentalAttribute, socialAttribute, 
-                                   skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                                   disciplines, elderPowers, techniques,
-                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals,
-                                   necromanticPaths, primaryNecromanticPath, necromanticRituals,
-                                   merits, flaws,
-                                   traitChangeEvents,
-                                   null);
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, 
+                                   socialAttribute, skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, 
+                                   inClanNecromanticPaths, disciplines, elderPowers, 
+                                   techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
+                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
+                                   necromanticRituals, merits, flaws,
+                                   traitChangeEvents, null);
     }
     
     @Override

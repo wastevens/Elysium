@@ -54,8 +54,8 @@ public class AuditEventDaoTest {
         troupe1 = troupeDao.save(troupeFactory.createTroupe("name", Setting.CAMARILLA));
         troupe1 = troupeDao.save(troupe1);
         troupe2 = troupeDao.save(troupeFactory.createTroupe("another name", Setting.CAMARILLA));
-        player1 = playerDao.save(playerFactory.createPlayer("name", "email").joinTroupe(troupe1));
-        player2 = playerDao.save(playerFactory.createPlayer("another name", "another email").joinTroupe(troupe2));
+        player1 = playerDao.save(playerFactory.createPlayer("name", "email", troupe1));
+        player2 = playerDao.save(playerFactory.createPlayer("another name", "another email", troupe2));
         troupe1 = troupeDao.save(troupe1.withPlayer(player1));
         troupe2 = troupeDao.save(troupe2.withPlayer(player2));
     }

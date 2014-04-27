@@ -15,6 +15,7 @@ public class PlayerRepositoryTest {
     @Mock private AuditableRepository<Player> auditableRepository;
     @Mock private Player player;
     @Mock private Player savedPlayer;
+    @Mock private Troupe troupe;
     @Mock private PlayerFactory factory;
     
     private PlayerRepository repository;
@@ -61,14 +62,14 @@ public class PlayerRepositoryTest {
     }
     
     @Test
-    public void testThatEnsureExistsCreatesTroupeIfTroupeDoesNotExist() {
+    public void testThatEnsureExistsCreatesPlayerIfTroupeDoesNotExist() {
         String playerName = "Player Name";
         String playerEmail = "Player Email";
-        when(dao.findNamed(playerName)).thenReturn(list());
-        when(factory.createPlayer(playerName, playerEmail)).thenReturn(player);
+        when(dao.findUndeletedWithEmail(playerEmail)).thenReturn(null);
+        when(factory.createPlayer(playerName, playerEmail, troupe)).thenReturn(player);
         when(auditableRepository.create(player)).thenReturn(savedPlayer);
         
-        assertEquals(savedPlayer, repository.ensureExists(playerName, playerEmail));
+        assertEquals(savedPlayer, repository.ensureExists(playerName, playerEmail, troupe));
     }
     
     @Test
@@ -77,6 +78,6 @@ public class PlayerRepositoryTest {
         String playerEmail = "Player Email";
         when(dao.findNamed(playerName)).thenReturn(list(player));
         
-        assertEquals(player, repository.ensureExists(playerName, playerEmail));
+        assertEquals(player, repository.ensureExists(playerName, playerEmail, troupe));
     }
 }

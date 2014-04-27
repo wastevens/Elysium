@@ -1,7 +1,5 @@
 package com.dstevens.players;
 
-import java.util.Iterator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +18,11 @@ public class PlayerRepository extends AbstractAuditableRepository<Player> {
         this.factory = factory;
     }
 
-    public Player ensureExists(String playerName, String playerEmail) {
-        Iterator<Player> troupes = dao.findNamed(playerName).iterator();
-        if (troupes.hasNext()) {
-            return troupes.next();
+    public Player ensureExists(String playerName, String playerEmail, Troupe troupe) {
+        Player player = dao.findUndeletedWithEmail(playerEmail);
+        if (player != null) {
+            return player;
         }
-        return create(factory.createPlayer(playerName, playerEmail));
+        return create(factory.createPlayer(playerName, playerEmail, troupe));
     }
 }

@@ -17,10 +17,8 @@ public class PlayerTest {
 
     @Test
     public void testEquals() {
-        Troupe troupe1 = mock(Troupe.class);
-        Troupe troupe2 = mock(Troupe.class);
-        Troupe troupe3 = mock(Troupe.class);
-        Troupe troupe4 = mock(Troupe.class);
+        Troupe troupe = mock(Troupe.class);
+        Troupe anotherTroupe = mock(Troupe.class);
         PlayerCharacter character1 = mock(PlayerCharacter.class);
         PlayerCharacter character2 = mock(PlayerCharacter.class);
         PlayerCharacter character3 = mock(PlayerCharacter.class);
@@ -29,14 +27,13 @@ public class PlayerTest {
         String name = "name";
         String email = "email";
         
-        EqualityTester.testing(new Player(id, name, email, set(troupe1, troupe2, troupe3), set(character1, character2, character3))).
-                 assertEqualTo(new Player(id, "another " + name, email, set(troupe1, troupe2, troupe3), set(character1, character2, character3))).
-                 assertEqualTo(new Player(id, name, "another " + email, set(troupe1, troupe2, troupe3), set(character1, character2, character3))).
-                 assertEqualTo(new Player(id, name, email, set(troupe1, troupe2, troupe3, troupe4), set(character1, character2, character3))).
-                 assertEqualTo(new Player(id, name, email, set(troupe1, troupe2), set(character1, character2, character3))).
-                 assertEqualTo(new Player(id, name, email, set(troupe1, troupe2, troupe3), set(character1, character2, character3, character4))).
-                 assertEqualTo(new Player(id, name, email, set(troupe1, troupe2, troupe3), set(character1, character2))).
-              assertNotEqualTo(new Player("another " + id, name, email, set(troupe1, troupe2, troupe3), set(character1, character2, character3))).
+        EqualityTester.testing(new Player(id, name, email, set(character1, character2, character3))).
+                 assertEqualTo(new Player(id, "another " + name, email, set(character1, character2, character3))).
+                 assertEqualTo(new Player(id, name, "another " + email, set(character1, character2, character3))).
+                 assertEqualTo(new Player(id, name, email, set(character1, character2, character3))).
+                 assertEqualTo(new Player(id, name, email, set(character1, character2, character3, character4))).
+                 assertEqualTo(new Player(id, name, email, set(character1, character2))).
+              assertNotEqualTo(new Player("another " + id, name, email, set(character1, character2, character3))).
         assertNotEqualTo("Not a enclosing_type");
     }
     
@@ -94,7 +91,7 @@ public class PlayerTest {
     }
     
     private Player player(String name) {
-        return new Player(name, name, "", Sets.<Troupe>set(), Sets.<PlayerCharacter>set());
+        return new Player(name, name, "", Sets.<PlayerCharacter>set());
     }
     
 }

@@ -56,29 +56,30 @@ public class PlayerCharacterDaoTest {
         traitChangeFactory = APP_CONFIG.getBean(TraitChangeFactory.class);
         
         troupe = troupeDao.save(troupeFactory.createTroupe("troupe name", Setting.ANARCH));
-        player = playerDao.save(playerFactory.createPlayer("player name", "player email").joinTroupe(troupe));
-        character = characterDao.save(characterFactory.createPlayerCharacter(troupe, player, "character name"));
+        player = playerDao.save(playerFactory.createPlayer("player name", "player email", troupe));
+        troupe = troupeDao.save(troupe.withPlayer(player));
+        character = characterDao.save(characterFactory.createPlayerCharacter("character name"));
+        player = playerDao.save(player.addCharacter(character));
+        troupe = troupeDao.save(troupe.withCharacter(character));
     }
     
     @After
     public void tearDown() {
-        troupeDao.delete(troupe.getId());
-        playerDao.delete(player.getId());
         characterDao.delete(character.getId());
+        playerDao.delete(player.getId());
+        troupeDao.delete(troupe.getId());
     }
     
     @Test
     public void testSave() {
-        assertEquals(playerDao.findOne(player.getId()).getCharacters(), set(character));
-        assertEquals(troupeDao.findOne(troupe.getId()).getCharacters(), set(character));
-        assertEquals(characterDao.findOne(character.getId()).getTroupe(), troupe);
-        assertEquals(characterDao.findOne(character.getId()).getPlayer(), player);
+        assertEquals(set(character), playerDao.findOne(player.getId()).getCharacters());
+        assertEquals(set(character), troupeDao.findOne(troupe.getId()).getCharacters());
         
         characterDao.save(character.ofClan(Clan.VENTRUE).ofBloodline(Bloodline.COYOTE));
         PlayerCharacter characterWithClan = characterDao.findOne(character.getId());
         
-        assertEquals(Clan.VENTRUE, characterWithClan.getClan());
-        assertEquals(Bloodline.COYOTE, characterWithClan.getBloodline());
+        assertEquals(characterWithClan.getClan(), Clan.VENTRUE);
+        assertEquals(characterWithClan.getBloodline(), Bloodline.COYOTE);
     }
     
     @Test

@@ -18,11 +18,11 @@ public class PlayerCharacterTest {
         Player player = mock(Player.class);
         Player anotherPlayer = mock(Player.class);
         
-        EqualityTester.testing(new PlayerCharacter(ID, troupe, player, NAME)).
-                 assertEqualTo(new PlayerCharacter(ID, troupe, player, NAME)).
-                 assertEqualTo(new PlayerCharacter(ID, anotherTroupe, player, NAME)).
-                 assertEqualTo(new PlayerCharacter(ID, troupe, anotherPlayer, NAME)).
-                 assertEqualTo(new PlayerCharacter(ID, troupe, anotherPlayer, "another " + NAME));
+        EqualityTester.testing(new PlayerCharacter(ID, NAME)).
+                 assertEqualTo(new PlayerCharacter(ID, NAME)).
+                 assertEqualTo(new PlayerCharacter(ID, NAME)).
+                 assertEqualTo(new PlayerCharacter(ID, NAME)).
+                 assertEqualTo(new PlayerCharacter(ID, "another " + NAME));
     }
     
 }

@@ -18,6 +18,6 @@ public class PlayerCharacterRepository extends AbstractAuditableRepository<Playe
     }
 
     public PlayerCharacter createNewCharacterFor(Troupe troupe, Player player, String name) {
-        return create(factory.createPlayerCharacter(troupe, player, name));
+        return create(factory.createPlayerCharacter(name));
     }
 }

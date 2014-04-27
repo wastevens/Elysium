@@ -65,7 +65,7 @@ public class PlayerCharacterRepositoryTest {
     @Test
     public void testCreateCharacterFor() {
         String characterName = "Character name";
-        when(factory.createPlayerCharacter(troupe, player, characterName)).thenReturn(playerCharacter);
+        when(factory.createPlayerCharacter(characterName)).thenReturn(playerCharacter);
         when(auditableRepository.create(playerCharacter)).thenReturn(savedPlayerCharacter);
         
         assertEquals(savedPlayerCharacter, repository.createNewCharacterFor(troupe, player, characterName));

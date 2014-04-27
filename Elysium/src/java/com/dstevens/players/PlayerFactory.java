@@ -17,8 +17,8 @@ public class PlayerFactory {
         this.idSupplier = idSupplier;
     }
     
-    public Player createPlayer(String name, String email) {
-        return new Player(idSupplier.get(), name, email, Sets.<Troupe>set(), Sets.<PlayerCharacter>set());
+    public Player createPlayer(String name, String email, Troupe troupe) {
+        return new Player(idSupplier.get(), name, email, Sets.<PlayerCharacter>set());
     }
     
 }

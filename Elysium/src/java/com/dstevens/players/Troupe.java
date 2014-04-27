@@ -4,6 +4,7 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.*;
 import java.util.function.Function;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -23,10 +24,12 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     @Column(name="setting")
     private Setting setting;
     
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinColumn(name="troupe_id", referencedColumnName="id")
     private final Set<Player> players;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinColumn(name="troupe_id", referencedColumnName="id")
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")
@@ -93,13 +96,11 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     }
     
     public Troupe withCharacter(PlayerCharacter character) {
-        character.inTrouope(this);
         this.characters.add(character);
         return this;
     }
     
     public Troupe withoutCharacter(PlayerCharacter character) {
-        character.leaveTrouope();
         this.characters.remove(character);
         return this;
     }

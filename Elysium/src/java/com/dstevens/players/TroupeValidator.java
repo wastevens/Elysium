@@ -34,7 +34,7 @@ public class TroupeValidator extends Validator<Troupe> {
     }
 
     private boolean isNameAvailable(Troupe e) {
-        return dao.findUndeletedNamed(e.getName()).iterator().hasNext();
+        return dao.countOfUndeletedNamed(e.getName()) == 0;
     }
 
 }
