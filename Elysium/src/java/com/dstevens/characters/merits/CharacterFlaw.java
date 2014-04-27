@@ -25,11 +25,11 @@ public class CharacterFlaw implements Comparable<CharacterFlaw> {
         this(0, null, null);
     }
     
-    public CharacterFlaw(Flaw flaw) {
+    public CharacterFlaw(Flaw<?> flaw) {
         this(flaw.ordinal(), flaw.getType(), null);
     }
     
-    public CharacterFlaw(Flaw flaw, String details) {
+    public CharacterFlaw(Flaw<?> flaw, String details) {
         this(flaw.ordinal(), flaw.getType(), details);
     }
     
@@ -39,7 +39,7 @@ public class CharacterFlaw implements Comparable<CharacterFlaw> {
         this.details = details;
     }
     
-    public Flaw getFlaw() {
+    public Flaw<?> getFlaw() {
         return FlawTranslator.ofTypeWithId(flawType, flawId);
     }
     

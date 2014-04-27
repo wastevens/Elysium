@@ -11,7 +11,7 @@ abstract class SetEnumeratedTrait extends SetTrait {
     @Column(name="ordinal")
     private final int ordinal;
     
-    protected SetEnumeratedTrait(String id, TraitChangeStatus status, EnumeratedTrait trait) {
+    protected SetEnumeratedTrait(String id, TraitChangeStatus status, EnumeratedTrait<?> trait) {
         this(id, status, trait.ordinal());
     }
     

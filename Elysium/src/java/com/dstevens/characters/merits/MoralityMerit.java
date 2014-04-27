@@ -3,7 +3,7 @@ package com.dstevens.characters.merits;
 import com.dstevens.characters.clans.*;
 
 @MeritAnnotation("Morality")
-public enum MoralityMerit implements Merit {
+public enum MoralityMerit implements Merit<MoralityMerit> {
 
     PATH_OF_BLOOD(Clan.ASSAMITE),
     PATH_OF_CAINE(),
@@ -58,5 +58,9 @@ public enum MoralityMerit implements Merit {
     public int getPoints() {
         return points;
     }
-    
+
+    @Override
+    public MoralityMerit getTrait() {
+        return this;
+    }
 }

@@ -25,11 +25,11 @@ public class CharacterMerit implements Comparable<CharacterMerit> {
         this(0, null, null);
     }
     
-    public CharacterMerit(Merit merit) {
+    public CharacterMerit(Merit<?> merit) {
         this(merit, null);
     }
     
-    public CharacterMerit(Merit merit, String details) {
+    public CharacterMerit(Merit<?> merit, String details) {
         this(merit.ordinal(), merit.getType(), details);
     }
     
@@ -39,7 +39,7 @@ public class CharacterMerit implements Comparable<CharacterMerit> {
         this.details = details;
     }
     
-    public Merit getMerit() {
+    public Merit<?> getMerit() {
         return MeritTranslator.ofTypeWithId(meritType, meritId);
     }
     

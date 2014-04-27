@@ -17,7 +17,7 @@ abstract class SetCharacterDefinedTrait extends SetRatedTrait {
     @Column(name="focus")
     private final Set<String> focuses;
     
-    protected SetCharacterDefinedTrait(String id, TraitChangeStatus status, CharacterDefinedTrait trait) {
+    protected SetCharacterDefinedTrait(String id, TraitChangeStatus status, CharacterDefinedTrait<?> trait) {
         this(id, status, trait.ordinal(), trait.getRating(), trait.getSpecialization(), trait.getFocuses());
     }
     

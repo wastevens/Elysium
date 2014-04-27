@@ -29,7 +29,7 @@ class SetMerit extends SetTrait {
         this(id, status, merit.getMerit().ordinal(), merit.getMerit().getType(), merit.getDetails());
     }
     
-    protected SetMerit(String id, TraitChangeStatus status, Merit merit, String details) {
+    protected SetMerit(String id, TraitChangeStatus status, Merit<?> merit, String details) {
         this(id, status, merit.ordinal(), merit.getType(), details);
     }
     

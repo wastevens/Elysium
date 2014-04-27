@@ -3,7 +3,7 @@ package com.dstevens.characters.merits;
 import com.dstevens.characters.clans.Clan;
 
 @MeritAnnotation("ClanSpecifc")
-public enum ClanSpecificMerit implements Merit {
+public enum ClanSpecificMerit implements Merit<ClanSpecificMerit> {
 
     SURPRISE_ATTACK(Clan.ASSAMITE, 1),
     AWAKENING_THE_STEEL(Clan.ASSAMITE, 3),
@@ -89,4 +89,8 @@ public enum ClanSpecificMerit implements Merit {
         return points;
     }
     
+    @Override
+    public ClanSpecificMerit getTrait() {
+        return this;
+    }
 }

@@ -2,7 +2,7 @@ package com.dstevens.characters.powers.magics;
 
 import com.dstevens.characters.traits.EnumeratedTrait;
 
-public enum NecromanticRitual implements EnumeratedTrait {
+public enum NecromanticRitual implements EnumeratedTrait<NecromanticRitual> {
 
     CALL_OF_THE_HUNGRY_DEAD(1),
     CIRCLE_OF_CERBERUS(1),
@@ -38,6 +38,11 @@ public enum NecromanticRitual implements EnumeratedTrait {
     
     public int getRating() {
         return rating;
+    }
+
+    @Override
+    public NecromanticRitual getTrait() {
+        return this;
     }
     
 }

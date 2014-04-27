@@ -2,9 +2,8 @@ package com.dstevens.characters.traits;
 
 import java.util.Set;
 
-public interface CharacterDefinedTrait extends RatedTrait {
+public interface CharacterDefinedTrait<T extends Enum<?>> extends RatedTrait<T> {
 
-    String getId();
     String getSpecialization();
     Set<String> getFocuses();
     

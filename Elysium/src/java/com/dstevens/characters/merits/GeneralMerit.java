@@ -1,7 +1,7 @@
 package com.dstevens.characters.merits;
 
 @MeritAnnotation("General")
-public enum GeneralMerit implements Merit {
+public enum GeneralMerit implements Merit<GeneralMerit> {
     ACUTE_SENSE(1),
     ADDITIONAL_COMMON_DISCIPLINE(4),
     ADDITIONAL_UNCOMMON_DISCIPLINE(5),
@@ -48,5 +48,9 @@ public enum GeneralMerit implements Merit {
     public int getPoints() {
         return points;
     }
-    
+
+    @Override
+    public GeneralMerit getTrait() {
+        return this;
+    }
 }

@@ -3,7 +3,7 @@ package com.dstevens.characters.merits;
 import com.dstevens.players.Setting;
 
 @FlawAnnotation("SettingSpecifc")
-public enum SettingSpecificFlaw implements Flaw {
+public enum SettingSpecificFlaw implements Flaw<SettingSpecificFlaw> {
     
     ACCUSED_OF_HERESY(Setting.CAMARILLA, 2),
     FORGIVEN_DIABLERIE(Setting.CAMARILLA, 1),
@@ -38,5 +38,9 @@ public enum SettingSpecificFlaw implements Flaw {
     public int getPoints() {
         return points;
     }
-    
+
+    @Override
+    public SettingSpecificFlaw getTrait() {
+        return this;
+    }
 }

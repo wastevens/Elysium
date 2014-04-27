@@ -94,14 +94,14 @@ public class TraitChangeBuilder {
     
     public class SetMeritBuilder {
         
-        private Merit merit;
+        private Merit<?> merit;
         private String specialization;
 
-        private SetMeritBuilder(Merit merit) {
+        private SetMeritBuilder(Merit<?> merit) {
             this(merit, null);
         }
         
-        private SetMeritBuilder(Merit merit, String specialization) {
+        private SetMeritBuilder(Merit<?> merit, String specialization) {
             this.merit = merit;
             this.specialization = specialization;
         }
@@ -115,20 +115,20 @@ public class TraitChangeBuilder {
         }
     }
     
-    public SetMeritBuilder setMerit(Merit merit) {
+    public SetMeritBuilder setMerit(Merit<?> merit) {
         return new SetMeritBuilder(merit);
     }
     
     public class SetFlawBuilder {
         
-        private Flaw flaw;
+        private Flaw<?> flaw;
         private String specialization;
 
-        private SetFlawBuilder(Flaw flaw) {
+        private SetFlawBuilder(Flaw<?> flaw) {
             this(flaw, null);
         }
         
-        private SetFlawBuilder(Flaw flaw, String specialization) {
+        private SetFlawBuilder(Flaw<?> flaw, String specialization) {
             this.flaw = flaw;
             this.specialization = specialization;
         }
@@ -142,7 +142,7 @@ public class TraitChangeBuilder {
         }
     }
 
-    public SetFlawBuilder setFlaw(Flaw flaw) {
+    public SetFlawBuilder setFlaw(Flaw<?> flaw) {
         return new SetFlawBuilder(flaw);
     }
     

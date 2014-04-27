@@ -11,7 +11,7 @@ import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="CharacterSkills")
-public class CharacterSkill implements CharacterDefinedTrait, Comparable<CharacterSkill> {
+public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<CharacterSkill> {
     
     @Id
     private final String id;
@@ -45,10 +45,6 @@ public class CharacterSkill implements CharacterDefinedTrait, Comparable<Charact
         this.focuses = focuses;
     }
 
-    public final String getId() {
-        return id;
-    }
-    
     public final Skill getSkill() {
         return skill;
     }
@@ -73,14 +69,23 @@ public class CharacterSkill implements CharacterDefinedTrait, Comparable<Charact
     public boolean equals(Object obj) {
         if (obj instanceof CharacterSkill) {
             CharacterSkill that = CharacterSkill.class.cast(obj);
-            return this.id.equals(that.id);
+            return this.skill.equals(that.skill) &&
+                   this.rating == that.rating &&
+                   this.focuses.equals(that.focuses) &&
+                   nullsafeEquals(this.specialization, that.specialization);
         }
         return false;
     }
     
+    private boolean nullsafeEquals(String thisSpecialization, String thatSpecialization) {
+        if (thisSpecialization == thatSpecialization) return true;
+        if (thisSpecialization == null || thatSpecialization == null) return false;
+        return thisSpecialization.equals(thatSpecialization);
+    }
+
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return skill.hashCode() + rating + focuses.hashCode();
     }
     
     @Override
@@ -90,8 +95,17 @@ public class CharacterSkill implements CharacterDefinedTrait, Comparable<Charact
 
     @Override
     public int compareTo(CharacterSkill that) {
-        Function<CharacterSkill, Skill> bySkill = ((CharacterSkill s )-> s.skill);
-        Function<CharacterSkill, String> bySpecialization = ((CharacterSkill s )-> s.specialization);
-        return Comparator.comparing(bySkill).thenComparing(Comparator.comparing(bySpecialization)).compare(this, that); 
+        Function<CharacterSkill, Integer> byRating = ((CharacterSkill s)-> s.rating);
+        Function<CharacterSkill, Skill> bySkill = ((CharacterSkill s)-> s.skill);
+        Function<CharacterSkill, String> bySpecialization = ((CharacterSkill s)-> s.specialization);
+        return Comparator.comparing(byRating).reversed().
+                      thenComparing(bySkill).
+                      thenComparing(Comparator.comparing(bySpecialization, Comparator.nullsLast(Comparator.naturalOrder()))).
+                      compare(this, that); 
+    }
+
+    @Override
+    public Skill getTrait() {
+        return skill;
     }
 }

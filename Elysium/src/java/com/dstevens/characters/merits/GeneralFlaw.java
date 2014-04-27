@@ -1,7 +1,7 @@
 package com.dstevens.characters.merits;
 
 @FlawAnnotation("General")
-public enum GeneralFlaw implements Flaw {
+public enum GeneralFlaw implements Flaw<GeneralFlaw> {
 
     ADDICTION(2),
     AMNESIA(1),
@@ -80,5 +80,10 @@ public enum GeneralFlaw implements Flaw {
     @Override
     public int getPoints() {
         return points;
+    }
+
+    @Override
+    public GeneralFlaw getTrait() {
+        return this;
     }
 }

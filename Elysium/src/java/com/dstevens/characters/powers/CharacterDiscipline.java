@@ -2,14 +2,16 @@ package com.dstevens.characters.powers;
 
 import java.util.Comparator;
 import java.util.function.Function;
-import javax.persistence.Embeddable;
+
+import javax.persistence.*;
 
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Embeddable
-public class CharacterDiscipline implements Comparable<CharacterDiscipline>, RatedTrait {
+public class CharacterDiscipline implements Comparable<CharacterDiscipline>, RatedTrait<Discipline> {
 
+    @Basic(optional=false)
     private final Discipline power;
     private int rating;
     
@@ -29,6 +31,12 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
         return power;
     }
 
+    @Override
+    public Discipline getTrait() {
+        return power;
+    }
+    
+    @Override
     public final int getRating() {
         return rating;
     }
@@ -43,8 +51,12 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
     }
     
     @Override
-    public boolean equals(Object that) {
-        return ObjectExtensions.equals(this, that);
+    public boolean equals(Object o) {
+        if (o instanceof CharacterDiscipline) {
+            CharacterDiscipline that = (CharacterDiscipline) o;
+            return this.power == that.power;
+        }
+        return false;
     }
     
     @Override
@@ -62,5 +74,4 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
         Function<CharacterDiscipline, Discipline> byPower = ((CharacterDiscipline c) -> c.power);
         return Comparator.comparing(byPower).compare(this, that);
     }
-    
 }

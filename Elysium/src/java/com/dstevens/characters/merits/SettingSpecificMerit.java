@@ -3,7 +3,7 @@ package com.dstevens.characters.merits;
 import com.dstevens.players.Setting;
 
 @MeritAnnotation("SettingSpecifc")
-public enum SettingSpecificMerit implements Merit {
+public enum SettingSpecificMerit implements Merit<SettingSpecificMerit> {
     
     ANTIQUITIES(Setting.CAMARILLA, 1),
     ARCHITECT_OF_THE_TOWER(Setting.CAMARILLA, 2),
@@ -54,5 +54,9 @@ public enum SettingSpecificMerit implements Merit {
     public int getPoints() {
         return points;
     }
-    
+
+    @Override
+    public SettingSpecificMerit getTrait() {
+        return this;
+    }
 }

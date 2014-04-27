@@ -8,7 +8,7 @@ import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Embeddable
-public class CharacterNecromancy implements Comparable<CharacterNecromancy>, RatedTrait {
+public class CharacterNecromancy implements Comparable<CharacterNecromancy>, RatedTrait<Necromancy> {
 
     private final Necromancy path;
     private int rating;
@@ -61,6 +61,12 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy>, Rat
     public int compareTo(CharacterNecromancy that) {
         Function<CharacterNecromancy, Necromancy> byPower = ((CharacterNecromancy c) -> c.path);
         return Comparator.comparing(byPower).compare(this, that);
+    }
+
+    @Override
+    public Necromancy getTrait() {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }

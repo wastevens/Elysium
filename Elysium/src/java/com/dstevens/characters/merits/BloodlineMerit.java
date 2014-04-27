@@ -3,7 +3,7 @@ package com.dstevens.characters.merits;
 import com.dstevens.characters.clans.*;
 
 @MeritAnnotation("Bloodline")
-public enum BloodlineMerit implements Merit {
+public enum BloodlineMerit implements Merit<BloodlineMerit> {
 
     ASSAMITE(Bloodline.ASSAMITE, Clan.ASSAMITE),
     VIZIER(Bloodline.VIZIER, Clan.ASSAMITE, 2),
@@ -91,5 +91,10 @@ public enum BloodlineMerit implements Merit {
     @Override
     public int getPoints() {
         return points;
+    }
+
+    @Override
+    public BloodlineMerit getTrait() {
+        return this;
     }
 }

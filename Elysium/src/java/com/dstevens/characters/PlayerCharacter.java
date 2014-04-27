@@ -248,6 +248,14 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
+
+    public PlayerCharacter withPhysicalAttribute(int rating, PhysicalAttribute.Focus focus) {
+        return new PlayerCharacter(id, rating, name, clan, bloodline, new PhysicalAttribute(getId()).withRating(rating).withFocus(focus), mentalAttribute, socialAttribute, skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, disciplines, elderPowers, techniques, 
+                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, 
+                                   necromanticRituals, merits, flaws, traitChangeEvents, deleteTimestamp);
+    }
+    
     public MentalAttribute getMentalAttribute() {
         return mentalAttribute;
     }
@@ -257,6 +265,13 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
+    public PlayerCharacter withMentalAttribute(int rating, MentalAttribute.Focus focus) {
+        return new PlayerCharacter(id, rating, name, clan, bloodline, physicalAttribute, new MentalAttribute(getId()).withRating(rating).withFocus(focus), socialAttribute, skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, disciplines, elderPowers, techniques, 
+                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, 
+                                   necromanticRituals, merits, flaws, traitChangeEvents, deleteTimestamp);
+    }
+    
     public SocialAttribute getSocialAttribute() {
         return socialAttribute;
     }
@@ -264,6 +279,13 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     public PlayerCharacter withSocialAttribute(SocialAttribute socialAttribute) {
         this.socialAttribute = socialAttribute;
         return this;
+    }
+    
+    public PlayerCharacter withSocialAttribute(int rating, SocialAttribute.Focus focus) {
+        return new PlayerCharacter(id, rating, name, clan, bloodline, physicalAttribute, mentalAttribute, new SocialAttribute(getId()).withRating(rating).withFocus(focus), skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, disciplines, elderPowers, techniques, 
+                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, 
+                                   necromanticRituals, merits, flaws, traitChangeEvents, deleteTimestamp);
     }
 
     public Set<CharacterSkill> getSkills() {

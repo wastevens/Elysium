@@ -8,7 +8,7 @@ import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Embeddable
-public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, RatedTrait {
+public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, RatedTrait<Thaumaturgy> {
 
     private final Thaumaturgy path;
     private int rating;
@@ -61,6 +61,12 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, R
     public int compareTo(CharacterThaumaturgy that) {
         Function<CharacterThaumaturgy, Thaumaturgy> byPower = ((CharacterThaumaturgy c) -> c.path);
         return Comparator.comparing(byPower).compare(this, that);
+    }
+
+    @Override
+    public Thaumaturgy getTrait() {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }

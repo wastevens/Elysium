@@ -9,7 +9,7 @@ public class MeritTranslator {
     private MeritTranslator() {
     }
     
-    public static final Merit ofTypeWithId(String type, int id) {
+    public static final Merit<?> ofTypeWithId(String type, int id) {
         Reflections reflections = new Reflections("com.dstevens.characters.merits");
         Set<Class<?>> meritClasses = reflections.getTypesAnnotatedWith(MeritAnnotation.class);
         for (Class<?> meritClass : meritClasses) {
@@ -21,15 +21,15 @@ public class MeritTranslator {
     }
 
     @SuppressWarnings("unchecked")
-    private static Merit getMerit(int id, Class<?> meritClass) {
-        return ((Class<? extends Merit>) meritClass).getEnumConstants()[id];
+    private static Merit<?> getMerit(int id, Class<?> meritClass) {
+        return ((Class<? extends Merit<?>>) meritClass).getEnumConstants()[id];
     }
     
-    public static final String ofType(Merit merit) {
+    public static final String ofType(Merit<?> merit) {
         return merit.getType();
     }
     
-    public static final int withId(Merit merit) {
+    public static final int withId(Merit<?> merit) {
         return merit.ordinal();
     }
     

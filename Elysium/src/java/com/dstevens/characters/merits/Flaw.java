@@ -3,7 +3,7 @@ package com.dstevens.characters.merits;
 import com.dstevens.characters.traits.*;
 
 
-public interface Flaw extends EnumeratedTrait, TypedTrait {
+public interface Flaw<T extends Enum<?>> extends EnumeratedTrait<T>, TypedTrait {
     
     int getPoints();
     

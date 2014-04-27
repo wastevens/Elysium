@@ -1,7 +1,7 @@
 package com.dstevens.characters.merits;
 
 @MeritAnnotation("Rarity")
-public enum RarityMerit implements Merit {
+public enum RarityMerit implements Merit<RarityMerit> {
     UNCOMMON(2),
     RARE(4),
     RESTRICTED(6);
@@ -16,5 +16,9 @@ public enum RarityMerit implements Merit {
     public int getPoints() {
         return points;
     }
-    
+
+    @Override
+    public RarityMerit getTrait() {
+        return this;
+    }
 }

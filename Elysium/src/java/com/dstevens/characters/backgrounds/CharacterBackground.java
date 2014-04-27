@@ -11,7 +11,7 @@ import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="CharacterBackgrounds")
-public class CharacterBackground implements CharacterDefinedTrait, Comparable<CharacterBackground> {
+public class CharacterBackground implements CharacterDefinedTrait<Background>, Comparable<CharacterBackground> {
     
     @Id
     private final String id;
@@ -45,26 +45,31 @@ public class CharacterBackground implements CharacterDefinedTrait, Comparable<Ch
         this.focuses = focuses;
     }
 
-    public final String getId() {
-        return id;
-    }
-    
     public final Background getBackground() {
         return background;
     }
+
+    @Override
+    public final Background getTrait() {
+        return background;
+    }
     
+    @Override
     public final int ordinal() {
         return background.ordinal();
     }
 
+    @Override
     public final String getSpecialization() {
         return specialization;
     }
 
+    @Override
     public final int getRating() {
         return rating;
     }
 
+    @Override
     public final Set<String> getFocuses() {
         return focuses;
     }
@@ -73,14 +78,23 @@ public class CharacterBackground implements CharacterDefinedTrait, Comparable<Ch
     public boolean equals(Object obj) {
         if (obj instanceof CharacterBackground) {
             CharacterBackground that = CharacterBackground.class.cast(obj);
-            return this.id.equals(that.id);
+            return this.background.equals(that.background) &&
+                   this.rating == that.rating &&
+                   this.focuses.equals(that.focuses) &&
+                   nullsafeEquals(this.specialization, that.specialization);
         }
         return false;
     }
     
+    private boolean nullsafeEquals(String thisSpecialization, String thatSpecialization) {
+        if (thisSpecialization == thatSpecialization) return true;
+        if (thisSpecialization == null || thatSpecialization == null) return false;
+        return thisSpecialization.equals(thatSpecialization);
+    }
+
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return background.hashCode() + rating + focuses.hashCode();
     }
     
     @Override
@@ -90,8 +104,12 @@ public class CharacterBackground implements CharacterDefinedTrait, Comparable<Ch
 
     @Override
     public int compareTo(CharacterBackground that) {
-        Function<CharacterBackground, Background> bySkill = ((CharacterBackground s )-> s.background);
-        Function<CharacterBackground, String> bySpecialization = ((CharacterBackground s )-> s.specialization);
-        return Comparator.comparing(bySkill).thenComparing(Comparator.comparing(bySpecialization)).compare(this, that); 
+        Function<CharacterBackground, Integer> byRating = ((CharacterBackground s)-> s.rating);
+        Function<CharacterBackground, Background> bySkill = ((CharacterBackground s)-> s.background);
+        Function<CharacterBackground, String> bySpecialization = ((CharacterBackground s)-> s.specialization);
+        return Comparator.comparing(byRating).reversed().
+                      thenComparing(bySkill).
+                      thenComparing(Comparator.comparing(bySpecialization, Comparator.nullsLast(Comparator.naturalOrder()))).
+                      compare(this, that); 
     }
 }

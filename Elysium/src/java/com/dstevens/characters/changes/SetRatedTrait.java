@@ -11,7 +11,7 @@ abstract class SetRatedTrait extends SetEnumeratedTrait {
     @Column(name="rating")
     private final int rating;
     
-    protected SetRatedTrait(String id, TraitChangeStatus status, RatedTrait trait) {
+    protected SetRatedTrait(String id, TraitChangeStatus status, RatedTrait<?> trait) {
         this(id, status, trait.ordinal(), trait.getRating());
     }
     

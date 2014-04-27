@@ -9,7 +9,7 @@ public class FlawTranslator {
     private FlawTranslator() {
     }
     
-    public static final Flaw ofTypeWithId(String type, int id) {
+    public static final Flaw<?> ofTypeWithId(String type, int id) {
         Reflections reflections = new Reflections("com.dstevens.characters.merits");
         Set<Class<?>> flawClasses = reflections.getTypesAnnotatedWith(FlawAnnotation.class);
         for (Class<?> flawClass : flawClasses) {
@@ -20,16 +20,16 @@ public class FlawTranslator {
         throw new IllegalStateException("Could not find a merit of type " + type + " with id " + id);
     }
 
-    @SuppressWarnings("unchecked")
-    private static Flaw getFlaw(int id, Class<?> flawClass) {
-        return ((Class<? extends Flaw>) flawClass).getEnumConstants()[id];
+    @SuppressWarnings({ "unchecked" })
+    private static Flaw<?> getFlaw(int id, Class<?> flawClass) {
+        return ((Class<? extends Flaw<?>>) flawClass).getEnumConstants()[id];
     }
     
-    public static final String ofType(Enum<? extends Flaw> merit) {
-        return merit.getClass().getAnnotation(FlawAnnotation.class).value();
+    public static final String ofType(Enum<? extends Flaw<?>> flaw) {
+        return flaw.getClass().getAnnotation(FlawAnnotation.class).value();
     }
     
-    public static final int withId(Enum<? extends Flaw> flaw) {
+    public static final int withId(Enum<? extends Flaw<?>> flaw) {
         return flaw.ordinal();
     }
     
