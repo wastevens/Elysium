@@ -83,7 +83,7 @@ public enum GeneralFlaw implements Flaw<GeneralFlaw> {
     }
 
     @Override
-    public GeneralFlaw getTrait() {
+    public GeneralFlaw trait() {
         return this;
     }
 }

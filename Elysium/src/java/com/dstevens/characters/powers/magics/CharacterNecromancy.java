@@ -1,8 +1,6 @@
 package com.dstevens.characters.powers.magics;
 
-import java.util.Comparator;
-import java.util.function.Function;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
@@ -10,7 +8,8 @@ import com.dstevens.utilities.ObjectExtensions;
 @Embeddable
 public class CharacterNecromancy implements Comparable<CharacterNecromancy>, RatedTrait<Necromancy> {
 
-    private final Necromancy path;
+    @Basic(optional=false)
+    private final Necromancy power;
     private int rating;
     
     //Hibernate only
@@ -20,36 +19,38 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy>, Rat
         this(null, 0);
     }
     
-    public CharacterNecromancy(Necromancy path, int rating) {
-        this.path = path;
+    public CharacterNecromancy(Necromancy trait, int rating) {
+        this.power = trait;
         this.rating = rating;
     }
     
-    public final Necromancy getPath() {
-        return path;
-    }
-
-    public final int getRating() {
-        return rating;
+    @Override
+    public Necromancy trait() {
+        return power;
     }
     
     @Override
-    public int ordinal() {
-        return path.ordinal();
+    public final int ordinal() {
+        return power.ordinal();
     }
     
-    public CharacterNecromancy withRating(int rating) {
-        return new CharacterNecromancy(path, rating);
+    @Override
+    public final int rating() {
+        return rating;
+    }
+    
+    public final CharacterNecromancy withRating(int rating) {
+        return new CharacterNecromancy(power, rating);
     }
     
     @Override
     public boolean equals(Object that) {
-        return ObjectExtensions.equals(this, that);
+        return ratedTraitEquals(that);
     }
     
     @Override
     public int hashCode() {
-        return ObjectExtensions.hashCodeFor(this);
+        return ratedTraitHashcode();
     }
     
     @Override
@@ -59,14 +60,6 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy>, Rat
 
     @Override
     public int compareTo(CharacterNecromancy that) {
-        Function<CharacterNecromancy, Necromancy> byPower = ((CharacterNecromancy c) -> c.path);
-        return Comparator.comparing(byPower).compare(this, that);
+        return ratedTraitComparator().compare(this, that);
     }
-
-    @Override
-    public Necromancy getTrait() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
 }

@@ -50,7 +50,7 @@ public enum ThaumaturgicalRitual implements EnumeratedTrait<ThaumaturgicalRitual
     }
 
     @Override
-    public ThaumaturgicalRitual getTrait() {
+    public ThaumaturgicalRitual trait() {
         return this;
     }
     

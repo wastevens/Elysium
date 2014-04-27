@@ -90,7 +90,7 @@ public enum ClanSpecificMerit implements Merit<ClanSpecificMerit> {
     }
     
     @Override
-    public ClanSpecificMerit getTrait() {
+    public ClanSpecificMerit trait() {
         return this;
     }
 }

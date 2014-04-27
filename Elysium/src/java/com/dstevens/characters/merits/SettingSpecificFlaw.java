@@ -40,7 +40,7 @@ public enum SettingSpecificFlaw implements Flaw<SettingSpecificFlaw> {
     }
 
     @Override
-    public SettingSpecificFlaw getTrait() {
+    public SettingSpecificFlaw trait() {
         return this;
     }
 }

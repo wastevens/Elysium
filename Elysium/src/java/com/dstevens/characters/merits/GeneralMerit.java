@@ -50,7 +50,7 @@ public enum GeneralMerit implements Merit<GeneralMerit> {
     }
 
     @Override
-    public GeneralMerit getTrait() {
+    public GeneralMerit trait() {
         return this;
     }
 }

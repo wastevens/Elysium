@@ -45,7 +45,7 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     }
 
     @Override
-    public final Background getTrait() {
+    public final Background trait() {
         return trait;
     }
 
@@ -60,7 +60,7 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     }
 
     @Override
-    public final int getRating() {
+    public final int rating() {
         return rating;
     }
 

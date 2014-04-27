@@ -18,7 +18,7 @@ abstract class SetCharacterDefinedTrait extends SetRatedTrait {
     private final Set<String> focuses;
     
     protected SetCharacterDefinedTrait(String id, TraitChangeStatus status, CharacterDefinedTrait<?> trait) {
-        this(id, status, trait.ordinal(), trait.getRating(), trait.getSpecialization(), trait.getFocuses());
+        this(id, status, trait.ordinal(), trait.rating(), trait.getSpecialization(), trait.getFocuses());
     }
     
     protected SetCharacterDefinedTrait(String id, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {

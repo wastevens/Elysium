@@ -1,8 +1,5 @@
 package com.dstevens.characters.powers;
 
-import java.util.Comparator;
-import java.util.function.Function;
-
 import javax.persistence.*;
 
 import com.dstevens.characters.traits.RatedTrait;
@@ -12,7 +9,7 @@ import com.dstevens.utilities.ObjectExtensions;
 public class CharacterDiscipline implements Comparable<CharacterDiscipline>, RatedTrait<Discipline> {
 
     @Basic(optional=false)
-    private final Discipline power;
+    private final Discipline trait;
     private int rating;
     
     //Hibernate only
@@ -23,45 +20,37 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
     }
     
     public CharacterDiscipline(Discipline power, int rating) {
-        this.power = power;
+        this.trait = power;
         this.rating = rating;
     }
     
-    public final Discipline getPower() {
-        return power;
-    }
-
     @Override
-    public Discipline getTrait() {
-        return power;
+    public Discipline trait() {
+        return trait;
     }
     
     @Override
-    public final int getRating() {
+    public final int ordinal() {
+        return trait.ordinal();
+    }
+    
+    @Override
+    public final int rating() {
         return rating;
     }
     
-    @Override
-    public int ordinal() {
-        return power.ordinal();
-    }
-    
-    public CharacterDiscipline withRating(int rating) {
-        return new CharacterDiscipline(power, rating);
+    public final CharacterDiscipline withRating(int rating) {
+        return new CharacterDiscipline(trait, rating);
     }
     
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof CharacterDiscipline) {
-            CharacterDiscipline that = (CharacterDiscipline) o;
-            return this.power == that.power;
-        }
-        return false;
+    public boolean equals(Object that) {
+        return ratedTraitEquals(that);
     }
     
     @Override
     public int hashCode() {
-        return ObjectExtensions.hashCodeFor(this);
+        return ratedTraitHashcode();
     }
     
     @Override
@@ -71,7 +60,6 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
 
     @Override
     public int compareTo(CharacterDiscipline that) {
-        Function<CharacterDiscipline, Discipline> byPower = ((CharacterDiscipline c) -> c.power);
-        return Comparator.comparing(byPower).compare(this, that);
+        return ratedTraitComparator().compare(this, that);
     }
 }

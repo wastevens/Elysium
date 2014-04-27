@@ -35,7 +35,7 @@ public interface CharacterDefinedTrait<T extends Enum<?>> extends RatedTrait<T> 
     }
     
     default Comparator<? super CharacterDefinedTrait<T>> characterDefinedTraitComparator() {
-        return Comparator.comparing((CharacterDefinedTrait<T> t) -> t.getRating()).reversed().
+        return Comparator.comparing((CharacterDefinedTrait<T> t) -> t.rating()).reversed().
                       thenComparing((CharacterDefinedTrait<T> t) -> t.ordinal()).
                       thenComparing((CharacterDefinedTrait<T> t) -> t.getSpecialization()).
                       thenComparing(byFocuses());

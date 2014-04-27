@@ -18,7 +18,7 @@ public enum RarityMerit implements Merit<RarityMerit> {
     }
 
     @Override
-    public RarityMerit getTrait() {
+    public RarityMerit trait() {
         return this;
     }
 }

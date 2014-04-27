@@ -59,7 +59,7 @@ public enum Technique implements EnumeratedTrait<Technique> {
     }
 
     @Override
-    public Technique getTrait() {
+    public Technique trait() {
         return this;
     }
     

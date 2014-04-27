@@ -12,7 +12,7 @@ abstract class SetRatedTrait extends SetEnumeratedTrait {
     private final int rating;
     
     protected SetRatedTrait(String id, TraitChangeStatus status, RatedTrait<?> trait) {
-        this(id, status, trait.ordinal(), trait.getRating());
+        this(id, status, trait.ordinal(), trait.rating());
     }
     
     protected SetRatedTrait(String id, TraitChangeStatus status, int ordinal, int rating) {

@@ -94,7 +94,7 @@ public enum BloodlineMerit implements Merit<BloodlineMerit> {
     }
 
     @Override
-    public BloodlineMerit getTrait() {
+    public BloodlineMerit trait() {
         return this;
     }
 }

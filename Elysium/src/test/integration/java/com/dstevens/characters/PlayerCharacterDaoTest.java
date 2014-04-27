@@ -117,9 +117,9 @@ public class PlayerCharacterDaoTest {
     }
     
     private void assertSkillValuesEqual(CharacterSkill expected, CharacterSkill actual) {
-        assertEquals(expected.getTrait(), actual.getTrait());
+        assertEquals(expected.trait(), actual.trait());
         assertEquals(expected.getFocuses(), actual.getFocuses());
-        assertEquals(expected.getRating(), actual.getRating());
+        assertEquals(expected.rating(), actual.rating());
         assertEquals(expected.getSpecialization(), actual.getSpecialization());
     }
     
@@ -150,9 +150,9 @@ public class PlayerCharacterDaoTest {
     }
     
     private void assertBackgroundValuesEqual(CharacterBackground expected, CharacterBackground actual) {
-        assertEquals(expected.getTrait(), actual.getTrait());
+        assertEquals(expected.trait(), actual.trait());
         assertEquals(expected.getFocuses(), actual.getFocuses());
-        assertEquals(expected.getRating(), actual.getRating());
+        assertEquals(expected.rating(), actual.rating());
         assertEquals(expected.getSpecialization(), actual.getSpecialization());
     }
     
@@ -353,15 +353,15 @@ public class PlayerCharacterDaoTest {
     }
 
     private void assertExpectedSkill(CharacterSkill expected, CharacterSkill actual) {
-        assertEquals(expected.getTrait(), actual.getTrait());
-        assertEquals(expected.getRating(), actual.getRating());
+        assertEquals(expected.trait(), actual.trait());
+        assertEquals(expected.rating(), actual.rating());
         assertEquals(expected.getSpecialization(), actual.getSpecialization());
         assertEquals(expected.getFocuses(), actual.getFocuses());
     }
     
     private void assertExpectedBackground(CharacterBackground expected, CharacterBackground actual) {
-        assertEquals(expected.getTrait(), actual.getTrait());
-        assertEquals(expected.getRating(), actual.getRating());
+        assertEquals(expected.trait(), actual.trait());
+        assertEquals(expected.rating(), actual.rating());
         assertEquals(expected.getSpecialization(), actual.getSpecialization());
         assertEquals(expected.getFocuses(), actual.getFocuses());
     }

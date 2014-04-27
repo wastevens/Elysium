@@ -56,7 +56,7 @@ public enum SettingSpecificMerit implements Merit<SettingSpecificMerit> {
     }
 
     @Override
-    public SettingSpecificMerit getTrait() {
+    public SettingSpecificMerit trait() {
         return this;
     }
 }

@@ -45,7 +45,7 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     }
 
     @Override
-    public final Skill getTrait() {
+    public final Skill trait() {
         return trait;
     }
     
@@ -57,7 +57,7 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
         return specialization;
     }
 
-    public final int getRating() {
+    public final int rating() {
         return rating;
     }
 

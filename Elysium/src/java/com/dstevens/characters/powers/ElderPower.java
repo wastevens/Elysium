@@ -78,7 +78,7 @@ public enum ElderPower implements EnumeratedTrait<ElderPower> {
     }
 
     @Override
-    public ElderPower getTrait() {
+    public ElderPower trait() {
         return this;
     }
     

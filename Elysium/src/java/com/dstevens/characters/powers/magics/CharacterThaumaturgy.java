@@ -1,8 +1,6 @@
 package com.dstevens.characters.powers.magics;
 
-import java.util.Comparator;
-import java.util.function.Function;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
@@ -10,7 +8,8 @@ import com.dstevens.utilities.ObjectExtensions;
 @Embeddable
 public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, RatedTrait<Thaumaturgy> {
 
-    private final Thaumaturgy path;
+    @Basic(optional=false)
+    private final Thaumaturgy trait;
     private int rating;
     
     //Hibernate only
@@ -20,36 +19,38 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, R
         this(null, 0);
     }
     
-    public CharacterThaumaturgy(Thaumaturgy path, int rating) {
-        this.path = path;
+    public CharacterThaumaturgy(Thaumaturgy trait, int rating) {
+        this.trait = trait;
         this.rating = rating;
     }
     
-    public final Thaumaturgy getPath() {
-        return path;
-    }
-
-    public final int getRating() {
-        return rating;
-    }
-
     @Override
-    public int ordinal() {
-        return path.ordinal();
+    public Thaumaturgy trait() {
+        return trait;
     }
     
-    public CharacterThaumaturgy withRating(int rating) {
-        return new CharacterThaumaturgy(path, rating);
+    @Override
+    public final int ordinal() {
+        return trait.ordinal();
+    }
+    
+    @Override
+    public final int rating() {
+        return rating;
+    }
+    
+    public final CharacterThaumaturgy withRating(int rating) {
+        return new CharacterThaumaturgy(trait, rating);
     }
     
     @Override
     public boolean equals(Object that) {
-        return ObjectExtensions.equals(this, that);
+        return ratedTraitEquals(that);
     }
     
     @Override
     public int hashCode() {
-        return ObjectExtensions.hashCodeFor(this);
+        return ratedTraitHashcode();
     }
     
     @Override
@@ -59,14 +60,6 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, R
 
     @Override
     public int compareTo(CharacterThaumaturgy that) {
-        Function<CharacterThaumaturgy, Thaumaturgy> byPower = ((CharacterThaumaturgy c) -> c.path);
-        return Comparator.comparing(byPower).compare(this, that);
+        return ratedTraitComparator().compare(this, that);
     }
-
-    @Override
-    public Thaumaturgy getTrait() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
 }

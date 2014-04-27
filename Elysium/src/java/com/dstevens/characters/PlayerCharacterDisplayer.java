@@ -25,22 +25,22 @@ public class PlayerCharacterDisplayer {
 
     private String display(CharacterBackground bg) {
         if (isPresent(bg.getSpecialization())) {
-            return String.format("%1$s (%2$s):\t%3$s\n", bg.getTrait(), bg.getSpecialization(), bg.getRating());
+            return String.format("%1$s (%2$s):\t%3$s\n", bg.trait(), bg.getSpecialization(), bg.rating());
         }
         if (!bg.getFocuses().isEmpty()) {
-            return String.format("%1$s:\t%2$s %3$s\n", bg.getTrait(), bg.getRating(), bg.getFocuses());
+            return String.format("%1$s:\t%2$s %3$s\n", bg.trait(), bg.rating(), bg.getFocuses());
         }
-        return String.format("%1$s:\t%2$s\n", bg.getTrait(), bg.getRating());
+        return String.format("%1$s:\t%2$s\n", bg.trait(), bg.rating());
     }
 
     private String display(CharacterSkill s) {
         if (isPresent(s.getSpecialization())) {
-            return String.format("%1$s (%2$s):\t %3$s\n", s.getTrait(), s.getSpecialization(), s.getRating());
+            return String.format("%1$s (%2$s):\t %3$s\n", s.trait(), s.getSpecialization(), s.rating());
         }
         if (!s.getFocuses().isEmpty()) {
-            return String.format("%1$s:\t%2$s %3$s\n", s.getTrait(), s.getRating(), s.getFocuses());
+            return String.format("%1$s:\t%2$s %3$s\n", s.trait(), s.rating(), s.getFocuses());
         }
-        return String.format("%1$s:\t%2$s\n", s.getTrait(), s.getRating());
+        return String.format("%1$s:\t%2$s\n", s.trait(), s.rating());
     }
 
     private boolean isPresent(String specialization) {

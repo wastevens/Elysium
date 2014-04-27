@@ -41,7 +41,7 @@ public enum NecromanticRitual implements EnumeratedTrait<NecromanticRitual> {
     }
 
     @Override
-    public NecromanticRitual getTrait() {
+    public NecromanticRitual trait() {
         return this;
     }
     

@@ -60,7 +60,7 @@ public enum MoralityMerit implements Merit<MoralityMerit> {
     }
 
     @Override
-    public MoralityMerit getTrait() {
+    public MoralityMerit trait() {
         return this;
     }
 }
