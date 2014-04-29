@@ -32,5 +32,10 @@ class SetThaumaturgy extends SetRatedTrait {
     public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
         return character.withThaumaturgicalPath(new CharacterThaumaturgy(Thaumaturgy.values()[ordinal()], rating()));
     }
+    
+    @Override
+    public String describe() {
+        return String.format("Set %1$s to \t%2$s", Thaumaturgy.values()[ordinal()], rating());
+    }
 
 }

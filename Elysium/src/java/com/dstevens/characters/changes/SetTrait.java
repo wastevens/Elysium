@@ -41,11 +41,17 @@ public abstract class SetTrait {
         this.status = status;
     }
     
+    protected final TraitChangeStatus status() {
+        return status;
+    }
+    
     public final boolean isPending() {
         return this.status.equals(TraitChangeStatus.PENDING);
     }
     
     public abstract PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory);
+
+    public abstract String describe();
     
     @Override
     public final String toString() {

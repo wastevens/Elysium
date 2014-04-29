@@ -32,5 +32,9 @@ class SetDiscipline extends SetRatedTrait {
     public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
         return character.withDiscipline(new CharacterDiscipline(Discipline.values()[ordinal()], rating()));
     }
-
+    
+    @Override
+    public String describe() {
+        return String.format("Set %1$s to \t%2$s", Discipline.values()[ordinal()], rating());
+    }
 }

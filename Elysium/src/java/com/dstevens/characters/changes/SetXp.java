@@ -27,4 +27,9 @@ class SetXp extends SetTrait {
     public final PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
         return character.setXp(character.getXp() - xp);
     }
+
+    @Override
+    public String describe() {
+        return String.format("(%1$s) Spend %1$s xp", status(), xp);
+    }
 }

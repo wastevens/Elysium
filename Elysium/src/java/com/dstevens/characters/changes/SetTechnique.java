@@ -29,4 +29,8 @@ class SetTechnique extends SetEnumeratedTrait {
         return character.withTechnique(Technique.values()[ordinal()]);
     }
 
+    @Override
+    public String describe() {
+        return String.format("Set %1$s", Technique.values()[ordinal()]);
+    }
 }

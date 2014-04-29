@@ -44,5 +44,17 @@ class SetMerit extends SetTrait {
     public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
         return character.withMerit(new CharacterMerit(MeritTranslator.ofTypeWithId(meritType, meritId), details));
     }
+    
+    @Override
+    public String describe() {
+        if (isPresent(details)) {
+            return String.format("(%1$s) Set %2$s (%3$s)", status(), MeritTranslator.ofTypeWithId(meritType, meritId), details);
+        }
+        return String.format("(%1$s) Set %1$s", status(), MeritTranslator.ofTypeWithId(meritType, meritId));
+    }
+
+    private boolean isPresent(String specialization) {
+        return specialization != null && !specialization.isEmpty();
+    }
 
 }

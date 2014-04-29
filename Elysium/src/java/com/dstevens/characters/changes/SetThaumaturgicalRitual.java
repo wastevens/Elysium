@@ -29,4 +29,8 @@ class SetThaumaturgicalRitual extends SetEnumeratedTrait {
         return character.withThaumaturgicalRitual(ThaumaturgicalRitual.values()[ordinal()]);
     }
 
+    @Override
+    public String describe() {
+        return String.format("Set %1$s", ThaumaturgicalRitual.values()[ordinal()]);
+    }
 }

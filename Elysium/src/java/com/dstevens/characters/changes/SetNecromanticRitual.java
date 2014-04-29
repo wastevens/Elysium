@@ -29,4 +29,8 @@ class SetNecromanticRitual extends SetEnumeratedTrait {
         return character.withNecromanticRitual(NecromanticRitual.values()[ordinal()]);
     }
 
+    @Override
+    public String describe() {
+        return String.format("Set %1$s", NecromanticRitual.values()[ordinal()]);
+    }
 }

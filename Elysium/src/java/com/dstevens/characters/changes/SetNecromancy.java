@@ -32,5 +32,10 @@ class SetNecromancy extends SetRatedTrait {
     public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
         return character.withNecromanticPath(new CharacterNecromancy(Necromancy.values()[ordinal()], rating()));
     }
+    
+    @Override
+    public String describe() {
+        return String.format("Set %1$s to \t%2$s", Necromancy.values()[ordinal()], rating());
+    }
 
 }

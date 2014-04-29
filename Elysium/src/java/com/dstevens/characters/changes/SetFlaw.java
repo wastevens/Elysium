@@ -44,5 +44,17 @@ class SetFlaw extends SetTrait {
     public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
         return character.withFlaw(new CharacterFlaw(FlawTranslator.ofTypeWithId(typeIdentifier, ordinal), specialization));
     }
+    
+    @Override
+    public String describe() {
+        if (isPresent(specialization)) {
+            return String.format("(%1$s) Set %2$s (%3$s)", status(),FlawTranslator.ofTypeWithId(typeIdentifier, ordinal), specialization);
+        }
+        return String.format("(%1$s) Set %2$s", status(),FlawTranslator.ofTypeWithId(typeIdentifier, ordinal));
+    }
+
+    private boolean isPresent(String specialization) {
+        return specialization != null && !specialization.isEmpty();
+    }
 
 }
