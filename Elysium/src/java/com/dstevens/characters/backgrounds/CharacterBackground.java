@@ -3,8 +3,10 @@ package com.dstevens.characters.backgrounds;
 import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
+
 import javax.persistence.*;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.CharacterDefinedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -106,5 +108,9 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     @Override
     public int compareTo(CharacterBackground that) {
         return characterDefinedTraitComparator().compare(this, that);
+    }
+
+    public PlayerCharacter applyTo(PlayerCharacter character) {
+        return character.withBackground(this);
     }
 }

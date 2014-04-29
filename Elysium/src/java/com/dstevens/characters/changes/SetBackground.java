@@ -1,6 +1,7 @@
 package com.dstevens.characters.changes;
 
 import java.util.Set;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -26,7 +27,7 @@ class SetBackground extends SetCharacterDefinedTrait {
 
     @Override
     public final PlayerCharacter apply(PlayerCharacter character) {
-        return character.withBackground(CharacterBackground.backgroundFor(Background.values()[ordinal()], rating(), specialization(), focuses()));
+        return CharacterBackground.backgroundFor(Background.values()[ordinal()], rating(), specialization(), focuses()).applyTo(character);
     }
 
     @Override
