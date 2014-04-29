@@ -28,7 +28,6 @@ public class PlayerCharacterDaoTest {
     private PlayerCharacterDao characterDao;
     private PlayerCharacterFactory characterFactory;
     private CharacterSkillFactory skillFactory;
-    private CharacterBackgroundFactory backgroundFactory;
     
     private TroupeDao troupeDao;
     private TroupeFactory troupeFactory;
@@ -51,7 +50,6 @@ public class PlayerCharacterDaoTest {
         characterDao       = APP_CONFIG.getBean(PlayerCharacterDao.class);
         characterFactory    = APP_CONFIG.getBean(PlayerCharacterFactory.class);
         skillFactory = APP_CONFIG.getBean(CharacterSkillFactory.class);
-        backgroundFactory = APP_CONFIG.getBean(CharacterBackgroundFactory.class);
         traitChangeBuilder = APP_CONFIG.getBean(TraitChangeBuilder.class);
         traitChangeFactory = APP_CONFIG.getBean(TraitChangeFactory.class);
         
@@ -125,12 +123,12 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testSaveWithBackground() {
-        CharacterBackground resources = backgroundFactory.backgroundFor(Background.RESOURCES, 2);
-        CharacterBackground contacts = backgroundFactory.backgroundFor(Background.CONTACTS, 3, set("Bob", "Joe"));
-        CharacterBackground alternateIdentity1 = backgroundFactory.backgroundFor(Background.ALTERNATE_IDENTITY, 1, "Jimmy");
-        CharacterBackground alternateIdentity2 = backgroundFactory.backgroundFor(Background.ALTERNATE_IDENTITY, 1, "Johny");
-        CharacterBackground haven1 = backgroundFactory.backgroundFor(Background.HAVEN, 2, "That place", set("Location", "Luxury"));
-        CharacterBackground haven2 = backgroundFactory.backgroundFor(Background.HAVEN, 2, "That other place", set("Location", "Security"));
+        CharacterBackground resources = CharacterBackground.backgroundFor(Background.RESOURCES, 2);
+        CharacterBackground contacts = CharacterBackground.backgroundFor(Background.CONTACTS, 3, set("Bob", "Joe"));
+        CharacterBackground alternateIdentity1 = CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 1, "Jimmy");
+        CharacterBackground alternateIdentity2 = CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 1, "Johny");
+        CharacterBackground haven1 = CharacterBackground.backgroundFor(Background.HAVEN, 2, "That place", set("Location", "Luxury"));
+        CharacterBackground haven2 = CharacterBackground.backgroundFor(Background.HAVEN, 2, "That other place", set("Location", "Security"));
         
         
         characterDao.save(character.withBackground(haven2).
@@ -298,18 +296,18 @@ public class PlayerCharacterDaoTest {
         
         List<CharacterSkill> skills = sort(listFrom(twiceApproved.getSkills()));
         
-        assertExpectedSkill(new CharacterSkill("", Skill.ATHLETICS, 4, null, set()), skills.get(0));
-        assertExpectedSkill(new CharacterSkill("", Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
-        assertExpectedSkill(new CharacterSkill("", Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
-        assertExpectedSkill(new CharacterSkill("", Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
+        assertExpectedSkill(new CharacterSkill(Skill.ATHLETICS, 4, null, set()), skills.get(0));
+        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
+        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
+        assertExpectedSkill(new CharacterSkill(Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
         
         List<CharacterBackground> backgrounds = sort(listFrom(twiceApproved.getBackgrounds()));  
         assertEquals(4, twiceApproved.getBackgrounds().size());
         backgrounds = sort(listFrom(twiceApproved.getBackgrounds()));
-        assertExpectedBackground(new CharacterBackground("", Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(0));
-        assertExpectedBackground(new CharacterBackground("", Background.ALLIES, 3, null, set("Bob", "Jim", "George")), backgrounds.get(1));
-        assertExpectedBackground(new CharacterBackground("", Background.FAME, 2, "Pottery", set()), backgrounds.get(2));
-        assertExpectedBackground(new CharacterBackground("", Background.GENERATION, 1, null, set()), backgrounds.get(3));
+        assertExpectedBackground(CharacterBackground.backgroundFor(Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(0));
+        assertExpectedBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, null, set("Bob", "Jim", "George")), backgrounds.get(1));
+        assertExpectedBackground(CharacterBackground.backgroundFor(Background.FAME, 2, "Pottery", set()), backgrounds.get(2));
+        assertExpectedBackground(CharacterBackground.backgroundFor(Background.GENERATION, 1, null, set()), backgrounds.get(3));
         
         assertEquals(10 - 1, twiceApproved.getXp());
     }
@@ -335,17 +333,17 @@ public class PlayerCharacterDaoTest {
         assertEquals(4, characterWithApprovedChanges.getSkills().size());
         List<CharacterSkill> skills = sort(listFrom(characterWithApprovedChanges.getSkills()));
         
-        assertExpectedSkill(new CharacterSkill("", Skill.ATHLETICS, 4, null, set()), skills.get(0));
-        assertExpectedSkill(new CharacterSkill("", Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
-        assertExpectedSkill(new CharacterSkill("", Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
-        assertExpectedSkill(new CharacterSkill("", Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
+        assertExpectedSkill(new CharacterSkill(Skill.ATHLETICS, 4, null, set()), skills.get(0));
+        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
+        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
+        assertExpectedSkill(new CharacterSkill(Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
         
         assertEquals(4, characterWithApprovedChanges.getBackgrounds().size());
         List<CharacterBackground> backgrounds = sort(listFrom(characterWithApprovedChanges.getBackgrounds()));
-        assertExpectedBackground(new CharacterBackground("", Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(0));
-        assertExpectedBackground(new CharacterBackground("", Background.ALLIES, 3, null, set("Bob", "Jim", "George")), backgrounds.get(1));
-        assertExpectedBackground(new CharacterBackground("", Background.FAME, 2, "Pottery", set()), backgrounds.get(2));
-        assertExpectedBackground(new CharacterBackground("", Background.GENERATION, 1, null, set()), backgrounds.get(3));
+        assertExpectedBackground(CharacterBackground.backgroundFor(Background.HAVEN, 4, "My House", set("Location", "Security", "Wards", "Luxury")), backgrounds.get(0));
+        assertExpectedBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, null, set("Bob", "Jim", "George")), backgrounds.get(1));
+        assertExpectedBackground(CharacterBackground.backgroundFor(Background.FAME, 2, "Pottery", set()), backgrounds.get(2));
+        assertExpectedBackground(CharacterBackground.backgroundFor(Background.GENERATION, 1, null, set()), backgrounds.get(3));
         
         assertEquals(10 - 1, characterWithApprovedChanges.getXp());
         

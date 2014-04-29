@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.dstevens.characters.traits.CharacterDefinedTrait;
+import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
@@ -30,14 +31,32 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     private Set<String> focuses;
 
     //Hibernate only
-    @SuppressWarnings("unused")
     @Deprecated
     private CharacterBackground() {
-        this(null, null, 0, null, set());
+        this(null, 0, null, set());
     }
     
-    public CharacterBackground(String id, Background trait, int rating, String specialization, Set<String> focuses) {
-        this.id = id;
+    private static final String NO_SPECIALIZATION = null;
+    private static final Set<String> NO_FOCUSES = set();
+    
+    public static CharacterBackground backgroundFor(Background background, int rating) {
+        return new CharacterBackground(background, rating, NO_SPECIALIZATION, NO_FOCUSES);
+    }
+    
+    public static CharacterBackground backgroundFor(Background background, int rating, String specialization) {
+        return new CharacterBackground(background, rating, specialization, NO_FOCUSES);
+    }
+    
+    public static CharacterBackground backgroundFor(Background background, int rating, Set<String> focuses) {
+        return new CharacterBackground(background, rating, NO_SPECIALIZATION, focuses);
+    }
+    
+    public static CharacterBackground backgroundFor(Background background, int rating, String specialization, Set<String> focuses) {
+        return new CharacterBackground(background, rating, specialization, focuses);
+    }
+    
+    private CharacterBackground(Background trait, int rating, String specialization, Set<String> focuses) {
+        this.id = new IdSupplier().get();
         this.trait = trait;
         this.rating = rating;
         this.specialization = specialization;

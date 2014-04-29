@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.dstevens.characters.traits.CharacterDefinedTrait;
+import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
@@ -33,11 +34,11 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     @SuppressWarnings("unused")
     @Deprecated
     private CharacterSkill() {
-        this(null, null, 0, null, set());
+        this(null, 0, null, set());
     }
     
-    public CharacterSkill(String id, Skill trait, int rating, String specialization, Set<String> focuses) {
-        this.id = id;
+    public CharacterSkill(Skill trait, int rating, String specialization, Set<String> focuses) {
+        this.id = new IdSupplier().get();
         this.trait = trait;
         this.rating = rating;
         this.specialization = specialization;

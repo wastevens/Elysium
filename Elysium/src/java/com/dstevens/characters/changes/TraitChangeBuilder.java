@@ -19,13 +19,11 @@ public class TraitChangeBuilder {
 
     private IdSupplier idSupplier;
     private CharacterSkillFactory skillFactory;
-    private CharacterBackgroundFactory backgroundFactory;
 
     @Autowired
-    public TraitChangeBuilder(IdSupplier idSupplier, CharacterSkillFactory skillFactory, CharacterBackgroundFactory backgroundFactory) {
+    public TraitChangeBuilder(IdSupplier idSupplier, CharacterSkillFactory skillFactory) {
         this.idSupplier = idSupplier;
         this.skillFactory = skillFactory;
-        this.backgroundFactory = backgroundFactory;
     }
     
     public abstract class SetCharacterDefinedTraitBuilder<Trait extends Enum<?>> {
@@ -88,7 +86,7 @@ public class TraitChangeBuilder {
         
         public final SetTrait getEvent() {
             return new SetBackground(idSupplier.get(), TraitChangeStatus.PENDING, 
-                                     backgroundFactory.backgroundFor(trait, rating, specialization, focuses));
+                                     CharacterBackground.backgroundFor(trait, rating, specialization, focuses));
         }
     }
     
