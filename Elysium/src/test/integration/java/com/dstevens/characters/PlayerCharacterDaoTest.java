@@ -27,7 +27,6 @@ public class PlayerCharacterDaoTest {
     
     private PlayerCharacterDao characterDao;
     private PlayerCharacterFactory characterFactory;
-    private CharacterSkillFactory skillFactory;
     
     private TroupeDao troupeDao;
     private TroupeFactory troupeFactory;
@@ -35,7 +34,6 @@ public class PlayerCharacterDaoTest {
     private PlayerFactory playerFactory;
     
     private TraitChangeBuilder traitChangeBuilder;
-    private TraitChangeFactory traitChangeFactory;
     
     private Troupe troupe;
     private Player player;
@@ -49,9 +47,7 @@ public class PlayerCharacterDaoTest {
         playerFactory    = APP_CONFIG.getBean(PlayerFactory.class);
         characterDao       = APP_CONFIG.getBean(PlayerCharacterDao.class);
         characterFactory    = APP_CONFIG.getBean(PlayerCharacterFactory.class);
-        skillFactory = APP_CONFIG.getBean(CharacterSkillFactory.class);
         traitChangeBuilder = APP_CONFIG.getBean(TraitChangeBuilder.class);
-        traitChangeFactory = APP_CONFIG.getBean(TraitChangeFactory.class);
         
         troupe = troupeDao.save(troupeFactory.createTroupe("troupe name", Setting.ANARCH));
         player = playerDao.save(playerFactory.createPlayer("player name", "player email"));
@@ -97,10 +93,10 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testSaveWithSkills() {
-        CharacterSkill athletics = skillFactory.skillFor(Skill.ATHLETICS, 2);
-        CharacterSkill pottery = skillFactory.skillFor(Skill.CRAFTS, 3, "Pottery");
-        CharacterSkill painting = skillFactory.skillFor(Skill.CRAFTS, 4, "Painting");
-        CharacterSkill academics = skillFactory.skillFor(Skill.ACADEMICS, 5, set("Underwater Basket Weaving", "Ancient Greek Poems"));
+        CharacterSkill athletics = CharacterSkill.skillFor(Skill.ATHLETICS, 2);
+        CharacterSkill pottery = CharacterSkill.skillFor(Skill.CRAFTS, 3, "Pottery");
+        CharacterSkill painting = CharacterSkill.skillFor(Skill.CRAFTS, 4, "Painting");
+        CharacterSkill academics = CharacterSkill.skillFor(Skill.ACADEMICS, 5, set("Underwater Basket Weaving", "Ancient Greek Poems"));
         
         characterDao.save(character.withSkill(athletics).withSkill(pottery).withSkill(painting).withSkill(academics));
         PlayerCharacter characterWithSkills = characterDao.findOne(character.getId());
@@ -269,7 +265,7 @@ public class PlayerCharacterDaoTest {
         assertEquals(set(), characterWithPendingChanges.getNecromanticPaths());
         assertEquals(set(), characterWithPendingChanges.getDisciplines());
         
-        characterDao.save(characterWithPendingChanges.approvePendingChanges(traitChangeFactory));
+        characterDao.save(characterWithPendingChanges.approvePendingChanges());
         
         PlayerCharacter characterWithApprovedChanges = verifyThatAllPendingChangesApproved();
         
@@ -287,7 +283,7 @@ public class PlayerCharacterDaoTest {
     }
     
     private void verifyThatMultipleApprovalsDoesNotApplyMultipleTimes(PlayerCharacter characterWithApprovedChanges) {
-        PlayerCharacter twiceApproved = characterWithApprovedChanges.approvePendingChanges(traitChangeFactory);
+        PlayerCharacter twiceApproved = characterWithApprovedChanges.approvePendingChanges();
         
         assertEquals(false, twiceApproved.getTraitChangeEvents().stream().anyMatch(((SetTrait t) -> t.isPending())));
         assertEquals(true, twiceApproved.getTraitChangeEvents().stream().allMatch(((SetTrait t) -> !t.isPending())));
@@ -296,10 +292,10 @@ public class PlayerCharacterDaoTest {
         
         List<CharacterSkill> skills = sort(listFrom(twiceApproved.getSkills()));
         
-        assertExpectedSkill(new CharacterSkill(Skill.ATHLETICS, 4, null, set()), skills.get(0));
-        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
-        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
-        assertExpectedSkill(new CharacterSkill(Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
+        assertExpectedSkill(CharacterSkill.skillFor(Skill.ATHLETICS, 4, null, set()), skills.get(0));
+        assertExpectedSkill(CharacterSkill.skillFor(Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
+        assertExpectedSkill(CharacterSkill.skillFor(Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
+        assertExpectedSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
         
         List<CharacterBackground> backgrounds = sort(listFrom(twiceApproved.getBackgrounds()));  
         assertEquals(4, twiceApproved.getBackgrounds().size());
@@ -333,10 +329,10 @@ public class PlayerCharacterDaoTest {
         assertEquals(4, characterWithApprovedChanges.getSkills().size());
         List<CharacterSkill> skills = sort(listFrom(characterWithApprovedChanges.getSkills()));
         
-        assertExpectedSkill(new CharacterSkill(Skill.ATHLETICS, 4, null, set()), skills.get(0));
-        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
-        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
-        assertExpectedSkill(new CharacterSkill(Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
+        assertExpectedSkill(CharacterSkill.skillFor(Skill.ATHLETICS, 4, null, set()), skills.get(0));
+        assertExpectedSkill(CharacterSkill.skillFor(Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
+        assertExpectedSkill(CharacterSkill.skillFor(Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
+        assertExpectedSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
         
         assertEquals(4, characterWithApprovedChanges.getBackgrounds().size());
         List<CharacterBackground> backgrounds = sort(listFrom(characterWithApprovedChanges.getBackgrounds()));

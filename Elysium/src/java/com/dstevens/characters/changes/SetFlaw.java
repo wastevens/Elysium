@@ -41,7 +41,7 @@ class SetFlaw extends SetTrait {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public PlayerCharacter apply(PlayerCharacter character) {
         return character.withFlaw(new CharacterFlaw(FlawTranslator.ofTypeWithId(typeIdentifier, ordinal), specialization));
     }
     

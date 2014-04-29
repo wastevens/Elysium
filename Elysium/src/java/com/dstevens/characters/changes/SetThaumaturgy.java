@@ -29,7 +29,7 @@ class SetThaumaturgy extends SetRatedTrait {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public PlayerCharacter apply(PlayerCharacter character) {
         return character.withThaumaturgicalPath(new CharacterThaumaturgy(Thaumaturgy.values()[ordinal()], rating()));
     }
     

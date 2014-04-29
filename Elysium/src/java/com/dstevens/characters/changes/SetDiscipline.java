@@ -29,7 +29,7 @@ class SetDiscipline extends SetRatedTrait {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public PlayerCharacter apply(PlayerCharacter character) {
         return character.withDiscipline(new CharacterDiscipline(Discipline.values()[ordinal()], rating()));
     }
     

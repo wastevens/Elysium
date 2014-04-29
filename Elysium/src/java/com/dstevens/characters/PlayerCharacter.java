@@ -568,13 +568,13 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public PlayerCharacter approvePendingChange(SetTrait event, TraitChangeFactory traitChangeFactory) {
-        event.approve(this, traitChangeFactory);
+    public PlayerCharacter approvePendingChange(SetTrait event) {
+        event.approve(this);
         return this;
     }
     
-    public PlayerCharacter approvePendingChanges(TraitChangeFactory traitChangeFactory) {
-        this.traitChangeEvents.forEach((SetTrait t) -> t.approve(this, traitChangeFactory));
+    public PlayerCharacter approvePendingChanges() {
+        this.traitChangeEvents.forEach((SetTrait t) -> t.approve(this));
         return this;
     }
 }

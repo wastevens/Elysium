@@ -25,7 +25,7 @@ class SetNecromanticRitual extends SetEnumeratedTrait {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public PlayerCharacter apply(PlayerCharacter character) {
         return character.withNecromanticRitual(NecromanticRitual.values()[ordinal()]);
     }
 

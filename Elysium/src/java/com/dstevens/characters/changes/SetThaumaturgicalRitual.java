@@ -25,7 +25,7 @@ class SetThaumaturgicalRitual extends SetEnumeratedTrait {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public PlayerCharacter apply(PlayerCharacter character) {
         return character.withThaumaturgicalRitual(ThaumaturgicalRitual.values()[ordinal()]);
     }
 

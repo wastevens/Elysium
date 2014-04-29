@@ -41,7 +41,7 @@ class SetMerit extends SetTrait {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public PlayerCharacter apply(PlayerCharacter character) {
         return character.withMerit(new CharacterMerit(MeritTranslator.ofTypeWithId(meritType, meritId), details));
     }
     

@@ -18,12 +18,10 @@ import com.dstevens.suppliers.IdSupplier;
 public class TraitChangeBuilder {
 
     private IdSupplier idSupplier;
-    private CharacterSkillFactory skillFactory;
 
     @Autowired
-    public TraitChangeBuilder(IdSupplier idSupplier, CharacterSkillFactory skillFactory) {
+    public TraitChangeBuilder(IdSupplier idSupplier) {
         this.idSupplier = idSupplier;
-        this.skillFactory = skillFactory;
     }
     
     public abstract class SetCharacterDefinedTraitBuilder<Trait extends Enum<?>> {
@@ -70,7 +68,7 @@ public class TraitChangeBuilder {
         
         public final SetTrait getEvent() {
             return new SetSkill(idSupplier.get(), TraitChangeStatus.PENDING, 
-                                skillFactory.skillFor(trait, rating, specialization, focuses));
+                                CharacterSkill.skillFor(trait, rating, specialization, focuses));
         }
     }
     

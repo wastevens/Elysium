@@ -3,6 +3,7 @@ package com.dstevens.characters.skills;
 import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.traits.CharacterDefinedTrait;
@@ -31,13 +32,12 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     private Set<String> focuses;
 
     //Hibernate only
-    @SuppressWarnings("unused")
     @Deprecated
     private CharacterSkill() {
         this(null, 0, null, set());
     }
     
-    public CharacterSkill(Skill trait, int rating, String specialization, Set<String> focuses) {
+    private CharacterSkill(Skill trait, int rating, String specialization, Set<String> focuses) {
         this.id = new IdSupplier().get();
         this.trait = trait;
         this.rating = rating;
@@ -45,6 +45,25 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
         this.focuses = focuses;
     }
 
+    private static final String NO_SPECIALIZATION = null;
+    private static final Set<String> NO_FOCUSES = set();
+    
+    public static CharacterSkill skillFor(Skill skill, int rating) {
+        return skillFor(skill, rating, NO_SPECIALIZATION, NO_FOCUSES);
+    }
+    
+    public static CharacterSkill skillFor(Skill skill, int rating, String specialization) {
+        return skillFor(skill, rating, specialization, NO_FOCUSES);
+    }
+    
+    public static CharacterSkill skillFor(Skill skill, int rating, Set<String> focuses) {
+        return skillFor(skill, rating, NO_SPECIALIZATION, focuses);
+    }
+    
+    public static CharacterSkill skillFor(Skill skill, int rating, String specialization,  Set<String> focuses) {
+        return new CharacterSkill(skill, rating, specialization, focuses);
+    }
+    
     @Override
     public final Skill trait() {
         return trait;

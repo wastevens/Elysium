@@ -1,6 +1,7 @@
 package com.dstevens.characters.changes;
 
 import java.util.Set;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -25,9 +26,8 @@ class SetSkill extends SetCharacterDefinedTrait {
     }
 
     @Override
-    public final PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
-        CharacterSkillFactory factory = traitChangeFactory.characterSkillFactory();
-        return character.withSkill(factory.skillFor(Skill.values()[ordinal()], rating(), specialization(), focuses()));
+    public final PlayerCharacter apply(PlayerCharacter character) {
+        return character.withSkill(CharacterSkill.skillFor(Skill.values()[ordinal()], rating(), specialization(), focuses()));
     }
     
     @Override

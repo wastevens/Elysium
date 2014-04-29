@@ -25,7 +25,7 @@ class SetElderPower extends SetEnumeratedTrait {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public PlayerCharacter apply(PlayerCharacter character) {
         return character.withElderPower(ElderPower.values()[ordinal()]);
     }
     

@@ -25,7 +25,7 @@ class SetBackground extends SetCharacterDefinedTrait {
     }
 
     @Override
-    public final PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public final PlayerCharacter apply(PlayerCharacter character) {
         return character.withBackground(CharacterBackground.backgroundFor(Background.values()[ordinal()], rating(), specialization(), focuses()));
     }
 

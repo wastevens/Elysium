@@ -25,7 +25,7 @@ class SetTechnique extends SetEnumeratedTrait {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public PlayerCharacter apply(PlayerCharacter character) {
         return character.withTechnique(Technique.values()[ordinal()]);
     }
 

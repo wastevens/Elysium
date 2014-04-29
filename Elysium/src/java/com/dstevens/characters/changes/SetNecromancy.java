@@ -29,7 +29,7 @@ class SetNecromancy extends SetRatedTrait {
     }
 
     @Override
-    public PlayerCharacter apply(PlayerCharacter character, TraitChangeFactory traitChangeFactory) {
+    public PlayerCharacter apply(PlayerCharacter character) {
         return character.withNecromanticPath(new CharacterNecromancy(Necromancy.values()[ordinal()], rating()));
     }
     
