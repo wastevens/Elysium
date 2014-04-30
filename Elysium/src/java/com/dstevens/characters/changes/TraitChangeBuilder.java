@@ -142,16 +142,16 @@ public class TraitChangeBuilder {
         return new SetFlawBuilder(flaw);
     }
     
-    public SetTrait gainXp(int xp) {
-        return changeXp(-1 * xp);
+    public SetTrait gainXp(int xp, SetTrait trait) {
+        return changeXp(-1 * xp, trait);
     }
 
-    public SetTrait spendXp(int xp) {
-        return changeXp(xp);
+    public SetTrait spendXp(int xp, SetTrait trait) {
+        return changeXp(xp, trait);
     }
     
-    private SetTrait changeXp(int xp) {
-        return new SetXp(idSupplier.get(), TraitChangeStatus.PENDING, xp);
+    private SetTrait changeXp(int xp, SetTrait trait) {
+        return new SetXp(idSupplier.get(), TraitChangeStatus.PENDING, xp, trait);
     }
 
     public SetTrait setDiscipline(Discipline power, int rating) {

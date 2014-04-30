@@ -17,6 +17,9 @@ public abstract class SetTrait {
     @Column(name="status")
     private TraitChangeStatus status;
     
+    @OneToOne(cascade={CascadeType.ALL})
+    private SetTrait associatedTrait;
+    
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
@@ -25,8 +28,13 @@ public abstract class SetTrait {
     }
     
     protected SetTrait(String id, TraitChangeStatus status) {
+        this(id, status, null);
+    }
+    
+    protected SetTrait(String id, TraitChangeStatus status, SetTrait associatedTrait) {
         this.id = id;
         this.status = status;
+        this.associatedTrait = associatedTrait;
     }
     
     public final PlayerCharacter approve(PlayerCharacter character) {
@@ -37,6 +45,14 @@ public abstract class SetTrait {
         return status.deny(character, this);
     }
 
+    public boolean hasAssociatedTrait() {
+        return associatedTrait != null;
+    }
+
+    public SetTrait associatedTrait() {
+        return associatedTrait;
+    }
+    
     public final void setStatus(TraitChangeStatus status) {
         this.status = status;
     }

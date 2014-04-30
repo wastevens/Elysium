@@ -19,7 +19,12 @@ class SetXp extends SetTrait {
     }
     
     protected SetXp(String id, TraitChangeStatus status, int xp) {
-        super(id, status);
+        super(id, status, null);
+        this.xp = xp;
+    }
+    
+    protected SetXp(String id, TraitChangeStatus status, int xp, SetTrait associatedTrait) {
+        super(id, status, associatedTrait);
         this.xp = xp;
     }
     
@@ -30,6 +35,10 @@ class SetXp extends SetTrait {
 
     @Override
     public String describe() {
-        return String.format("(%1$s) Spend %1$s xp", status(), xp);
+        String format = String.format("(%1$s) %2$s %3$s xp", status(), (xp > 0 ? "Spend" : "Gain"), xp);
+        if (hasAssociatedTrait()) {
+            format += String.format(" for (%1$s)", associatedTrait().describe());
+        }
+        return format;
     }
 }

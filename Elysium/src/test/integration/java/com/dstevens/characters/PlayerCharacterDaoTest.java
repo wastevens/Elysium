@@ -240,8 +240,8 @@ public class PlayerCharacterDaoTest {
                                     withTraitChangeEvent(traitChangeBuilder.setBackground(Background.FAME, 2).withSpecialization("Pottery").getEvent()).
                                     withTraitChangeEvent(traitChangeBuilder.setBackground(Background.ALLIES, 3).withFocuses(set("Bob", "Jim", "George")).getEvent()).
                                     withTraitChangeEvent(traitChangeBuilder.setBackground(Background.HAVEN, 4).withSpecialization("My House").withFocuses(set("Location", "Security", "Wards", "Luxury")).getEvent()).
-                                    withTraitChangeEvent(traitChangeBuilder.gainXp(10)).
-                                    withTraitChangeEvent(traitChangeBuilder.spendXp(1)).
+                                    withTraitChangeEvent(traitChangeBuilder.gainXp(10, null)).
+                                    withTraitChangeEvent(traitChangeBuilder.spendXp(1, null)).
                                     withTraitChangeEvent(traitChangeBuilder.setDiscipline(Discipline.ANIMALISM, 3)).
                                     withTraitChangeEvent(traitChangeBuilder.setThaumaturgy(Thaumaturgy.PATH_OF_BLOOD, 2)).
                                     withTraitChangeEvent(traitChangeBuilder.setNecromancy(Necromancy.ASH_PATH, 2)).

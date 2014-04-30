@@ -8,7 +8,12 @@ public enum TraitChangeStatus {
         @Override
         public PlayerCharacter apply(PlayerCharacter character, SetTrait event) {
             event.setStatus(TraitChangeStatus.APPLIED);
-            return event.apply(character);
+            PlayerCharacter characterWithChange = event.apply(character);
+            if (event.hasAssociatedTrait()) {
+                return event.associatedTrait().approve(characterWithChange);
+            } else {
+                return characterWithChange;
+            }
         }
         
         @Override

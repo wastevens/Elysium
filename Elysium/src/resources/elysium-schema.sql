@@ -25,6 +25,7 @@ alter table PlayerCharacter_thaumaturgicalPaths drop foreign key FK_8j1wew7bthyo
 alter table PlayerCharacter_thaumaturgicalRituals drop foreign key FK_30m3pmwi16yxvinc7hyxs7re;
 alter table SetCharacterDefinedTrait_focuses drop foreign key FK_jd7np5p8o3a5kglmjqrq81ogl;
 alter table SocialAttribute_focuses drop foreign key FK_fq4hknn7pqo2f2k8utah7usae;
+alter table TraitChanges drop foreign key FK_trjv65o55d9qe3vx7n1oopgui;
 drop table if exists AuditEvent;
 drop table if exists Backgrounds;
 drop table if exists CharacterBackground_focuses;
@@ -85,7 +86,7 @@ create table SetCharacterDefinedTrait_focuses (SetCharacterDefinedTrait_id varch
 create table Skills (id varchar(255) not null, rating integer, specialization varchar(255), skill integer, primary key (id));
 create table SocialAttribute (character_id varchar(255) not null, rating integer, primary key (character_id));
 create table SocialAttribute_focuses (SocialAttribute_character_id varchar(255) not null, focuses integer);
-create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, ordinal integer, rating integer, specialization varchar(255), typeIdentifier varchar(255), primary key (id));
+create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, ordinal integer, rating integer, specialization varchar(255), typeIdentifier varchar(255), associatedTrait_id varchar(255), primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
 alter table PlayerCharacter_Backgrounds add constraint UK_sbgnuo1acckqxcli46ppvgdjg  unique (backgrounds_id);
 alter table PlayerCharacter_Skills add constraint UK_qqe336af9uubmj4p0vrfn2dql  unique (skills_id);
@@ -117,3 +118,4 @@ alter table PlayerCharacter_thaumaturgicalPaths add constraint FK_8j1wew7bthyowm
 alter table PlayerCharacter_thaumaturgicalRituals add constraint FK_30m3pmwi16yxvinc7hyxs7re foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table SetCharacterDefinedTrait_focuses add constraint FK_jd7np5p8o3a5kglmjqrq81ogl foreign key (SetCharacterDefinedTrait_id) references TraitChanges (id);
 alter table SocialAttribute_focuses add constraint FK_fq4hknn7pqo2f2k8utah7usae foreign key (SocialAttribute_character_id) references SocialAttribute (character_id);
+alter table TraitChanges add constraint FK_trjv65o55d9qe3vx7n1oopgui foreign key (associatedTrait_id) references TraitChanges (id);
