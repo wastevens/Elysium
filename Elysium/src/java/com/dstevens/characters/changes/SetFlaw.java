@@ -4,11 +4,9 @@ import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.merits.*;
-import com.dstevens.characters.powers.Discipline;
 
 @Entity
 @DiscriminatorValue("Flaw")
-@TraitType(type=Discipline.class)
 class SetFlaw extends SetTrait {
 
     @Column(name="ordinal")
