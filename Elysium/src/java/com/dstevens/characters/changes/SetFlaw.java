@@ -4,9 +4,11 @@ import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.merits.*;
+import com.dstevens.characters.powers.Discipline;
 
 @Entity
 @DiscriminatorValue("Flaw")
+@TraitType(type=Discipline.class)
 class SetFlaw extends SetTrait {
 
     @Column(name="ordinal")
@@ -16,7 +18,7 @@ class SetFlaw extends SetTrait {
     private final String typeIdentifier;
     
     @Column(name="specialization")
-    private final String specialization;
+    private final String details;
     
     //Hibernate only
     @Deprecated
@@ -33,28 +35,31 @@ class SetFlaw extends SetTrait {
         this(id, status, flaw.ordinal(), flaw.getType(), details);
     }
     
-    protected SetFlaw(String id, TraitChangeStatus status, int ordinal, String typeIdentifier, String specialization) {
+    protected SetFlaw(String id, TraitChangeStatus status, int ordinal, String typeIdentifier, String details) {
         super(id, status);
         this.ordinal = ordinal;
         this.typeIdentifier = typeIdentifier;
-        this.specialization = specialization;
+        this.details = details;
     }
-
+    
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
-        return character.withFlaw(new CharacterFlaw(FlawTranslator.ofTypeWithId(typeIdentifier, ordinal), specialization));
+        return character.withFlaw(new CharacterFlaw(trait(), details));
     }
     
     @Override
     public String describe() {
-        if (isPresent(specialization)) {
-            return String.format("(%1$s) Set %2$s (%3$s)", status(),FlawTranslator.ofTypeWithId(typeIdentifier, ordinal), specialization);
-        }
-        return String.format("(%1$s) Set %2$s", status(),FlawTranslator.ofTypeWithId(typeIdentifier, ordinal));
+        String specialization = (isPresent(details) ? String.format(" (%1$s)", details) : "");
+        String nextTrait = (hasAssociatedTrait() ? String.format(" with %1$s", associatedTrait().describe()) : "");
+        return String.format("(%1$s) Set %2$s%3$s%4$s", status(), trait(), specialization, nextTrait);
     }
 
     private boolean isPresent(String specialization) {
         return specialization != null && !specialization.isEmpty();
+    }
+
+    private Flaw<?> trait() {
+        return FlawTranslator.ofTypeWithId(typeIdentifier, ordinal);
     }
 
 }

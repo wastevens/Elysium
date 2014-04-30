@@ -7,6 +7,7 @@ import com.dstevens.characters.powers.magics.*;
 
 @Entity
 @DiscriminatorValue("Necromancy")
+@TraitType(type=Necromancy.class)
 class SetNecromancy extends SetRatedTrait {
 
     //Hibernate only
@@ -30,12 +31,7 @@ class SetNecromancy extends SetRatedTrait {
 
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
-        return character.withNecromanticPath(new CharacterNecromancy(Necromancy.values()[ordinal()], rating()));
-    }
-    
-    @Override
-    public String describe() {
-        return String.format("Set %1$s to \t%2$s", Necromancy.values()[ordinal()], rating());
+        return character.withNecromanticPath(new CharacterNecromancy(trait(), rating()));
     }
 
 }

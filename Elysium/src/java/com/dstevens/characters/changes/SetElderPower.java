@@ -7,6 +7,7 @@ import com.dstevens.characters.powers.ElderPower;
 
 @Entity
 @DiscriminatorValue("ElderPower")
+@TraitType(type=ElderPower.class)
 class SetElderPower extends SetEnumeratedTrait {
 
     //Hibernate only
@@ -26,12 +27,7 @@ class SetElderPower extends SetEnumeratedTrait {
 
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
-        return character.withElderPower(ElderPower.values()[ordinal()]);
-    }
-    
-    @Override
-    public String describe() {
-        return String.format("(%1$s) Set %1$s", status(), ElderPower.values()[ordinal()]);
+        return character.withElderPower(trait());
     }
 
 }

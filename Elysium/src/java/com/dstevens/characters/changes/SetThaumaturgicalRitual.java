@@ -7,6 +7,7 @@ import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
 
 @Entity
 @DiscriminatorValue("ThaumaturgicalRitual")
+@TraitType(type=ThaumaturgicalRitual.class)
 class SetThaumaturgicalRitual extends SetEnumeratedTrait {
 
     //Hibernate only
@@ -26,11 +27,6 @@ class SetThaumaturgicalRitual extends SetEnumeratedTrait {
 
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
-        return character.withThaumaturgicalRitual(ThaumaturgicalRitual.values()[ordinal()]);
-    }
-
-    @Override
-    public String describe() {
-        return String.format("Set %1$s", ThaumaturgicalRitual.values()[ordinal()]);
+        return character.withThaumaturgicalRitual(trait());
     }
 }

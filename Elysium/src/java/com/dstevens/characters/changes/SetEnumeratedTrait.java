@@ -23,5 +23,15 @@ abstract class SetEnumeratedTrait extends SetTrait {
     protected final int ordinal() {
         return ordinal;
     }
+    
+    @SuppressWarnings("unchecked")
+    public <E> E trait() {
+        return (E) this.getClass().getAnnotation(TraitType.class).type().getEnumConstants()[ordinal];
+    }
+    
+    @Override
+    public String describe() {
+        return String.format("(%1$s) Set %1$s", status(), trait());
+    }
 
 }

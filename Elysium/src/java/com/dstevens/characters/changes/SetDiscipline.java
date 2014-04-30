@@ -7,6 +7,7 @@ import com.dstevens.characters.powers.*;
 
 @Entity
 @DiscriminatorValue("Discipline")
+@TraitType(type=Discipline.class)
 class SetDiscipline extends SetRatedTrait {
 
     //Hibernate only
@@ -30,11 +31,6 @@ class SetDiscipline extends SetRatedTrait {
 
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
-        return character.withDiscipline(new CharacterDiscipline(Discipline.values()[ordinal()], rating()));
-    }
-    
-    @Override
-    public String describe() {
-        return String.format("Set %1$s to \t%2$s", Discipline.values()[ordinal()], rating());
+        return character.withDiscipline(new CharacterDiscipline(trait(), rating()));
     }
 }

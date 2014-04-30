@@ -1,7 +1,6 @@
 package com.dstevens.characters.changes;
 
 import java.util.Set;
-
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -9,6 +8,7 @@ import com.dstevens.characters.skills.*;
 
 @Entity
 @DiscriminatorValue("Skill")
+@TraitType(type=Skill.class)
 class SetSkill extends SetCharacterDefinedTrait {
 
     //Hibernate only
@@ -27,21 +27,6 @@ class SetSkill extends SetCharacterDefinedTrait {
 
     @Override
     public final PlayerCharacter apply(PlayerCharacter character) {
-        return character.withSkill(CharacterSkill.skillFor(Skill.values()[ordinal()], rating(), specialization(), focuses()));
-    }
-    
-    @Override
-    public String describe() {
-        if (isPresent(specialization())) {
-            return String.format("(%1$s) Set %2$s (%3$s) to %4$s", status(), Skill.values()[ordinal()], specialization(), rating());
-        }
-        if (!focuses().isEmpty()) {
-            return String.format("(%1$s) Set %2$s %3$s to %4$s", status(), Skill.values()[ordinal()], focuses(), rating());
-        }
-        return String.format("(%1$s) Set %2$s to %3$s", status(), Skill.values()[ordinal()], rating());
-    }
-
-    private boolean isPresent(String specialization) {
-        return specialization != null && !specialization.isEmpty();
+        return character.withSkill(CharacterSkill.skillFor(trait(), rating(), specialization(), focuses()));
     }
 }

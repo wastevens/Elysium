@@ -1,7 +1,6 @@
 package com.dstevens.characters.changes;
 
 import java.util.Set;
-
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -9,6 +8,7 @@ import com.dstevens.characters.backgrounds.*;
 
 @Entity
 @DiscriminatorValue("Background")
+@TraitType(type=Background.class)
 class SetBackground extends SetCharacterDefinedTrait {
     
     //Hibernate only
@@ -27,22 +27,7 @@ class SetBackground extends SetCharacterDefinedTrait {
 
     @Override
     public final PlayerCharacter apply(PlayerCharacter character) {
-        return CharacterBackground.backgroundFor(Background.values()[ordinal()], rating(), specialization(), focuses()).applyTo(character);
-    }
-
-    @Override
-    public String describe() {
-        if (isPresent(specialization())) {
-            return String.format("(%1$s) Set %2$s (%3$s) to %4$s", status(), Background.values()[ordinal()], specialization(), rating());
-        }
-        if (!focuses().isEmpty()) {
-            return String.format("(%1$s) Set %2$s %3$s to %4$s", status(),Background.values()[ordinal()], focuses(), rating());
-        }
-        return String.format("(%1$s) Set %2$s to %3$s", status(),Background.values()[ordinal()], rating());
-    }
-
-    private boolean isPresent(String specialization) {
-        return specialization != null && !specialization.isEmpty();
+        return CharacterBackground.backgroundFor(trait(), rating(), specialization(), focuses()).applyTo(character);
     }
     
 }

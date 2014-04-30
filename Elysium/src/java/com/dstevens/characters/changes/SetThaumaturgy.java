@@ -7,6 +7,7 @@ import com.dstevens.characters.powers.magics.*;
 
 @Entity
 @DiscriminatorValue("Thaumaturgy")
+@TraitType(type=Thaumaturgy.class)
 class SetThaumaturgy extends SetRatedTrait {
 
     //Hibernate only
@@ -30,12 +31,6 @@ class SetThaumaturgy extends SetRatedTrait {
 
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
-        return character.withThaumaturgicalPath(new CharacterThaumaturgy(Thaumaturgy.values()[ordinal()], rating()));
+        return character.withThaumaturgicalPath(new CharacterThaumaturgy(trait(), rating()));
     }
-    
-    @Override
-    public String describe() {
-        return String.format("Set %1$s to \t%2$s", Thaumaturgy.values()[ordinal()], rating());
-    }
-
 }

@@ -7,6 +7,7 @@ import com.dstevens.characters.powers.Technique;
 
 @Entity
 @DiscriminatorValue("Technique")
+@TraitType(type=Technique.class)
 class SetTechnique extends SetEnumeratedTrait {
 
     //Hibernate only
@@ -26,11 +27,6 @@ class SetTechnique extends SetEnumeratedTrait {
 
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
-        return character.withTechnique(Technique.values()[ordinal()]);
-    }
-
-    @Override
-    public String describe() {
-        return String.format("Set %1$s", Technique.values()[ordinal()]);
+        return character.withTechnique(trait());
     }
 }

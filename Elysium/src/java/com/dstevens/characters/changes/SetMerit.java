@@ -39,21 +39,25 @@ class SetMerit extends SetTrait {
         this.meritType = meritType;
         this.details = details;
     }
-
+    
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
-        return character.withMerit(new CharacterMerit(MeritTranslator.ofTypeWithId(meritType, meritId), details));
+        return character.withMerit(new CharacterMerit(trait(), details));
     }
     
     @Override
     public String describe() {
-        String specialization = (isPresent(details) ? String.format("(%1$s)", details) : "");
-        String nextTrait = (hasAssociatedTrait() ? String.format (" with %1$s", associatedTrait().describe()) : "");
-        return String.format("(%1$s) Set %2$s %3$s%4$s", status(), MeritTranslator.ofTypeWithId(meritType, meritId), specialization, nextTrait);
+        String specialization = (isPresent(details) ? String.format(" (%1$s)", details) : "");
+        String nextTrait = (hasAssociatedTrait() ? String.format(" with %1$s", associatedTrait().describe()) : "");
+        return String.format("(%1$s) Set %2$s%3$s%4$s", status(), trait(), specialization, nextTrait);
     }
 
     private boolean isPresent(String specialization) {
         return specialization != null && !specialization.isEmpty();
+    }
+
+    private Merit<?> trait() {
+        return MeritTranslator.ofTypeWithId(meritType, meritId);
     }
 
 }

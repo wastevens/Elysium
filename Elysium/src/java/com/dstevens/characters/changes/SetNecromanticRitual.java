@@ -7,6 +7,7 @@ import com.dstevens.characters.powers.magics.NecromanticRitual;
 
 @Entity
 @DiscriminatorValue("NecromanticRitual")
+@TraitType(type=NecromanticRitual.class)
 class SetNecromanticRitual extends SetEnumeratedTrait {
 
     //Hibernate only
@@ -26,11 +27,6 @@ class SetNecromanticRitual extends SetEnumeratedTrait {
 
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
-        return character.withNecromanticRitual(NecromanticRitual.values()[ordinal()]);
-    }
-
-    @Override
-    public String describe() {
-        return String.format("Set %1$s", NecromanticRitual.values()[ordinal()]);
+        return character.withNecromanticRitual(trait());
     }
 }

@@ -1,6 +1,7 @@
 package com.dstevens.characters.changes;
 
 import java.util.Set;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.traits.CharacterDefinedTrait;
@@ -33,6 +34,18 @@ abstract class SetCharacterDefinedTrait extends SetRatedTrait {
         return focuses;
     }
     
+    @Override
+    public String describe() {
+        String displaySpecialization = (isPresent(specialization) ? String.format(" (%1$s)", specialization) : "");
+        String displayFocuses = (!focuses.isEmpty() ? String.format(" %1$s", focuses()) : "");
+        String nextTrait = (hasAssociatedTrait() ? String.format (" with %1$s", associatedTrait().describe()) : "");
+        
+        return String.format("(%1$s) Set %2$s%3$s to %4$s%5$s%6$s", status(), trait(), displaySpecialization, rating(), displayFocuses, nextTrait);
+    }
+
+    private boolean isPresent(String specialization) {
+        return specialization != null && !specialization.isEmpty();
+    }
     
 
 }
