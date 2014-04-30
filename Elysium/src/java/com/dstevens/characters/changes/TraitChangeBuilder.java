@@ -178,6 +178,10 @@ public class TraitChangeBuilder {
         return new SetEnumeratedTrait(TraitChangeStatus.PENDING, power, TraitFactory.TECHNIQUE);
     }
     
+    public SetTrait increasePhysicalAttribute() {
+        return increaseAttribute(AttributeFactory.PHYSICAL);
+    }
+    
     public SetTrait setPhysicalAttributeTo(int rating) {
         return setAttribute(rating, AttributeFactory.PHYSICAL);
     }
@@ -190,6 +194,10 @@ public class TraitChangeBuilder {
         return setAttribute(rating, AttributeFactory.MENTAL);
     }
     
+    public SetTrait increaseMentalAttribute() {
+        return increaseAttribute(AttributeFactory.MENTAL);
+    }
+    
     public SetTrait addMentalAttributeFocus(AttributeFocus focus) {
         return setAttribute(focus, AttributeFactory.MENTAL);
     }
@@ -198,8 +206,16 @@ public class TraitChangeBuilder {
         return setAttribute(rating, AttributeFactory.SOCIAL);
     }
     
+    public SetTrait increaseSocialAttribute() {
+        return increaseAttribute(AttributeFactory.SOCIAL);
+    }
+    
     public SetTrait addSocialAttributeFocus(AttributeFocus focus) {
         return setAttribute(focus, AttributeFactory.SOCIAL);
+    }
+    
+    private SetTrait increaseAttribute(AttributeFactory factory) {
+        return new IncreaseAttribute(TraitChangeStatus.PENDING, factory);
     }
     
     private SetTrait setAttribute(int rating, AttributeFactory factory) {

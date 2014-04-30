@@ -25,6 +25,11 @@ public enum AttributeFactory {
         public AttributeFocus focusFor(int attributeFocusOrdinal) {
             return PhysicalAttributeFocus.values()[attributeFocusOrdinal];
         }
+
+        @Override
+        public PlayerCharacter increase(PlayerCharacter character) {
+            return character.withPhysicalAttribute(character.getPhysicalAttribute()+1);
+        }
     },
     SOCIAL {
         @Override
@@ -45,6 +50,11 @@ public enum AttributeFactory {
         @Override
         public AttributeFocus focusFor(int attributeFocusOrdinal) {
             return SocialAttributeFocus.values()[attributeFocusOrdinal];
+        }
+
+        @Override
+        public PlayerCharacter increase(PlayerCharacter character) {
+            return character.withSocialAttribute(character.getSocialAttribute()+1);
         }
     },
     MENTAL {
@@ -67,6 +77,11 @@ public enum AttributeFactory {
         public AttributeFocus focusFor(int attributeFocusOrdinal) {
             return MentalAttributeFocus.values()[attributeFocusOrdinal];
         }
+
+        @Override
+        public PlayerCharacter increase(PlayerCharacter character) {
+            return character.withMentalAttribute(character.getMentalAttribute()+1);
+        }
     };
 
     public abstract PlayerCharacter applyTo(int rating, PlayerCharacter character);
@@ -76,5 +91,7 @@ public enum AttributeFactory {
     public abstract PlayerCharacter applyFocusTo(int attributeFocusOrdinal, PlayerCharacter character);
 
     public abstract AttributeFocus focusFor(int attributeFocusOrdinal);
+
+    public abstract PlayerCharacter increase(PlayerCharacter character);
     
 }
