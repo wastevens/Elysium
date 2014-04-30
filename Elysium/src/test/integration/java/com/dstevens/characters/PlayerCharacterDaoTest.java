@@ -78,17 +78,17 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testSaveWithAttributes() {
-        characterDao.save(character.withPhysicalAttribute(character.getPhysicalAttribute().withRating(7).withFocus(PhysicalAttribute.Focus.STAMINA)).
-                withMentalAttribute(character.getMentalAttribute().withRating(5).withFocus(MentalAttribute.Focus.INTELLIGENCE).withFocus(MentalAttribute.Focus.PERCEPTION)).
-                withSocialAttribute(character.getSocialAttribute().withRating(3).withFocus(SocialAttribute.Focus.CHARISMA).withFocus(SocialAttribute.Focus.APPEARANCE).withFocus(SocialAttribute.Focus.MANIPULATION)));
+        characterDao.save(character.withPhysicalAttribute(7).withPhysicalAttributeFocus(PhysicalAttributeFocus.STAMINA).
+                withMentalAttribute(5).withMentalAttributeFocus(MentalAttributeFocus.INTELLIGENCE).withMentalAttributeFocus(MentalAttributeFocus.PERCEPTION).
+                withSocialAttribute(3).withSocialAttributeFocus(SocialAttributeFocus.CHARISMA).withSocialAttributeFocus(SocialAttributeFocus.APPEARANCE).withSocialAttributeFocus(SocialAttributeFocus.MANIPULATION));
 
         PlayerCharacter foundCharacter = characterDao.findOne(character.getId());
-        assertEquals(7, foundCharacter.getPhysicalAttribute().getRating());
-        assertEquals(set(PhysicalAttribute.Focus.STAMINA), foundCharacter.getPhysicalAttribute().getFocuses());
-        assertEquals(5, foundCharacter.getMentalAttribute().getRating());
-        assertEquals(set(MentalAttribute.Focus.INTELLIGENCE, MentalAttribute.Focus.PERCEPTION), foundCharacter.getMentalAttribute().getFocuses());
-        assertEquals(3, foundCharacter.getSocialAttribute().getRating());
-        assertEquals(set(SocialAttribute.Focus.CHARISMA, SocialAttribute.Focus.MANIPULATION, SocialAttribute.Focus.APPEARANCE), foundCharacter.getSocialAttribute().getFocuses());
+        assertEquals(7, foundCharacter.getPhysicalAttribute());
+        assertEquals(set(PhysicalAttributeFocus.STAMINA), foundCharacter.getPhysicalAttributeFocuses());
+        assertEquals(5, foundCharacter.getMentalAttribute());
+        assertEquals(set(MentalAttributeFocus.INTELLIGENCE, MentalAttributeFocus.PERCEPTION), foundCharacter.getMentalAttributeFocuses());
+        assertEquals(3, foundCharacter.getSocialAttribute());
+        assertEquals(set(SocialAttributeFocus.CHARISMA, SocialAttributeFocus.MANIPULATION, SocialAttributeFocus.APPEARANCE), foundCharacter.getSocialAttributeFocuses());
     }
     
     @Test

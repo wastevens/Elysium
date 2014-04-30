@@ -11,9 +11,6 @@
     <mapping class="com.dstevens.characters.PlayerCharacter"/>
     <mapping class="com.dstevens.characters.skills.CharacterSkill"/>
     <mapping class="com.dstevens.characters.backgrounds.CharacterBackground"/>
-    <mapping class="com.dstevens.characters.attributes.PhysicalAttribute"/>
-    <mapping class="com.dstevens.characters.attributes.MentalAttribute"/>
-    <mapping class="com.dstevens.characters.attributes.SocialAttribute"/>
     
     <mapping class="com.dstevens.characters.changes.SetTrait"/>
     <mapping class="com.dstevens.characters.changes.SetRatedTrait"/>

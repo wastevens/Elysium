@@ -16,9 +16,9 @@ public class PlayerCharacterDisplayer {
                 append(String.format("Clan:\t\t%1$s", character.getClan().name())).append("\n").
                 append(String.format("Bloodline:\t%1$s", character.getBloodline().name())).append("\n").
                 append("\n").append("Attributes").append("\n").
-                append(String.format("Physical:\t %1$s %2$s", character.getPhysicalAttribute().getRating(), character.getPhysicalAttribute().getFocuses())).append("\n").
-                append(String.format("Social:\t\t %1$s %2$s", character.getSocialAttribute().getRating(), character.getSocialAttribute().getFocuses())).append("\n").
-                append(String.format("Mental:\t\t %1$s %2$s", character.getMentalAttribute().getRating(), character.getMentalAttribute().getFocuses())).append("\n");
+                append(String.format("Physical:\t %1$s %2$s", character.getPhysicalAttribute(), character.getPhysicalAttributeFocuses())).append("\n").
+                append(String.format("Social:\t\t %1$s %2$s", character.getSocialAttribute(),   character.getSocialAttributeFocuses())).append("\n").
+                append(String.format("Mental:\t\t %1$s %2$s", character.getMentalAttribute(),   character.getMentalAttributeFocuses())).append("\n");
         
         builder.append("\n").append("Skills").append("\n");
         character.getSkills().stream().sorted().map(((CharacterSkill t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));

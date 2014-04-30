@@ -1,15 +1,16 @@
 package com.dstevens.characters;
 
 import static com.dstevens.collections.Lists.list;
-import static com.dstevens.collections.Sets.set;
+import static com.dstevens.collections.Sets.*;
 
 import java.util.*;
 import java.util.function.Function;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.CharacterBackground;
-import com.dstevens.characters.changes.*;
+import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.clans.*;
 import com.dstevens.characters.merits.*;
 import com.dstevens.characters.powers.*;
@@ -40,17 +41,23 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @Column(name="bloodline")
     private final Bloodline bloodline;
     
-    @OneToOne(cascade={CascadeType.ALL})
-    @PrimaryKeyJoinColumn
-    private PhysicalAttribute physicalAttribute;
+    @Column(name="physical_attribute")
+    private int physicalAttribute;
     
-    @OneToOne(cascade={CascadeType.ALL})
-    @PrimaryKeyJoinColumn
-    private MentalAttribute mentalAttribute;
+    @Column(name="mental_attribute")
+    private int mentalAttribute;
+
+    @Column(name="social_attribute")
+    private int socialAttribute;
     
-    @OneToOne(cascade={CascadeType.ALL})
-    @PrimaryKeyJoinColumn
-    private SocialAttribute socialAttribute;
+    @ElementCollection
+    private Set<PhysicalAttributeFocus> physicalAttributeFocuses;
+
+    @ElementCollection
+    private Set<MentalAttributeFocus> mentalAttrbuteFocuses;
+    
+    @ElementCollection
+    private Set<SocialAttributeFocus> socialAttributeFocuses;
     
     @OneToMany(cascade={CascadeType.ALL})
     private final Set<CharacterSkill> skills;
@@ -107,12 +114,13 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     //Hibernate only
     @Deprecated
     public PlayerCharacter() {
-        this(null, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, 0, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, String name) {
-        this(id, 0, name, null, null, new PhysicalAttribute(id), new MentalAttribute(id), 
-             new SocialAttribute(id), set(), set(),
+        this(id, 0, name, null, null, 0, 0, 0,
+             set(), set(), set(),
+             set(), set(),
              set(), set(), 
              set(), set(), set(),
              set(), set(), null,
@@ -121,8 +129,10 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
              list(), null);
     }
     
-    private PlayerCharacter(String id, int xp, String name, Clan clan, Bloodline bloodline, PhysicalAttribute physicalAttribute, MentalAttribute mentalAttribute,
-                            SocialAttribute socialAttribute, Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
+    private PlayerCharacter(String id, int xp, String name, Clan clan, Bloodline bloodline, 
+                            int physicalAttribute, int mentalAttribute, int socialAttribute, 
+                            Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
+                            Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
                             Set<Discipline> inClanDisciplines, Set<Thaumaturgy> inClanThaumaturgicalPaths, 
                             Set<Necromancy> inClanNecromanticPaths, Set<CharacterDiscipline> disciplines, Set<ElderPower> elderPowers,
                             Set<Technique> techniques, Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, 
@@ -137,6 +147,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.physicalAttribute = physicalAttribute;
         this.mentalAttribute = mentalAttribute;
         this.socialAttribute = socialAttribute;
+        this.physicalAttributeFocuses = physicalAttrbuteFocuses;
+        this.mentalAttrbuteFocuses = mentalAttrbuteFocuses;
+        this.socialAttributeFocuses = socialAttrbuteFocuses;
         this.skills = skills;
         this.backgrounds = backgrounds;
         this.inClanDisciplines = inClanDisciplines;
@@ -162,8 +175,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, 
-                                   socialAttribute, skills, backgrounds, 
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
+                                   skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 
                                    inClanNecromanticPaths, disciplines, elderPowers, 
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
@@ -177,8 +191,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter ofClan(Clan clan) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, 
-                socialAttribute, skills, backgrounds, 
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+                physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
+                skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, 
                 inClanNecromanticPaths, disciplines, elderPowers, 
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
@@ -192,8 +207,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter ofBloodline(Bloodline bloodline) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, 
-                socialAttribute, skills, backgrounds, 
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+                physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
+                skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, 
                 inClanNecromanticPaths, disciplines, elderPowers, 
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
@@ -206,55 +222,84 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return bloodline;
     }
 
-    public PhysicalAttribute getPhysicalAttribute() {
+    public int getPhysicalAttribute() {
         return physicalAttribute;
     }
     
-    public PlayerCharacter withPhysicalAttribute(PhysicalAttribute physicalAttribute) {
-        this.physicalAttribute = physicalAttribute;
-        return this;
-    }
-    
-
-    public PlayerCharacter withPhysicalAttribute(int rating, PhysicalAttribute.Focus focus) {
-        return new PlayerCharacter(id, rating, name, clan, bloodline, new PhysicalAttribute(getId()).withRating(rating).withFocus(focus), mentalAttribute, socialAttribute, skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, disciplines, elderPowers, techniques, 
-                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, 
-                                   necromanticRituals, merits, flaws, traitChangeEvents, deleteTimestamp);
-    }
-    
-    public MentalAttribute getMentalAttribute() {
+    public int getMentalAttribute() {
         return mentalAttribute;
     }
     
-    public PlayerCharacter withMentalAttribute(MentalAttribute mentalAttribute) {
-        this.mentalAttribute = mentalAttribute;
-        return this;
-    }
-    
-    public PlayerCharacter withMentalAttribute(int rating, MentalAttribute.Focus focus) {
-        return new PlayerCharacter(id, rating, name, clan, bloodline, physicalAttribute, new MentalAttribute(getId()).withRating(rating).withFocus(focus), socialAttribute, skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, disciplines, elderPowers, techniques, 
-                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, 
-                                   necromanticRituals, merits, flaws, traitChangeEvents, deleteTimestamp);
-    }
-    
-    public SocialAttribute getSocialAttribute() {
+    public int getSocialAttribute() {
         return socialAttribute;
     }
     
-    public PlayerCharacter withSocialAttribute(SocialAttribute socialAttribute) {
-        this.socialAttribute = socialAttribute;
-        return this;
+    public Set<PhysicalAttributeFocus> getPhysicalAttributeFocuses() {
+        return physicalAttributeFocuses;
     }
     
-    public PlayerCharacter withSocialAttribute(int rating, SocialAttribute.Focus focus) {
-        return new PlayerCharacter(id, rating, name, clan, bloodline, physicalAttribute, mentalAttribute, new SocialAttribute(getId()).withRating(rating).withFocus(focus), skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, disciplines, elderPowers, techniques, 
-                                   thaumaturgicalPaths, primaryThaumaturgicalPath, thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, 
-                                   necromanticRituals, merits, flaws, traitChangeEvents, deleteTimestamp);
+    public Set<MentalAttributeFocus> getMentalAttributeFocuses() {
+        return mentalAttrbuteFocuses;
     }
-
+    
+    public Set<SocialAttributeFocus> getSocialAttributeFocuses() {
+        return socialAttributeFocuses;
+    }
+    
+    public PlayerCharacter withPhysicalAttribute(int physicalAttribute) {
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
+                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
+                                   skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
+                                   disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
+                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
+                                   traitChangeEvents, deleteTimestamp);
+    }
+    
+    public PlayerCharacter withMentalAttribute(int mentalAttribute) {
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
+                physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
+                skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
+                disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
+                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
+                traitChangeEvents, deleteTimestamp);
+    }
+    
+    public PlayerCharacter withSocialAttribute(int socialAttribute) {
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
+                physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
+                skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
+                disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
+                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
+                traitChangeEvents, deleteTimestamp);
+    }
+    
+    public PlayerCharacter withPhysicalAttributeFocus(PhysicalAttributeFocus focus) {
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
+                setWith(physicalAttributeFocuses, focus), mentalAttrbuteFocuses, socialAttributeFocuses, 
+                skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
+                disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
+                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
+                traitChangeEvents, deleteTimestamp);
+    }
+    
+    public PlayerCharacter withMentalAttributeFocus(MentalAttributeFocus focus) {
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
+                physicalAttributeFocuses, setWith(mentalAttrbuteFocuses, focus), socialAttributeFocuses, 
+                skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
+                disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
+                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
+                traitChangeEvents, deleteTimestamp);
+    }
+    
+    public PlayerCharacter withSocialAttributeFocus(SocialAttributeFocus focus) {
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
+                physicalAttributeFocuses, mentalAttrbuteFocuses, setWith(socialAttributeFocuses, focus), 
+                skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
+                disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
+                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
+                traitChangeEvents, deleteTimestamp);
+    }
+    
     public Set<CharacterSkill> getSkills() {
         return skills;
     }
@@ -463,8 +508,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     @Override
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, 
-                                   socialAttribute, skills, backgrounds, 
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
+                                   skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 
                                    inClanNecromanticPaths, disciplines, elderPowers, 
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
@@ -475,8 +521,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
 
     @Override
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, 
-                                   socialAttribute, skills, backgrounds, 
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
+                                   skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 
                                    inClanNecromanticPaths, disciplines, elderPowers, 
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
