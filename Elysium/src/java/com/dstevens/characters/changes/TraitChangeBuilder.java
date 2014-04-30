@@ -4,7 +4,6 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.backgrounds.*;
@@ -12,18 +11,10 @@ import com.dstevens.characters.distinctions.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;
-import com.dstevens.suppliers.IdSupplier;
 
 @Service
 public class TraitChangeBuilder {
 
-    private IdSupplier idSupplier;
-
-    @Autowired
-    public TraitChangeBuilder(IdSupplier idSupplier) {
-        this.idSupplier = idSupplier;
-    }
-    
     public abstract class SetCharacterDefinedTraitBuilder<Trait extends Enum<?>> {
         
         protected Trait trait = null;
@@ -151,15 +142,11 @@ public class TraitChangeBuilder {
     }
     
     public SetTrait gainXp(int xp, SetTrait trait) {
-        return changeXp(-1 * xp, trait);
+        return new GainXp(TraitChangeStatus.PENDING, xp, trait);
     }
 
     public SetTrait spendXp(int xp, SetTrait trait) {
-        return changeXp(xp, trait);
-    }
-    
-    private SetTrait changeXp(int xp, SetTrait trait) {
-        return new SetXp(idSupplier.get(), TraitChangeStatus.PENDING, xp, trait);
+        return new SpendXp(TraitChangeStatus.PENDING, xp, trait);
     }
 
     public SetTrait setDiscipline(Discipline power, int rating) {

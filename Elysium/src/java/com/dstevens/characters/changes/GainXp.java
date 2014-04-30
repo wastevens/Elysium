@@ -15,15 +15,15 @@ class GainXp extends SetTrait {
     @Deprecated
     @SuppressWarnings("unused")
     private GainXp() {
-        this(null, null, 0);
+        this(null, 0);
     }
     
-    protected GainXp(String id, TraitChangeStatus status, int xp) {
+    protected GainXp(TraitChangeStatus status, int xp) {
         super(status, null);
         this.xp = xp;
     }
     
-    protected GainXp(String id, TraitChangeStatus status, int xp, SetTrait associatedTrait) {
+    protected GainXp(TraitChangeStatus status, int xp, SetTrait associatedTrait) {
         super(status, associatedTrait);
         this.xp = xp;
     }

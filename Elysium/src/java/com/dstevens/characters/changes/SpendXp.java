@@ -15,15 +15,15 @@ class SpendXp extends SetTrait {
     @Deprecated
     @SuppressWarnings("unused")
     private SpendXp() {
-        this(null, null, 0);
+        this(null, 0);
     }
     
-    protected SpendXp(String id, TraitChangeStatus status, int xp) {
+    protected SpendXp(TraitChangeStatus status, int xp) {
         super(status, null);
         this.xp = xp;
     }
     
-    protected SpendXp(String id, TraitChangeStatus status, int xp, SetTrait associatedTrait) {
+    protected SpendXp(TraitChangeStatus status, int xp, SetTrait associatedTrait) {
         super(status, associatedTrait);
         this.xp = xp;
     }
