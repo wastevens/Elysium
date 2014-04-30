@@ -67,8 +67,9 @@ public class TraitChangeBuilder {
         }
         
         public final SetTrait getEvent() {
-            return new SetSkill(TraitChangeStatus.PENDING, 
-                                CharacterSkill.skillFor(trait, rating, specialization, focuses));
+            return new SetCharacterDefinedTrait(TraitChangeStatus.PENDING, 
+                              CharacterSkill.skillFor(trait, rating, specialization, focuses),
+                              SetCharacterDefinedTrait.CharacterDefinedTraitFactory.SKILL);
         }
     }
     
@@ -83,8 +84,9 @@ public class TraitChangeBuilder {
         }
         
         public final SetTrait getEvent() {
-            return new SetBackground(idSupplier.get(), TraitChangeStatus.PENDING, 
-                                     CharacterBackground.backgroundFor(trait, rating, specialization, focuses));
+            return new SetCharacterDefinedTrait(TraitChangeStatus.PENDING, 
+                              CharacterBackground.backgroundFor(trait, rating, specialization, focuses),
+                              SetCharacterDefinedTrait.CharacterDefinedTraitFactory.BACKGROUND);
         }
     }
     

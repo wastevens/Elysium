@@ -80,7 +80,7 @@ create table PlayerCharacter_thaumaturgicalPaths (PlayerCharacter_id varchar(255
 create table PlayerCharacter_thaumaturgicalRituals (PlayerCharacter_id varchar(255) not null, thaumaturgicalRituals integer);
 create table SetCharacterDefinedTrait_focuses (SetCharacterDefinedTrait_id varchar(255) not null, focuses varchar(255));
 create table Skills (id varchar(255) not null, rating integer, specialization varchar(255), skill integer, primary key (id));
-create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, ordinal integer, rating integer, specialization varchar(255), typeIdentifier varchar(255), associatedTrait_id varchar(255), primary key (id));
+create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, ordinal integer, rating integer, factory integer, specialization varchar(255), typeIdentifier varchar(255), associatedTrait_id varchar(255), primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
 alter table PlayerCharacter_Backgrounds add constraint UK_sbgnuo1acckqxcli46ppvgdjg  unique (backgrounds_id);
 alter table PlayerCharacter_Skills add constraint UK_qqe336af9uubmj4p0vrfn2dql  unique (skills_id);

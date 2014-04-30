@@ -16,8 +16,6 @@
     <mapping class="com.dstevens.characters.changes.SetRatedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetCharacterDefinedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetXp"/>
-    <mapping class="com.dstevens.characters.changes.SetSkill"/>
-    <mapping class="com.dstevens.characters.changes.SetBackground"/>
     <mapping class="com.dstevens.characters.changes.SetDiscipline"/>
     <mapping class="com.dstevens.characters.changes.SetThaumaturgy"/>
     <mapping class="com.dstevens.characters.changes.SetNecromancy"/>

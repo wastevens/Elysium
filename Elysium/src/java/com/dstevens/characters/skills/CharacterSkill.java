@@ -3,9 +3,9 @@ package com.dstevens.characters.skills;
 import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
-
 import javax.persistence.*;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.CharacterDefinedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -101,5 +101,10 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     @Override
     public int compareTo(CharacterSkill that) {
         return characterDefinedTraitComparator().compare(this, that);
+    }
+    
+    @Override
+    public PlayerCharacter applyTo(PlayerCharacter character) {
+        return character.withSkill(this);
     }
 }
