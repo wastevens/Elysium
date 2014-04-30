@@ -101,10 +101,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @ElementCollection
     private final Set<NecromanticRitual> necromanticRituals;
     
-    @ElementCollection
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="PlayerCharacter_Merits")
     private final Set<CharacterMerit> merits;
     
-    @ElementCollection
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="PlayerCharacter_Flaws")
     private final Set<CharacterFlaw> flaws;
     
     @OneToMany(cascade={CascadeType.ALL})

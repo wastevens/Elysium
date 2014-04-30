@@ -1,73 +1,26 @@
 package com.dstevens.characters.distinctions;
 
-import java.util.Comparator;
-import java.util.function.Function;
 import javax.persistence.*;
 
-import com.dstevens.utilities.ObjectExtensions;
-
-@Embeddable
-public class CharacterFlaw implements Comparable<CharacterFlaw> {
-
-    @Column(name="flaw_id")
-    private int flawId;
-    
-    @Column(name="flaw_type")
-    private String flawType;
-    
-    @Column(name="details")
-    private String details;
+@Entity
+@DiscriminatorValue(value="Flaw")
+public class CharacterFlaw extends CharacterDistinction {
     
     //Hibernate only
     @Deprecated
-    @SuppressWarnings("unused")
     private CharacterFlaw() {
-        this(0, null, null);
+        super(0, null, null);
     }
     
     public CharacterFlaw(Flaw<?> flaw) {
-        this(flaw.ordinal(), flaw.getType(), null);
+        super(flaw);
     }
     
     public CharacterFlaw(Flaw<?> flaw, String details) {
-        this(flaw.ordinal(), flaw.getType(), details);
+        super(flaw, details);
     }
     
-    private CharacterFlaw(int flawId, String flawType, String details) {
-        this.flawId = flawId;
-        this.flawType = flawType;
-        this.details = details;
+    public Distinction<?> getDistinction() {
+        return FlawTranslator.ofTypeWithId(type(), ordinal());
     }
-    
-    public Flaw<?> getFlaw() {
-        return FlawTranslator.ofTypeWithId(flawType, flawId);
-    }
-    
-    public String getDetails() {
-        return details;
-    }
-    
-    @Override
-    public boolean equals(Object that) {
-        return ObjectExtensions.equals(this, that);
-    }
-    
-    @Override
-    public int hashCode() {
-        return ObjectExtensions.hashCodeFor(this);
-    }
-    
-    @Override
-    public String toString() {
-        return ObjectExtensions.toStringFor(this);
-    }
-
-    @Override
-    public int compareTo(CharacterFlaw that) {
-        Function<CharacterFlaw, String> byMeritType = ((CharacterFlaw cm) -> cm.flawType);
-        Function<CharacterFlaw, Integer> byMeritId = ((CharacterFlaw cm) -> cm.flawId);
-        Function<CharacterFlaw, String> byDetails = ((CharacterFlaw cm) -> cm.details);
-        return Comparator.comparing(byMeritType).thenComparing(byMeritId).thenComparing(byDetails).compare(this, that);
-    }
-    
 }

@@ -11,19 +11,17 @@
     <mapping class="com.dstevens.characters.PlayerCharacter"/>
     <mapping class="com.dstevens.characters.skills.CharacterSkill"/>
     <mapping class="com.dstevens.characters.backgrounds.CharacterBackground"/>
+    <mapping class="com.dstevens.characters.distinctions.CharacterDistinction"/>
+    <mapping class="com.dstevens.characters.distinctions.CharacterFlaw"/>
+    <mapping class="com.dstevens.characters.distinctions.CharacterMerit"/>
     
     <mapping class="com.dstevens.characters.changes.SetTrait"/>
+    <mapping class="com.dstevens.characters.changes.SetEnumeratedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetRatedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetCharacterDefinedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetXp"/>
-    <mapping class="com.dstevens.characters.changes.SetDiscipline"/>
-    <mapping class="com.dstevens.characters.changes.SetThaumaturgy"/>
-    <mapping class="com.dstevens.characters.changes.SetNecromancy"/>
-    <mapping class="com.dstevens.characters.changes.SetThaumaturgicalRitual"/>
-    <mapping class="com.dstevens.characters.changes.SetNecromanticRitual"/>
-    <mapping class="com.dstevens.characters.changes.SetElderPower"/>
-    <mapping class="com.dstevens.characters.changes.SetTechnique"/>
     <mapping class="com.dstevens.characters.changes.SetMerit"/>
+    <mapping class="com.dstevens.characters.changes.SetFlaw"/>
     
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>

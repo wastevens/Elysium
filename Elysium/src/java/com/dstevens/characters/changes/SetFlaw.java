@@ -26,7 +26,7 @@ class SetFlaw extends SetTrait {
     }
     
     protected SetFlaw(String id, TraitChangeStatus status, CharacterFlaw flaw) {
-        this(id, status, flaw.getFlaw().ordinal(), flaw.getFlaw().getType(), flaw.getDetails());
+        this(id, status, flaw.getDistinction().ordinal(), flaw.getDistinction().getType(), flaw.getDetails());
     }
     
     protected SetFlaw(String id, TraitChangeStatus status, Flaw<?> flaw, String details) {

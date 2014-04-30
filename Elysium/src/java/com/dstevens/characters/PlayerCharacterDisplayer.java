@@ -44,16 +44,16 @@ public class PlayerCharacterDisplayer {
 
     private <T extends Enum<?>> String display(CharacterMerit t) {
         if (isPresent(t.getDetails())) {
-            return String.format("%1$s (%2$s):\t(%3$s)", t.getMerit().trait(), t.getDetails(), t.getMerit().getPoints());
+            return String.format("%1$s (%2$s):\t(%3$s)", t.getDistinction().trait(), t.getDetails(), t.getDistinction().getPoints());
         }
-        return String.format("%1$s:\t\t(%2$s)", t.getMerit().trait(), t.getMerit().getPoints());
+        return String.format("%1$s:\t\t(%2$s)", t.getDistinction().trait(), t.getDistinction().getPoints());
     }
     
     private <T extends Enum<?>> String display(CharacterFlaw t) {
         if (isPresent(t.getDetails())) {
-            return String.format("%1$s (%2$s):\t(%3$s)", t.getFlaw().trait(), t.getDetails(), -1 * t.getFlaw().getPoints());
+            return String.format("%1$s (%2$s):\t(%3$s)", t.getDistinction().trait(), t.getDetails(), -1 * t.getDistinction().getPoints());
         }
-        return String.format("%1$s:\t\t(%2$s)", t.getFlaw().trait(), -1 * t.getFlaw().getPoints());
+        return String.format("%1$s:\t\t(%2$s)", t.getDistinction().trait(), -1 * t.getDistinction().getPoints());
     }
 
     private <T extends Enum<?>> String display(CharacterDefinedTrait<T> s) {
