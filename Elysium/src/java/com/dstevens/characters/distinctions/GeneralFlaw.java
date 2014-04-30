@@ -1,4 +1,4 @@
-package com.dstevens.characters.merits;
+package com.dstevens.characters.distinctions;
 
 @FlawAnnotation("General")
 public enum GeneralFlaw implements Flaw<GeneralFlaw> {

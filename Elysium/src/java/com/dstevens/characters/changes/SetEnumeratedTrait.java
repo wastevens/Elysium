@@ -15,6 +15,13 @@ public class SetEnumeratedTrait extends SetTrait {
     @Column(name="factory")
     final TraitFactory factory;
     
+    //Hibernate only
+    @Deprecated
+    @SuppressWarnings("unused")
+    private SetEnumeratedTrait() {
+        this(null, 0, null);
+    }
+    
     protected SetEnumeratedTrait(TraitChangeStatus status, EnumeratedTrait<?> trait, TraitFactory factory) {
         this(status, trait.ordinal(), factory);
     }

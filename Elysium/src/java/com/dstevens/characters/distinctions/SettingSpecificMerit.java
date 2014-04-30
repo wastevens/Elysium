@@ -1,4 +1,4 @@
-package com.dstevens.characters.merits;
+package com.dstevens.characters.distinctions;
 
 import com.dstevens.players.Setting;
 

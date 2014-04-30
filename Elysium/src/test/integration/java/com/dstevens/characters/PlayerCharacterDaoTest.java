@@ -14,7 +14,7 @@ import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.*;
 import com.dstevens.characters.changes.*;
 import com.dstevens.characters.clans.*;
-import com.dstevens.characters.merits.*;
+import com.dstevens.characters.distinctions.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;

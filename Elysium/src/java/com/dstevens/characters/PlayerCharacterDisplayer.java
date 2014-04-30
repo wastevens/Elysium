@@ -2,7 +2,7 @@ package com.dstevens.characters;
 
 import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.merits.*;
+import com.dstevens.characters.distinctions.*;
 import com.dstevens.characters.powers.CharacterDiscipline;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.CharacterSkill;

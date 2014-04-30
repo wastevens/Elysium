@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.backgrounds.*;
-import com.dstevens.characters.merits.*;
+import com.dstevens.characters.distinctions.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;

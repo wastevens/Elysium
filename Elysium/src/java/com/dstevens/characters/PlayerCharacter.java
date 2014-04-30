@@ -12,7 +12,7 @@ import com.dstevens.characters.attributes.*;
 import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.clans.*;
-import com.dstevens.characters.merits.*;
+import com.dstevens.characters.distinctions.*;
 import com.dstevens.characters.powers.*;
 import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.CharacterSkill;

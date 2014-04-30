@@ -3,7 +3,7 @@ package com.dstevens.characters.changes;
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.merits.*;
+import com.dstevens.characters.distinctions.*;
 
 @Entity
 @DiscriminatorValue("Merit")

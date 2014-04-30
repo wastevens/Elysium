@@ -1,4 +1,4 @@
-package com.dstevens.characters.merits;
+package com.dstevens.characters.distinctions;
 
 import java.util.Set;
 
@@ -10,14 +10,14 @@ public class FlawTranslator {
     }
     
     public static final Flaw<?> ofTypeWithId(String type, int id) {
-        Reflections reflections = new Reflections("com.dstevens.characters.merits");
+        Reflections reflections = new Reflections("com.dstevens.characters.distinctions");
         Set<Class<?>> flawClasses = reflections.getTypesAnnotatedWith(FlawAnnotation.class);
         for (Class<?> flawClass : flawClasses) {
             if (flawClass.getAnnotation(FlawAnnotation.class).value().equals(type)) {
                 return getFlaw(id, flawClass);
             }
         }
-        throw new IllegalStateException("Could not find a merit of type " + type + " with id " + id);
+        throw new IllegalStateException("Could not find a flaw of type " + type + " with id " + id);
     }
 
     @SuppressWarnings({ "unchecked" })
