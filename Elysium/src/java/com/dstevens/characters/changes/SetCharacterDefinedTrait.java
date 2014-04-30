@@ -1,12 +1,9 @@
 package com.dstevens.characters.changes;
 
 import java.util.Set;
-
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.backgrounds.*;
-import com.dstevens.characters.skills.*;
 import com.dstevens.characters.traits.CharacterDefinedTrait;
 
 @Entity
@@ -20,7 +17,7 @@ public class SetCharacterDefinedTrait extends SetRatedTrait {
     private final Set<String> focuses;
     
     @Column(name="factory")
-    private final CharacterDefinedTraitFactory factory;
+    private final TraitFactory factory;
 
     //Hibernate only
     @Deprecated
@@ -29,11 +26,11 @@ public class SetCharacterDefinedTrait extends SetRatedTrait {
         this(null, 0, 0, null, null, null);
     }
     
-    public SetCharacterDefinedTrait(TraitChangeStatus status, CharacterDefinedTrait<? extends Enum<?>> trait, SetCharacterDefinedTrait.CharacterDefinedTraitFactory factory) {
+    public SetCharacterDefinedTrait(TraitChangeStatus status, CharacterDefinedTrait<? extends Enum<?>> trait, TraitFactory factory) {
         this(status, trait.ordinal(), trait.rating(), trait.getSpecialization(), trait.getFocuses(), factory);
     }
     
-    private SetCharacterDefinedTrait(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses, CharacterDefinedTraitFactory factory) {
+    private SetCharacterDefinedTrait(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses, TraitFactory factory) {
         super(status, ordinal, rating);
         this.factory = factory;
         this.focuses = focuses;
@@ -44,44 +41,13 @@ public class SetCharacterDefinedTrait extends SetRatedTrait {
         return factory.traitFor(ordinal(), rating(), specialization, focuses).applyTo(character);
     }
     
-    public static enum CharacterDefinedTraitFactory {
-        BACKGROUND {
-            @Override
-            CharacterDefinedTrait<?> traitFor(int ordinal, int rating, String specialization, Set<String> focuses) {
-                return CharacterBackground.backgroundFor(traitFor(ordinal), rating, specialization, focuses);
-            }
-
-            @SuppressWarnings("unchecked")
-            @Override
-            Background traitFor(int ordinal) {
-                return Background.values()[ordinal];
-            }
-        },
-        SKILL {
-            @Override
-            CharacterDefinedTrait<?> traitFor(int ordinal, int rating, String specialization, Set<String> focuses) {
-                return CharacterSkill.skillFor(traitFor(ordinal), rating, specialization, focuses);
-            }
-            
-            @SuppressWarnings("unchecked")
-            @Override
-            Skill traitFor(int ordinal) {
-                return Skill.values()[ordinal];
-            }
-            
-        };
-        
-        abstract CharacterDefinedTrait<?> traitFor(int ordinal, int rating, String specialization, Set<String> focuses);
-        abstract <E extends Enum<?>> E traitFor(int ordinal);
-    }
-    
     @Override
     public String describe() {
         String displaySpecialization = (isPresent(specialization) ? String.format(" (%1$s)", specialization) : "");
         String displayFocuses = (!focuses.isEmpty() ? String.format(" %1$s", focuses) : "");
         String nextTrait = (hasAssociatedTrait() ? String.format (" with %1$s", associatedTrait().describe()) : "");
         
-        return String.format("(%1$s) Set %2$s%3$s to %4$s%5$s%6$s", status(), factory.traitFor(ordinal()), displaySpecialization, rating(), displayFocuses, nextTrait);
+        return String.format("(%1$s) Set %2$s%3$s to %4$s%5$s%6$s", status(), factory.trait(ordinal()), displaySpecialization, rating(), displayFocuses, nextTrait);
     }
 
     private boolean isPresent(String specialization) {
