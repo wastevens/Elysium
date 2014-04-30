@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.function.Function;
 import javax.persistence.*;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -41,6 +42,7 @@ public abstract class CharacterDistinction implements Comparable<CharacterDistin
     }
     
     public abstract Distinction<?> getDistinction();
+    public abstract PlayerCharacter applyTo(PlayerCharacter character);
     
     public final String getDetails() {
         return details;

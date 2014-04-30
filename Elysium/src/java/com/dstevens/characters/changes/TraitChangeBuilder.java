@@ -115,7 +115,7 @@ public class TraitChangeBuilder {
         }
         
         public final SetTrait getEvent() {
-            return new SetMerit(idSupplier.get(), TraitChangeStatus.PENDING, merit, specialization, associatedTrait);
+            return new SetDistinction(TraitChangeStatus.PENDING, merit, specialization, associatedTrait, DistinctionFactory.MERIT);
         }
     }
     
@@ -142,7 +142,7 @@ public class TraitChangeBuilder {
         }
         
         public final SetTrait getEvent() {
-            return new SetFlaw(idSupplier.get(), TraitChangeStatus.PENDING, flaw, specialization);
+            return new SetDistinction(TraitChangeStatus.PENDING, flaw, specialization, DistinctionFactory.FLAW);
         }
     }
 

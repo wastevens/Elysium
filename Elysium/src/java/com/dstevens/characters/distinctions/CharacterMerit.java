@@ -2,6 +2,8 @@ package com.dstevens.characters.distinctions;
 
 import javax.persistence.*;
 
+import com.dstevens.characters.PlayerCharacter;
+
 @Entity
 @DiscriminatorValue(value="Merit")
 public class CharacterMerit extends CharacterDistinction {
@@ -28,5 +30,9 @@ public class CharacterMerit extends CharacterDistinction {
     public Distinction<?> getDistinction() {
         return MeritTranslator.ofTypeWithId(type(), ordinal());
     }
-    
+
+    @Override
+    public PlayerCharacter applyTo(PlayerCharacter character) {
+        return character.withMerit(this);
+    }
 }

@@ -1,5 +1,7 @@
 package com.dstevens.characters.distinctions;
 
+import com.dstevens.characters.PlayerCharacter;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,5 +24,10 @@ public class CharacterFlaw extends CharacterDistinction {
     
     public Distinction<?> getDistinction() {
         return FlawTranslator.ofTypeWithId(type(), ordinal());
+    }
+    
+    @Override
+    public PlayerCharacter applyTo(PlayerCharacter character) {
+        return character.withFlaw(this);
     }
 }
