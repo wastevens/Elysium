@@ -2,6 +2,7 @@ package com.dstevens.characters.powers;
 
 import javax.persistence.*;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -61,5 +62,10 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
     @Override
     public int compareTo(CharacterDiscipline that) {
         return ratedTraitComparator().compare(this, that);
+    }
+
+    @Override
+    public PlayerCharacter applyTo(PlayerCharacter character) {
+        return character.withDiscipline(this);
     }
 }

@@ -3,6 +3,8 @@ package com.dstevens.characters.changes;
 import java.util.Set;
 
 import com.dstevens.characters.backgrounds.*;
+import com.dstevens.characters.powers.*;
+import com.dstevens.characters.powers.magics.*;
 import com.dstevens.characters.skills.*;
 import com.dstevens.characters.traits.*;
 
@@ -31,6 +33,45 @@ public enum TraitFactory {
         @Override
         public <E extends Enum<?>> E trait(int ordinal) {
             return (E) Skill.values()[ordinal];
+        }
+    }, 
+    DISCIPLINE {
+        @Override
+        public RatedTrait<?> traitFor(int ordinal, int rating) {
+            return new CharacterDiscipline(trait(ordinal), rating);
+        }
+
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <E extends Enum<?>> E trait(int ordinal) {
+            return (E) Discipline.values()[ordinal];
+        }
+    }, 
+    THAUMATURGY {
+        @Override
+        public RatedTrait<?> traitFor(int ordinal, int rating) {
+            return new CharacterThaumaturgy(trait(ordinal), rating);
+        }
+
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <E extends Enum<?>> E trait(int ordinal) {
+            return (E) Thaumaturgy.values()[ordinal];
+        }
+    }, 
+    NECROMANCY {
+        @Override
+        public RatedTrait<?> traitFor(int ordinal, int rating) {
+            return new CharacterNecromancy(trait(ordinal), rating);
+        }
+
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <E extends Enum<?>> E trait(int ordinal) {
+            return (E) Necromancy.values()[ordinal];
         }
     };
     

@@ -163,15 +163,15 @@ public class TraitChangeBuilder {
     }
 
     public SetTrait setDiscipline(Discipline power, int rating) {
-        return new SetDiscipline(idSupplier.get(), TraitChangeStatus.PENDING, power, rating);
+        return new SetRatedTrait(TraitChangeStatus.PENDING, power, rating, TraitFactory.DISCIPLINE);
     }
 
     public SetTrait setThaumaturgy(Thaumaturgy power, int rating) {
-        return new SetThaumaturgy(idSupplier.get(), TraitChangeStatus.PENDING, power, rating);
+        return new SetRatedTrait(TraitChangeStatus.PENDING, power, rating, TraitFactory.THAUMATURGY);
     }
     
     public SetTrait setNecromancy(Necromancy power, int rating) {
-        return new SetNecromancy(idSupplier.get(), TraitChangeStatus.PENDING, power, rating);
+        return new SetRatedTrait(TraitChangeStatus.PENDING, power, rating, TraitFactory.NECROMANCY);
     }
 
     public SetTrait setThaumaturgicalRitual(ThaumaturgicalRitual power) {

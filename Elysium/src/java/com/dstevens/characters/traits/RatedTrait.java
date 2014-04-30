@@ -2,6 +2,8 @@ package com.dstevens.characters.traits;
 
 import java.util.Comparator;
 
+import com.dstevens.characters.PlayerCharacter;
+
 import org.apache.commons.lang3.builder.*;
 
 
@@ -21,5 +23,7 @@ public interface RatedTrait<T extends Enum<?>> extends EnumeratedTrait<T> {
         return Comparator.comparing((RatedTrait<T> t) -> t.rating()).reversed().
                       thenComparing((RatedTrait<T> t) -> t.ordinal());
     }
+
+    PlayerCharacter applyTo(PlayerCharacter character);
     
 }

@@ -15,9 +15,6 @@ public class SetCharacterDefinedTrait extends SetRatedTrait {
     
     @ElementCollection
     private final Set<String> focuses;
-    
-    @Column(name="factory")
-    private final TraitFactory factory;
 
     //Hibernate only
     @Deprecated
@@ -31,13 +28,12 @@ public class SetCharacterDefinedTrait extends SetRatedTrait {
     }
     
     private SetCharacterDefinedTrait(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses, TraitFactory factory) {
-        super(status, ordinal, rating);
-        this.factory = factory;
+        super(status, ordinal, rating, factory);
         this.focuses = focuses;
         this.specialization = specialization;
     }
 
-    public final PlayerCharacter apply(PlayerCharacter character) {
+    public PlayerCharacter apply(PlayerCharacter character) {
         return factory.traitFor(ordinal(), rating(), specialization, focuses).applyTo(character);
     }
     
