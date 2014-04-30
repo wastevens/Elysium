@@ -92,22 +92,28 @@ public class TraitChangeBuilder {
         
         private Merit<?> merit;
         private String specialization;
+        private SetTrait associatedTrait;
 
         private SetMeritBuilder(Merit<?> merit) {
-            this(merit, null);
+            this(merit, null, null);
         }
         
-        private SetMeritBuilder(Merit<?> merit, String specialization) {
+        private SetMeritBuilder(Merit<?> merit, String specialization, SetTrait associatedTrait) {
             this.merit = merit;
             this.specialization = specialization;
+            this.associatedTrait = associatedTrait;
         }
         
         public SetMeritBuilder withSpecialization(String specialization) {
-            return new SetMeritBuilder(merit, specialization);
+            return new SetMeritBuilder(merit, specialization, associatedTrait);
+        }
+        
+        public SetMeritBuilder withTrait(SetTrait associatedTrait) {
+            return new SetMeritBuilder(merit, specialization, associatedTrait);
         }
         
         public final SetTrait getEvent() {
-            return new SetMerit(idSupplier.get(), TraitChangeStatus.PENDING, merit, specialization);
+            return new SetMerit(idSupplier.get(), TraitChangeStatus.PENDING, merit, specialization, associatedTrait);
         }
     }
     

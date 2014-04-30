@@ -35,10 +35,7 @@ class SetXp extends SetTrait {
 
     @Override
     public String describe() {
-        String format = String.format("(%1$s) %2$s %3$s xp", status(), (xp > 0 ? "Spend" : "Gain"), xp);
-        if (hasAssociatedTrait()) {
-            format += String.format(" for (%1$s)", associatedTrait().describe());
-        }
-        return format;
+        String nextTrait = (hasAssociatedTrait() ? String.format (" for %1$s", associatedTrait().describe()) : "");
+        return String.format("(%1$s) %2$s %3$s xp%4$s", status(), (xp > 0 ? "Spend" : "Gain"), xp, nextTrait);
     }
 }

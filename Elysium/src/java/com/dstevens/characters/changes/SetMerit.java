@@ -22,19 +22,19 @@ class SetMerit extends SetTrait {
     @Deprecated
     @SuppressWarnings("unused")
     private SetMerit() {
-        this(null, null, 0, null, null);
-    }
-    
-    protected SetMerit(String id, TraitChangeStatus status, CharacterMerit merit) {
-        this(id, status, merit.getMerit().ordinal(), merit.getMerit().getType(), merit.getDetails());
+        this(null, null, 0, null, null, null);
     }
     
     protected SetMerit(String id, TraitChangeStatus status, Merit<?> merit, String details) {
-        this(id, status, merit.ordinal(), merit.getType(), details);
+        this(id, status, merit.ordinal(), merit.getType(), details, null);
     }
     
-    protected SetMerit(String id, TraitChangeStatus status, int meritId, String meritType, String details) {
-        super(id, status);
+    protected SetMerit(String id, TraitChangeStatus status, Merit<?> merit, String details, SetTrait associatedTrait) {
+        this(id, status, merit.ordinal(), merit.getType(), details, associatedTrait);
+    }
+    
+    private SetMerit(String id, TraitChangeStatus status, int meritId, String meritType, String details, SetTrait associatedTrait) {
+        super(id, status, associatedTrait);
         this.meritId = meritId;
         this.meritType = meritType;
         this.details = details;
@@ -47,10 +47,9 @@ class SetMerit extends SetTrait {
     
     @Override
     public String describe() {
-        if (isPresent(details)) {
-            return String.format("(%1$s) Set %2$s (%3$s)", status(), MeritTranslator.ofTypeWithId(meritType, meritId), details);
-        }
-        return String.format("(%1$s) Set %1$s", status(), MeritTranslator.ofTypeWithId(meritType, meritId));
+        String specialization = (isPresent(details) ? String.format("(%1$s)", details) : "");
+        String nextTrait = (hasAssociatedTrait() ? String.format (" with %1$s", associatedTrait().describe()) : "");
+        return String.format("(%1$s) Set %2$s %3$s%4$s", status(), MeritTranslator.ofTypeWithId(meritType, meritId), specialization, nextTrait);
     }
 
     private boolean isPresent(String specialization) {
