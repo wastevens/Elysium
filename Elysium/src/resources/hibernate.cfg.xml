@@ -22,6 +22,9 @@
     <mapping class="com.dstevens.characters.changes.SetXp"/>
     <mapping class="com.dstevens.characters.changes.SetMerit"/>
     <mapping class="com.dstevens.characters.changes.SetFlaw"/>
+    <mapping class="com.dstevens.characters.changes.SetAttributeFocus"/>
+    <mapping class="com.dstevens.characters.changes.SetAttribute"/>
+    
     
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>

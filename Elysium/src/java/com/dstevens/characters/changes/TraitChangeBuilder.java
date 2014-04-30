@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.dstevens.characters.attributes.AttributeFocus;
 import com.dstevens.characters.backgrounds.*;
 import com.dstevens.characters.distinctions.*;
 import com.dstevens.characters.powers.*;
@@ -175,5 +176,37 @@ public class TraitChangeBuilder {
 
     public SetTrait setTechnique(Technique power) {
         return new SetEnumeratedTrait(TraitChangeStatus.PENDING, power, TraitFactory.TECHNIQUE);
+    }
+    
+    public SetTrait setPhysicalAttributeTo(int rating) {
+        return setAttribute(rating, AttributeFactory.PHYSICAL);
+    }
+    
+    public SetTrait addPhysicalAttributeFocus(AttributeFocus focus) {
+        return setAttribute(focus, AttributeFactory.PHYSICAL);
+    }
+    
+    public SetTrait setMentalAttributeTo(int rating) {
+        return setAttribute(rating, AttributeFactory.MENTAL);
+    }
+    
+    public SetTrait addMentalAttributeFocus(AttributeFocus focus) {
+        return setAttribute(focus, AttributeFactory.MENTAL);
+    }
+    
+    public SetTrait setSocialAttributeTo(int rating) {
+        return setAttribute(rating, AttributeFactory.SOCIAL);
+    }
+    
+    public SetTrait addSocialAttributeFocus(AttributeFocus focus) {
+        return setAttribute(focus, AttributeFactory.SOCIAL);
+    }
+    
+    private SetTrait setAttribute(int rating, AttributeFactory factory) {
+        return new SetAttribute(TraitChangeStatus.PENDING, rating, factory);
+    }
+    
+    private SetTrait setAttribute(AttributeFocus focus, AttributeFactory factory) {
+        return new SetAttributeFocus(TraitChangeStatus.PENDING, focus, factory);
     }
 }
