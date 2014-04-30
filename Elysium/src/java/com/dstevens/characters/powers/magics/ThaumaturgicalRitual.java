@@ -1,5 +1,6 @@
 package com.dstevens.characters.powers.magics;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.EnumeratedTrait;
 
 public enum ThaumaturgicalRitual implements EnumeratedTrait<ThaumaturgicalRitual> {
@@ -52,6 +53,11 @@ public enum ThaumaturgicalRitual implements EnumeratedTrait<ThaumaturgicalRitual
     @Override
     public ThaumaturgicalRitual trait() {
         return this;
+    }
+    
+    @Override
+    public PlayerCharacter applyTo(PlayerCharacter character) {
+        return character.withThaumaturgicalRitual(this);
     }
     
 }

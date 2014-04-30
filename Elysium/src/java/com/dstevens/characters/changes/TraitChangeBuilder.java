@@ -175,18 +175,18 @@ public class TraitChangeBuilder {
     }
 
     public SetTrait setThaumaturgicalRitual(ThaumaturgicalRitual power) {
-        return new SetThaumaturgicalRitual(idSupplier.get(), TraitChangeStatus.PENDING, power);
+        return new SetEnumeratedTrait(TraitChangeStatus.PENDING, power, TraitFactory.THAUMATURGICAL_RITUAL);
     }
 
     public SetTrait setNecromanticRitual(NecromanticRitual power) {
-        return new SetNecromanticRitual(idSupplier.get(), TraitChangeStatus.PENDING, power);
+        return new SetEnumeratedTrait(TraitChangeStatus.PENDING, power, TraitFactory.NECROMANTIC_RITUAL);
     }
 
     public SetTrait setElderPower(ElderPower power) {
-        return new SetElderPower(idSupplier.get(), TraitChangeStatus.PENDING, power);
+        return new SetEnumeratedTrait(TraitChangeStatus.PENDING, power, TraitFactory.ELDER_POWER);
     }
 
     public SetTrait setTechnique(Technique power) {
-        return new SetTechnique(idSupplier.get(), TraitChangeStatus.PENDING, power);
+        return new SetEnumeratedTrait(TraitChangeStatus.PENDING, power, TraitFactory.TECHNIQUE);
     }
 }

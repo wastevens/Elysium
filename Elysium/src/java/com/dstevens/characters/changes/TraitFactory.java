@@ -28,7 +28,6 @@ public enum TraitFactory {
             return CharacterSkill.skillFor(trait(ordinal), rating, specialization, focuses);
         }
 
-
         @SuppressWarnings("unchecked")
         @Override
         public <E extends Enum<?>> E trait(int ordinal) {
@@ -40,7 +39,6 @@ public enum TraitFactory {
         public RatedTrait<?> traitFor(int ordinal, int rating) {
             return new CharacterDiscipline(trait(ordinal), rating);
         }
-
 
         @SuppressWarnings("unchecked")
         @Override
@@ -54,7 +52,6 @@ public enum TraitFactory {
             return new CharacterThaumaturgy(trait(ordinal), rating);
         }
 
-
         @SuppressWarnings("unchecked")
         @Override
         public <E extends Enum<?>> E trait(int ordinal) {
@@ -67,11 +64,58 @@ public enum TraitFactory {
             return new CharacterNecromancy(trait(ordinal), rating);
         }
 
-
         @SuppressWarnings("unchecked")
         @Override
         public <E extends Enum<?>> E trait(int ordinal) {
             return (E) Necromancy.values()[ordinal];
+        }
+    }, 
+    THAUMATURGICAL_RITUAL {
+        @Override
+        public EnumeratedTrait<?> traitFor(int ordinal) {
+            return ThaumaturgicalRitual.values()[ordinal];
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <E extends Enum<?>> E trait(int ordinal) {
+            return (E) ThaumaturgicalRitual.values()[ordinal];
+        }
+    },
+    NECROMANTIC_RITUAL {
+        @Override
+        public EnumeratedTrait<?> traitFor(int ordinal) {
+            return NecromanticRitual.values()[ordinal];
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <E extends Enum<?>> E trait(int ordinal) {
+            return (E) NecromanticRitual.values()[ordinal];
+        }
+    },
+    ELDER_POWER {
+        @Override
+        public EnumeratedTrait<?> traitFor(int ordinal) {
+            return ElderPower.values()[ordinal];
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <E extends Enum<?>> E trait(int ordinal) {
+            return (E) ElderPower.values()[ordinal];
+        }
+    },
+    TECHNIQUE {
+        @Override
+        public EnumeratedTrait<?> traitFor(int ordinal) {
+            return Technique.values()[ordinal];
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <E extends Enum<?>> E trait(int ordinal) {
+            return (E) Technique.values()[ordinal];
         }
     };
     

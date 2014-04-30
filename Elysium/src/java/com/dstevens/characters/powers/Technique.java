@@ -5,6 +5,7 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.EnumeratedTrait;
 
 public enum Technique implements EnumeratedTrait<Technique> {
@@ -61,6 +62,11 @@ public enum Technique implements EnumeratedTrait<Technique> {
     @Override
     public Technique trait() {
         return this;
+    }
+    
+    @Override
+    public PlayerCharacter applyTo(PlayerCharacter character) {
+        return character.withTechnique(this);
     }
     
 }

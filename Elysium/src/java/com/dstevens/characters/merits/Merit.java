@@ -1,5 +1,6 @@
 package com.dstevens.characters.merits;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.*;
 
 public interface Merit<T extends Enum<?>> extends EnumeratedTrait<T>, TypedTrait {
@@ -8,5 +9,9 @@ public interface Merit<T extends Enum<?>> extends EnumeratedTrait<T>, TypedTrait
     
     default String getType() {
         return this.getClass().getAnnotation(MeritAnnotation.class).value();
+    }
+    
+    default PlayerCharacter applyTo(PlayerCharacter character) {
+        throw new IllegalStateException("Merits do not implement applyTo!");
     }
 }

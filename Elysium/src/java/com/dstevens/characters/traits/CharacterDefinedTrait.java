@@ -2,15 +2,12 @@ package com.dstevens.characters.traits;
 
 import java.util.*;
 
-import com.dstevens.characters.PlayerCharacter;
-
 import org.apache.commons.lang3.builder.*;
 
 public interface CharacterDefinedTrait<T extends Enum<?>> extends RatedTrait<T> {
 
     String getSpecialization();
     Set<String> getFocuses();
-    PlayerCharacter applyTo(PlayerCharacter character);
     
     default boolean characterDefinedTraitEquals(Object that) {
         return EqualsBuilder.reflectionEquals(this, that, "id");

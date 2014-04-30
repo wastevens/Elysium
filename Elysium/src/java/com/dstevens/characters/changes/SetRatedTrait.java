@@ -11,9 +11,6 @@ public class SetRatedTrait extends SetEnumeratedTrait {
     @Column(name="rating")
     private final int rating;
     
-    @Column(name="factory")
-    final TraitFactory factory;
-    
     //Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
@@ -26,9 +23,8 @@ public class SetRatedTrait extends SetEnumeratedTrait {
     }
     
     protected SetRatedTrait(TraitChangeStatus status, int ordinal, int rating, TraitFactory factory) {
-        super(status, ordinal);
+        super(status, ordinal, factory);
         this.rating = rating;
-        this.factory = factory;
     }
 
     protected final int rating() {

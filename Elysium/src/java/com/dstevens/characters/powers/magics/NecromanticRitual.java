@@ -1,5 +1,6 @@
 package com.dstevens.characters.powers.magics;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.EnumeratedTrait;
 
 public enum NecromanticRitual implements EnumeratedTrait<NecromanticRitual> {
@@ -43,6 +44,11 @@ public enum NecromanticRitual implements EnumeratedTrait<NecromanticRitual> {
     @Override
     public NecromanticRitual trait() {
         return this;
+    }
+    
+    @Override
+    public PlayerCharacter applyTo(PlayerCharacter character) {
+        return character.withNecromanticRitual(this);
     }
     
 }

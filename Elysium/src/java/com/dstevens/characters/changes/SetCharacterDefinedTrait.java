@@ -49,9 +49,4 @@ public class SetCharacterDefinedTrait extends SetRatedTrait {
     private boolean isPresent(String specialization) {
         return specialization != null && !specialization.isEmpty();
     }
-    
-    @Override
-    public <E> E trait() {
-        throw new RuntimeException("No longer used");
-    }
 }

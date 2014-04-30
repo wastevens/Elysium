@@ -1,5 +1,6 @@
 package com.dstevens.characters.powers;
 
+import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.EnumeratedTrait;
 
 public enum ElderPower implements EnumeratedTrait<ElderPower> {
@@ -80,6 +81,11 @@ public enum ElderPower implements EnumeratedTrait<ElderPower> {
     @Override
     public ElderPower trait() {
         return this;
+    }
+
+    @Override
+    public PlayerCharacter applyTo(PlayerCharacter character) {
+        return character.withElderPower(this);
     }
     
 }
