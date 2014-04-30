@@ -5,7 +5,6 @@ import static com.dstevens.collections.Sets.*;
 
 import java.util.*;
 import java.util.function.Function;
-
 import javax.persistence.*;
 
 import com.dstevens.characters.attributes.*;
@@ -249,57 +248,33 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withPhysicalAttribute(int physicalAttribute) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
-                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
-                                   skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                                   disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
-                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
-                                   traitChangeEvents, deleteTimestamp);
+        this.physicalAttribute = physicalAttribute;
+        return this;
     }
     
     public PlayerCharacter withMentalAttribute(int mentalAttribute) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
-                physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
-                skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
-                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
-                traitChangeEvents, deleteTimestamp);
+        this.mentalAttribute = mentalAttribute;
+        return this;
     }
     
     public PlayerCharacter withSocialAttribute(int socialAttribute) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
-                physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
-                skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
-                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
-                traitChangeEvents, deleteTimestamp);
+        this.socialAttribute = socialAttribute;
+        return this;
     }
     
     public PlayerCharacter withPhysicalAttributeFocus(PhysicalAttributeFocus focus) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
-                setWith(physicalAttributeFocuses, focus), mentalAttrbuteFocuses, socialAttributeFocuses, 
-                skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
-                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
-                traitChangeEvents, deleteTimestamp);
+        this.physicalAttributeFocuses = setWith(physicalAttributeFocuses, focus);
+        return this;
     }
     
     public PlayerCharacter withMentalAttributeFocus(MentalAttributeFocus focus) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
-                physicalAttributeFocuses, setWith(mentalAttrbuteFocuses, focus), socialAttributeFocuses, 
-                skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
-                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
-                traitChangeEvents, deleteTimestamp);
+        this.mentalAttrbuteFocuses = setWith(mentalAttrbuteFocuses, focus);
+        return this;
     }
     
     public PlayerCharacter withSocialAttributeFocus(SocialAttributeFocus focus) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute, 
-                physicalAttributeFocuses, mentalAttrbuteFocuses, setWith(socialAttributeFocuses, focus), 
-                skills, backgrounds, inClanDisciplines, inClanThaumaturgicalPaths, inClanNecromanticPaths, 
-                disciplines, elderPowers, techniques, thaumaturgicalPaths, primaryThaumaturgicalPath, 
-                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath, necromanticRituals, merits, flaws, 
-                traitChangeEvents, deleteTimestamp);
+        this.socialAttributeFocuses = setWith(socialAttributeFocuses, focus);
+        return this;
     }
     
     public Set<CharacterSkill> getSkills() {
