@@ -18,15 +18,15 @@ class SetThaumaturgy extends SetRatedTrait {
     }
     
     protected SetThaumaturgy(String id, TraitChangeStatus status, CharacterThaumaturgy power) {
-        super(id, status, power);
+        super(status, power);
     }
     
     protected SetThaumaturgy(String id, TraitChangeStatus status, Thaumaturgy power, int rating) {
-        super(id, status, power.ordinal(), rating);
+        super(status, power.ordinal(), rating);
     }
     
     protected SetThaumaturgy(String id, TraitChangeStatus status, int ordinal, int rating) {
-        super(id, status, ordinal, rating);
+        super(status, ordinal, rating);
     }
 
     @Override

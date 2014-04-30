@@ -36,7 +36,7 @@ class SetFlaw extends SetTrait {
     }
     
     protected SetFlaw(String id, TraitChangeStatus status, int ordinal, String typeIdentifier, String details) {
-        super(id, status);
+        super(status);
         this.ordinal = ordinal;
         this.typeIdentifier = typeIdentifier;
         this.details = details;

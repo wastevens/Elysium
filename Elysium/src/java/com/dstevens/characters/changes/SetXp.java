@@ -19,12 +19,12 @@ class SetXp extends SetTrait {
     }
     
     protected SetXp(String id, TraitChangeStatus status, int xp) {
-        super(id, status, null);
+        super(status, null);
         this.xp = xp;
     }
     
     protected SetXp(String id, TraitChangeStatus status, int xp, SetTrait associatedTrait) {
-        super(id, status, associatedTrait);
+        super(status, associatedTrait);
         this.xp = xp;
     }
     

@@ -18,15 +18,15 @@ class SetDiscipline extends SetRatedTrait {
     }
     
     protected SetDiscipline(String id, TraitChangeStatus status, CharacterDiscipline power) {
-        super(id, status, power);
+        super(status, power);
     }
     
     protected SetDiscipline(String id, TraitChangeStatus status, Discipline power, int rating) {
-        super(id, status, power.ordinal(), rating);
+        super(status, power.ordinal(), rating);
     }
     
     protected SetDiscipline(String id, TraitChangeStatus status, int ordinal, int rating) {
-        super(id, status, ordinal, rating);
+        super(status, ordinal, rating);
     }
 
     @Override

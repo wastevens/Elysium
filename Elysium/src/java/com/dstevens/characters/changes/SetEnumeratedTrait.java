@@ -11,12 +11,12 @@ abstract class SetEnumeratedTrait extends SetTrait {
     @Column(name="ordinal")
     private final int ordinal;
     
-    protected SetEnumeratedTrait(String id, TraitChangeStatus status, EnumeratedTrait<?> trait) {
-        this(id, status, trait.ordinal());
+    protected SetEnumeratedTrait(TraitChangeStatus status, EnumeratedTrait<?> trait) {
+        this(status, trait.ordinal());
     }
     
-    protected SetEnumeratedTrait(String id, TraitChangeStatus status, int ordinal) {
-        super(id, status);
+    protected SetEnumeratedTrait(TraitChangeStatus status, int ordinal) {
+        super(status);
         this.ordinal = ordinal;
     }
 

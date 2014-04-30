@@ -18,11 +18,11 @@ class SetNecromanticRitual extends SetEnumeratedTrait {
     }
     
     protected SetNecromanticRitual(String id, TraitChangeStatus status, NecromanticRitual power) {
-        super(id, status, power);
+        super(status, power);
     }
     
     protected SetNecromanticRitual(String id, TraitChangeStatus status, int ordinal) {
-        super(id, status, ordinal);
+        super(status, ordinal);
     }
 
     @Override

@@ -18,11 +18,11 @@ class SetThaumaturgicalRitual extends SetEnumeratedTrait {
     }
     
     protected SetThaumaturgicalRitual(String id, TraitChangeStatus status, ThaumaturgicalRitual power) {
-        super(id, status, power);
+        super(status, power);
     }
     
     protected SetThaumaturgicalRitual(String id, TraitChangeStatus status, int ordinal) {
-        super(id, status, ordinal);
+        super(status, ordinal);
     }
 
     @Override

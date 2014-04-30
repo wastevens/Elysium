@@ -3,6 +3,7 @@ package com.dstevens.characters.changes;
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
@@ -24,15 +25,15 @@ public abstract class SetTrait {
     @SuppressWarnings("unused")
     @Deprecated
     private SetTrait() {
-        this(null, null);
+        this(null);
     }
     
-    protected SetTrait(String id, TraitChangeStatus status) {
-        this(id, status, null);
+    protected SetTrait(TraitChangeStatus status) {
+        this(status, null);
     }
     
-    protected SetTrait(String id, TraitChangeStatus status, SetTrait associatedTrait) {
-        this.id = id;
+    protected SetTrait(TraitChangeStatus status, SetTrait associatedTrait) {
+        this.id = new IdSupplier().get();
         this.status = status;
         this.associatedTrait = associatedTrait;
     }

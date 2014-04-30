@@ -67,7 +67,7 @@ public class TraitChangeBuilder {
         }
         
         public final SetTrait getEvent() {
-            return new SetSkill(idSupplier.get(), TraitChangeStatus.PENDING, 
+            return new SetSkill(TraitChangeStatus.PENDING, 
                                 CharacterSkill.skillFor(trait, rating, specialization, focuses));
         }
     }

@@ -18,11 +18,11 @@ class SetElderPower extends SetEnumeratedTrait {
     }
     
     protected SetElderPower(String id, TraitChangeStatus status, ElderPower power) {
-        super(id, status, power);
+        super(status, power);
     }
     
     protected SetElderPower(String id, TraitChangeStatus status, int ordinal) {
-        super(id, status, ordinal);
+        super(status, ordinal);
     }
 
     @Override

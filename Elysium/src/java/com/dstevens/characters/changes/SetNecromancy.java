@@ -18,15 +18,15 @@ class SetNecromancy extends SetRatedTrait {
     }
     
     protected SetNecromancy(String id, TraitChangeStatus status, CharacterNecromancy power) {
-        super(id, status, power);
+        super(status, power);
     }
 
     protected SetNecromancy(String id, TraitChangeStatus status, Necromancy power, int rating) {
-        super(id, status, power.ordinal(), rating);
+        super(status, power.ordinal(), rating);
     }
     
     protected SetNecromancy(String id, TraitChangeStatus status, int ordinal, int rating) {
-        super(id, status, ordinal, rating);
+        super(status, ordinal, rating);
     }
 
     @Override

@@ -14,15 +14,15 @@ class SetSkill extends SetCharacterDefinedTrait {
     //Hibernate only
     @Deprecated
     private SetSkill() {
-        super(null, null, 0, 0, null, null);
+        super(null, 0, 0, null, null);
     }
     
-    protected SetSkill(String id, TraitChangeStatus status, CharacterSkill skill) {
-        super(id, status, skill);
+    protected SetSkill(TraitChangeStatus status, CharacterSkill skill) {
+        super(status, skill);
     }
     
-    protected SetSkill(String id, TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
-        super(id, status, ordinal, rating, specialization, focuses);
+    protected SetSkill(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+        super(status, ordinal, rating, specialization, focuses);
     }
 
     @Override

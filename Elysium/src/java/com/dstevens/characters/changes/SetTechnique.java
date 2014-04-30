@@ -18,11 +18,11 @@ class SetTechnique extends SetEnumeratedTrait {
     }
     
     protected SetTechnique(String id, TraitChangeStatus status, Technique power) {
-        super(id, status, power);
+        super(status, power);
     }
     
     protected SetTechnique(String id, TraitChangeStatus status, int ordinal) {
-        super(id, status, ordinal);
+        super(status, ordinal);
     }
 
     @Override

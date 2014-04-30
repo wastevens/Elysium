@@ -34,7 +34,7 @@ class SetMerit extends SetTrait {
     }
     
     private SetMerit(String id, TraitChangeStatus status, int meritId, String meritType, String details, SetTrait associatedTrait) {
-        super(id, status, associatedTrait);
+        super(status, associatedTrait);
         this.meritId = meritId;
         this.meritType = meritType;
         this.details = details;
