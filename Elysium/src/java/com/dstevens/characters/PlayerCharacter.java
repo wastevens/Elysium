@@ -53,87 +53,54 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private SocialAttribute socialAttribute;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinColumn(name="character_id", referencedColumnName="id")
     private final Set<CharacterSkill> skills;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinColumn(name="character_id", referencedColumnName="id")
     private final Set<CharacterBackground> backgrounds;
 
     @ElementCollection
-    @CollectionTable(
-            name="CharacterDisciplines",
-            joinColumns=@JoinColumn(name="character_id")
-            )
     private final Set<CharacterDiscipline> disciplines;
     
     @ElementCollection
-    @CollectionTable(name="InClanDisciplines")
-    @Column(name="in_clan_discipline")
     private final Set<Discipline> inClanDisciplines;
 
     @ElementCollection
-    @CollectionTable(name="InClanThaumaturgy")
-    @Column(name="in_clan_thaumaturgy")
     private final Set<Thaumaturgy> inClanThaumaturgicalPaths;
     
     @ElementCollection
-    @CollectionTable(name="InClanNecromancy")
-    @Column(name="in_clan_necromancy")
     private final Set<Necromancy> inClanNecromanticPaths;
     
     @ElementCollection
-    @CollectionTable(name="CharacterElderPowers")
-    @Column(name="elder_power")
     private final Set<ElderPower> elderPowers;
     
     @ElementCollection
-    @CollectionTable(name="CharacterTechniques")
-    @Column(name="technique")
     private final Set<Technique> techniques;
     
     @ElementCollection
-    @CollectionTable(
-            name="CharacterThamaturgicalPaths",
-            joinColumns=@JoinColumn(name="character_id")
-            )
     private final Set<CharacterThaumaturgy> thaumaturgicalPaths;
     
     @Column(name="primary_thaumaturgical_path")
     private Thaumaturgy primaryThaumaturgicalPath;
     
     @ElementCollection
-    @CollectionTable(name="CharacterThamaturgicalRituals")
-    @Column(name="thaumaturgical_ritual")
     private final Set<ThaumaturgicalRitual> thaumaturgicalRituals;
     
     @ElementCollection
-    @CollectionTable(
-            name="CharacterNecromanticPaths",
-            joinColumns=@JoinColumn(name="character_id")
-            )
     private final Set<CharacterNecromancy> necromanticPaths;
     
     @Column(name="primary_necromantic_path")
     private Necromancy primaryNecromanticPath;
     
     @ElementCollection
-    @CollectionTable(name="CharacterThamaturgicalRituals")
-    @Column(name="neromantic_ritual")
     private final Set<NecromanticRitual> necromanticRituals;
     
     @ElementCollection
-    @CollectionTable(name="CharacterMerits") 
-    @Column(name="merit")
     private final Set<CharacterMerit> merits;
     
     @ElementCollection
-    @CollectionTable(name="CharacterFlaws") 
-    @Column(name="flaw")
     private final Set<CharacterFlaw> flaws;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinColumn(name="character_id", referencedColumnName="id")
     @OrderColumn(name="order_by")
     private final List<SetTrait> traitChangeEvents;
     

@@ -12,9 +12,7 @@ abstract class SetCharacterDefinedTrait extends SetRatedTrait {
     @Column(name="specialization")
     private final String specialization;
     
-    @ElementCollection(fetch=FetchType.EAGER)
-    @CollectionTable(name="TraitChangeFocuses")
-    @Column(name="focus")
+    @ElementCollection
     private final Set<String> focuses;
     
     protected SetCharacterDefinedTrait(String id, TraitChangeStatus status, CharacterDefinedTrait<?> trait) {

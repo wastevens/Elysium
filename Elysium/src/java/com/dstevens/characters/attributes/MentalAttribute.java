@@ -17,8 +17,6 @@ public class MentalAttribute {
     private int rating;
     
     @ElementCollection
-    @CollectionTable(name="MentalAttributeFocus", joinColumns=@JoinColumn(name="character_id"))
-    @Column(name="focuses")
     private final Set<Focus> focuses;
     
     //Hibernate only

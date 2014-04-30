@@ -12,7 +12,7 @@ import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
-@Table(name="CharacterBackgrounds")
+@Table(name="Backgrounds")
 public class CharacterBackground implements CharacterDefinedTrait<Background>, Comparable<CharacterBackground> {
     
     @Id
@@ -28,8 +28,6 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     private int rating;
     
     @ElementCollection
-    @CollectionTable(name="CharacterBackgroundFocuses")
-    @Column(name="focus")
     private Set<String> focuses;
 
     //Hibernate only

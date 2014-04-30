@@ -11,7 +11,7 @@ import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
-@Table(name="CharacterSkills")
+@Table(name="Skills")
 public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<CharacterSkill> {
     
     @Id
@@ -27,8 +27,6 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     private int rating;
     
     @ElementCollection
-    @CollectionTable(name="CharacterSkillFocuses")
-    @Column(name="focus")
     private Set<String> focuses;
 
     //Hibernate only
