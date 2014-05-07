@@ -6,7 +6,7 @@ import com.dstevens.characters.PlayerCharacter;
 
 @Entity
 @DiscriminatorValue("SpendXP")
-class SpendXp extends SetTrait {
+public class SpendXp extends SetTrait {
 
     @Column(name="rating")
     private int xp;
@@ -18,12 +18,12 @@ class SpendXp extends SetTrait {
         this(null, 0);
     }
     
-    protected SpendXp(TraitChangeStatus status, int xp) {
+    public SpendXp(TraitChangeStatus status, int xp) {
         super(status, null);
         this.xp = xp;
     }
     
-    protected SpendXp(TraitChangeStatus status, int xp, SetTrait associatedTrait) {
+    public SpendXp(TraitChangeStatus status, int xp, SetTrait associatedTrait) {
         super(status, associatedTrait);
         this.xp = xp;
     }

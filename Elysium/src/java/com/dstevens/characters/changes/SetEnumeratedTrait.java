@@ -36,6 +36,10 @@ public class SetEnumeratedTrait extends SetTrait {
         return ordinal;
     }
 
+    public final EnumeratedTrait<?> trait() {
+        return factory.traitFor(ordinal);
+    }
+    
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
         return factory.traitFor(ordinal).applyTo(character);

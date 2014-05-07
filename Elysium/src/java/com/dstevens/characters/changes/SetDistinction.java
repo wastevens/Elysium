@@ -7,7 +7,7 @@ import com.dstevens.characters.distinctions.Distinction;
 
 @Entity
 @DiscriminatorValue("Distinction")
-class SetDistinction extends SetTrait {
+public class SetDistinction extends SetTrait {
 
     @Column(name="ordinal")
     private final int ordinal;
@@ -28,11 +28,15 @@ class SetDistinction extends SetTrait {
         this(null, 0, null, null, null, null);
     }
     
-    protected SetDistinction(TraitChangeStatus status, Distinction<?> merit, String details, DistinctionFactory factory) {
+    public SetDistinction(TraitChangeStatus status, Distinction<?> merit, DistinctionFactory factory) {
+        this(status, merit.ordinal(), merit.getType(), null, null, factory);
+    }
+    
+    public SetDistinction(TraitChangeStatus status, Distinction<?> merit, String details, DistinctionFactory factory) {
         this(status, merit.ordinal(), merit.getType(), details, null, factory);
     }
     
-    protected SetDistinction(TraitChangeStatus status, Distinction<?> merit, String details, SetTrait associatedTrait, DistinctionFactory factory) {
+    public SetDistinction(TraitChangeStatus status, Distinction<?> merit, String details, SetTrait associatedTrait, DistinctionFactory factory) {
         this(status, merit.ordinal(), merit.getType(), details, associatedTrait, factory);
     }
     
