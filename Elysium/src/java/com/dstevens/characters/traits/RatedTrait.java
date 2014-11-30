@@ -2,7 +2,8 @@ package com.dstevens.characters.traits;
 
 import java.util.Comparator;
 
-import org.apache.commons.lang3.builder.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 public interface RatedTrait<T extends Enum<?>> extends EnumeratedTrait<T> {

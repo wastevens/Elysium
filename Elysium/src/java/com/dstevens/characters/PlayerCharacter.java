@@ -313,7 +313,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
 
 	public PlayerCharacter withoutSkill(CharacterSkill skill) {
-		this.skills.removeIf(CharacterSkill.matching(skill));
+		this.skills.removeIf(skill.matches());
         return this;
     }
 
@@ -327,7 +327,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withoutBackground(CharacterBackground background) {
-    	this.backgrounds.removeIf(CharacterBackground.matching(background));
+    	this.backgrounds.removeIf(background.matches());
         return this;
     }
     
@@ -375,7 +375,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withoutDiscipline(CharacterDiscipline power) {
-    	this.disciplines.removeIf(CharacterDiscipline.matching(power));
+    	this.disciplines.removeIf(power.matches());
         return this;
     }
     
@@ -412,12 +412,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withThaumaturgicalPath(CharacterThaumaturgy path) {
-        this.thaumaturgicalPaths.add(path);
+        this.withoutThaumaturgicalPath(path).thaumaturgicalPaths.add(path);
         return this;
     }
     
     public PlayerCharacter withoutThaumaturgicalPath(CharacterThaumaturgy path) {
-        this.thaumaturgicalPaths.remove(path);
+    	this.thaumaturgicalPaths.removeIf(path.matches());
         return this;
     }
     
@@ -449,12 +449,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withNecromanticPath(CharacterNecromancy path) {
-        this.necromanticPaths.add(path);
+        this.withoutNecromanticPath(path).necromanticPaths.add(path);
         return this;
     }
     
     public PlayerCharacter withoutNecromanticPath(CharacterNecromancy path) {
-        this.necromanticPaths.remove(path);
+    	this.necromanticPaths.removeIf(path.matches());
         return this;
     }
     

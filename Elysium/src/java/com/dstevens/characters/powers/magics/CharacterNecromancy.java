@@ -1,10 +1,11 @@
 package com.dstevens.characters.powers.magics;
 
-import javax.persistence.*;
-
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
+
+import javax.persistence.Basic;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class CharacterNecromancy implements Comparable<CharacterNecromancy>, RatedTrait<Necromancy> {

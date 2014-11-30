@@ -1,10 +1,11 @@
 package com.dstevens.characters.powers.magics;
 
-import javax.persistence.*;
-
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
+
+import javax.persistence.Basic;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, RatedTrait<Thaumaturgy> {
@@ -12,7 +13,7 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, R
     @Basic(optional=false)
     private final Thaumaturgy trait;
     private int rating;
-    
+
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
