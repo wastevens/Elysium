@@ -19,12 +19,12 @@
     <mapping class="com.dstevens.characters.changes.SetEnumeratedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetRatedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetCharacterDefinedTrait"/>
+    <mapping class="com.dstevens.characters.changes.SetDistinction"/>
     <mapping class="com.dstevens.characters.changes.GainXp"/>
     <mapping class="com.dstevens.characters.changes.SpendXp"/>
-    <mapping class="com.dstevens.characters.changes.SetMerit"/>
-    <mapping class="com.dstevens.characters.changes.SetFlaw"/>
     <mapping class="com.dstevens.characters.changes.SetAttributeFocus"/>
     <mapping class="com.dstevens.characters.changes.SetAttribute"/>
+    <mapping class="com.dstevens.characters.changes.IncreaseAttribute"/>
     
     
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
