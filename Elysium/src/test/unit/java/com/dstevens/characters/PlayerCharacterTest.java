@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.dstevens.characters.backgrounds.Background;
+import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.characters.skills.Skill;
 import com.dstevens.testing.EqualityTester;
@@ -103,7 +105,6 @@ public class PlayerCharacterTest {
     	assertEquals(set(), characterWithoutAnimalKen.getSkills());
     }
     
-    
     @Test
     public void testWithoutSkillWhenNoMatchingSkillFound() {
     	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME).
@@ -117,5 +118,101 @@ public class PlayerCharacterTest {
     			         CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("foo", "bar")),
     			         CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry")), 
     			     characterWithoutAnimalKen.getSkills());
+    }
+    
+    @Test
+    public void testWithBackground() {
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME).
+    			withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 2)).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar"))).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy"));
+    	
+    	assertEquals(set(CharacterBackground.backgroundFor(Background.GENERATION, 2), 
+    			         CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar")), 
+    			         CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy")) , 
+    			     characterWithBackgrounds.getBackgrounds());
+    }
+    
+    @Test
+    public void testWithBackgroundWillReplaceExistingSkills() {
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME).
+    			withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 2)).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar"))).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy"));
+    	
+    	PlayerCharacter characterWithReplacedBackgrounds = characterWithBackgrounds.
+    			withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 3)).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 1, set("baz"))).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 5, "Another totally awesome guy"));
+    	
+    	assertEquals(set(CharacterBackground.backgroundFor(Background.GENERATION, 3), 
+    			         CharacterBackground.backgroundFor(Background.ALLIES, 1, set("baz")), 
+		                 CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy"),
+		                 CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 5, "Another totally awesome guy")), 
+		         characterWithReplacedBackgrounds.getBackgrounds());
+    }
+    
+    @Test
+    public void testWithoutBackground() {
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME).
+    			withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 2)).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar"))).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy"));
+    	
+    	PlayerCharacter characterWithoutGeneration = characterWithBackgrounds.withoutBackground(CharacterBackground.backgroundFor(Background.GENERATION, 2));
+    	
+    	assertEquals(set(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar")),
+    			         CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy")), 
+    			     characterWithoutGeneration.getBackgrounds());
+    }
+    
+    @Test
+    public void testWithoutBackgroundWhenBackgroundHasSpeciality() {
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 3, "Totally awesome guy")).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Another Totally awesome guy"));
+    	
+    	PlayerCharacter characterWithoutAlternateId = characterWithBackgrounds.withoutBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 3, "Totally awesome guy"));
+    	
+    	assertEquals(set(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Another Totally awesome guy")), 
+    			     characterWithoutAlternateId.getBackgrounds());
+    }
+    
+    @Test
+    public void testWithoutBackgroundDoesNotConsiderRating() {
+    	int rating = 3;
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, rating, "Totally awesome guy")).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, rating, "Another Totally awesome guy"));
+    	
+    	PlayerCharacter characterWithoutAlternateId = characterWithBackgrounds.withoutBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, rating+1, "Another Totally awesome guy"));
+    	
+    	assertEquals(set(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, rating, "Totally awesome guy")), 
+    			     characterWithoutAlternateId.getBackgrounds());
+    }
+    
+    @Test
+    public void testWithoutBackgroundDoesNotConsiderFocuses() {
+    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar")));
+    	
+    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("baz")));
+    	
+    	assertEquals(set(), characterWithoutAnimalKen.getBackgrounds());
+    }
+    
+    @Test
+    public void testWithoutBackgroundWhenNoMatchingBackgroundFound() {
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME).
+    			withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 2)).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar"))).
+    			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy"));
+    	
+    	PlayerCharacter characterStillWithBackgrounds = characterWithBackgrounds.withoutBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 2, "Who?"));
+    	
+    	assertEquals(set(CharacterBackground.backgroundFor(Background.GENERATION, 2),
+    			         CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar")),
+    			         CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy")), 
+    			         characterStillWithBackgrounds.getBackgrounds());
     }
 }

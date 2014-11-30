@@ -1,20 +1,15 @@
 package com.dstevens.characters;
 
+import static com.dstevens.collections.Lists.list;
+
+import static com.dstevens.collections.Sets.set;
+import static com.dstevens.collections.Sets.setWith;
+
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
 
 import com.dstevens.characters.attributes.MentalAttributeFocus;
 import com.dstevens.characters.attributes.PhysicalAttributeFocus;
@@ -40,9 +35,15 @@ import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 
-import static com.dstevens.collections.Lists.list;
-import static com.dstevens.collections.Sets.set;
-import static com.dstevens.collections.Sets.setWith;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="PlayerCharacter")
@@ -324,15 +325,14 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withBackground(CharacterBackground background) {
-    	this.backgrounds.stream().
-        				 filter(CharacterBackground.matching(background)).
-        				 findFirst().ifPresent((CharacterBackground t) -> this.backgrounds.remove(t));
-        this.backgrounds.add(background);
+    	this.withoutBackground(background).backgrounds.add(background);
         return this;
     }
     
     public PlayerCharacter withoutBackground(CharacterBackground background) {
-        this.backgrounds.remove(background);
+    	this.backgrounds.stream().
+    	                 filter(CharacterBackground.matching(background)).
+    	                 findFirst().ifPresent((CharacterBackground t) -> this.backgrounds.remove(t));
         return this;
     }
     
