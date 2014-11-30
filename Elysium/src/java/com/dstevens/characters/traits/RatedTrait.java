@@ -10,11 +10,11 @@ public interface RatedTrait<T extends Enum<?>> extends EnumeratedTrait<T> {
     int rating();
     
     default boolean ratedTraitEquals(Object that) {
-        return EqualsBuilder.reflectionEquals(this, that, "rating");
+        return EqualsBuilder.reflectionEquals(this, that);
     }
     
     default int ratedTraitHashcode() {
-        return HashCodeBuilder.reflectionHashCode(this, "rating");
+        return HashCodeBuilder.reflectionHashCode(this);
     }
     
     default Comparator<? super RatedTrait<T>> ratedTraitComparator() {

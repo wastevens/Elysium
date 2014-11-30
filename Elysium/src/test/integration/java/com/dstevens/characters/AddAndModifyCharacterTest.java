@@ -139,9 +139,9 @@ public class AddAndModifyCharacterTest {
         assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getBloodline(), Bloodline.TOREADOR);
 		assertEquals(4, maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttribute());
 		assertEquals(set(PhysicalAttributeFocus.DEXTERITY), maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttributeFocuses());
-		assertEquals(8, maryWollstonecraftWithExperienceSpentAndApproved.getSocialAttribute());
+		assertEquals(6, maryWollstonecraftWithExperienceSpentAndApproved.getSocialAttribute());
 		assertEquals(set(SocialAttributeFocus.MANIPULATION), maryWollstonecraftWithExperienceSpentAndApproved.getSocialAttributeFocuses());
-		assertEquals(10, maryWollstonecraftWithExperienceSpentAndApproved.getMentalAttribute());
+		assertEquals(8, maryWollstonecraftWithExperienceSpentAndApproved.getMentalAttribute());
 		assertEquals(set(MentalAttributeFocus.PERCEPTION, MentalAttributeFocus.WITS), maryWollstonecraftWithExperienceSpentAndApproved.getMentalAttributeFocuses());
 		assertEquals(set(CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("Philosophy", "Latin Poetry", "Greek Poetry")),
 				         CharacterSkill.skillFor(Skill.AWARENESS, 1),
@@ -157,7 +157,8 @@ public class AddAndModifyCharacterTest {
 				     maryWollstonecraftWithExperienceSpentAndApproved.getSkills());
 		assertEquals(set(CharacterBackground.backgroundFor(Background.FAME, 3, "Writing"),
 				         CharacterBackground.backgroundFor(Background.RESOURCES, 2),
-				         CharacterBackground.backgroundFor(Background.GENERATION, 1)), 
+				         CharacterBackground.backgroundFor(Background.GENERATION, 1),
+				         CharacterBackground.backgroundFor(Background.HAVEN, 1, "Luxury Home", set("Luxury"))), 
 		             maryWollstonecraftWithExperienceSpentAndApproved.getBackgrounds());
 		assertEquals(set(new CharacterDiscipline(Discipline.AUSPEX, 1), 
 				         new CharacterDiscipline(Discipline.CELERITY, 1), 
@@ -170,7 +171,7 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(new CharacterFlaw(GeneralFlaw.CURIOUSITY),
 		                 new CharacterFlaw(GeneralFlaw.LESSER_GENERATION_2)), 
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
-		assertEquals(2, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
+		assertEquals(13, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
     }
 
     private void createMaryWollstonecraft() {
@@ -203,6 +204,7 @@ public class AddAndModifyCharacterTest {
                                              withBackground(CharacterBackground.backgroundFor(Background.FAME, 3, "Writing")).
                                              withBackground(CharacterBackground.backgroundFor(Background.RESOURCES, 2)).
                                              withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 1)).
+                                             withDiscipline(new CharacterDiscipline(Discipline.PRESENCE, 1)).
                                              withDiscipline(new CharacterDiscipline(Discipline.PRESENCE, 2)).
                                              withDiscipline(new CharacterDiscipline(Discipline.CELERITY, 1)).
                                              withDiscipline(new CharacterDiscipline(Discipline.AUSPEX, 1)).
@@ -219,16 +221,13 @@ public class AddAndModifyCharacterTest {
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS).withRating(3).withFocus("Philosophy").withFocus("Latin Poetry").withFocus("Greek Poetry").buy()));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(ClanSpecificMerit.ARTISTS_BLESSING).withDetails("Poetry").withTraitChange(experienceChart.skill(Skill.CRAFTS).withSpecialization("Poetry").withRating(3).add()).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.LUCKY).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.VERSATILE).withDetails("Wits").withTraitChange(experienceChart.mentalAttributeFocus(MentalAttributeFocus.WITS).add()).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.VERSATILE).withDetails("Wits").withTraitChange(experienceChart.attributeFocus(MentalAttributeFocus.WITS).add()).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(GeneralFlaw.CURIOUSITY).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(GeneralFlaw.LESSER_GENERATION_2).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.physicalAttribute().buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.socialAttribute().buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.socialAttribute().buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.socialAttribute().buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.mentalAttribute().buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.mentalAttribute().buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.mentalAttribute().buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN).withRating(1).withSpecialization("Luxury Home").withFocus("Luxury").buy()));
     }
 
 	private PlayerCharacter getMaryWollstonecraft() {

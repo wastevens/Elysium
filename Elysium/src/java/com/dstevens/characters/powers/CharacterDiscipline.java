@@ -1,10 +1,13 @@
 package com.dstevens.characters.powers;
 
-import javax.persistence.*;
+import java.util.function.Predicate;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
+
+import javax.persistence.Basic;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class CharacterDiscipline implements Comparable<CharacterDiscipline>, RatedTrait<Discipline> {
@@ -19,6 +22,10 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
     private CharacterDiscipline() {
         this(null, 0);
     }
+
+	public static Predicate<CharacterDiscipline> matching(CharacterDiscipline power) {
+		return (CharacterDiscipline t) -> t.trait().equals(power.trait);
+	}
     
     public CharacterDiscipline(Discipline power, int rating) {
         this.trait = power;

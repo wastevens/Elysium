@@ -313,9 +313,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
 
 	public PlayerCharacter withoutSkill(CharacterSkill skill) {
-		this.skills.stream().
-				    filter(CharacterSkill.matching(skill)).
-		            findFirst().ifPresent((CharacterSkill t) -> this.skills.remove(t));
+		this.skills.removeIf(CharacterSkill.matching(skill));
         return this;
     }
 
@@ -329,9 +327,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withoutBackground(CharacterBackground background) {
-    	this.backgrounds.stream().
-    	                 filter(CharacterBackground.matching(background)).
-    	                 findFirst().ifPresent((CharacterBackground t) -> this.backgrounds.remove(t));
+    	this.backgrounds.removeIf(CharacterBackground.matching(background));
         return this;
     }
     
@@ -374,12 +370,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withDiscipline(CharacterDiscipline power) {
-        this.disciplines.add(power);
+        this.withoutDiscipline(power).disciplines.add(power);
         return this;
     }
     
     public PlayerCharacter withoutDiscipline(CharacterDiscipline power) {
-        this.disciplines.remove(power);
+    	this.disciplines.removeIf(CharacterDiscipline.matching(power));
         return this;
     }
     
