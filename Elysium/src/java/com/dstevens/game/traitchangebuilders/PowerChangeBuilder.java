@@ -9,20 +9,23 @@ import com.dstevens.characters.changes.SpendXp;
 import com.dstevens.characters.changes.TraitChangeStatus;
 import com.dstevens.characters.changes.TraitFactory;
 import com.dstevens.characters.powers.Discipline;
+import com.dstevens.characters.powers.Power;
+import com.dstevens.characters.powers.magics.Necromancy;
+import com.dstevens.characters.powers.magics.Thaumaturgy;
 import com.dstevens.game.TraitChangeBuilder;
 
-public class DisciplineChangeBuilder implements TraitChangeBuilder {
+public class PowerChangeBuilder implements TraitChangeBuilder {
 
 	private final PlayerCharacter character;
-    private final Discipline discipline;
+    private final Power power;
     private int rating = 0;
 
-    public DisciplineChangeBuilder(PlayerCharacter character, Discipline discipline) {
+    public PowerChangeBuilder(PlayerCharacter character, Power power) {
         this.character = character;
-		this.discipline = discipline;
+		this.power = power;
     }
 
-    public DisciplineChangeBuilder withRating(int rating) {
+    public PowerChangeBuilder withRating(int rating) {
         this.rating = rating;
         return this;
     }
@@ -30,7 +33,7 @@ public class DisciplineChangeBuilder implements TraitChangeBuilder {
     @Override
     public SetTrait buy() {
     	int cost = 0;
-    	boolean inClan = character.getInClanDisciplines().contains(discipline);
+    	boolean inClan = character.getInClanDisciplines().contains(power);
     	if(inClan) {
     		cost = rating * 3;
     	} else {
@@ -54,7 +57,14 @@ public class DisciplineChangeBuilder implements TraitChangeBuilder {
     }
 
     private SetRatedTrait setDiscipline() {
-        return new SetRatedTrait(TraitChangeStatus.PENDING, discipline, rating, TraitFactory.DISCIPLINE);
+    	if(power instanceof Discipline) {
+    		return new SetRatedTrait(TraitChangeStatus.PENDING, (Discipline) power, rating, TraitFactory.DISCIPLINE);
+    	} else if(power instanceof Thaumaturgy) {
+    		return new SetRatedTrait(TraitChangeStatus.PENDING, (Thaumaturgy) power, rating, TraitFactory.THAUMATURGY);
+    	} else if(power instanceof Necromancy) {
+    		return new SetRatedTrait(TraitChangeStatus.PENDING, (Necromancy) power, rating, TraitFactory.NECROMANCY);
+    	}
+    	throw new IllegalArgumentException("Cannot find an implementing power type for " + power);
     }
 
 	@Override

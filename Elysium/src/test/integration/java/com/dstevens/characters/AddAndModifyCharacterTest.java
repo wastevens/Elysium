@@ -23,6 +23,10 @@ import com.dstevens.characters.distinctions.GeneralFlaw;
 import com.dstevens.characters.distinctions.GeneralMerit;
 import com.dstevens.characters.powers.CharacterDiscipline;
 import com.dstevens.characters.powers.Discipline;
+import com.dstevens.characters.powers.magics.CharacterNecromancy;
+import com.dstevens.characters.powers.magics.CharacterThaumaturgy;
+import com.dstevens.characters.powers.magics.Necromancy;
+import com.dstevens.characters.powers.magics.Thaumaturgy;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.characters.skills.Skill;
 import com.dstevens.configuration.ApplicationConfiguration;
@@ -165,6 +169,12 @@ public class AddAndModifyCharacterTest {
 				         new CharacterDiscipline(Discipline.PRESENCE, 2),
 				         new CharacterDiscipline(Discipline.ANIMALISM, 1)), 
    		             maryWollstonecraftWithExperienceSpentAndApproved.getDisciplines());
+		assertEquals(set(new CharacterThaumaturgy(Thaumaturgy.PATH_OF_BLOOD, 2),
+				         new CharacterThaumaturgy(Thaumaturgy.LURE_OF_FLAMES, 1)), 
+	                 maryWollstonecraftWithExperienceSpentAndApproved.getThaumaturgicalPaths());
+		assertEquals(set(new CharacterNecromancy(Necromancy.ASH_PATH, 2),
+		                 new CharacterNecromancy(Necromancy.BONE_PATH, 1)), 
+                     maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticPaths());
 		assertEquals(set(new CharacterMerit(ClanSpecificMerit.ARTISTS_BLESSING, "Poetry"),
 				         new CharacterMerit(GeneralMerit.LUCKY),
 				         new CharacterMerit(GeneralMerit.VERSATILE, "Wits")), 
@@ -172,7 +182,7 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(new CharacterFlaw(GeneralFlaw.CURIOUSITY),
 		                 new CharacterFlaw(GeneralFlaw.LESSER_GENERATION_2)), 
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
-		assertEquals(62, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
+		assertEquals(30, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
     }
 
     private void createMaryWollstonecraft() {
@@ -229,9 +239,15 @@ public class AddAndModifyCharacterTest {
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.mentalAttribute().buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN).withRating(1).withSpecialization("Luxury Home").withFocus("Luxury").buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN).withRating(2).withSpecialization("Luxury Home").withFocus("Luxury").withFocus("Location").buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.discipline(Discipline.AUSPEX).withRating(2).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.discipline(Discipline.AUSPEX).withRating(3).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.discipline(Discipline.ANIMALISM).withRating(1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX).withRating(2).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX).withRating(3).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.ANIMALISM).withRating(1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD).withRating(1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD).withRating(2).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.LURE_OF_FLAMES).withRating(1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH).withRating(1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH).withRating(2).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.BONE_PATH).withRating(1).buy()));
     }
 
 	private PlayerCharacter getMaryWollstonecraft() {
