@@ -2,11 +2,23 @@ package com.dstevens.characters.changes;
 
 import java.util.Set;
 
-import com.dstevens.characters.backgrounds.*;
-import com.dstevens.characters.powers.*;
-import com.dstevens.characters.powers.magics.*;
-import com.dstevens.characters.skills.*;
-import com.dstevens.characters.traits.*;
+import com.dstevens.characters.backgrounds.Background;
+import com.dstevens.characters.backgrounds.CharacterBackground;
+import com.dstevens.characters.powers.CharacterDiscipline;
+import com.dstevens.characters.powers.Discipline;
+import com.dstevens.characters.powers.ElderPower;
+import com.dstevens.characters.powers.Technique;
+import com.dstevens.characters.powers.magics.CharacterNecromancy;
+import com.dstevens.characters.powers.magics.CharacterThaumaturgy;
+import com.dstevens.characters.powers.magics.Necromancy;
+import com.dstevens.characters.powers.magics.NecromanticRitual;
+import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
+import com.dstevens.characters.powers.magics.Thaumaturgy;
+import com.dstevens.characters.skills.CharacterSkill;
+import com.dstevens.characters.skills.Skill;
+import com.dstevens.characters.traits.CharacterDefinedTrait;
+import com.dstevens.characters.traits.EnumeratedTrait;
+import com.dstevens.characters.traits.RatedTrait;
 
 public enum TraitFactory {
 

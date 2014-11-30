@@ -2,11 +2,20 @@ package com.dstevens.characters.distinctions;
 
 import java.util.Comparator;
 import java.util.function.Function;
-import javax.persistence.*;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.Table;
 
 @Entity
 @Inheritance
@@ -58,12 +67,12 @@ public abstract class CharacterDistinction implements Comparable<CharacterDistin
     
     @Override
     public boolean equals(Object that) {
-        return ObjectExtensions.equals(this, that);
+    	return EqualsBuilder.reflectionEquals(this, that, "id");
     }
     
     @Override
     public int hashCode() {
-        return ObjectExtensions.hashCodeFor(this);
+    	return HashCodeBuilder.reflectionHashCode(this, "id");
     }
     
     @Override

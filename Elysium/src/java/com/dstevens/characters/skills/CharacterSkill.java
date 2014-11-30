@@ -69,7 +69,7 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     }
     
     public static Predicate<CharacterSkill> matching(CharacterSkill trait) {
-		return (CharacterSkill t) -> t.trait().equals(trait.trait()) && t.getSpecialization() == trait.getSpecialization();
+		return (CharacterSkill t) -> t.trait().equals(trait.trait()) && (t.getSpecialization() == trait.getSpecialization() || t.getSpecialization().equalsIgnoreCase(trait.getSpecialization()));
 	}
     
     @Override

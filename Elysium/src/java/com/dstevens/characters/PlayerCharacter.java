@@ -3,7 +3,6 @@ package com.dstevens.characters;
 import static com.dstevens.collections.Lists.list;
 
 import static com.dstevens.collections.Sets.set;
-import static com.dstevens.collections.Sets.setWith;
 
 import java.util.Comparator;
 import java.util.Date;
@@ -290,17 +289,17 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withPhysicalAttributeFocus(PhysicalAttributeFocus focus) {
-        this.physicalAttributeFocuses = setWith(physicalAttributeFocuses, focus);
+        this.physicalAttributeFocuses.add(focus);
         return this;
     }
     
     public PlayerCharacter withMentalAttributeFocus(MentalAttributeFocus focus) {
-        this.mentalAttrbuteFocuses = setWith(mentalAttrbuteFocuses, focus);
+        this.mentalAttrbuteFocuses.add(focus);
         return this;
     }
     
     public PlayerCharacter withSocialAttributeFocus(SocialAttributeFocus focus) {
-        this.socialAttributeFocuses = setWith(socialAttributeFocuses, focus);
+        this.socialAttributeFocuses.add(focus);
         return this;
     }
     

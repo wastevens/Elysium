@@ -6,7 +6,7 @@ import com.dstevens.characters.PlayerCharacter;
 
 @Entity
 @DiscriminatorValue("Attribute")
-class SetAttribute extends SetTrait {
+public class SetAttribute extends SetTrait {
 
     @Column(name="rating")
     private int rating;

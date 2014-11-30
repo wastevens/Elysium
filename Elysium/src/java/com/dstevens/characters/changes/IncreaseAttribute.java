@@ -1,12 +1,14 @@
 package com.dstevens.characters.changes;
 
-import javax.persistence.*;
-
 import com.dstevens.characters.PlayerCharacter;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("IncreaseAttribute")
-class IncreaseAttribute extends SetTrait {
+public class IncreaseAttribute extends SetTrait {
 
     @Column(name="factory")
     private AttributeFactory factory;
@@ -18,7 +20,7 @@ class IncreaseAttribute extends SetTrait {
         this(null,null);
     }
     
-    protected IncreaseAttribute(TraitChangeStatus status, AttributeFactory factory) {
+    public IncreaseAttribute(TraitChangeStatus status, AttributeFactory factory) {
         this(status, null, factory);
     }
     

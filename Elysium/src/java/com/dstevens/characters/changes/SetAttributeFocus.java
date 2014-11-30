@@ -1,13 +1,15 @@
 package com.dstevens.characters.changes;
 
-import javax.persistence.*;
-
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.attributes.AttributeFocus;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 @Entity
 @DiscriminatorValue("AttributeFocus")
-class SetAttributeFocus extends SetTrait {
+public class SetAttributeFocus extends SetTrait {
 
     @Column(name="ordinal")
     private int attributeFocusOrdinal;
@@ -23,7 +25,7 @@ class SetAttributeFocus extends SetTrait {
         this(null, 0, null, null);
     }
     
-    protected SetAttributeFocus(TraitChangeStatus status, AttributeFocus focus, AttributeFactory factory) {
+    public SetAttributeFocus(TraitChangeStatus status, AttributeFocus focus, AttributeFactory factory) {
         this(status, focus.ordinal(), null, factory);
     }
     
