@@ -22,7 +22,7 @@ public class SetEnumeratedTrait extends SetTrait {
         this(null, 0, null);
     }
     
-    protected SetEnumeratedTrait(TraitChangeStatus status, EnumeratedTrait<?> trait, TraitFactory factory) {
+    public SetEnumeratedTrait(TraitChangeStatus status, EnumeratedTrait<?> trait, TraitFactory factory) {
         this(status, trait.ordinal(), factory);
     }
     

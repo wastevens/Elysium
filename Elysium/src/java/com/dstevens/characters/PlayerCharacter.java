@@ -7,12 +7,14 @@ import static com.dstevens.collections.Sets.set;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
 import com.dstevens.characters.attributes.MentalAttributeFocus;
 import com.dstevens.characters.attributes.PhysicalAttributeFocus;
 import com.dstevens.characters.attributes.SocialAttributeFocus;
+import com.dstevens.characters.backgrounds.Background;
 import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.clans.Bloodline;
@@ -319,6 +321,10 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
 
     public Set<CharacterBackground> getBackgrounds() {
         return backgrounds;
+    }
+    
+    public Optional<Integer> getGeneration() {
+    	return getBackgrounds().stream().filter((CharacterBackground t) -> t.trait().equals(Background.GENERATION)).map((CharacterBackground t) -> t.rating()).findFirst();
     }
     
     public PlayerCharacter withBackground(CharacterBackground background) {

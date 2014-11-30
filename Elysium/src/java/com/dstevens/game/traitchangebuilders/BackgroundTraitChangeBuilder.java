@@ -44,13 +44,7 @@ public class BackgroundTraitChangeBuilder implements TraitChangeBuilder {
     
     @Override
     public SetTrait buy() {
-    	Integer generation = 
-    			character.getBackgrounds().
-		  		  		  stream().
-		  		  		  filter((CharacterBackground t) -> t.trait().equals(Background.GENERATION)).
-		  		  		  findFirst().
-		  		  		  map((CharacterBackground t) -> t.rating()).orElse(1);
-    	if(generation == 1) {
+    	if(character.getGeneration().orElse(1) == 1) {
     		return new SpendXp(TraitChangeStatus.PENDING, rating, setSkill());
     	} else {
     		return new SpendXp(TraitChangeStatus.PENDING, rating * 2, setSkill());

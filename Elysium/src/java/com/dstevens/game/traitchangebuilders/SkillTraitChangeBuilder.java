@@ -5,8 +5,6 @@ import static com.dstevens.collections.Sets.set;
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.backgrounds.Background;
-import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.changes.SetCharacterDefinedTrait;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
@@ -46,13 +44,7 @@ public class SkillTraitChangeBuilder implements TraitChangeBuilder {
     
     @Override
     public SetTrait buy() {
-    	Integer generation = 
-    			character.getBackgrounds().
-		  		  		  stream().
-		  		  		  filter((CharacterBackground t) -> t.trait().equals(Background.GENERATION)).
-		  		  		  findFirst().
-		  		  		  map((CharacterBackground t) -> t.rating()).orElse(1);
-    	if(generation == 1) {
+    	if(character.getGeneration().orElse(1) == 1) {
     		return new SpendXp(TraitChangeStatus.PENDING, rating, setSkill());
     	} else {
     		return new SpendXp(TraitChangeStatus.PENDING, rating * 2, setSkill());

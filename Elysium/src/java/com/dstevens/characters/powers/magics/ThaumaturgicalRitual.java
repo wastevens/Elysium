@@ -1,9 +1,8 @@
 package com.dstevens.characters.powers.magics;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.EnumeratedTrait;
 
-public enum ThaumaturgicalRitual implements EnumeratedTrait<ThaumaturgicalRitual> {
+public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual> {
 
     BLOOD_MASTERY(1),
     BIND_THE_ACCUSING_TONGUE(1),
@@ -46,7 +45,7 @@ public enum ThaumaturgicalRitual implements EnumeratedTrait<ThaumaturgicalRitual
         this.rating = rating;
     }
     
-    public int getRating() {
+    public int rating() {
         return rating;
     }
 

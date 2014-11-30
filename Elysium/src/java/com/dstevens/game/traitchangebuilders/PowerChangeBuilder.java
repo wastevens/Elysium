@@ -1,8 +1,6 @@
 package com.dstevens.game.traitchangebuilders;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.backgrounds.Background;
-import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.changes.SetRatedTrait;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
@@ -37,12 +35,7 @@ public class PowerChangeBuilder implements TraitChangeBuilder {
     	if(inClan) {
     		cost = rating * 3;
     	} else {
-    		Integer generation = 
-        			character.getBackgrounds().
-    		  		  		  stream().
-    		  		  		  filter((CharacterBackground t) -> t.trait().equals(Background.GENERATION)).
-    		  		  		  map((CharacterBackground t) -> t.rating()).findFirst().orElse(1);
-        	if(generation == 5) {
+    		if(character.getGeneration().orElse(1) == 5) {
         		cost = rating * 5;
         	} else {
         		cost = rating * 4;

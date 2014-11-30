@@ -23,9 +23,12 @@ import com.dstevens.characters.distinctions.GeneralFlaw;
 import com.dstevens.characters.distinctions.GeneralMerit;
 import com.dstevens.characters.powers.CharacterDiscipline;
 import com.dstevens.characters.powers.Discipline;
+import com.dstevens.characters.powers.Technique;
 import com.dstevens.characters.powers.magics.CharacterNecromancy;
 import com.dstevens.characters.powers.magics.CharacterThaumaturgy;
 import com.dstevens.characters.powers.magics.Necromancy;
+import com.dstevens.characters.powers.magics.NecromanticRitual;
+import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
 import com.dstevens.characters.powers.magics.Thaumaturgy;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.characters.skills.Skill;
@@ -100,7 +103,7 @@ public class AddAndModifyCharacterTest {
    		             maryWollstonecraftWhenNewlyCreated.getDisciplines());
 		assertEquals(set(), maryWollstonecraftWhenNewlyCreated.getMerits());
 		assertEquals(set(), maryWollstonecraftWhenNewlyCreated.getFlaws());
-		assertEquals(100, maryWollstonecraftWhenNewlyCreated.getXp());
+		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
 		
         spendXpForMaryWollstonecraft();
         
@@ -134,7 +137,7 @@ public class AddAndModifyCharacterTest {
    		             maryWollstonecraftWithExperienceSpentButNotYetApproved.getDisciplines());
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getMerits());
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getFlaws());
-		assertEquals(100, maryWollstonecraftWhenNewlyCreated.getXp());
+		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
 		
         approveSpendingXpForMaryWollstonecraft();
         
@@ -175,6 +178,13 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(new CharacterNecromancy(Necromancy.ASH_PATH, 2),
 		                 new CharacterNecromancy(Necromancy.BONE_PATH, 1)), 
                      maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticPaths());
+		assertEquals(set(ThaumaturgicalRitual.CRAFT_BLOODSTONE, ThaumaturgicalRitual.BURNING_BLADE),
+                     maryWollstonecraftWithExperienceSpentAndApproved.getThaumaturgicalRituals());
+        assertEquals(set(NecromanticRitual.BLACK_BLOOD, NecromanticRitual.DARK_ASSISTANT), 
+                     maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticRituals());
+        assertEquals(set(Technique.ARMOR_OF_DARKNESS, Technique.CONTROL_THE_SAVAGE_BEAST),
+        		     maryWollstonecraftWithExperienceSpentAndApproved.getTechniques());
+		
 		assertEquals(set(new CharacterMerit(ClanSpecificMerit.ARTISTS_BLESSING, "Poetry"),
 				         new CharacterMerit(GeneralMerit.LUCKY),
 				         new CharacterMerit(GeneralMerit.VERSATILE, "Wits")), 
@@ -182,7 +192,7 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(new CharacterFlaw(GeneralFlaw.CURIOUSITY),
 		                 new CharacterFlaw(GeneralFlaw.LESSER_GENERATION_2)), 
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
-		assertEquals(30, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
+		assertEquals(92, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
     }
 
     private void createMaryWollstonecraft() {
@@ -218,7 +228,7 @@ public class AddAndModifyCharacterTest {
                                              withDiscipline(new CharacterDiscipline(Discipline.PRESENCE, 2)).
                                              withDiscipline(new CharacterDiscipline(Discipline.CELERITY, 1)).
                                              withDiscipline(new CharacterDiscipline(Discipline.AUSPEX, 1)).
-                                             setXp(100));
+                                             setXp(200));
         characterRepository.update(saved);
     }
     
@@ -248,6 +258,12 @@ public class AddAndModifyCharacterTest {
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH).withRating(1).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH).withRating(2).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.BONE_PATH).withRating(1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(ThaumaturgicalRitual.CRAFT_BLOODSTONE).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(ThaumaturgicalRitual.BURNING_BLADE).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(NecromanticRitual.BLACK_BLOOD).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(NecromanticRitual.DARK_ASSISTANT).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.ARMOR_OF_DARKNESS).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.CONTROL_THE_SAVAGE_BEAST).buy()));
     }
 
 	private PlayerCharacter getMaryWollstonecraft() {

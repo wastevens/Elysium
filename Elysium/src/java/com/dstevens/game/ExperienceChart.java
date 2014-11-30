@@ -7,14 +7,18 @@ import com.dstevens.characters.changes.AttributeFactory;
 import com.dstevens.characters.distinctions.Flaw;
 import com.dstevens.characters.distinctions.Merit;
 import com.dstevens.characters.powers.Power;
+import com.dstevens.characters.powers.Technique;
+import com.dstevens.characters.powers.magics.Ritual;
 import com.dstevens.characters.skills.Skill;
 import com.dstevens.game.traitchangebuilders.AttributeChangeBuilder;
 import com.dstevens.game.traitchangebuilders.AttributeFocusBuilder;
 import com.dstevens.game.traitchangebuilders.BackgroundTraitChangeBuilder;
-import com.dstevens.game.traitchangebuilders.PowerChangeBuilder;
 import com.dstevens.game.traitchangebuilders.FlawTraitChangeBuilder;
 import com.dstevens.game.traitchangebuilders.MeritTraitChangeBuilder;
+import com.dstevens.game.traitchangebuilders.PowerChangeBuilder;
+import com.dstevens.game.traitchangebuilders.RitualChangeBuilder;
 import com.dstevens.game.traitchangebuilders.SkillTraitChangeBuilder;
+import com.dstevens.game.traitchangebuilders.TechniqueChangeBuilder;
 
 public class ExperienceChart {
 
@@ -62,6 +66,14 @@ public class ExperienceChart {
 
 	public PowerChangeBuilder power(Power power) {
 		return new PowerChangeBuilder(character, power);
+	}
+
+	public RitualChangeBuilder ritual(Ritual<?> ritual) {
+		return new RitualChangeBuilder(ritual);
+	}
+
+	public TechniqueChangeBuilder technique(Technique technique) {
+		return new TechniqueChangeBuilder(character, technique);
 	}
     
 }
