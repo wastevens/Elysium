@@ -1,25 +1,57 @@
 package com.dstevens.characters;
 
-import static com.dstevens.collections.Lists.*;
+import static com.dstevens.collections.Lists.listFrom;
+import static com.dstevens.collections.Lists.sort;
+
 import static com.dstevens.collections.Sets.set;
+
 import static com.dstevens.testing.Assertions.assertListsEqual;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
+import java.util.Set;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
-import com.dstevens.characters.attributes.*;
-import com.dstevens.characters.backgrounds.*;
+import com.dstevens.characters.attributes.MentalAttributeFocus;
+import com.dstevens.characters.attributes.PhysicalAttributeFocus;
+import com.dstevens.characters.attributes.SocialAttributeFocus;
+import com.dstevens.characters.backgrounds.Background;
+import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.clans.*;
-import com.dstevens.characters.distinctions.*;
-import com.dstevens.characters.powers.*;
-import com.dstevens.characters.powers.magics.*;
-import com.dstevens.characters.skills.*;
+import com.dstevens.characters.clans.Bloodline;
+import com.dstevens.characters.clans.Clan;
+import com.dstevens.characters.distinctions.CharacterFlaw;
+import com.dstevens.characters.distinctions.CharacterMerit;
+import com.dstevens.characters.distinctions.ClanSpecificMerit;
+import com.dstevens.characters.distinctions.GeneralFlaw;
+import com.dstevens.characters.distinctions.GeneralMerit;
+import com.dstevens.characters.distinctions.RarityMerit;
+import com.dstevens.characters.distinctions.SettingSpecificFlaw;
+import com.dstevens.characters.powers.CharacterDiscipline;
+import com.dstevens.characters.powers.Discipline;
+import com.dstevens.characters.powers.ElderPower;
+import com.dstevens.characters.powers.Power;
+import com.dstevens.characters.powers.Technique;
+import com.dstevens.characters.powers.magics.CharacterNecromancy;
+import com.dstevens.characters.powers.magics.CharacterThaumaturgy;
+import com.dstevens.characters.powers.magics.Necromancy;
+import com.dstevens.characters.powers.magics.NecromanticRitual;
+import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
+import com.dstevens.characters.powers.magics.Thaumaturgy;
+import com.dstevens.characters.skills.CharacterSkill;
+import com.dstevens.characters.skills.Skill;
 import com.dstevens.configuration.ApplicationConfiguration;
-import com.dstevens.players.*;
+import com.dstevens.players.Player;
+import com.dstevens.players.PlayerDao;
+import com.dstevens.players.PlayerFactory;
+import com.dstevens.players.Setting;
+import com.dstevens.players.Troupe;
+import com.dstevens.players.TroupeDao;
+import com.dstevens.players.TroupeFactory;
 
 public class PlayerCharacterDaoTest {
 
@@ -171,8 +203,16 @@ public class PlayerCharacterDaoTest {
                      characterWithPowers.getElderPowers());
         assertEquals(set(Technique.AN_DA_SHEALLADH, Technique.FEARFUL_BLOW),
                      characterWithPowers.getTechniques());
-        assertEquals(set((Power) Discipline.AUSPEX, Discipline.CHIMERSTRY, Thaumaturgy.MOVEMENT_OF_THE_MIND, Thaumaturgy.PATH_OF_CONJURING, Necromancy.BONE_PATH, Necromancy.SEPULCHRE_PATH),
-                     characterWithPowers.getInClanDisciplines());
+        
+        Set<Power<?>> expectedPowers = set();
+        expectedPowers.add(Discipline.AUSPEX);
+        expectedPowers.add(Discipline.CHIMERSTRY);
+        expectedPowers.add(Thaumaturgy.MOVEMENT_OF_THE_MIND);
+        expectedPowers.add(Thaumaturgy.PATH_OF_CONJURING);
+        expectedPowers.add(Necromancy.BONE_PATH);
+        expectedPowers.add(Necromancy.SEPULCHRE_PATH);
+        
+        assertEquals(expectedPowers, characterWithPowers.getInClanDisciplines());
     }
     
     @Test

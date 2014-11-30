@@ -16,6 +16,7 @@ import com.dstevens.game.traitchangebuilders.AttributeFocusBuilder;
 import com.dstevens.game.traitchangebuilders.BackgroundTraitChangeBuilder;
 import com.dstevens.game.traitchangebuilders.ElderPowerChangeBuilder;
 import com.dstevens.game.traitchangebuilders.FlawTraitChangeBuilder;
+import com.dstevens.game.traitchangebuilders.InClanDisciplineChangeBuilder;
 import com.dstevens.game.traitchangebuilders.MeritTraitChangeBuilder;
 import com.dstevens.game.traitchangebuilders.PowerChangeBuilder;
 import com.dstevens.game.traitchangebuilders.RitualChangeBuilder;
@@ -66,7 +67,7 @@ public class ExperienceChart {
 		return new BackgroundTraitChangeBuilder(character, background);
 	}
 
-	public PowerChangeBuilder power(Power power) {
+	public PowerChangeBuilder power(Power<?> power) {
 		return new PowerChangeBuilder(character, power);
 	}
 
@@ -80,6 +81,10 @@ public class ExperienceChart {
 
 	public ElderPowerChangeBuilder elderPower(ElderPower power) {
 		return new ElderPowerChangeBuilder(character, power);
+	}
+
+	public InClanDisciplineChangeBuilder inClanPower(Power<?> power) {
+		return new InClanDisciplineChangeBuilder(power);
 	}
     
 }

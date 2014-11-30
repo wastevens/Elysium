@@ -337,15 +337,15 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public Set<Power> getInClanDisciplines() {
-        Set<Power> powers = set();
+    public Set<Power<?>> getInClanDisciplines() {
+        Set<Power<?>> powers = set();
         powers.addAll(inClanDisciplines);
         powers.addAll(inClanThaumaturgicalPaths);
         powers.addAll(inClanNecromanticPaths);
         return powers;
     }
     
-    public PlayerCharacter withInClanDisciplines(Power power) {
+    public PlayerCharacter withInClanDisciplines(Power<?> power) {
         if (power instanceof Discipline) {
             inClanDisciplines.add((Discipline) power);
         }
@@ -358,7 +358,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public PlayerCharacter withoutInClanDisciplines(Power power) {
+    public PlayerCharacter withoutInClanDisciplines(Power<?> power) {
         if (power instanceof Discipline) {
             inClanDisciplines.remove((Discipline) power);
         }

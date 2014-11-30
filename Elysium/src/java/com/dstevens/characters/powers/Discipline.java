@@ -1,7 +1,9 @@
 package com.dstevens.characters.powers;
 
+import com.dstevens.characters.PlayerCharacter;
 
-public enum Discipline implements Power {
+
+public enum Discipline implements Power<Discipline> {
 
     ANIMALISM,
     AUSPEX,
@@ -25,8 +27,15 @@ public enum Discipline implements Power {
     THANATOSIS,
     VALEREN,
     VICISSITUDE,
-    VISCERATIKA
-    
-    
-    
+    VISCERATIKA;
+
+	@Override
+	public Discipline trait() {
+		return this;
+	}
+
+	@Override
+	public PlayerCharacter applyTo(PlayerCharacter character) {
+		return character.withInClanDisciplines(this);
+	}
 }

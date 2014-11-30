@@ -2,11 +2,21 @@ package com.dstevens.characters;
 
 import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.distinctions.*;
+import com.dstevens.characters.distinctions.CharacterFlaw;
+import com.dstevens.characters.distinctions.CharacterMerit;
 import com.dstevens.characters.powers.CharacterDiscipline;
-import com.dstevens.characters.powers.magics.*;
+import com.dstevens.characters.powers.ElderPower;
+import com.dstevens.characters.powers.Power;
+import com.dstevens.characters.powers.Technique;
+import com.dstevens.characters.powers.magics.CharacterNecromancy;
+import com.dstevens.characters.powers.magics.CharacterThaumaturgy;
+import com.dstevens.characters.powers.magics.NecromanticRitual;
+import com.dstevens.characters.powers.magics.Ritual;
+import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
 import com.dstevens.characters.skills.CharacterSkill;
-import com.dstevens.characters.traits.*;
+import com.dstevens.characters.traits.CharacterDefinedTrait;
+import com.dstevens.characters.traits.EnumeratedTrait;
+import com.dstevens.characters.traits.RatedTrait;
 
 public class PlayerCharacterDisplayer {
 
@@ -24,10 +34,19 @@ public class PlayerCharacterDisplayer {
         character.getSkills().stream().sorted().map(((CharacterSkill t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
         builder.append("\n").append("Backgrounds").append("\n");
         character.getBackgrounds().stream().sorted().map(((CharacterBackground t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
+        builder.append("\n").append("In Clan Disciplines").append("\n");
+        character.getInClanDisciplines().stream().map(((Power<?> t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
         builder.append("\n").append("Disciplines").append("\n");
         character.getDisciplines().stream().sorted().map(((CharacterDiscipline t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
         character.getThaumaturgicalPaths().stream().sorted().map(((CharacterThaumaturgy t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
         character.getNecromanticPaths().stream().sorted().map(((CharacterNecromancy t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
+        builder.append("\n").append("Rituals").append("\n");
+        character.getThaumaturgicalRituals().stream().sorted().map(((Ritual<ThaumaturgicalRitual> t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
+        character.getNecromanticRituals().stream().sorted().map(((Ritual<NecromanticRitual> t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
+        builder.append("\n").append("Techniques").append("\n");
+        character.getTechniques().stream().sorted().map(((Technique t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
+        builder.append("\n").append("Elder Powers").append("\n");
+        character.getElderPowers().stream().sorted().map(((ElderPower t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
         builder.append("\n").append("Merits & Flaws").append("\n");
         character.getMerits().stream().sorted().map(((CharacterMerit t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
         character.getFlaws().stream().sorted().map(((CharacterFlaw t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
@@ -58,20 +77,31 @@ public class PlayerCharacterDisplayer {
 
     private <T extends Enum<?>> String display(CharacterDefinedTrait<T> s) {
         if (isPresent(s.getSpecialization())) {
-            return String.format("%1$s (%2$s):\t %3$s", s.trait(), s.getSpecialization(), s.rating());
+        	if (!s.getFocuses().isEmpty()) {
+        		return String.format("%1$s (%2$s):\t%3$s %4$s", s.trait(), s.getSpecialization(), s.rating(), s.getFocuses());
+        	} else {
+        		return String.format("%1$s (%2$s):\t %3$s", s.trait(), s.getSpecialization(), s.rating());
+        	}
         }
         if (!s.getFocuses().isEmpty()) {
-            return String.format("%1$s:\t%2$s %3$s", s.trait(), s.rating(), s.getFocuses());
-        }
+    		return String.format("%1$s:\t%2$s %3$s", s.trait(), s.rating(), s.getFocuses());
+    	}
         return String.format("%1$s:\t%2$s", s.trait(), s.rating());
     }
 
     private boolean isPresent(String specialization) {
         return specialization != null && !specialization.isEmpty();
     }
-    
+        
     private <T extends Enum<?>> String display(RatedTrait<T> s) {
         return String.format("%1$s:\t%2$s", s.trait(), s.rating());
     }
     
+    private <T extends Enum<?>> String display(EnumeratedTrait<T> s) {
+    	return String.format("%1$s", s.trait());
+    }
+    
+    private <T extends Enum<?>> String display(Power<T> s) {
+    	return String.format("%1$s", s.trait());
+    }
 }

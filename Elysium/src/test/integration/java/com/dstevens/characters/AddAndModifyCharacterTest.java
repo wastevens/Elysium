@@ -189,12 +189,17 @@ public class AddAndModifyCharacterTest {
 		             maryWollstonecraftWithExperienceSpentAndApproved.getElderPowers());
 		assertEquals(set(new CharacterMerit(ClanSpecificMerit.ARTISTS_BLESSING, "Poetry"),
 				         new CharacterMerit(GeneralMerit.LUCKY),
+				         new CharacterMerit(GeneralMerit.THAUMATURGIC_TRAINING, "Path of Corruption"),
+				         new CharacterMerit(GeneralMerit.NECROMANTIC_TRAINING, "Ash Path"),
+				         new CharacterMerit(GeneralMerit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate"),
 				         new CharacterMerit(GeneralMerit.VERSATILE, "Wits")), 
 				     maryWollstonecraftWithExperienceSpentAndApproved.getMerits());
 		assertEquals(set(new CharacterFlaw(GeneralFlaw.CURIOUSITY),
 		                 new CharacterFlaw(GeneralFlaw.LESSER_GENERATION_2)), 
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
-		assertEquals(50, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
+		assertEquals(37, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
+		
+		System.out.println(new PlayerCharacterDisplayer().display(maryWollstonecraftWithExperienceSpentAndApproved));
     }
 
     private void createMaryWollstonecraft() {
@@ -268,6 +273,9 @@ public class AddAndModifyCharacterTest {
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.CONTROL_THE_SAVAGE_BEAST).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.CLAIRVOYANCE).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.ACID_BLOOD).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.THAUMATURGIC_TRAINING).withDetails("Path of Corruption").withTraitChange(experienceChart.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION).add()).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.NECROMANTIC_TRAINING).withDetails("Ash Path").withTraitChange(experienceChart.inClanPower(Necromancy.ASH_PATH).add()).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.ADDITIONAL_COMMON_DISCIPLINE).withDetails("Dominate").withTraitChange(experienceChart.inClanPower(Discipline.DOMINATE).add()).buy()));
     }
 
 	private PlayerCharacter getMaryWollstonecraft() {

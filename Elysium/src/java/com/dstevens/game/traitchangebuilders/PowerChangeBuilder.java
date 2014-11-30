@@ -15,10 +15,10 @@ import com.dstevens.game.TraitChangeBuilder;
 public class PowerChangeBuilder implements TraitChangeBuilder {
 
 	private final PlayerCharacter character;
-    private final Power power;
+    private final Power<?> power;
     private int rating = 0;
 
-    public PowerChangeBuilder(PlayerCharacter character, Power power) {
+    public PowerChangeBuilder(PlayerCharacter character, Power<?> power) {
         this.character = character;
 		this.power = power;
     }

@@ -129,6 +129,42 @@ public enum TraitFactory {
         public <E extends Enum<?>> E trait(int ordinal) {
             return (E) Technique.values()[ordinal];
         }
+    },
+    IN_CLAN_DISCIPLINE {
+        @Override
+        public EnumeratedTrait<?> traitFor(int ordinal) {
+            return Discipline.values()[ordinal];
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <E extends Enum<?>> E trait(int ordinal) {
+            return (E) Discipline.values()[ordinal];
+        }
+    },
+    IN_CLAN_THAUMATURGY {
+        @Override
+        public EnumeratedTrait<?> traitFor(int ordinal) {
+            return Thaumaturgy.values()[ordinal];
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <E extends Enum<?>> E trait(int ordinal) {
+            return (E) Thaumaturgy.values()[ordinal];
+        }
+    },
+    IN_CLAN_NECROMANCY {
+        @Override
+        public EnumeratedTrait<?> traitFor(int ordinal) {
+            return Necromancy.values()[ordinal];
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <E extends Enum<?>> E trait(int ordinal) {
+            return (E) Necromancy.values()[ordinal];
+        }
     };
     
     public EnumeratedTrait<?> traitFor(int ordinal) {
