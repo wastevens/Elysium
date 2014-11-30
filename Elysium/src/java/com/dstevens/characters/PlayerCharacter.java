@@ -1,22 +1,48 @@
 package com.dstevens.characters;
 
-import static com.dstevens.collections.Lists.list;
-import static com.dstevens.collections.Sets.*;
-
-import java.util.*;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
-import javax.persistence.*;
 
-import com.dstevens.characters.attributes.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+
+import com.dstevens.characters.attributes.MentalAttributeFocus;
+import com.dstevens.characters.attributes.PhysicalAttributeFocus;
+import com.dstevens.characters.attributes.SocialAttributeFocus;
 import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.clans.*;
-import com.dstevens.characters.distinctions.*;
-import com.dstevens.characters.powers.*;
-import com.dstevens.characters.powers.magics.*;
+import com.dstevens.characters.clans.Bloodline;
+import com.dstevens.characters.clans.Clan;
+import com.dstevens.characters.distinctions.CharacterFlaw;
+import com.dstevens.characters.distinctions.CharacterMerit;
+import com.dstevens.characters.powers.CharacterDiscipline;
+import com.dstevens.characters.powers.Discipline;
+import com.dstevens.characters.powers.ElderPower;
+import com.dstevens.characters.powers.Power;
+import com.dstevens.characters.powers.Technique;
+import com.dstevens.characters.powers.magics.CharacterNecromancy;
+import com.dstevens.characters.powers.magics.CharacterThaumaturgy;
+import com.dstevens.characters.powers.magics.Necromancy;
+import com.dstevens.characters.powers.magics.NecromanticRitual;
+import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
+import com.dstevens.characters.powers.magics.Thaumaturgy;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
+
+import static com.dstevens.collections.Lists.list;
+import static com.dstevens.collections.Sets.set;
+import static com.dstevens.collections.Sets.setWith;
 
 @Entity
 @Table(name="PlayerCharacter")
@@ -282,11 +308,15 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withSkill(CharacterSkill skill) {
-        this.skills.add(skill);
+    	this.skills.stream().
+    	            filter((CharacterSkill t) -> t.trait().equals(skill.trait()) && t.getSpecialization() == skill.getSpecialization()).
+    	            findFirst().
+    	            ifPresent((CharacterSkill t) -> this.skills.remove(t));
+    	this.skills.add(skill);
         return this;
     }
-    
-    public PlayerCharacter withoutSkill(CharacterSkill skill) {
+
+	public PlayerCharacter withoutSkill(CharacterSkill skill) {
         this.skills.remove(skill);
         return this;
     }
@@ -296,6 +326,10 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withBackground(CharacterBackground background) {
+    	this.backgrounds.stream().
+        				 filter((CharacterBackground t) -> t.trait().equals(background.trait()) && t.getSpecialization() == background.getSpecialization()).
+				 		 findFirst().
+			 			 ifPresent((CharacterBackground t) -> this.backgrounds.remove(t));
         this.backgrounds.add(background);
         return this;
     }

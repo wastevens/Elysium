@@ -2,7 +2,8 @@ package com.dstevens.characters.skills;
 
 import static com.dstevens.collections.Sets.set;
 
-import java.util.Set;
+import java.util.*;
+
 import javax.persistence.*;
 
 import com.dstevens.characters.PlayerCharacter;

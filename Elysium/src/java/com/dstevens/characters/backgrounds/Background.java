@@ -26,4 +26,7 @@ public enum Background {
         this.detailLevel = detailLevel;
     }
     
+    public DetailLevel detailLevel() {
+    	return detailLevel;
+    }
 }

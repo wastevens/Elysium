@@ -19,7 +19,8 @@
     <mapping class="com.dstevens.characters.changes.SetEnumeratedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetRatedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetCharacterDefinedTrait"/>
-    <mapping class="com.dstevens.characters.changes.SetXp"/>
+    <mapping class="com.dstevens.characters.changes.GainXp"/>
+    <mapping class="com.dstevens.characters.changes.SpendXp"/>
     <mapping class="com.dstevens.characters.changes.SetMerit"/>
     <mapping class="com.dstevens.characters.changes.SetFlaw"/>
     <mapping class="com.dstevens.characters.changes.SetAttributeFocus"/>

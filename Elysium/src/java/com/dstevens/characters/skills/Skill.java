@@ -41,4 +41,8 @@ public enum Skill {
         this.detailLevel = detailLevel;
     }
     
+    public DetailLevel detailLevel() {
+    	return detailLevel;
+    }
+    
 }
