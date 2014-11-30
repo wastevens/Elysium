@@ -309,9 +309,8 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     public PlayerCharacter withSkill(CharacterSkill skill) {
     	this.skills.stream().
-    	            filter((CharacterSkill t) -> t.trait().equals(skill.trait()) && t.getSpecialization() == skill.getSpecialization()).
-    	            findFirst().
-    	            ifPresent((CharacterSkill t) -> this.skills.remove(t));
+    				filter(CharacterSkill.matching(skill)).
+    				findFirst().ifPresent((CharacterSkill t) -> this.skills.remove(t));
     	this.skills.add(skill);
         return this;
     }
@@ -327,9 +326,8 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     public PlayerCharacter withBackground(CharacterBackground background) {
     	this.backgrounds.stream().
-        				 filter((CharacterBackground t) -> t.trait().equals(background.trait()) && t.getSpecialization() == background.getSpecialization()).
-				 		 findFirst().
-			 			 ifPresent((CharacterBackground t) -> this.backgrounds.remove(t));
+        				 filter(CharacterBackground.matching(background)).
+        				 findFirst().ifPresent((CharacterBackground t) -> this.backgrounds.remove(t));
         this.backgrounds.add(background);
         return this;
     }

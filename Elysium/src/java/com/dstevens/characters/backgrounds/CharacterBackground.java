@@ -3,6 +3,7 @@ package com.dstevens.characters.backgrounds;
 import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
+import java.util.function.Predicate;
 
 import javax.persistence.*;
 
@@ -54,6 +55,10 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     public static CharacterBackground backgroundFor(Background background, int rating, String specialization, Set<String> focuses) {
         return new CharacterBackground(background, rating, specialization, focuses);
     }
+    
+    public static Predicate<CharacterBackground> matching(CharacterBackground trait) {
+		return (CharacterBackground t) -> t.trait().equals(trait.trait()) && t.getSpecialization() == trait.getSpecialization();
+	}
     
     private CharacterBackground(Background trait, int rating, String specialization, Set<String> focuses) {
         this.id = new IdSupplier().get();

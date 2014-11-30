@@ -1,14 +1,16 @@
 package com.dstevens.characters.traits;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Set;
 
-import org.apache.commons.lang3.builder.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public interface CharacterDefinedTrait<T extends Enum<?>> extends RatedTrait<T> {
 
     String getSpecialization();
     Set<String> getFocuses();
-    
+           
     default boolean characterDefinedTraitEquals(Object that) {
         return EqualsBuilder.reflectionEquals(this, that, "id");
     }

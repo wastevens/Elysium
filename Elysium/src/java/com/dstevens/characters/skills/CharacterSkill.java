@@ -1,15 +1,20 @@
 package com.dstevens.characters.skills;
 
-import static com.dstevens.collections.Sets.set;
+import java.util.Set;
+import java.util.function.Predicate;
 
-import java.util.*;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.CharacterDefinedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
+
+import static com.dstevens.collections.Sets.set;
 
 @Entity
 @Table(name="Skills")
@@ -62,6 +67,10 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     public static CharacterSkill skillFor(Skill skill, int rating, String specialization,  Set<String> focuses) {
         return new CharacterSkill(skill, rating, specialization, focuses);
     }
+    
+    public static Predicate<CharacterSkill> matching(CharacterSkill trait) {
+		return (CharacterSkill t) -> t.trait().equals(trait.trait()) && t.getSpecialization() == trait.getSpecialization();
+	}
     
     @Override
     public final Skill trait() {
