@@ -6,10 +6,12 @@ import com.dstevens.characters.backgrounds.Background;
 import com.dstevens.characters.changes.AttributeFactory;
 import com.dstevens.characters.distinctions.Flaw;
 import com.dstevens.characters.distinctions.Merit;
+import com.dstevens.characters.powers.Discipline;
 import com.dstevens.characters.skills.Skill;
 import com.dstevens.game.traitchangebuilders.AttributeChangeBuilder;
 import com.dstevens.game.traitchangebuilders.AttributeFocusBuilder;
 import com.dstevens.game.traitchangebuilders.BackgroundTraitChangeBuilder;
+import com.dstevens.game.traitchangebuilders.DisciplineChangeBuilder;
 import com.dstevens.game.traitchangebuilders.FlawTraitChangeBuilder;
 import com.dstevens.game.traitchangebuilders.MeritTraitChangeBuilder;
 import com.dstevens.game.traitchangebuilders.SkillTraitChangeBuilder;
@@ -56,6 +58,10 @@ public class ExperienceChart {
 
 	public BackgroundTraitChangeBuilder background(Background background) {
 		return new BackgroundTraitChangeBuilder(character, background);
+	}
+
+	public DisciplineChangeBuilder discipline(Discipline discipline) {
+		return new DisciplineChangeBuilder(character, discipline);
 	}
     
 }

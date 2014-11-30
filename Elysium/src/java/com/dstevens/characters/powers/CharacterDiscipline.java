@@ -1,7 +1,5 @@
 package com.dstevens.characters.powers;
 
-import java.util.function.Predicate;
-
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.utilities.ObjectExtensions;
@@ -22,10 +20,6 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
     private CharacterDiscipline() {
         this(null, 0);
     }
-
-	public static Predicate<CharacterDiscipline> matching(CharacterDiscipline power) {
-		return (CharacterDiscipline t) -> t.trait().equals(power.trait);
-	}
     
     public CharacterDiscipline(Discipline power, int rating) {
         this.trait = power;
