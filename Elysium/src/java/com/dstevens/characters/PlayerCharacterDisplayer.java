@@ -50,6 +50,9 @@ public class PlayerCharacterDisplayer {
         builder.append("\n").append("Merits & Flaws").append("\n");
         character.getMerits().stream().sorted().map(((CharacterMerit t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
         character.getFlaws().stream().sorted().map(((CharacterFlaw t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
+        
+        builder.append("\n").append(displayXpLog(character));
+        
         return builder.toString();
     }
     

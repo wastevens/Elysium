@@ -34,5 +34,12 @@ public class SetRatedTrait extends SetEnumeratedTrait {
     public PlayerCharacter apply(PlayerCharacter character) {
         return factory.traitFor(ordinal(), rating()).applyTo(character);
     }
+    
+    @Override
+    public String describe() {
+        String nextTrait = (hasAssociatedTrait() ? String.format (" with %1$s", associatedTrait().describe()) : "");
+        
+        return String.format("(%1$s) Set %2$s to %3$s%4$s", status(), factory.trait(ordinal()), rating(), nextTrait);
+    }
 
 }

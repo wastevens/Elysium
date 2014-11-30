@@ -168,7 +168,7 @@ public enum TraitFactory {
     };
     
     public EnumeratedTrait<?> traitFor(int ordinal) {
-        throw new IllegalStateException("Enumerated trait factory is undefined");
+        throw new IllegalStateException("Enumerated trait factory is undefined for " + this.getClass().getName() + " ordinal " + ordinal);
     }
     
     public RatedTrait<?> traitFor(int ordinal, int rating) {

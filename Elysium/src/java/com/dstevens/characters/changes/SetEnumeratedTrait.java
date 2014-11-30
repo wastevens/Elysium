@@ -47,7 +47,7 @@ public class SetEnumeratedTrait extends SetTrait {
     
     @Override
     public String describe() {
-        return String.format("(%1$s) Set %1$s", status(), factory.traitFor(ordinal));
+        return String.format("(%1$s) Add %2$s", status(), factory.traitFor(ordinal));
     }
 
 }
