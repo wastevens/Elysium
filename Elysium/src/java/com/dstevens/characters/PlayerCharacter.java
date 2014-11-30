@@ -308,15 +308,14 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter withSkill(CharacterSkill skill) {
-    	this.skills.stream().
-    				filter(CharacterSkill.matching(skill)).
-    				findFirst().ifPresent((CharacterSkill t) -> this.skills.remove(t));
-    	this.skills.add(skill);
+    	this.withoutSkill(skill).skills.add(skill);
         return this;
     }
 
 	public PlayerCharacter withoutSkill(CharacterSkill skill) {
-        this.skills.remove(skill);
+		this.skills.stream().
+				    filter(CharacterSkill.matching(skill)).
+		            findFirst().ifPresent((CharacterSkill t) -> this.skills.remove(t));
         return this;
     }
 
