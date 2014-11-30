@@ -23,6 +23,7 @@ import com.dstevens.characters.distinctions.GeneralFlaw;
 import com.dstevens.characters.distinctions.GeneralMerit;
 import com.dstevens.characters.powers.CharacterDiscipline;
 import com.dstevens.characters.powers.Discipline;
+import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.characters.powers.Technique;
 import com.dstevens.characters.powers.magics.CharacterNecromancy;
 import com.dstevens.characters.powers.magics.CharacterThaumaturgy;
@@ -184,7 +185,8 @@ public class AddAndModifyCharacterTest {
                      maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticRituals());
         assertEquals(set(Technique.ARMOR_OF_DARKNESS, Technique.CONTROL_THE_SAVAGE_BEAST),
         		     maryWollstonecraftWithExperienceSpentAndApproved.getTechniques());
-		
+		assertEquals(set(ElderPower.CLAIRVOYANCE, ElderPower.ACID_BLOOD),
+		             maryWollstonecraftWithExperienceSpentAndApproved.getElderPowers());
 		assertEquals(set(new CharacterMerit(ClanSpecificMerit.ARTISTS_BLESSING, "Poetry"),
 				         new CharacterMerit(GeneralMerit.LUCKY),
 				         new CharacterMerit(GeneralMerit.VERSATILE, "Wits")), 
@@ -192,7 +194,7 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(new CharacterFlaw(GeneralFlaw.CURIOUSITY),
 		                 new CharacterFlaw(GeneralFlaw.LESSER_GENERATION_2)), 
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
-		assertEquals(92, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
+		assertEquals(50, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
     }
 
     private void createMaryWollstonecraft() {
@@ -264,6 +266,8 @@ public class AddAndModifyCharacterTest {
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(NecromanticRitual.DARK_ASSISTANT).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.ARMOR_OF_DARKNESS).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.CONTROL_THE_SAVAGE_BEAST).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.CLAIRVOYANCE).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.ACID_BLOOD).buy()));
     }
 
 	private PlayerCharacter getMaryWollstonecraft() {
