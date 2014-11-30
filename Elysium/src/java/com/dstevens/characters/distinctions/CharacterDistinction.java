@@ -2,7 +2,9 @@ package com.dstevens.characters.distinctions;
 
 import java.util.Comparator;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -34,6 +36,10 @@ public abstract class CharacterDistinction implements Comparable<CharacterDistin
     
     @Column(name="details")
     private String details;
+    
+    public final Predicate<? super CharacterDistinction> matches() {
+		return (CharacterDistinction t) -> t.type().equals(this.type()) && t.ordinal() == this.ordinal() && StringUtils.equalsIgnoreCase(t.getDetails(), this.getDetails());
+	}
     
     protected CharacterDistinction(Distinction<?> distinction) {
         this(distinction, null);

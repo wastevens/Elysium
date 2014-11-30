@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -13,7 +14,7 @@ public interface CharacterDefinedTrait<T extends Enum<?>> extends RatedTrait<T> 
     Set<String> getFocuses();
     
     default Predicate<? super EnumeratedTrait<T>> matches() {
-		return (EnumeratedTrait<T> t) -> t.trait().equals(this.trait()) && (((CharacterDefinedTrait<T>) t).getSpecialization() == this.getSpecialization() || ((CharacterDefinedTrait<T>) t).getSpecialization().equalsIgnoreCase(this.getSpecialization()));
+		return (EnumeratedTrait<T> t) -> t.trait().equals(this.trait()) && StringUtils.equalsIgnoreCase(((CharacterDefinedTrait<T>)t).getSpecialization(), this.getSpecialization());
 	}
     
     default boolean characterDefinedTraitEquals(Object that) {
