@@ -33,7 +33,7 @@ import com.dstevens.players.Setting;
 import com.dstevens.players.Troupe;
 import com.dstevens.players.TroupeRepository;
 
-public class AddCharacterTest {
+public class AddAndModifyCharacterTest {
 
 	private static final String TROUPE_NAME = "some troupe";
 	private static final String PLAYER_NAME = "some player name";

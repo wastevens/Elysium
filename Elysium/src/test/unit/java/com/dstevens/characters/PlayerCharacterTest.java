@@ -1,13 +1,17 @@
 package com.dstevens.characters;
 
+import static com.dstevens.collections.Lists.list;
+
 import static com.dstevens.collections.Sets.set;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 import org.junit.Test;
 
 import com.dstevens.characters.backgrounds.Background;
 import com.dstevens.characters.backgrounds.CharacterBackground;
+import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.characters.skills.Skill;
 import com.dstevens.testing.EqualityTester;
@@ -214,5 +218,14 @@ public class PlayerCharacterTest {
     			         CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar")),
     			         CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy")), 
     			         characterStillWithBackgrounds.getBackgrounds());
+    }
+    
+    @Test
+    public void testWithTraitChangeEvent() {
+    	SetTrait someTraitChangeEvent1 = mock(SetTrait.class);
+    	SetTrait someTraitChangeEvent2 = mock(SetTrait.class);
+		PlayerCharacter character = new PlayerCharacter(ID, NAME).withTraitChangeEvent(someTraitChangeEvent1).withTraitChangeEvent(someTraitChangeEvent2);
+		
+		assertEquals(character.getTraitChangeEvents(), list(someTraitChangeEvent1, someTraitChangeEvent2));
     }
 }

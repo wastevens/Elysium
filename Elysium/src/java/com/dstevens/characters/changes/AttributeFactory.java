@@ -1,7 +1,10 @@
 package com.dstevens.characters.changes;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.attributes.*;
+import com.dstevens.characters.attributes.AttributeFocus;
+import com.dstevens.characters.attributes.MentalAttributeFocus;
+import com.dstevens.characters.attributes.PhysicalAttributeFocus;
+import com.dstevens.characters.attributes.SocialAttributeFocus;
 
 public enum AttributeFactory {
 
@@ -30,6 +33,11 @@ public enum AttributeFactory {
         public PlayerCharacter increase(PlayerCharacter character) {
             return character.withPhysicalAttribute(character.getPhysicalAttribute()+1);
         }
+        
+        @Override
+        public PlayerCharacter decrease(PlayerCharacter character) {
+        	return character.withPhysicalAttribute(character.getPhysicalAttribute()-1);
+        }
     },
     SOCIAL {
         @Override
@@ -55,6 +63,11 @@ public enum AttributeFactory {
         @Override
         public PlayerCharacter increase(PlayerCharacter character) {
             return character.withSocialAttribute(character.getSocialAttribute()+1);
+        }
+        
+        @Override
+        public PlayerCharacter decrease(PlayerCharacter character) {
+        	return character.withSocialAttribute(character.getSocialAttribute()-1);
         }
     },
     MENTAL {
@@ -82,6 +95,11 @@ public enum AttributeFactory {
         public PlayerCharacter increase(PlayerCharacter character) {
             return character.withMentalAttribute(character.getMentalAttribute()+1);
         }
+        
+        @Override
+        public PlayerCharacter decrease(PlayerCharacter character) {
+        	return character.withMentalAttribute(character.getMentalAttribute()-1);
+        }
     };
 
     public abstract PlayerCharacter applyTo(int rating, PlayerCharacter character);
@@ -93,5 +111,7 @@ public enum AttributeFactory {
     public abstract AttributeFocus focusFor(int attributeFocusOrdinal);
 
     public abstract PlayerCharacter increase(PlayerCharacter character);
+    
+    public abstract PlayerCharacter decrease(PlayerCharacter character);
     
 }

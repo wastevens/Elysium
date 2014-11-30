@@ -41,4 +41,14 @@ public class MeritTraitChangeBuilder implements TraitChangeBuilder {
     private SetDistinction setDistinction() {
         return new SetDistinction(TraitChangeStatus.PENDING, merit, details, traitChange, DistinctionFactory.MERIT);
     }
+
+	@Override
+	public SetTrait sell() {
+		throw new IllegalStateException("not yet implemented");
+	}
+
+	@Override
+	public SetTrait remove() {
+		throw new IllegalStateException("not yet implemented");
+	}
 }

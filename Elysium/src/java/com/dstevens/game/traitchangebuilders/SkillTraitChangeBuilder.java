@@ -1,5 +1,7 @@
 package com.dstevens.game.traitchangebuilders;
 
+import static com.dstevens.collections.Sets.set;
+
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -13,8 +15,6 @@ import com.dstevens.characters.changes.TraitFactory;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.characters.skills.Skill;
 import com.dstevens.game.TraitChangeBuilder;
-
-import static com.dstevens.collections.Sets.set;
 
 public class SkillTraitChangeBuilder implements TraitChangeBuilder {
 
@@ -67,5 +67,15 @@ public class SkillTraitChangeBuilder implements TraitChangeBuilder {
     private SetCharacterDefinedTrait setSkill() {
         return new SetCharacterDefinedTrait(TraitChangeStatus.PENDING, CharacterSkill.skillFor(skill, rating, specialization, focuses), TraitFactory.SKILL);
     }
+
+	@Override
+	public SetTrait sell() {
+		throw new IllegalStateException("not yet implemented");
+	}
+
+	@Override
+	public SetTrait remove() {
+		throw new IllegalStateException("not yet implemented");
+	}
     
 }
