@@ -20,7 +20,7 @@ public class RitualChangeBuilder implements TraitChangeBuilder {
     
     @Override
     public SetTrait buy() {
-		return new SpendXp(TraitChangeStatus.PENDING, ritual.rating() * 2, setRitual());
+		return new SpendXp(TraitChangeStatus.PENDING, ritual.rating() * 2).and(setRitual());
     }
 
     @Override

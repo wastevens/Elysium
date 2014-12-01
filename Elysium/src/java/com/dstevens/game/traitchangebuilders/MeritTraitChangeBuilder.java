@@ -30,7 +30,7 @@ public class MeritTraitChangeBuilder implements TraitChangeBuilder {
     
     @Override
     public SetTrait buy() {
-        return new SpendXp(TraitChangeStatus.PENDING, merit.getPoints(), setDistinction());
+        return new SpendXp(TraitChangeStatus.PENDING, merit.getPoints()).and(setDistinction());
     }
 
     @Override
@@ -38,8 +38,8 @@ public class MeritTraitChangeBuilder implements TraitChangeBuilder {
         return setDistinction();
     }
 
-    private SetDistinction setDistinction() {
-        return new SetDistinction(TraitChangeStatus.PENDING, merit, details, traitChange, DistinctionFactory.MERIT);
+    private SetTrait setDistinction() {
+        return new SetDistinction(TraitChangeStatus.PENDING, merit, details, DistinctionFactory.MERIT).and(traitChange);
     }
 
 	@Override

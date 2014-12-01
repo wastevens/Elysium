@@ -41,7 +41,7 @@ public class PowerChangeBuilder implements TraitChangeBuilder {
         		cost = rating * 4;
         	}	
     	}
-    	return new SpendXp(TraitChangeStatus.PENDING, cost, setDiscipline());
+    	return new SpendXp(TraitChangeStatus.PENDING, cost).and(setDiscipline());
     }
 
     @Override

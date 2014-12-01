@@ -25,23 +25,19 @@ public class SetDistinction extends SetTrait {
     @Deprecated
     @SuppressWarnings("unused")
     private SetDistinction() {
-        this(null, 0, null, null, null, null);
+        this(null, 0, null, null, null);
     }
     
     public SetDistinction(TraitChangeStatus status, Distinction<?> merit, DistinctionFactory factory) {
-        this(status, merit.ordinal(), merit.getType(), null, null, factory);
+        this(status, merit.ordinal(), merit.getType(), null, factory);
     }
     
     public SetDistinction(TraitChangeStatus status, Distinction<?> merit, String details, DistinctionFactory factory) {
-        this(status, merit.ordinal(), merit.getType(), details, null, factory);
+        this(status, merit.ordinal(), merit.getType(), details, factory);
     }
     
-    public SetDistinction(TraitChangeStatus status, Distinction<?> merit, String details, SetTrait associatedTrait, DistinctionFactory factory) {
-        this(status, merit.ordinal(), merit.getType(), details, associatedTrait, factory);
-    }
-    
-    private SetDistinction(TraitChangeStatus status, int meritId, String meritType, String details, SetTrait associatedTrait, DistinctionFactory factory) {
-        super(status, associatedTrait);
+    private SetDistinction(TraitChangeStatus status, int meritId, String meritType, String details, DistinctionFactory factory) {
+        super(status);
         this.ordinal = meritId;
         this.type = meritType;
         this.details = details;

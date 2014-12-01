@@ -22,9 +22,9 @@ public class TechniqueChangeBuilder implements TraitChangeBuilder {
     @Override
     public SetTrait buy() {
     	if(character.getGeneration().orElse(1) >= 3) {
-    		return new SpendXp(TraitChangeStatus.PENDING, 20, setTechnique());
+    		return new SpendXp(TraitChangeStatus.PENDING, 20).and(setTechnique());
     	} else {
-    		return new SpendXp(TraitChangeStatus.PENDING, 12, setTechnique());
+    		return new SpendXp(TraitChangeStatus.PENDING, 12).and(setTechnique());
     	}
     }
 

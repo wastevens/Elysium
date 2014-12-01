@@ -30,7 +30,7 @@ public class FlawTraitChangeBuilder implements TraitChangeBuilder {
     
     @Override
     public SetTrait buy() {
-        return new GainXp(TraitChangeStatus.PENDING, flaw.getPoints(), setDistinction());
+        return new GainXp(TraitChangeStatus.PENDING, flaw.getPoints()).and(setDistinction());
     }
 
     @Override
@@ -38,8 +38,8 @@ public class FlawTraitChangeBuilder implements TraitChangeBuilder {
         return setDistinction();
     }
 
-    private SetDistinction setDistinction() {
-        return new SetDistinction(TraitChangeStatus.PENDING, flaw, details, traitChange, DistinctionFactory.FLAW);
+    private SetTrait setDistinction() {
+        return new SetDistinction(TraitChangeStatus.PENDING, flaw, details, DistinctionFactory.FLAW).and(traitChange);
     }
 
 	@Override

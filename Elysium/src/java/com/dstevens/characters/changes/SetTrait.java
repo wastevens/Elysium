@@ -1,10 +1,17 @@
 package com.dstevens.characters.changes;
 
-import javax.persistence.*;
-
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Inheritance
@@ -32,10 +39,19 @@ public abstract class SetTrait {
         this(status, null);
     }
     
-    protected SetTrait(TraitChangeStatus status, SetTrait associatedTrait) {
+    private SetTrait(TraitChangeStatus status, SetTrait associatedTrait) {
         this.id = new IdSupplier().get();
         this.status = status;
         this.associatedTrait = associatedTrait;
+    }
+    
+    public SetTrait and(SetTrait andTrait) {
+    	if(associatedTrait != null) {
+    		this.associatedTrait.and(andTrait);
+    	} else {
+    		this.associatedTrait = andTrait;
+    	}
+    	return this;
     }
     
     public final PlayerCharacter approve(PlayerCharacter character) {
@@ -65,9 +81,8 @@ public abstract class SetTrait {
     public final boolean isPending() {
         return this.status.equals(TraitChangeStatus.PENDING);
     }
-    
-    public abstract PlayerCharacter apply(PlayerCharacter character);
 
+    public abstract PlayerCharacter apply(PlayerCharacter character);
     public abstract String describe();
     
     @Override

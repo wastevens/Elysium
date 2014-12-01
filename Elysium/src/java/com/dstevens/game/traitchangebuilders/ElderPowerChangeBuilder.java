@@ -22,12 +22,12 @@ public class ElderPowerChangeBuilder implements TraitChangeBuilder {
     @Override
     public SetTrait buy() {
     	if(character.getInClanDisciplines().contains(elderPower.getPower())) {
-    		return new SpendXp(TraitChangeStatus.PENDING, 18, setElderPower());
+    		return new SpendXp(TraitChangeStatus.PENDING, 18).and(setElderPower());
     	} else {
     		if(character.getGeneration().orElse(1) == 5) {
-    			return new SpendXp(TraitChangeStatus.PENDING, 30, setElderPower());
+    			return new SpendXp(TraitChangeStatus.PENDING, 30).and(setElderPower());
     		} else {
-    			return new SpendXp(TraitChangeStatus.PENDING, 24, setElderPower());
+    			return new SpendXp(TraitChangeStatus.PENDING, 24).and(setElderPower());
     		}
     	}
     }

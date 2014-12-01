@@ -45,9 +45,9 @@ public class BackgroundTraitChangeBuilder implements TraitChangeBuilder {
     @Override
     public SetTrait buy() {
     	if(character.getGeneration().orElse(1) == 1) {
-    		return new SpendXp(TraitChangeStatus.PENDING, rating, setSkill());
+    		return new SpendXp(TraitChangeStatus.PENDING, rating).and(setSkill());
     	} else {
-    		return new SpendXp(TraitChangeStatus.PENDING, rating * 2, setSkill());
+    		return new SpendXp(TraitChangeStatus.PENDING, rating).and(setSkill());
     	}
     }
 

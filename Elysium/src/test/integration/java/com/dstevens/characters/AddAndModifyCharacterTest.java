@@ -14,6 +14,7 @@ import com.dstevens.characters.attributes.PhysicalAttributeFocus;
 import com.dstevens.characters.attributes.SocialAttributeFocus;
 import com.dstevens.characters.backgrounds.Background;
 import com.dstevens.characters.backgrounds.CharacterBackground;
+import com.dstevens.characters.changes.AttributeFactory;
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.distinctions.CharacterFlaw;
@@ -143,6 +144,8 @@ public class AddAndModifyCharacterTest {
         approveSpendingXpForMaryWollstonecraft();
         
         PlayerCharacter maryWollstonecraftWithExperienceSpentAndApproved = getMaryWollstonecraft();
+        System.out.println(new PlayerCharacterDisplayer().display(maryWollstonecraftWithExperienceSpentAndApproved));
+        
         assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getClan(), Clan.TOREADOR);
         assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getBloodline(), Bloodline.TOREADOR);
 		assertEquals(4, maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttribute());
@@ -251,9 +254,9 @@ public class AddAndModifyCharacterTest {
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.VERSATILE).withDetails("Wits").withTraitChange(experienceChart.attributeFocus(MentalAttributeFocus.WITS).add()).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(GeneralFlaw.CURIOUSITY).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(GeneralFlaw.LESSER_GENERATION_2).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.physicalAttribute().buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.socialAttribute().buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.mentalAttribute().buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(AttributeFactory.PHYSICAL).withRating(getMaryWollstonecraft().getPhysicalAttribute()+1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(AttributeFactory.SOCIAL).withRating(getMaryWollstonecraft().getSocialAttribute()+1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(AttributeFactory.MENTAL).withRating(getMaryWollstonecraft().getMentalAttribute()+1).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN).withRating(1).withSpecialization("Luxury Home").withFocus("Luxury").buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN).withRating(2).withSpecialization("Luxury Home").withFocus("Luxury").withFocus("Location").buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX).withRating(2).buy()));

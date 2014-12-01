@@ -24,9 +24,6 @@
     <mapping class="com.dstevens.characters.changes.SpendXp"/>
     <mapping class="com.dstevens.characters.changes.SetAttributeFocus"/>
     <mapping class="com.dstevens.characters.changes.SetAttribute"/>
-    <mapping class="com.dstevens.characters.changes.IncreaseAttribute"/>
-    <mapping class="com.dstevens.characters.changes.DecreaseAttribute"/>
-    
     
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>

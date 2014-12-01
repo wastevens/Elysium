@@ -18,13 +18,8 @@ public class GainXp extends SetTrait {
         this(null, 0);
     }
     
-    protected GainXp(TraitChangeStatus status, int xp) {
-        super(status, null);
-        this.xp = xp;
-    }
-    
-    public GainXp(TraitChangeStatus status, int xp, SetTrait associatedTrait) {
-        super(status, associatedTrait);
+    public GainXp(TraitChangeStatus status, int xp) {
+        super(status);
         this.xp = xp;
     }
     

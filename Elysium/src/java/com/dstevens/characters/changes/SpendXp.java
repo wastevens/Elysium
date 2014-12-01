@@ -19,12 +19,7 @@ public class SpendXp extends SetTrait {
     }
     
     public SpendXp(TraitChangeStatus status, int xp) {
-        super(status, null);
-        this.xp = xp;
-    }
-    
-    public SpendXp(TraitChangeStatus status, int xp, SetTrait associatedTrait) {
-        super(status, associatedTrait);
+        super(status);
         this.xp = xp;
     }
     

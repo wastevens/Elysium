@@ -22,15 +22,15 @@ public class SetAttributeFocus extends SetTrait {
     @Deprecated
     @SuppressWarnings("unused")
     private SetAttributeFocus() {
-        this(null, 0, null, null);
+        this(null, 0, null);
     }
     
     public SetAttributeFocus(TraitChangeStatus status, AttributeFocus focus, AttributeFactory factory) {
-        this(status, focus.ordinal(), null, factory);
+        this(status, focus.ordinal(), factory);
     }
     
-    private SetAttributeFocus(TraitChangeStatus status, int attributeFocusOrdinal, SetTrait associatedTrait, AttributeFactory factory) {
-        super(status, associatedTrait);
+    private SetAttributeFocus(TraitChangeStatus status, int attributeFocusOrdinal, AttributeFactory factory) {
+        super(status);
         this.attributeFocusOrdinal = attributeFocusOrdinal;
         this.factory = factory;
     }

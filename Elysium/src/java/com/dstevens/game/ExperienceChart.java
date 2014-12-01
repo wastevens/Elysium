@@ -44,15 +44,18 @@ public class ExperienceChart {
     }
 
     public TraitChangeBuilder physicalAttribute() {
-    	return new AttributeChangeBuilder(AttributeFactory.PHYSICAL);
+    	throw new IllegalStateException("NYI");
+//    	return new AttributeChangeBuilder(AttributeFactory.PHYSICAL);
     }
     
     public TraitChangeBuilder socialAttribute() {
-    	return new AttributeChangeBuilder(AttributeFactory.SOCIAL);
+    	throw new IllegalStateException("NYI");
+//    	return new AttributeChangeBuilder(AttributeFactory.SOCIAL);
     }
     
     public TraitChangeBuilder mentalAttribute() {
-    	return new AttributeChangeBuilder(AttributeFactory.MENTAL);
+    	throw new IllegalStateException("NYI");
+//    	return new AttributeChangeBuilder(AttributeFactory.MENTAL);
     }
       
     public TraitChangeBuilder attributeFocus(AttributeFocus focus) {
@@ -85,6 +88,10 @@ public class ExperienceChart {
 
 	public InClanDisciplineChangeBuilder inClanPower(Power<?> power) {
 		return new InClanDisciplineChangeBuilder(power);
+	}
+
+	public AttributeChangeBuilder attribute(AttributeFactory attributeFactory) {
+		return new AttributeChangeBuilder(attributeFactory);
 	}
     
 }

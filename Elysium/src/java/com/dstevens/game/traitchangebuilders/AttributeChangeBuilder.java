@@ -1,9 +1,8 @@
 package com.dstevens.game.traitchangebuilders;
 
 import com.dstevens.characters.changes.AttributeFactory;
-import com.dstevens.characters.changes.DecreaseAttribute;
 import com.dstevens.characters.changes.GainXp;
-import com.dstevens.characters.changes.IncreaseAttribute;
+import com.dstevens.characters.changes.SetAttribute;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
 import com.dstevens.characters.changes.TraitChangeStatus;
@@ -11,37 +10,40 @@ import com.dstevens.game.TraitChangeBuilder;
 
 public class AttributeChangeBuilder implements TraitChangeBuilder {
 
-	private final AttributeFactory attributeFactory;
+	private AttributeFactory factory;
+	private int rating;
 
-	public AttributeChangeBuilder(AttributeFactory attributeFactory) {
-		this.attributeFactory = attributeFactory;
+	public AttributeChangeBuilder(AttributeFactory factory) {
+		this.factory = factory;
 	}
 	
+	public AttributeChangeBuilder withRating(int rating) {
+		this.rating = rating;
+		return this;
+	}
+
 	@Override
 	public SetTrait buy() {
-		return new SpendXp(TraitChangeStatus.PENDING, 3, increaseTrait());
+		return new SpendXp(TraitChangeStatus.PENDING, 3).and(setAttribute());
 	}
 
 	@Override
 	public SetTrait sell() {
-		return new GainXp(TraitChangeStatus.PENDING, 3, decreaseTrait());
+		return new GainXp(TraitChangeStatus.PENDING, 3).and(setAttribute());
 	}
 	
 	@Override
 	public SetTrait add() {
-		return increaseTrait();
+		return setAttribute();
 	}
 
 	@Override
 	public SetTrait remove() {
-		return decreaseTrait();
+		return setAttribute();
 	}
-	
-	private IncreaseAttribute increaseTrait() {
-        return new IncreaseAttribute(TraitChangeStatus.PENDING, attributeFactory);
-    }
-	
-	private DecreaseAttribute decreaseTrait() {
-		return new DecreaseAttribute(TraitChangeStatus.PENDING, attributeFactory);
+
+	private SetTrait setAttribute() {
+		return new SetAttribute(TraitChangeStatus.PENDING, rating, factory);
 	}
+
 }

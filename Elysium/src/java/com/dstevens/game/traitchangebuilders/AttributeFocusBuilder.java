@@ -23,7 +23,6 @@ public class AttributeFocusBuilder implements TraitChangeBuilder {
 		throw new IllegalStateException("You cannot buy a new attribute focus, only add them as part of buying or adding something else.");
 	}
 
-
 	@Override
 	public SetTrait sell() {
 		throw new IllegalStateException("You cannot sell an attribute focus, only remove them as part of buying or adding something else.");

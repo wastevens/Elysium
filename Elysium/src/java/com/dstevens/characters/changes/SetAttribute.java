@@ -21,14 +21,10 @@ public class SetAttribute extends SetTrait {
         this(null, 0, null);
     }
     
-    protected SetAttribute(TraitChangeStatus status, int rating, AttributeFactory factory) {
-        this(status, 0, null, factory);
-    }
-    
-    private SetAttribute(TraitChangeStatus status, int rating, SetTrait associatedTrait, AttributeFactory factory) {
-        super(status, associatedTrait);
-        this.rating = rating;
-        this.factory = factory;
+    public SetAttribute(TraitChangeStatus status, int rating, AttributeFactory factory) {
+    	super(status);
+    	this.rating = rating;
+    	this.factory = factory;
     }
     
     @Override
