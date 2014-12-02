@@ -58,6 +58,7 @@ public abstract class CharacterDistinction implements Comparable<CharacterDistin
     
     public abstract Distinction<?> getDistinction();
     public abstract PlayerCharacter applyTo(PlayerCharacter character);
+	public abstract PlayerCharacter removeFrom(PlayerCharacter character);
     
     public final String getDetails() {
         return details;
@@ -93,5 +94,4 @@ public abstract class CharacterDistinction implements Comparable<CharacterDistin
         Function<CharacterDistinction, String> byDetails = ((CharacterDistinction cm) -> cm.details);
         return Comparator.comparing(byType).thenComparing(byOrdinal).thenComparing(byDetails).compare(this, that);
     }
-    
 }

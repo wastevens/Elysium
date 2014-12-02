@@ -69,4 +69,9 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
     public PlayerCharacter applyTo(PlayerCharacter character) {
         return character.withDiscipline(this);
     }
+    
+    @Override
+    public PlayerCharacter removeFrom(PlayerCharacter character) {
+    	return character.withoutDiscipline(this);
+    }
 }

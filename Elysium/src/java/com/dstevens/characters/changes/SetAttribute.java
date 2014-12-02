@@ -1,8 +1,10 @@
 package com.dstevens.characters.changes;
 
-import javax.persistence.*;
-
 import com.dstevens.characters.PlayerCharacter;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Attribute")
@@ -30,6 +32,11 @@ public class SetAttribute extends SetTrait {
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
         return factory.applyTo(rating, character);
+    }
+    
+    @Override
+    public PlayerCharacter remove(PlayerCharacter character) {
+    	throw new IllegalStateException("Cannot remove setting an attribute.");
     }
     
     @Override

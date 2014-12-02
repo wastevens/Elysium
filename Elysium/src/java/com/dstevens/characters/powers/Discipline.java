@@ -36,6 +36,11 @@ public enum Discipline implements Power<Discipline> {
 
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {
-		return character.withInClanDisciplines(this);
+		return character.withInClanDiscipline(this);
+	}
+	
+	@Override
+	public PlayerCharacter removeFrom(PlayerCharacter character) {
+		return character.withoutInClanDiscipline(this);
 	}
 }

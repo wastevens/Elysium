@@ -23,6 +23,11 @@ public enum AttributeFactory {
         public PlayerCharacter applyFocusTo(int attributeFocusOrdinal, PlayerCharacter character) {
             return character.withPhysicalAttributeFocus(PhysicalAttributeFocus.values()[attributeFocusOrdinal]);
         }
+        
+        @Override
+        public PlayerCharacter removeFocusFrom(int attributeFocusOrdinal, PlayerCharacter character) {
+        	return character.withoutPhysicalAttributeFocus(PhysicalAttributeFocus.values()[attributeFocusOrdinal]);
+        }
 
         @Override
         public AttributeFocus focusFor(int attributeFocusOrdinal) {
@@ -53,6 +58,11 @@ public enum AttributeFactory {
         @Override
         public PlayerCharacter applyFocusTo(int attributeFocusOrdinal, PlayerCharacter character) {
             return character.withSocialAttributeFocus(SocialAttributeFocus.values()[attributeFocusOrdinal]);
+        }
+        
+        @Override
+        public PlayerCharacter removeFocusFrom(int attributeFocusOrdinal, PlayerCharacter character) {
+        	return character.withoutSocialAttributeFocus(SocialAttributeFocus.values()[attributeFocusOrdinal]);
         }
 
         @Override
@@ -85,6 +95,11 @@ public enum AttributeFactory {
         public PlayerCharacter applyFocusTo(int attributeFocusOrdinal, PlayerCharacter character) {
             return character.withMentalAttributeFocus(MentalAttributeFocus.values()[attributeFocusOrdinal]);
         }
+        
+        @Override
+        public PlayerCharacter removeFocusFrom(int attributeFocusOrdinal, PlayerCharacter character) {
+        	return character.withoutMentalAttributeFocus(MentalAttributeFocus.values()[attributeFocusOrdinal]);
+        }
 
         @Override
         public AttributeFocus focusFor(int attributeFocusOrdinal) {
@@ -107,6 +122,7 @@ public enum AttributeFactory {
     public abstract String attributeName();
 
     public abstract PlayerCharacter applyFocusTo(int attributeFocusOrdinal, PlayerCharacter character);
+    public abstract PlayerCharacter removeFocusFrom(int attributeFocusOrdinal, PlayerCharacter character);
 
     public abstract AttributeFocus focusFor(int attributeFocusOrdinal);
 

@@ -69,4 +69,9 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy>, Rat
     public PlayerCharacter applyTo(PlayerCharacter character) {
         return character.withNecromanticPath(this);
     }
+    
+    @Override
+    public PlayerCharacter removeFrom(PlayerCharacter character) {
+    	return character.withoutNecromanticPath(this);
+    }
 }

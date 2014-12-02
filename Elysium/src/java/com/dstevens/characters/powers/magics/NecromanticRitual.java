@@ -50,4 +50,9 @@ public enum NecromanticRitual implements Ritual<NecromanticRitual> {
         return character.withNecromanticRitual(this);
     }
     
+    @Override
+    public PlayerCharacter removeFrom(PlayerCharacter character) {
+    	return character.withoutNecromanticRitual(this);
+    }
+    
 }

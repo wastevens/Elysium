@@ -305,6 +305,21 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
+    public PlayerCharacter withoutPhysicalAttributeFocus(PhysicalAttributeFocus focus) {
+    	this.physicalAttributeFocuses.remove(focus);
+    	return this;
+    }
+    
+    public PlayerCharacter withoutMentalAttributeFocus(MentalAttributeFocus focus) {
+    	this.mentalAttrbuteFocuses.remove(focus);
+    	return this;
+    }
+    
+    public PlayerCharacter withoutSocialAttributeFocus(SocialAttributeFocus focus) {
+    	this.socialAttributeFocuses.remove(focus);
+    	return this;
+    }
+    
     public Set<CharacterSkill> getSkills() {
         return skills;
     }
@@ -345,7 +360,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return powers;
     }
     
-    public PlayerCharacter withInClanDisciplines(Power<?> power) {
+    public PlayerCharacter withInClanDiscipline(Power<?> power) {
         if (power instanceof Discipline) {
             inClanDisciplines.add((Discipline) power);
         }
@@ -358,7 +373,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public PlayerCharacter withoutInClanDisciplines(Power<?> power) {
+    public PlayerCharacter withoutInClanDiscipline(Power<?> power) {
         if (power instanceof Discipline) {
             inClanDisciplines.remove((Discipline) power);
         }

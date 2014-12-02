@@ -1,6 +1,7 @@
 package com.dstevens.characters.powers;
 
 import static com.dstevens.characters.powers.TechniqueRequirement.required;
+
 import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
@@ -67,6 +68,11 @@ public enum Technique implements EnumeratedTrait<Technique> {
     @Override
     public PlayerCharacter applyTo(PlayerCharacter character) {
         return character.withTechnique(this);
+    }
+    
+    @Override
+    public PlayerCharacter removeFrom(PlayerCharacter character) {
+    	return character.withoutTechnique(this);
     }
     
 }

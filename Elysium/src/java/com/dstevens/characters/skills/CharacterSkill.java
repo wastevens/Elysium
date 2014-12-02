@@ -112,4 +112,9 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     public PlayerCharacter applyTo(PlayerCharacter character) {
         return character.withSkill(this);
     }
+    
+    @Override
+    public PlayerCharacter removeFrom(PlayerCharacter character) {
+    	return character.withoutSkill(this);
+    }
 }

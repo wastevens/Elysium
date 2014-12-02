@@ -1,8 +1,10 @@
 package com.dstevens.characters.changes;
 
-import javax.persistence.*;
-
 import com.dstevens.characters.PlayerCharacter;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("RatedTrait")
@@ -34,6 +36,11 @@ public class SetRatedTrait extends SetEnumeratedTrait {
     public PlayerCharacter apply(PlayerCharacter character) {
         return factory.traitFor(ordinal(), rating()).applyTo(character);
     }
+    
+    @Override
+	public PlayerCharacter remove(PlayerCharacter character) {
+    	return factory.traitFor(ordinal(), rating()).removeFrom(character);
+	}
     
     @Override
     public String describe() {

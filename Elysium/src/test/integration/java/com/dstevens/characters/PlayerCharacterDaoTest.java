@@ -187,12 +187,12 @@ public class PlayerCharacterDaoTest {
                                     withElderPower(ElderPower.CRIMSON_FURY).
                                     withTechnique(Technique.AN_DA_SHEALLADH).
                                     withTechnique(Technique.FEARFUL_BLOW).
-                                    withInClanDisciplines(Discipline.AUSPEX).
-                                    withInClanDisciplines(Discipline.CHIMERSTRY).
-                                    withInClanDisciplines(Thaumaturgy.MOVEMENT_OF_THE_MIND).
-                                    withInClanDisciplines(Thaumaturgy.PATH_OF_CONJURING).
-                                    withInClanDisciplines(Necromancy.BONE_PATH).
-                                    withInClanDisciplines(Necromancy.SEPULCHRE_PATH)
+                                    withInClanDiscipline(Discipline.AUSPEX).
+                                    withInClanDiscipline(Discipline.CHIMERSTRY).
+                                    withInClanDiscipline(Thaumaturgy.MOVEMENT_OF_THE_MIND).
+                                    withInClanDiscipline(Thaumaturgy.PATH_OF_CONJURING).
+                                    withInClanDiscipline(Necromancy.BONE_PATH).
+                                    withInClanDiscipline(Necromancy.SEPULCHRE_PATH)
                                     );
         
         PlayerCharacter characterWithPowers = characterDao.findOne(character.getId());

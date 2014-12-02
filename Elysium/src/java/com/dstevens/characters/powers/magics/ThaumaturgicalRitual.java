@@ -59,4 +59,9 @@ public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual> {
         return character.withThaumaturgicalRitual(this);
     }
     
+    @Override
+    public PlayerCharacter removeFrom(PlayerCharacter character) {
+    	return character.withoutThaumaturgicalRitual(this);
+    }
+    
 }

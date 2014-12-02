@@ -11,6 +11,7 @@ public interface EnumeratedTrait<T extends Enum<?>> {
     int ordinal();
     T trait();
     PlayerCharacter applyTo(PlayerCharacter character);
+    PlayerCharacter removeFrom(PlayerCharacter character);
     
     default Predicate<? super EnumeratedTrait<T>> matches() {
 		return (EnumeratedTrait<T> t) -> t.trait().equals(this.trait());

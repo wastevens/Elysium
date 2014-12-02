@@ -1,9 +1,11 @@
 package com.dstevens.characters.changes;
 
-import javax.persistence.*;
-
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.distinctions.Distinction;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Distinction")
@@ -47,6 +49,11 @@ public class SetDistinction extends SetTrait {
     @Override
     public PlayerCharacter apply(PlayerCharacter character) {
         return factory.distinctionFor(type, ordinal, details).applyTo(character);
+    }
+    
+    @Override
+    public PlayerCharacter remove(PlayerCharacter character) {
+    	return factory.distinctionFor(type, ordinal, details).removeFrom(character);
     }
     
     @Override

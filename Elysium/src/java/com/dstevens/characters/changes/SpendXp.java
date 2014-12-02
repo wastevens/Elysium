@@ -1,8 +1,10 @@
 package com.dstevens.characters.changes;
 
-import javax.persistence.*;
-
 import com.dstevens.characters.PlayerCharacter;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("SpendXP")
@@ -26,6 +28,11 @@ public class SpendXp extends SetTrait {
     @Override
     public final PlayerCharacter apply(PlayerCharacter character) {
         return character.setXp(character.getXp() - xp);
+    }
+    
+    @Override
+    public final PlayerCharacter remove(PlayerCharacter character) {
+    	return character.setXp(character.getXp() + xp);
     }
 
     @Override

@@ -41,6 +41,11 @@ public class SetAttributeFocus extends SetTrait {
     }
     
     @Override
+    public PlayerCharacter remove(PlayerCharacter character) {
+    	return factory.applyFocusTo(attributeFocusOrdinal, character);
+    }
+    
+    @Override
     public String describe() {
         String nextTrait = (hasAssociatedTrait() ? String.format(" with %1$s", associatedTrait().describe()) : "");
         return String.format("(%1$s) Add Focus %2$s to %3$s%4$s", status(), factory.focusFor(attributeFocusOrdinal), factory.attributeName(), nextTrait);

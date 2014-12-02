@@ -2,7 +2,8 @@ package com.dstevens.characters.distinctions;
 
 import com.dstevens.characters.PlayerCharacter;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue(value="Flaw")
@@ -29,5 +30,10 @@ public class CharacterFlaw extends CharacterDistinction {
     @Override
     public PlayerCharacter applyTo(PlayerCharacter character) {
         return character.withFlaw(this);
+    }
+    
+    @Override
+    public PlayerCharacter removeFrom(PlayerCharacter character) {
+    	return character.withoutFlaw(this);
     }
 }

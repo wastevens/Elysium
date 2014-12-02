@@ -88,4 +88,9 @@ public enum ElderPower implements EnumeratedTrait<ElderPower> {
         return character.withElderPower(this);
     }
     
+    @Override
+    public PlayerCharacter removeFrom(PlayerCharacter character) {
+    	return character.withoutElderPower(this);
+    }
+    
 }

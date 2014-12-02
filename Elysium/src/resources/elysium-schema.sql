@@ -27,7 +27,8 @@ alter table PlayerCharacter_techniques drop foreign key FK_68v6altvayqooj1qsfcjf
 alter table PlayerCharacter_thaumaturgicalPaths drop foreign key FK_8j1wew7bthyowmms3qy46n4ue;
 alter table PlayerCharacter_thaumaturgicalRituals drop foreign key FK_30m3pmwi16yxvinc7hyxs7re;
 alter table SetCharacterDefinedTrait_focuses drop foreign key FK_jd7np5p8o3a5kglmjqrq81ogl;
-alter table TraitChanges drop foreign key FK_trjv65o55d9qe3vx7n1oopgui;
+alter table TraitChanges drop foreign key FK_9wqbr22xdk46h0hhshrotsv9k;
+alter table TraitChanges drop foreign key FK_1soleuoltintdme7o8cj8qmis;
 drop table if exists AuditEvent;
 drop table if exists Backgrounds;
 drop table if exists CharacterBackground_focuses;
@@ -84,7 +85,7 @@ create table PlayerCharacter_thaumaturgicalPaths (PlayerCharacter_id varchar(255
 create table PlayerCharacter_thaumaturgicalRituals (PlayerCharacter_id varchar(255) not null, thaumaturgicalRituals integer);
 create table SetCharacterDefinedTrait_focuses (SetCharacterDefinedTrait_id varchar(255) not null, focuses varchar(255));
 create table Skills (id varchar(255) not null, rating integer, specialization varchar(255), skill integer, primary key (id));
-create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, factory integer, ordinal integer, rating integer, specialization varchar(255), typeIdentifier varchar(255), associatedTrait_id varchar(255), primary key (id));
+create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, factory integer, ordinal integer, rating integer, specialization varchar(255), typeIdentifier varchar(255), child_id varchar(255), traitToRemove_id varchar(255), primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
 alter table PlayerCharacter_Backgrounds add constraint UK_sbgnuo1acckqxcli46ppvgdjg  unique (backgrounds_id);
 alter table PlayerCharacter_Flaws add constraint UK_rjl79abqbohj23fxx48vobcle  unique (flaws_id);
@@ -120,4 +121,5 @@ alter table PlayerCharacter_techniques add constraint FK_68v6altvayqooj1qsfcjflo
 alter table PlayerCharacter_thaumaturgicalPaths add constraint FK_8j1wew7bthyowmms3qy46n4ue foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_thaumaturgicalRituals add constraint FK_30m3pmwi16yxvinc7hyxs7re foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table SetCharacterDefinedTrait_focuses add constraint FK_jd7np5p8o3a5kglmjqrq81ogl foreign key (SetCharacterDefinedTrait_id) references TraitChanges (id);
-alter table TraitChanges add constraint FK_trjv65o55d9qe3vx7n1oopgui foreign key (associatedTrait_id) references TraitChanges (id);
+alter table TraitChanges add constraint FK_9wqbr22xdk46h0hhshrotsv9k foreign key (child_id) references TraitChanges (id);
+alter table TraitChanges add constraint FK_1soleuoltintdme7o8cj8qmis foreign key (traitToRemove_id) references TraitChanges (id);

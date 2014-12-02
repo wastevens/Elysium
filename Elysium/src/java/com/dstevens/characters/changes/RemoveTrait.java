@@ -1,0 +1,59 @@
+package com.dstevens.characters.changes;
+
+import com.dstevens.characters.PlayerCharacter;
+
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
+@DiscriminatorValue("RemoveTrait")
+public class RemoveTrait extends SetTrait {
+
+	@OneToOne(cascade={CascadeType.ALL})
+	private final SetTrait traitToRemove;
+
+	//Hibernate only
+    @Deprecated
+    @SuppressWarnings("unused")
+    private RemoveTrait() {
+        this(null, null);
+    }
+	
+	protected RemoveTrait(SetTrait traitToRemove) {
+		this(traitToRemove.status(), traitToRemove);
+	}
+	private RemoveTrait(TraitChangeStatus status, SetTrait traitToRemove) {
+		super(status);
+		this.traitToRemove = traitToRemove;
+	}
+
+	@Override
+	public PlayerCharacter apply(PlayerCharacter character) {
+		SetTrait currentTraitToRemove = traitToRemove;
+		currentTraitToRemove.remove(character);
+		while(currentTraitToRemove.hasAssociatedTrait()) {
+			currentTraitToRemove = traitToRemove.associatedTrait();
+			currentTraitToRemove.remove(character);
+		}
+		return character;
+	}
+	
+	@Override
+	public PlayerCharacter remove(PlayerCharacter character) {
+		SetTrait currentTraitToRemove = traitToRemove;
+		currentTraitToRemove.apply(character);
+		while(currentTraitToRemove.hasAssociatedTrait()) {
+			currentTraitToRemove = traitToRemove.associatedTrait();
+			currentTraitToRemove.apply(character);
+		}
+		return character;
+	}
+
+	@Override
+	public String describe() {
+		return "Remove " + traitToRemove.describe();
+	}
+
+}

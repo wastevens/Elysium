@@ -115,4 +115,8 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     public PlayerCharacter applyTo(PlayerCharacter character) {
         return character.withBackground(this);
     }
+    
+    public PlayerCharacter removeFrom(PlayerCharacter character) {
+    	return character.withoutBackground(this);
+    }
 }

@@ -141,10 +141,9 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getFlaws());
 		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
 		
-        approveSpendingXpForMaryWollstonecraft();
+        approveChangesOnMary();
         
         PlayerCharacter maryWollstonecraftWithExperienceSpentAndApproved = getMaryWollstonecraft();
-        System.out.println(new PlayerCharacterDisplayer().display(maryWollstonecraftWithExperienceSpentAndApproved));
         
         assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getClan(), Clan.TOREADOR);
         assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getBloodline(), Bloodline.TOREADOR);
@@ -202,7 +201,9 @@ public class AddAndModifyCharacterTest {
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
 		assertEquals(37, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
 		
-		System.out.println(new PlayerCharacterDisplayer().display(maryWollstonecraftWithExperienceSpentAndApproved));
+		backoutSomeOfThoseChanges();
+		
+		System.out.println(new PlayerCharacterDisplayer().display(getMaryWollstonecraft()));
     }
 
     private void createMaryWollstonecraft() {
@@ -216,9 +217,9 @@ public class AddAndModifyCharacterTest {
         PlayerCharacter character = characterRepository.ensureExists(troupe, player, "Mary Wollstonecraft");
         PlayerCharacter saved = characterRepository.update(character.ofClan(Clan.TOREADOR).
                                              ofBloodline(Bloodline.TOREADOR).
-                                             withInClanDisciplines(Discipline.PRESENCE).
-                                             withInClanDisciplines(Discipline.CELERITY).
-                                             withInClanDisciplines(Discipline.AUSPEX).
+                                             withInClanDiscipline(Discipline.PRESENCE).
+                                             withInClanDiscipline(Discipline.CELERITY).
+                                             withInClanDiscipline(Discipline.AUSPEX).
                                              withPhysicalAttribute(3).withPhysicalAttributeFocus(PhysicalAttributeFocus.DEXTERITY).
                                              withSocialAttribute(5).withSocialAttributeFocus(SocialAttributeFocus.MANIPULATION).
                                              withMentalAttribute(7).withMentalAttributeFocus(MentalAttributeFocus.PERCEPTION).
@@ -281,6 +282,16 @@ public class AddAndModifyCharacterTest {
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.ADDITIONAL_COMMON_DISCIPLINE).withDetails("Dominate").withTraitChange(experienceChart.inClanPower(Discipline.DOMINATE).add()).buy()));
     }
 
+    private void backoutSomeOfThoseChanges() {
+    	PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
+        ExperienceChart experienceChart = ExperienceChart.chartFor(getMaryWollstonecraft());
+        
+        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS).withRating(3).withFocus("Philosophy").withFocus("Latin Poetry").withFocus("Greek Poetry").buy().remove().
+        		                                                                and(experienceChart.skill(Skill.ACADEMICS).withRating(2).withFocus("Philosophy").withFocus("Latin Poetry").add())));
+        
+        approveChangesOnMary();
+    }
+    
 	private PlayerCharacter getMaryWollstonecraft() {
 		TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
 		Troupe troupe = troupeRepository.findNamed(TROUPE_NAME);
@@ -288,12 +299,9 @@ public class AddAndModifyCharacterTest {
         return player.getCharacters().stream().filter((PlayerCharacter pc) -> pc.getName().equals("Mary Wollstonecraft")).findFirst().get();
 	}
 
-    private void approveSpendingXpForMaryWollstonecraft() {
+    private void approveChangesOnMary() {
         PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-        
-        PlayerCharacter character = getMaryWollstonecraft();
-        
-        characterRepository.update(character.approvePendingChanges());
+        characterRepository.update(getMaryWollstonecraft().approvePendingChanges());
     }
 
 }

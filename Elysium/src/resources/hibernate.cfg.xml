@@ -16,6 +16,7 @@
     <mapping class="com.dstevens.characters.distinctions.CharacterMerit"/>
     
     <mapping class="com.dstevens.characters.changes.SetTrait"/>
+    <mapping class="com.dstevens.characters.changes.RemoveTrait"/>
     <mapping class="com.dstevens.characters.changes.SetEnumeratedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetRatedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetCharacterDefinedTrait"/>

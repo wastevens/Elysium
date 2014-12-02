@@ -1,9 +1,11 @@
 package com.dstevens.characters.changes;
 
-import javax.persistence.*;
-
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.EnumeratedTrait;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("EnumeratedTrait")
@@ -44,10 +46,14 @@ public class SetEnumeratedTrait extends SetTrait {
     public PlayerCharacter apply(PlayerCharacter character) {
         return factory.traitFor(ordinal).applyTo(character);
     }
+
+	@Override
+	public PlayerCharacter remove(PlayerCharacter character) {
+		return factory.traitFor(ordinal).removeFrom(character);
+	}
     
     @Override
     public String describe() {
         return String.format("(%1$s) Add %2$s", status(), factory.traitFor(ordinal));
     }
-
 }

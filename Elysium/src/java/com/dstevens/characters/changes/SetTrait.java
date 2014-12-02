@@ -26,7 +26,7 @@ public abstract class SetTrait {
     private TraitChangeStatus status;
     
     @OneToOne(cascade={CascadeType.ALL})
-    private SetTrait associatedTrait;
+    private SetTrait child;
     
     //Hibernate only
     @SuppressWarnings("unused")
@@ -36,22 +36,21 @@ public abstract class SetTrait {
     }
     
     protected SetTrait(TraitChangeStatus status) {
-        this(status, null);
-    }
-    
-    private SetTrait(TraitChangeStatus status, SetTrait associatedTrait) {
         this.id = new IdSupplier().get();
         this.status = status;
-        this.associatedTrait = associatedTrait;
     }
     
     public SetTrait and(SetTrait andTrait) {
-    	if(associatedTrait != null) {
-    		this.associatedTrait.and(andTrait);
+    	if(child != null) {
+    		this.child.and(andTrait);
     	} else {
-    		this.associatedTrait = andTrait;
+    		this.child = andTrait;
     	}
     	return this;
+    }
+    
+    public SetTrait remove() {
+    	return new RemoveTrait(this);
     }
     
     public final PlayerCharacter approve(PlayerCharacter character) {
@@ -63,11 +62,11 @@ public abstract class SetTrait {
     }
 
     public boolean hasAssociatedTrait() {
-        return associatedTrait != null;
+        return child != null;
     }
 
     public SetTrait associatedTrait() {
-        return associatedTrait;
+        return child;
     }
     
     public final void setStatus(TraitChangeStatus status) {
@@ -83,6 +82,7 @@ public abstract class SetTrait {
     }
 
     public abstract PlayerCharacter apply(PlayerCharacter character);
+    public abstract PlayerCharacter remove(PlayerCharacter character);
     public abstract String describe();
     
     @Override

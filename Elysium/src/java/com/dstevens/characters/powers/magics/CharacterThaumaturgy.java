@@ -69,4 +69,9 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, R
     public PlayerCharacter applyTo(PlayerCharacter character) {
         return character.withThaumaturgicalPath(this);
     }
+    
+    @Override
+    public PlayerCharacter removeFrom(PlayerCharacter character) {
+    	return character.withoutThaumaturgicalPath(this);
+    }
 }
