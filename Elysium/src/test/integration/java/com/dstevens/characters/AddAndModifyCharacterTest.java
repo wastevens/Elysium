@@ -15,6 +15,7 @@ import com.dstevens.characters.attributes.SocialAttributeFocus;
 import com.dstevens.characters.backgrounds.Background;
 import com.dstevens.characters.backgrounds.CharacterBackground;
 import com.dstevens.characters.changes.AttributeFactory;
+import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.distinctions.CharacterFlaw;
@@ -107,7 +108,9 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(), maryWollstonecraftWhenNewlyCreated.getFlaws());
 		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
 		
+		System.out.println("Created");
         spendXpForMaryWollstonecraft();
+        System.out.println("Spent");
         
         PlayerCharacter maryWollstonecraftWithExperienceSpentButNotYetApproved = getMaryWollstonecraft();
         assertEquals(maryWollstonecraftWithExperienceSpentButNotYetApproved.getClan(), Clan.TOREADOR);
@@ -141,6 +144,7 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getFlaws());
 		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
 		
+		System.out.println("Approved");
         approveChangesOnMary();
         
         PlayerCharacter maryWollstonecraftWithExperienceSpentAndApproved = getMaryWollstonecraft();
@@ -201,6 +205,7 @@ public class AddAndModifyCharacterTest {
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
 		assertEquals(37, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
 		
+		System.out.println("Removed");
 		backoutSomeOfThoseChanges();
 		
 		System.out.println(new PlayerCharacterDisplayer().display(getMaryWollstonecraft()));
@@ -286,8 +291,9 @@ public class AddAndModifyCharacterTest {
     	PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
         ExperienceChart experienceChart = ExperienceChart.chartFor(getMaryWollstonecraft());
         
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS).withRating(3).withFocus("Philosophy").withFocus("Latin Poetry").withFocus("Greek Poetry").buy().remove().
-        		                                                                and(experienceChart.skill(Skill.ACADEMICS).withRating(2).withFocus("Philosophy").withFocus("Latin Poetry").add())));
+        SetTrait remove = experienceChart.skill(Skill.ACADEMICS).withRating(3).withFocus("Philosophy").withFocus("Latin Poetry").withFocus("Greek Poetry").buy().remove();
+        SetTrait restore = experienceChart.skill(Skill.ACADEMICS).withRating(2).withFocus("Philosophy").withFocus("Latin Poetry").add();
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(remove.and(restore)));
         
         approveChangesOnMary();
     }

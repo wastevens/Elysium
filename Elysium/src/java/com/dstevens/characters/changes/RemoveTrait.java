@@ -32,10 +32,10 @@ public class RemoveTrait extends SetTrait {
 	@Override
 	public PlayerCharacter apply(PlayerCharacter character) {
 		SetTrait currentTraitToRemove = traitToRemove;
-		currentTraitToRemove.remove(character);
-		while(currentTraitToRemove.hasAssociatedTrait()) {
-			currentTraitToRemove = traitToRemove.associatedTrait();
+		while(currentTraitToRemove != null) {
+			currentTraitToRemove.setStatus(TraitChangeStatus.APPLIED);
 			currentTraitToRemove.remove(character);
+			currentTraitToRemove = currentTraitToRemove.associatedTrait();
 		}
 		return character;
 	}
@@ -53,7 +53,9 @@ public class RemoveTrait extends SetTrait {
 
 	@Override
 	public String describe() {
-		return "Remove " + traitToRemove.describe();
+		String removeTrait = String.format("Removing %1$s", traitToRemove.describe());
+		String nextTrait = (hasAssociatedTrait() ? String.format(", restoring %1$s", associatedTrait().describe()) : "");
+		return String.format("(%1$s) Removing %2$s%3$s", status(), removeTrait, nextTrait);
 	}
 
 }
