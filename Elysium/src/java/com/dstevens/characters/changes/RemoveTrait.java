@@ -55,7 +55,7 @@ public class RemoveTrait extends SetTrait {
 	public String describe() {
 		String removeTrait = String.format("Removing %1$s", traitToRemove.describe());
 		String nextTrait = (hasAssociatedTrait() ? String.format(", restoring %1$s", associatedTrait().describe()) : "");
-		return String.format("(%1$s) Removing %2$s%3$s", status(), removeTrait, nextTrait);
+		return String.format("(%1$s) %2$s%3$s", status(), removeTrait, nextTrait);
 	}
 
 }
