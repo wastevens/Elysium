@@ -62,14 +62,14 @@ public class AddAndModifyCharacterTest {
     
     @After
     public void tearDown() {
-    	TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
-        PlayerRepository playerRepository = appConfig.getBean(PlayerRepository.class);
-        PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-        
-        Troupe troupe = troupeRepository.findNamed(TROUPE_NAME);
-        troupe.getCharacters().stream().forEach(((PlayerCharacter pc) -> characterRepository.hardDelete(pc)));
-        troupe.getPlayers().stream().forEach(((Player pc) -> playerRepository.hardDelete(pc)));
-        troupeRepository.hardDelete(troupe);
+//    	TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
+//        PlayerRepository playerRepository = appConfig.getBean(PlayerRepository.class);
+//        PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
+//        
+//        Troupe troupe = troupeRepository.findNamed(TROUPE_NAME);
+//        troupe.getCharacters().stream().forEach(((PlayerCharacter pc) -> characterRepository.hardDelete(pc)));
+//        troupe.getPlayers().stream().forEach(((Player pc) -> playerRepository.hardDelete(pc)));
+//        troupeRepository.hardDelete(troupe);
     }
     
     @Test   

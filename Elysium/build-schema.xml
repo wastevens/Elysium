@@ -32,7 +32,7 @@
     <hibernatetool destdir="${basedir}/src/resources">
       <classpath refid="schemaExportClasspath"/>
       <annotationConfiguration configurationfile="${basedir}/src/resources/hibernate.cfg.xml"/>
-      <hbm2ddl outputfilename="elysium-schema.sql" export="false" update="false" drop="true" create="true"/>
+      <hbm2ddl outputfilename="${project.name}-schema.sql" export="false" update="false" drop="true" create="true"/>
     </hibernatetool>
 </target>
 </project>

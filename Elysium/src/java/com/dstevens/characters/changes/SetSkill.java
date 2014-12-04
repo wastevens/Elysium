@@ -10,13 +10,16 @@ import com.dstevens.characters.skills.CharacterSkill;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Skill")
 public class SetSkill extends SetTrait {
 
-	@OneToOne(cascade={CascadeType.ALL})
+	@OneToOne(cascade={CascadeType.ALL}, optional=true)
+	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
     private CharacterSkill trait;
 
 	//Hibernate only

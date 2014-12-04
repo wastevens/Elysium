@@ -29,8 +29,6 @@ alter table PlayerCharacter_thaumaturgicalRituals drop foreign key FK_30m3pmwi16
 alter table SetCharacterDefinedTrait_focuses drop foreign key FK_jd7np5p8o3a5kglmjqrq81ogl;
 alter table TraitChanges drop foreign key FK_9wqbr22xdk46h0hhshrotsv9k;
 alter table TraitChanges drop foreign key FK_1soleuoltintdme7o8cj8qmis;
-alter table TraitChanges drop foreign key FK_oucrcm2jg491n1kk65500ba06;
-alter table TraitChanges drop foreign key FK_oucrcm2jg491n1kk65500ba06;
 drop table if exists AuditEvent;
 drop table if exists Backgrounds;
 drop table if exists CharacterBackground_focuses;
@@ -125,5 +123,3 @@ alter table PlayerCharacter_thaumaturgicalRituals add constraint FK_30m3pmwi16yx
 alter table SetCharacterDefinedTrait_focuses add constraint FK_jd7np5p8o3a5kglmjqrq81ogl foreign key (SetCharacterDefinedTrait_id) references TraitChanges (id);
 alter table TraitChanges add constraint FK_9wqbr22xdk46h0hhshrotsv9k foreign key (child_id) references TraitChanges (id);
 alter table TraitChanges add constraint FK_1soleuoltintdme7o8cj8qmis foreign key (traitToRemove_id) references TraitChanges (id);
-alter table TraitChanges add constraint FK_oucrcm2jg491n1kk65500ba06 foreign key (trait_id) references Backgrounds (id);
-alter table TraitChanges add constraint FK_oucrcm2jg491n1kk65500ba06 foreign key (trait_id) references Skills (id);
