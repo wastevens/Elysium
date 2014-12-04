@@ -5,11 +5,10 @@ import static com.dstevens.collections.Sets.set;
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.changes.SetCharacterDefinedTrait;
+import com.dstevens.characters.changes.SetSkill;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
 import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.changes.TraitFactory;
 import com.dstevens.characters.skills.CharacterSkill;
 import com.dstevens.characters.skills.Skill;
 import com.dstevens.game.TraitChangeBuilder;
@@ -56,8 +55,8 @@ public class SkillTraitChangeBuilder implements TraitChangeBuilder {
         return setSkill();
     }
 
-    private SetCharacterDefinedTrait setSkill() {
-        return new SetCharacterDefinedTrait(TraitChangeStatus.PENDING, CharacterSkill.skillFor(skill, rating, specialization, focuses), TraitFactory.SKILL);
+    private SetSkill setSkill() {
+    	return new SetSkill(TraitChangeStatus.PENDING, CharacterSkill.skillFor(skill, rating, specialization, focuses));
     }
 
 	@Override

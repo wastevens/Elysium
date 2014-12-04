@@ -31,12 +31,20 @@ public class SetCharacterDefinedTrait extends SetRatedTrait {
         this(status, trait.ordinal(), trait.rating(), trait.getSpecialization(), trait.getFocuses(), factory);
     }
     
-    private SetCharacterDefinedTrait(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses, TraitFactory factory) {
+    protected SetCharacterDefinedTrait(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses, TraitFactory factory) {
         super(status, ordinal, rating, factory);
         this.focuses = focuses;
         this.specialization = specialization;
     }
 
+    public String specialization() {
+		return specialization;
+	}
+    
+    public Set<String> focuses() {
+		return focuses;
+	}
+    
     public PlayerCharacter apply(PlayerCharacter character) {
         return factory.traitFor(ordinal(), rating(), specialization, focuses).applyTo(character);
     }
