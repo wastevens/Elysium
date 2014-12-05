@@ -1,4 +1,4 @@
-alter table CharacterBackground_focuses drop foreign key FK_gwyci7jpuwu0q3mucbf5q5rjq;
+alter table CharacterBackground_focuses drop foreign key CharacterBackground_Focuses_Background_FK;
 alter table CharacterSkill_focuses drop foreign key FK_m55thyly94po4rbmw03iay1u8;
 alter table Player drop foreign key FK_ks4oof9guph2qvo7v6cqdiefx;
 alter table PlayerCharacter drop foreign key FK_1wbxymbhm40bq5goo5laqy756;
@@ -87,12 +87,12 @@ create table SetCharacterDefinedTrait_focuses (SetCharacterDefinedTrait_id varch
 create table Skills (id varchar(255) not null, rating integer, specialization varchar(255), skill integer, primary key (id));
 create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, factory integer, ordinal integer, rating integer, specialization varchar(255), typeIdentifier varchar(255), child_id varchar(255), traitToRemove_id varchar(255), trait_id varchar(255), primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
-alter table PlayerCharacter_Backgrounds add constraint UK_sbgnuo1acckqxcli46ppvgdjg  unique (backgrounds_id);
-alter table PlayerCharacter_Flaws add constraint UK_rjl79abqbohj23fxx48vobcle  unique (flaws_id);
-alter table PlayerCharacter_Merits add constraint UK_kwh5cqg5m23tq3rq1xwr8qaba  unique (merits_id);
-alter table PlayerCharacter_Skills add constraint UK_qqe336af9uubmj4p0vrfn2dql  unique (skills_id);
-alter table PlayerCharacter_TraitChanges add constraint UK_s5e9fv5uoth36s44agn30vqtt  unique (traitChangeEvents_id);
-alter table CharacterBackground_focuses add constraint FK_gwyci7jpuwu0q3mucbf5q5rjq foreign key (CharacterBackground_id) references Backgrounds (id);
+alter table PlayerCharacter_Backgrounds add constraint PlayerCharacter_Backgrounds_UC  unique (backgrounds_id);
+alter table PlayerCharacter_Flaws add constraint PlayerCharacter_Flaws_UC  unique (flaws_id);
+alter table PlayerCharacter_Merits add constraint PlayerCharacter_Merits_UC  unique (merits_id);
+alter table PlayerCharacter_Skills add constraint PlayerCharacter_Skills_UC  unique (skills_id);
+alter table PlayerCharacter_TraitChanges add constraint PlayerCharacter_TraitChanges_UC  unique (traitChangeEvents_id);
+alter table CharacterBackground_focuses add constraint CharacterBackground_Focuses_Background_FK foreign key (CharacterBackground_id) references Backgrounds (id);
 alter table CharacterSkill_focuses add constraint FK_m55thyly94po4rbmw03iay1u8 foreign key (CharacterSkill_id) references Skills (id);
 alter table Player add constraint FK_ks4oof9guph2qvo7v6cqdiefx foreign key (troupe_id) references Troupe (id);
 alter table PlayerCharacter add constraint FK_1wbxymbhm40bq5goo5laqy756 foreign key (player_id) references Player (id);

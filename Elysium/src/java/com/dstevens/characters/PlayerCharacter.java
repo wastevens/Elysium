@@ -45,6 +45,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name="PlayerCharacter")
@@ -87,9 +88,11 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private Set<SocialAttributeFocus> socialAttributeFocuses;
     
     @OneToMany(cascade={CascadeType.ALL})
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"skills_id"}, name="PlayerCharacter_Skills_UC")})
     private final Set<CharacterSkill> skills;
     
     @OneToMany(cascade={CascadeType.ALL})
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"backgrounds_id"}, name="PlayerCharacter_Backgrounds_UC")})
     private final Set<CharacterBackground> backgrounds;
 
     @ElementCollection
@@ -129,15 +132,16 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private final Set<NecromanticRitual> necromanticRituals;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="PlayerCharacter_Merits")
+    @JoinTable(name="PlayerCharacter_Merits", uniqueConstraints={@UniqueConstraint(columnNames={"merits_id"}, name="PlayerCharacter_Merits_UC")})
     private final Set<CharacterMerit> merits;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="PlayerCharacter_Flaws")
+    @JoinTable(name="PlayerCharacter_Flaws", uniqueConstraints={@UniqueConstraint(columnNames={"flaws_id"}, name="PlayerCharacter_Flaws_UC")})
     private final Set<CharacterFlaw> flaws;
     
     @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="order_by")
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChangeEvents_id"}, name="PlayerCharacter_TraitChanges_UC")})
     private final List<SetTrait> traitChangeEvents;
     
     //Hibernate only
