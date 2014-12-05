@@ -103,8 +103,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @ForeignKey(name="PlayerCharacter_Backgrounds_FK", inverseName="Backgrounds_PlayerCharacter_FK")
     private final Set<CharacterBackground> backgrounds;
 
-    @ElementCollection
-    @ForeignKey(name="PlayerCharacter_CharacterDisciplines_FK")
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"disciplines_id"}, name="PlayerCharacter_Disciplines_UC")})
+    @ForeignKey(name="PlayerCharacter_Disciplines_FK", inverseName="Disciplines_PlayerCharacter_FK")
     private final Set<CharacterDiscipline> disciplines;
     
     @ElementCollection
@@ -127,8 +128,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @ForeignKey(name="PlayerCharacter_Techniques_FK")
     private final Set<Technique> techniques;
     
-    @ElementCollection
-    @ForeignKey(name="PlayerCharacter_CharacterThaumaturgicalPaths_FK")
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"thaumaturgicalPaths_id"}, name="PlayerCharacter_ThaumaturgicalPaths_UC")})
+    @ForeignKey(name="PlayerCharacter_ThaumaturgicalPaths_FK", inverseName="ThaumaturgicalPaths_PlayerCharacter_FK")
     private final Set<CharacterThaumaturgy> thaumaturgicalPaths;
     
     @Column(name="primary_thaumaturgical_path")
@@ -138,8 +140,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @ForeignKey(name="PlayerCharacter_CharacterThaumaturgicalRituals_FK")
     private final Set<ThaumaturgicalRitual> thaumaturgicalRituals;
     
-    @ElementCollection
-    @ForeignKey(name="PlayerCharacter_CharacterNecromanticPaths_FK")
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"necromanticPaths_id"}, name="PlayerCharacter_NecromanticPaths_UC")})
+    @ForeignKey(name="PlayerCharacter_NecromanticPaths_FK", inverseName="NecromanticPaths_PlayerCharacter_FK")
     private final Set<CharacterNecromancy> necromanticPaths;
     
     @Column(name="primary_necromantic_path")

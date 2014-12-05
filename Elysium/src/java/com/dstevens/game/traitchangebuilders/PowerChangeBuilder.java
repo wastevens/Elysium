@@ -1,13 +1,17 @@
 package com.dstevens.game.traitchangebuilders;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.changes.SetRatedTrait;
+import com.dstevens.characters.changes.SetDiscipline;
+import com.dstevens.characters.changes.SetNecromancy;
+import com.dstevens.characters.changes.SetThaumaturgy;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
 import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.changes.TraitFactory;
+import com.dstevens.characters.powers.CharacterDiscipline;
 import com.dstevens.characters.powers.Discipline;
 import com.dstevens.characters.powers.Power;
+import com.dstevens.characters.powers.magics.CharacterNecromancy;
+import com.dstevens.characters.powers.magics.CharacterThaumaturgy;
 import com.dstevens.characters.powers.magics.Necromancy;
 import com.dstevens.characters.powers.magics.Thaumaturgy;
 import com.dstevens.game.TraitChangeBuilder;
@@ -49,13 +53,13 @@ public class PowerChangeBuilder implements TraitChangeBuilder {
         return setDiscipline();
     }
 
-    private SetRatedTrait setDiscipline() {
+    private SetTrait setDiscipline() {
     	if(power instanceof Discipline) {
-    		return new SetRatedTrait(TraitChangeStatus.PENDING, (Discipline) power, rating, TraitFactory.DISCIPLINE);
+    		return new SetDiscipline(TraitChangeStatus.PENDING, new CharacterDiscipline((Discipline) power, rating));
     	} else if(power instanceof Thaumaturgy) {
-    		return new SetRatedTrait(TraitChangeStatus.PENDING, (Thaumaturgy) power, rating, TraitFactory.THAUMATURGY);
+    		return new SetThaumaturgy(TraitChangeStatus.PENDING, new CharacterThaumaturgy((Thaumaturgy) power, rating));
     	} else if(power instanceof Necromancy) {
-    		return new SetRatedTrait(TraitChangeStatus.PENDING, (Necromancy) power, rating, TraitFactory.NECROMANCY);
+    		return new SetNecromancy(TraitChangeStatus.PENDING, new CharacterNecromancy((Necromancy) power, rating));
     	}
     	throw new IllegalArgumentException("Cannot find an implementing power type for " + power);
     }

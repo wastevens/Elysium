@@ -10,6 +10,9 @@
     <mapping class="com.dstevens.players.Player"/>
     <mapping class="com.dstevens.characters.PlayerCharacter"/>
     <mapping class="com.dstevens.characters.skills.CharacterSkill"/>
+    <mapping class="com.dstevens.characters.powers.CharacterDiscipline"/>
+    <mapping class="com.dstevens.characters.powers.magics.CharacterThaumaturgy"/>
+    <mapping class="com.dstevens.characters.powers.magics.CharacterNecromancy"/>
     <mapping class="com.dstevens.characters.backgrounds.CharacterBackground"/>
     <mapping class="com.dstevens.characters.distinctions.CharacterDistinction"/>
     <mapping class="com.dstevens.characters.distinctions.CharacterFlaw"/>
@@ -18,7 +21,9 @@
     <mapping class="com.dstevens.characters.changes.SetTrait"/>
     <mapping class="com.dstevens.characters.changes.RemoveTrait"/>
     <mapping class="com.dstevens.characters.changes.SetEnumeratedTrait"/>
-    <mapping class="com.dstevens.characters.changes.SetRatedTrait"/>
+    <mapping class="com.dstevens.characters.changes.SetDiscipline"/>
+    <mapping class="com.dstevens.characters.changes.SetThaumaturgy"/>
+    <mapping class="com.dstevens.characters.changes.SetNecromancy"/>
     <mapping class="com.dstevens.characters.changes.SetBackground"/>
     <mapping class="com.dstevens.characters.changes.SetSkill"/>
     <mapping class="com.dstevens.characters.changes.SetDistinction"/>

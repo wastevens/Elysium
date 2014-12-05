@@ -2,16 +2,26 @@ package com.dstevens.characters.powers.magics;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.RatedTrait;
+import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 import javax.persistence.Basic;
-import javax.persistence.Embeddable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Embeddable
+@Entity
+@Table(name="NecromanticPaths")
 public class CharacterNecromancy implements Comparable<CharacterNecromancy>, RatedTrait<Necromancy> {
 
+	@Id
+    private final String id;
+	
     @Basic(optional=false)
     private final Necromancy power;
+    
+    @Column(name="rating")
     private int rating;
     
     //Hibernate only
@@ -22,6 +32,7 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy>, Rat
     }
     
     public CharacterNecromancy(Necromancy trait, int rating) {
+    	this.id = new IdSupplier().get();
         this.power = trait;
         this.rating = rating;
     }

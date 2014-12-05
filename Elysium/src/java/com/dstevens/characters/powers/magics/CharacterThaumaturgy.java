@@ -2,16 +2,26 @@ package com.dstevens.characters.powers.magics;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.RatedTrait;
+import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 import javax.persistence.Basic;
-import javax.persistence.Embeddable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Embeddable
+@Entity
+@Table(name="ThaumaturgicalPaths")
 public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, RatedTrait<Thaumaturgy> {
 
+	@Id
+    private final String id;
+	
     @Basic(optional=false)
     private final Thaumaturgy trait;
+    
+    @Column(name="rating")
     private int rating;
 
     //Hibernate only
@@ -22,6 +32,7 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, R
     }
     
     public CharacterThaumaturgy(Thaumaturgy trait, int rating) {
+    	this.id = new IdSupplier().get();
         this.trait = trait;
         this.rating = rating;
     }
