@@ -23,6 +23,7 @@ import com.dstevens.characters.distinctions.ClanSpecificMerit;
 import com.dstevens.characters.distinctions.GeneralFlaw;
 import com.dstevens.characters.distinctions.GeneralMerit;
 import com.dstevens.characters.powers.CharacterDiscipline;
+import com.dstevens.characters.powers.CharacterElderPower;
 import com.dstevens.characters.powers.Discipline;
 import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.characters.powers.Technique;
@@ -62,14 +63,14 @@ public class AddAndModifyCharacterTest {
     
     @After
     public void tearDown() {
-//    	TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
-//        PlayerRepository playerRepository = appConfig.getBean(PlayerRepository.class);
-//        PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-//        
-//        Troupe troupe = troupeRepository.findNamed(TROUPE_NAME);
-//        troupe.getCharacters().stream().forEach(((PlayerCharacter pc) -> characterRepository.hardDelete(pc)));
-//        troupe.getPlayers().stream().forEach(((Player pc) -> playerRepository.hardDelete(pc)));
-//        troupeRepository.hardDelete(troupe);
+    	TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
+        PlayerRepository playerRepository = appConfig.getBean(PlayerRepository.class);
+        PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
+        
+        Troupe troupe = troupeRepository.findNamed(TROUPE_NAME);
+        troupe.getCharacters().stream().forEach(((PlayerCharacter pc) -> characterRepository.hardDelete(pc)));
+        troupe.getPlayers().stream().forEach(((Player pc) -> playerRepository.hardDelete(pc)));
+        troupeRepository.hardDelete(troupe);
     }
     
     @Test   
@@ -190,7 +191,7 @@ public class AddAndModifyCharacterTest {
                      maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticRituals());
         assertEquals(set(Technique.ARMOR_OF_DARKNESS, Technique.CONTROL_THE_SAVAGE_BEAST),
         		     maryWollstonecraftWithExperienceSpentAndApproved.getTechniques());
-		assertEquals(set(ElderPower.CLAIRVOYANCE, ElderPower.ACID_BLOOD),
+		assertEquals(set(new CharacterElderPower(ElderPower.CLAIRVOYANCE), new CharacterElderPower(ElderPower.ACID_BLOOD)),
 		             maryWollstonecraftWithExperienceSpentAndApproved.getElderPowers());
 		assertEquals(set(new CharacterMerit(ClanSpecificMerit.ARTISTS_BLESSING, "Poetry"),
 				         new CharacterMerit(GeneralMerit.LUCKY),

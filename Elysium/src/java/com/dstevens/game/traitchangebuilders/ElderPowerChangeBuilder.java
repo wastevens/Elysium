@@ -1,11 +1,11 @@
 package com.dstevens.game.traitchangebuilders;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.changes.SetEnumeratedTrait;
+import com.dstevens.characters.changes.SetElderPower;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
 import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.changes.TraitFactory;
+import com.dstevens.characters.powers.CharacterElderPower;
 import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.game.TraitChangeBuilder;
 
@@ -37,8 +37,8 @@ public class ElderPowerChangeBuilder implements TraitChangeBuilder {
         return setElderPower();
     }
 
-    private SetEnumeratedTrait setElderPower() {
-        return new SetEnumeratedTrait(TraitChangeStatus.PENDING, elderPower, TraitFactory.ELDER_POWER);
+    private SetTrait setElderPower() {
+    	return new SetElderPower(TraitChangeStatus.PENDING, new CharacterElderPower(elderPower));
     }
 
 	@Override

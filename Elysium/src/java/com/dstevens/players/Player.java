@@ -19,10 +19,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @SuppressWarnings("deprecation")
 @Entity
@@ -39,8 +38,8 @@ public class Player implements Auditable<Player>, Comparable<Player> {
     private final String email;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"characters_id"}, name="Player_PlayerCharacters_UC")})
-    @ForeignKey(name="Player_PlayerCharacter_FK", inverseName="PlayerCharacter_Player_FK")
+    @JoinColumn(name="player_id", referencedColumnName="id")
+    @ForeignKey(name="Player_PlayerCharacters_FK")
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")

@@ -2,12 +2,8 @@ package com.dstevens.characters.changes;
 
 import java.util.Set;
 
-import com.dstevens.characters.powers.CharacterDiscipline;
 import com.dstevens.characters.powers.Discipline;
-import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.characters.powers.Technique;
-import com.dstevens.characters.powers.magics.CharacterNecromancy;
-import com.dstevens.characters.powers.magics.CharacterThaumaturgy;
 import com.dstevens.characters.powers.magics.Necromancy;
 import com.dstevens.characters.powers.magics.NecromanticRitual;
 import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
@@ -17,42 +13,6 @@ import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 
 public enum TraitFactory {
-    DISCIPLINE {
-        @Override
-        public RatedTrait<?> traitFor(int ordinal, int rating) {
-            return new CharacterDiscipline(trait(ordinal), rating);
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public <E extends Enum<?>> E trait(int ordinal) {
-            return (E) Discipline.values()[ordinal];
-        }
-    }, 
-    THAUMATURGY {
-        @Override
-        public RatedTrait<?> traitFor(int ordinal, int rating) {
-            return new CharacterThaumaturgy(trait(ordinal), rating);
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public <E extends Enum<?>> E trait(int ordinal) {
-            return (E) Thaumaturgy.values()[ordinal];
-        }
-    }, 
-    NECROMANCY {
-        @Override
-        public RatedTrait<?> traitFor(int ordinal, int rating) {
-            return new CharacterNecromancy(trait(ordinal), rating);
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public <E extends Enum<?>> E trait(int ordinal) {
-            return (E) Necromancy.values()[ordinal];
-        }
-    }, 
     THAUMATURGICAL_RITUAL {
         @Override
         public EnumeratedTrait<?> traitFor(int ordinal) {
@@ -75,18 +35,6 @@ public enum TraitFactory {
         @Override
         public <E extends Enum<?>> E trait(int ordinal) {
             return (E) NecromanticRitual.values()[ordinal];
-        }
-    },
-    ELDER_POWER {
-        @Override
-        public EnumeratedTrait<?> traitFor(int ordinal) {
-            return ElderPower.values()[ordinal];
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public <E extends Enum<?>> E trait(int ordinal) {
-            return (E) ElderPower.values()[ordinal];
         }
     },
     TECHNIQUE {

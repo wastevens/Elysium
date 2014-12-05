@@ -5,7 +5,6 @@ import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.distinctions.CharacterFlaw;
 import com.dstevens.characters.distinctions.CharacterMerit;
 import com.dstevens.characters.powers.CharacterDiscipline;
-import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.characters.powers.Power;
 import com.dstevens.characters.powers.Technique;
 import com.dstevens.characters.powers.magics.CharacterNecromancy;
@@ -46,7 +45,7 @@ public class PlayerCharacterDisplayer {
         builder.append("\n").append("Techniques").append("\n");
         character.getTechniques().stream().sorted().map(((Technique t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
         builder.append("\n").append("Elder Powers").append("\n");
-        character.getElderPowers().stream().sorted().map(((ElderPower t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
+//        character.getElderPowers().stream().sorted().map(((CharacterElderPower t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
         builder.append("\n").append("Merits & Flaws").append("\n");
         character.getMerits().stream().sorted().map(((CharacterMerit t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
         character.getFlaws().stream().sorted().map(((CharacterFlaw t) -> display(t))).forEach((String s) -> builder.append(s).append("\n"));
