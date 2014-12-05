@@ -1,15 +1,30 @@
 package com.dstevens.players;
 
-import static com.dstevens.collections.Sets.*;
+import static com.dstevens.collections.Sets.set;
+import static com.dstevens.collections.Sets.setWith;
+import static com.dstevens.collections.Sets.setWithout;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Set;
 import java.util.function.Function;
-import javax.persistence.*;
+
+import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@SuppressWarnings("deprecation")
 @Entity
 @Table(name="Player")
 public class Player implements Auditable<Player>, Comparable<Player> {
@@ -24,7 +39,8 @@ public class Player implements Auditable<Player>, Comparable<Player> {
     private final String email;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinColumn(name="player_id", referencedColumnName="id")
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"characters_id"}, name="Player_PlayerCharacters_UC")})
+    @ForeignKey(name="Player_PlayerCharacter_FK", inverseName="PlayerCharacter_Player_FK")
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")

@@ -1,16 +1,29 @@
 package com.dstevens.players;
 
-import static com.dstevens.collections.Sets.*;
+import static com.dstevens.collections.Sets.set;
+import static com.dstevens.collections.Sets.setWith;
+import static com.dstevens.collections.Sets.setWithout;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Set;
 import java.util.function.Function;
 
-import javax.persistence.*;
+import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@SuppressWarnings("deprecation")
 @Entity
 @Table(name="Troupe")
 public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
@@ -26,10 +39,12 @@ public class Troupe implements Auditable<Troupe>, Comparable<Troupe> {
     
     @OneToMany(cascade={CascadeType.ALL})
     @JoinColumn(name="troupe_id", referencedColumnName="id")
+    @ForeignKey(name="Troupe_Players_FK")
     private final Set<Player> players;
 
     @OneToMany(cascade={CascadeType.ALL})
     @JoinColumn(name="troupe_id", referencedColumnName="id")
+    @ForeignKey(name="Troupe_PlayerCharacters_FK")
     private final Set<PlayerCharacter> characters;
 
     @Column(name="deleted_at")

@@ -19,7 +19,6 @@
     <mapping class="com.dstevens.characters.changes.RemoveTrait"/>
     <mapping class="com.dstevens.characters.changes.SetEnumeratedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetRatedTrait"/>
-    <mapping class="com.dstevens.characters.changes.SetCharacterDefinedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetBackground"/>
     <mapping class="com.dstevens.characters.changes.SetSkill"/>
     <mapping class="com.dstevens.characters.changes.SetDistinction"/>

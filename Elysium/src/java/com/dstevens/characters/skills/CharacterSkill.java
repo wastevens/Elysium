@@ -4,6 +4,8 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
+import org.hibernate.annotations.ForeignKey;
+
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.CharacterDefinedTrait;
 import com.dstevens.suppliers.IdSupplier;
@@ -15,6 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@SuppressWarnings("deprecation")
 @Entity
 @Table(name="Skills")
 public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<CharacterSkill> {
@@ -31,7 +34,8 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     @Column(name="rating")
     private int rating;
     
-    @ElementCollection
+	@ElementCollection
+    @ForeignKey(name= "CharacterSkill_focuses_FK")
     private Set<String> focuses;
 
     //Hibernate only

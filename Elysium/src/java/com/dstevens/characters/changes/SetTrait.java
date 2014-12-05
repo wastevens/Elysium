@@ -1,5 +1,7 @@
 package com.dstevens.characters.changes;
 
+import org.hibernate.annotations.ForeignKey;
+
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -13,6 +15,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+@SuppressWarnings("deprecation")
 @Entity
 @Inheritance
 @DiscriminatorColumn(name="trait_change_type")
@@ -26,6 +29,7 @@ public abstract class SetTrait {
     private TraitChangeStatus status;
     
     @OneToOne(cascade={CascadeType.ALL})
+    @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
     private SetTrait child;
     
     //Hibernate only

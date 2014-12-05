@@ -11,6 +11,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
+import org.hibernate.annotations.ForeignKey;
+
 import com.dstevens.characters.attributes.MentalAttributeFocus;
 import com.dstevens.characters.attributes.PhysicalAttributeFocus;
 import com.dstevens.characters.attributes.SocialAttributeFocus;
@@ -47,6 +49,7 @@ import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+@SuppressWarnings("deprecation")
 @Entity
 @Table(name="PlayerCharacter")
 public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<PlayerCharacter> {
@@ -79,69 +82,87 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private int socialAttribute;
     
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_PhysicalAttributeFocuses_FK")
     private Set<PhysicalAttributeFocus> physicalAttributeFocuses;
 
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_MentalAttributeFocuses_FK")
     private Set<MentalAttributeFocus> mentalAttrbuteFocuses;
     
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_SocialAttributeFocuses_FK")
     private Set<SocialAttributeFocus> socialAttributeFocuses;
     
     @OneToMany(cascade={CascadeType.ALL})
     @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"skills_id"}, name="PlayerCharacter_Skills_UC")})
+    @ForeignKey(name="PlayerCharacter_Skills_FK", inverseName="Skills_PlayerCharacter_FK")
     private final Set<CharacterSkill> skills;
     
     @OneToMany(cascade={CascadeType.ALL})
     @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"backgrounds_id"}, name="PlayerCharacter_Backgrounds_UC")})
+    @ForeignKey(name="PlayerCharacter_Backgrounds_FK", inverseName="Backgrounds_PlayerCharacter_FK")
     private final Set<CharacterBackground> backgrounds;
 
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_CharacterDisciplines_FK")
     private final Set<CharacterDiscipline> disciplines;
     
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_InClanDisciplines_FK")
     private final Set<Discipline> inClanDisciplines;
 
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_InClanThaumaturgicalPaths_FK")
     private final Set<Thaumaturgy> inClanThaumaturgicalPaths;
     
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_InClanNecromanticPaths_FK")
     private final Set<Necromancy> inClanNecromanticPaths;
     
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_ElderPowers_FK")
     private final Set<ElderPower> elderPowers;
     
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_Techniques_FK")
     private final Set<Technique> techniques;
     
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_CharacterThaumaturgicalPaths_FK")
     private final Set<CharacterThaumaturgy> thaumaturgicalPaths;
     
     @Column(name="primary_thaumaturgical_path")
     private Thaumaturgy primaryThaumaturgicalPath;
     
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_CharacterThaumaturgicalRituals_FK")
     private final Set<ThaumaturgicalRitual> thaumaturgicalRituals;
     
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_CharacterNecromanticPaths_FK")
     private final Set<CharacterNecromancy> necromanticPaths;
     
     @Column(name="primary_necromantic_path")
     private Necromancy primaryNecromanticPath;
     
     @ElementCollection
+    @ForeignKey(name="PlayerCharacter_CharacterNecromanticRituals_FK")
     private final Set<NecromanticRitual> necromanticRituals;
     
     @OneToMany(cascade={CascadeType.ALL})
     @JoinTable(name="PlayerCharacter_Merits", uniqueConstraints={@UniqueConstraint(columnNames={"merits_id"}, name="PlayerCharacter_Merits_UC")})
+    @ForeignKey(name="PlayerCharacter_Merits_FK", inverseName="Merits_PlayerCharacter_FK")
     private final Set<CharacterMerit> merits;
     
     @OneToMany(cascade={CascadeType.ALL})
     @JoinTable(name="PlayerCharacter_Flaws", uniqueConstraints={@UniqueConstraint(columnNames={"flaws_id"}, name="PlayerCharacter_Flaws_UC")})
+    @ForeignKey(name="PlayerCharacter_Flaws_FK", inverseName="Flaws_PlayerCharacter_FK")
     private final Set<CharacterFlaw> flaws;
     
     @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="order_by")
     @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChangeEvents_id"}, name="PlayerCharacter_TraitChanges_UC")})
+    @ForeignKey(name="PlayerCharacter_TraitChanges_FK", inverseName="TraitChanges_PlayerCharacter_FK")
     private final List<SetTrait> traitChangeEvents;
     
     //Hibernate only

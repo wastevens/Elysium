@@ -1,5 +1,7 @@
 package com.dstevens.characters.changes;
 
+import org.hibernate.annotations.ForeignKey;
+
 import com.dstevens.characters.PlayerCharacter;
 
 import javax.persistence.CascadeType;
@@ -7,11 +9,13 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
+@SuppressWarnings("deprecation")
 @Entity
 @DiscriminatorValue("RemoveTrait")
 public class RemoveTrait extends SetTrait {
 
 	@OneToOne(cascade={CascadeType.ALL})
+	@ForeignKey(name="TraitChange_TraitToRemove_FK", inverseName="TraitToRemove_TraitChange_FK")
 	private final SetTrait traitToRemove;
 
 	//Hibernate only
