@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.distinctions;
 
-public enum MeritType {
+public enum DistinctionType {
 
 	GENERAL,
 	MORALITY,
