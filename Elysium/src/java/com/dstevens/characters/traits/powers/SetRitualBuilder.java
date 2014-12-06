@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.traits.ChangeXp;
+import com.dstevens.characters.traits.ChangeExperience;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
@@ -15,7 +15,7 @@ public class SetRitualBuilder implements TraitChangeBuilder {
     
     @Override
     public SetTrait buy() {
-		return ChangeXp.spend(ritual.rating() * 2).and(setRitual());
+		return ChangeExperience.spend(ritual.rating() * 2).and(setRitual());
     }
 
     @Override

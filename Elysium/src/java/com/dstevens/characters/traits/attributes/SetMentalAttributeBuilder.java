@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.attributes;
 
-import com.dstevens.characters.traits.ChangeXp;
+import com.dstevens.characters.traits.ChangeExperience;
 import com.dstevens.characters.traits.GainExperience;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.TraitChangeBuilder;
@@ -16,7 +16,7 @@ public class SetMentalAttributeBuilder implements TraitChangeBuilder {
     
     @Override
     public SetTrait buy() {
-		return new ChangeXp(TraitChangeStatus.PENDING, new GainExperience(-3)).and(setAttribute());
+		return new ChangeExperience(TraitChangeStatus.PENDING, new GainExperience(-3)).and(setAttribute());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.ChangeXp;
+import com.dstevens.characters.traits.ChangeExperience;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
@@ -19,12 +19,12 @@ public class SetElderPowerBuilder implements TraitChangeBuilder {
     @Override
     public SetTrait buy() {
     	if(character.getInClanDisciplines().contains(elderPower.getPower())) {
-    		return ChangeXp.spend(18).and(setElderPower());
+    		return ChangeExperience.spend(18).and(setElderPower());
     	} else {
     		if(character.getGeneration().orElse(1) == 5) {
-    			return ChangeXp.spend(30).and(setElderPower());
+    			return ChangeExperience.spend(30).and(setElderPower());
     		} else {
-    			return ChangeXp.spend(24).and(setElderPower());
+    			return ChangeExperience.spend(24).and(setElderPower());
     		}
     	}
     }

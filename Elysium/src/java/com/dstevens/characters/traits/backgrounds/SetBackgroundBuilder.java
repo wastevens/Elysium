@@ -5,7 +5,7 @@ import static com.dstevens.collections.Sets.set;
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.ChangeXp;
+import com.dstevens.characters.traits.ChangeExperience;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
@@ -41,9 +41,9 @@ public class SetBackgroundBuilder implements TraitChangeBuilder {
     @Override
     public SetTrait buy() {
     	if(character.getGeneration().orElse(1) == 1) {
-    		return ChangeXp.spend(rating).and(setSkill());
+    		return ChangeExperience.spend(rating).and(setSkill());
     	} else {
-    		return ChangeXp.spend(rating).and(setSkill());
+    		return ChangeExperience.spend(rating).and(setSkill());
     	}
     }
 

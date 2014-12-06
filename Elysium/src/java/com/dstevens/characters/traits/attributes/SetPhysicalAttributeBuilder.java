@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.attributes;
 
-import com.dstevens.characters.traits.ChangeXp;
+import com.dstevens.characters.traits.ChangeExperience;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
@@ -15,7 +15,7 @@ public class SetPhysicalAttributeBuilder implements TraitChangeBuilder {
     
     @Override
     public SetTrait buy() {
-		return ChangeXp.spend(3).and(setAttribute());
+		return ChangeExperience.spend(3).and(setAttribute());
     }
 
     @Override

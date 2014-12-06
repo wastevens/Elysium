@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("ChangeExperience")
-public class ChangeXp extends SetApplicableTrait<Experience> {
+public class ChangeExperience extends SetApplicableTrait<Experience> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
 	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
@@ -18,11 +18,11 @@ public class ChangeXp extends SetApplicableTrait<Experience> {
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
-    private ChangeXp() {
+    private ChangeExperience() {
         this(null, null);
     }
     
-    public ChangeXp(TraitChangeStatus status, Experience trait) {
+    public ChangeExperience(TraitChangeStatus status, Experience trait) {
     	super(status);
 		this.trait = trait;
     }
@@ -32,11 +32,11 @@ public class ChangeXp extends SetApplicableTrait<Experience> {
 		return trait;
 	}
 	
-	public static ChangeXp spend(int xp) {
-		return new ChangeXp(TraitChangeStatus.PENDING, new SpendExperience(xp));
+	public static ChangeExperience spend(int xp) {
+		return new ChangeExperience(TraitChangeStatus.PENDING, new SpendExperience(xp));
 	}
 	
-	public static ChangeXp gain(int xp) {
-		return new ChangeXp(TraitChangeStatus.PENDING, new GainExperience(xp));
+	public static ChangeExperience gain(int xp) {
+		return new ChangeExperience(TraitChangeStatus.PENDING, new GainExperience(xp));
 	}
 }
