@@ -1,27 +1,32 @@
 package com.dstevens.characters.traits;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.attributes.AttributeFactory;
-import com.dstevens.characters.traits.attributes.AttributeFocus;
-import com.dstevens.characters.traits.attributes.SetAttributeBuilder;
-import com.dstevens.characters.traits.attributes.SetAttributeFocusBuilder;
+import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
+import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
+import com.dstevens.characters.traits.attributes.SetMentalAttributeBuilder;
+import com.dstevens.characters.traits.attributes.SetMentalFocusBuilder;
+import com.dstevens.characters.traits.attributes.SetPhysicalAttributeBuilder;
+import com.dstevens.characters.traits.attributes.SetPhysicalFocusBuilder;
+import com.dstevens.characters.traits.attributes.SetSocialAttributeBuilder;
+import com.dstevens.characters.traits.attributes.SetSocialFocusBuilder;
+import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.SetCharacterBackgroundBuilder;
 import com.dstevens.characters.traits.distinctions.Flaw;
-import com.dstevens.characters.traits.distinctions.SetFlawBuilder;
 import com.dstevens.characters.traits.distinctions.Merit;
+import com.dstevens.characters.traits.distinctions.SetFlawBuilder;
 import com.dstevens.characters.traits.distinctions.SetMeritBuilder;
 import com.dstevens.characters.traits.powers.ElderPower;
+import com.dstevens.characters.traits.powers.Power;
+import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.SetElderPowerBuilder;
 import com.dstevens.characters.traits.powers.SetInClanPowerBuilder;
-import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.SetPowerBuilder;
-import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.SetRitualBuilder;
-import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.powers.SetTechniqueBuilder;
-import com.dstevens.characters.traits.skills.Skill;
+import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.SetSkillChangeBuilder;
+import com.dstevens.characters.traits.skills.Skill;
 
 public class ExperienceChart {
 
@@ -58,8 +63,16 @@ public class ExperienceChart {
 //    	return new AttributeChangeBuilder(AttributeFactory.MENTAL);
     }
       
-    public TraitChangeBuilder attributeFocus(AttributeFocus focus) {
-    	return new SetAttributeFocusBuilder(focus);
+    public TraitChangeBuilder physicalFocus(PhysicalAttributeFocus focus) {
+    	return new SetPhysicalFocusBuilder(focus);
+    }
+    
+    public TraitChangeBuilder mentalFocus(MentalAttributeFocus focus) {
+    	return new SetMentalFocusBuilder(focus);
+    }
+    
+    public TraitChangeBuilder socialFocus(SocialAttributeFocus focus) {
+    	return new SetSocialFocusBuilder(focus);
     }
 
     public SetSkillChangeBuilder skill(Skill skill) {
@@ -90,8 +103,16 @@ public class ExperienceChart {
 		return new SetInClanPowerBuilder(power);
 	}
 
-	public SetAttributeBuilder attribute(AttributeFactory attributeFactory) {
-		return new SetAttributeBuilder(attributeFactory);
+	public SetPhysicalAttributeBuilder physical(int rating) {
+		return new SetPhysicalAttributeBuilder(rating);
+	}
+	
+	public SetMentalAttributeBuilder mental(int rating) {
+		return new SetMentalAttributeBuilder(rating);
+	}
+	
+	public SetSocialAttributeBuilder social(int rating) {
+		return new SetSocialAttributeBuilder(rating);
 	}
     
 }

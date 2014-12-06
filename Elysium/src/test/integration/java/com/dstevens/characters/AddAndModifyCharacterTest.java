@@ -12,7 +12,6 @@ import org.springframework.context.ApplicationContext;
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.traits.ExperienceChart;
-import com.dstevens.characters.traits.attributes.AttributeFactory;
 import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
@@ -62,14 +61,14 @@ public class AddAndModifyCharacterTest {
     
     @After
     public void tearDown() {
-    	TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
-        PlayerRepository playerRepository = appConfig.getBean(PlayerRepository.class);
-        PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-        
-        Troupe troupe = troupeRepository.findNamed(TROUPE_NAME);
-        troupe.getCharacters().stream().forEach(((PlayerCharacter pc) -> characterRepository.hardDelete(pc)));
-        troupe.getPlayers().stream().forEach(((Player pc) -> playerRepository.hardDelete(pc)));
-        troupeRepository.hardDelete(troupe);
+//    	TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
+//        PlayerRepository playerRepository = appConfig.getBean(PlayerRepository.class);
+//        PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
+//        
+//        Troupe troupe = troupeRepository.findNamed(TROUPE_NAME);
+//        troupe.getCharacters().stream().forEach(((PlayerCharacter pc) -> characterRepository.hardDelete(pc)));
+//        troupe.getPlayers().stream().forEach(((Player pc) -> playerRepository.hardDelete(pc)));
+//        troupeRepository.hardDelete(troupe);
     }
     
     @Test   
@@ -254,12 +253,12 @@ public class AddAndModifyCharacterTest {
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS).withRating(3).withFocus("Philosophy").withFocus("Latin Poetry").withFocus("Greek Poetry").buy()));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(ClanSpecificMerit.ARTISTS_BLESSING).withDetails("Poetry").withTraitChange(experienceChart.skill(Skill.CRAFTS).withSpecialization("Poetry").withRating(3).add()).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.LUCKY).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.VERSATILE).withDetails("Wits").withTraitChange(experienceChart.attributeFocus(MentalAttributeFocus.WITS).add()).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(GeneralMerit.VERSATILE).withDetails("Wits").withTraitChange(experienceChart.mentalFocus(MentalAttributeFocus.WITS).add()).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(GeneralFlaw.CURIOUSITY).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(GeneralFlaw.LESSER_GENERATION_2).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(AttributeFactory.PHYSICAL).withRating(getMaryWollstonecraft().getPhysicalAttribute()+1).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(AttributeFactory.SOCIAL).withRating(getMaryWollstonecraft().getSocialAttribute()+1).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(AttributeFactory.MENTAL).withRating(getMaryWollstonecraft().getMentalAttribute()+1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.physical(getMaryWollstonecraft().getPhysicalAttribute()+1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.social(getMaryWollstonecraft().getSocialAttribute()+1).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.mental(getMaryWollstonecraft().getMentalAttribute()+1).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN).withRating(1).withSpecialization("Luxury Home").withFocus("Luxury").buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN).withRating(2).withSpecialization("Luxury Home").withFocus("Luxury").withFocus("Location").buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX).withRating(2).buy()));
@@ -285,13 +284,13 @@ public class AddAndModifyCharacterTest {
     }
 
     private void backoutSomeOfThoseChanges() {
-    	PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-        ExperienceChart experienceChart = ExperienceChart.chartFor(getMaryWollstonecraft());
+//    	PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
+//        ExperienceChart experienceChart = ExperienceChart.chartFor(getMaryWollstonecraft());
         
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS).withRating(3).withFocus("Philosophy").withFocus("Latin Poetry").withFocus("Greek Poetry").buy().remove().and(experienceChart.skill(Skill.ACADEMICS).withRating(2).withFocus("Philosophy").withFocus("Latin Poetry").add())));
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(ClanSpecificMerit.ARTISTS_BLESSING).withDetails("Writing").withTraitChange(experienceChart.skill(Skill.CRAFTS).withSpecialization("Poetry").withRating(3).add()).buy().remove()));
+//        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS).withRating(3).withFocus("Philosophy").withFocus("Latin Poetry").withFocus("Greek Poetry").buy().remove().and(experienceChart.skill(Skill.ACADEMICS).withRating(2).withFocus("Philosophy").withFocus("Latin Poetry").add())));
+//        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(ClanSpecificMerit.ARTISTS_BLESSING).withDetails("Writing").withTraitChange(experienceChart.skill(Skill.CRAFTS).withSpecialization("Poetry").withRating(3).add()).buy().remove()));
         
-        approveChangesOnMary();
+//        approveChangesOnMary();
     }
     
 	private PlayerCharacter getMaryWollstonecraft() {

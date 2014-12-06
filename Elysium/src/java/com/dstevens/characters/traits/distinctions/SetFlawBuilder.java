@@ -36,7 +36,7 @@ public class SetFlawBuilder implements TraitChangeBuilder {
     }
 
     private SetTrait setDistinction() {
-        return new SetDistinction(TraitChangeStatus.PENDING, flaw, details, DistinctionFactory.FLAW).and(traitChange);
+    	return new SetFlaw(TraitChangeStatus.PENDING, new CharacterFlaw(flaw, details)).and(traitChange);
     }
 
 	@Override

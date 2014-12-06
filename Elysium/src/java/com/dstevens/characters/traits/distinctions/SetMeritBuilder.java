@@ -36,7 +36,7 @@ public class SetMeritBuilder implements TraitChangeBuilder {
     }
 
     private SetTrait setDistinction() {
-        return new SetDistinction(TraitChangeStatus.PENDING, merit, details, DistinctionFactory.MERIT).and(traitChange);
+    	return new SetMerit(TraitChangeStatus.PENDING, new CharacterMerit(merit, details)).and(traitChange);
     }
 
 	@Override
