@@ -2,6 +2,8 @@ package com.dstevens.characters.traits;
 
 import java.util.Set;
 
+import org.springframework.stereotype.Service;
+
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.MentalAttributeValue;
@@ -23,13 +25,13 @@ import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.SetElderPowerBuilder;
 import com.dstevens.characters.traits.powers.SetInClanPowerBuilder;
 import com.dstevens.characters.traits.powers.SetPowerFactory;
-import com.dstevens.characters.traits.powers.SetRitualBuilder;
+import com.dstevens.characters.traits.powers.SetRitualFactory;
 import com.dstevens.characters.traits.powers.SetTechniqueBuilder;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.SetSkillFactory;
 import com.dstevens.characters.traits.skills.Skill;
 
-
+@Service
 public class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	private final SetAttributeValueFactory attributeValueFactory = new SetAttributeValueFactory();
@@ -37,6 +39,7 @@ public class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	private final SetSkillFactory skillFactory = new SetSkillFactory();
 	private final SetBackgroundFactory backgroundFactory = new SetBackgroundFactory();
 	private final SetPowerFactory setPowerFactory = new SetPowerFactory();
+	private final SetRitualFactory setRitualFactory = new SetRitualFactory();
 	
 	@Override
 	public SetTrait physical(PlayerCharacter character) {
@@ -82,6 +85,11 @@ public class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	public SetTrait power(Power<?> power, int rating) {
 		return setPowerFactory.setPower(power, rating);
 	}
+
+	@Override
+	public SetTrait ritual(Ritual<?> ritual) {
+		return setRitualFactory.setRitual(ritual);
+	}
 	
 	@Override
 	public SetMeritBuilder merit(Merit merit, String specialization, SetTrait associatedTrait) {
@@ -90,11 +98,6 @@ public class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public SetFlawBuilder flaw(Flaw flaw, String specialization, SetTrait associatedTrait) {
-		return null;
-	}
-
-	@Override
-	public SetRitualBuilder ritual(Ritual<?> ritual) {
 		return null;
 	}
 
