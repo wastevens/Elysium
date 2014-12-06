@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.traits.SetEnumeratedTrait;
+import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.Column;
@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("InClanThaumaturgy")
-public class SetInClanThaumaturgy extends SetEnumeratedTrait<Thaumaturgy> {
+public class SetInClanThaumaturgy extends SetApplicableTrait<Thaumaturgy> {
 
 	@Column(name="trait_ordinal")
     private Thaumaturgy trait;

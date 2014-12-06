@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.traits.SetEnumeratedTrait;
+import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.CascadeType;
@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Thaumaturgy")
-public class SetThaumaturgy extends SetEnumeratedTrait<CharacterThaumaturgy> {
+public class SetThaumaturgy extends SetApplicableTrait<CharacterThaumaturgy> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
 	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))

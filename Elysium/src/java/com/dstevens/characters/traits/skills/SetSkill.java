@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.skills;
 
-import com.dstevens.characters.traits.SetEnumeratedTrait;
+import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.CascadeType;
@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Skill")
-public class SetSkill extends SetEnumeratedTrait<CharacterSkill> {
+public class SetSkill extends SetApplicableTrait<CharacterSkill> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
 	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))

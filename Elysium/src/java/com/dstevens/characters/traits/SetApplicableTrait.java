@@ -2,9 +2,9 @@ package com.dstevens.characters.traits;
 
 import com.dstevens.characters.PlayerCharacter;
 
-public abstract class SetEnumeratedTrait<T extends ApplicableTrait> extends SetTrait {
+public abstract class SetApplicableTrait<T extends ApplicableTrait> extends SetTrait {
 
-	protected SetEnumeratedTrait(TraitChangeStatus status) {
+	protected SetApplicableTrait(TraitChangeStatus status) {
 		super(status);
 	}
 	

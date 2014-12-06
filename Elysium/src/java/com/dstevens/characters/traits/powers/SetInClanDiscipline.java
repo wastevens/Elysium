@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.traits.SetEnumeratedTrait;
+import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.Column;
@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("InClanDiscipline")
-public class SetInClanDiscipline extends SetEnumeratedTrait<Discipline> {
+public class SetInClanDiscipline extends SetApplicableTrait<Discipline> {
 
 	@Column(name="trait_ordinal")
     private Discipline trait;

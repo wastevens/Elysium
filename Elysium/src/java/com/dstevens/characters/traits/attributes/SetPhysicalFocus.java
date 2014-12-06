@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.attributes;
 
-import com.dstevens.characters.traits.SetEnumeratedTrait;
+import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.Column;
@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("PhysicalFocus")
-public class SetPhysicalFocus extends SetEnumeratedTrait<PhysicalAttributeFocus> {
+public class SetPhysicalFocus extends SetApplicableTrait<PhysicalAttributeFocus> {
 
 	@Column(name="trait_ordinal")
     private PhysicalAttributeFocus trait;

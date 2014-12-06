@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.distinctions;
 
-import com.dstevens.characters.traits.SetEnumeratedTrait;
+import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.CascadeType;
@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Flaw")
-public class SetFlaw extends SetEnumeratedTrait<CharacterFlaw> {
+public class SetFlaw extends SetApplicableTrait<CharacterFlaw> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
 	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))

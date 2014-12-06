@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.traits.SetEnumeratedTrait;
+import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.Column;
@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("ElderPower")
-public class SetElderPower extends SetEnumeratedTrait<ElderPower> {
+public class SetElderPower extends SetApplicableTrait<ElderPower> {
 
 	@Column(name="trait_ordinal")
     private final ElderPower trait;
