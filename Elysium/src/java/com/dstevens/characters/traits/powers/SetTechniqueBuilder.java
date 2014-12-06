@@ -1,8 +1,8 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ChangeXp;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SpendXp;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
@@ -19,9 +19,9 @@ public class SetTechniqueBuilder implements TraitChangeBuilder {
     @Override
     public SetTrait buy() {
     	if(character.getGeneration().orElse(1) >= 3) {
-    		return new SpendXp(TraitChangeStatus.PENDING, 20).and(setTechnique());
+    		return ChangeXp.spend(20).and(setTechnique());
     	} else {
-    		return new SpendXp(TraitChangeStatus.PENDING, 12).and(setTechnique());
+    		return ChangeXp.spend(12).and(setTechnique());
     	}
     }
 

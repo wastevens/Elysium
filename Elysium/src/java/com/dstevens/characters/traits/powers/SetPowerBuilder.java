@@ -1,8 +1,8 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ChangeXp;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SpendXp;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
@@ -35,7 +35,7 @@ public class SetPowerBuilder implements TraitChangeBuilder {
         		cost = rating * 4;
         	}	
     	}
-    	return new SpendXp(TraitChangeStatus.PENDING, cost).and(setDiscipline());
+    	return ChangeXp.spend(cost).and(setDiscipline());
     }
 
     @Override

@@ -5,8 +5,8 @@ import static com.dstevens.collections.Sets.set;
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ChangeXp;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SpendXp;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
@@ -41,9 +41,9 @@ public class SetSkillBuilder implements TraitChangeBuilder {
     @Override
     public SetTrait buy() {
     	if(character.getGeneration().orElse(1) == 1) {
-    		return new SpendXp(TraitChangeStatus.PENDING, rating).and(setSkill());
+    		return ChangeXp.spend(rating).and(setSkill());
     	} else {
-    		return new SpendXp(TraitChangeStatus.PENDING, rating * 2).and(setSkill());
+    		return ChangeXp.spend(rating * 2).and(setSkill());
     	}
     }
 

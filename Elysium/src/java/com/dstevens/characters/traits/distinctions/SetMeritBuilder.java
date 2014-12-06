@@ -1,7 +1,7 @@
 package com.dstevens.characters.traits.distinctions;
 
+import com.dstevens.characters.traits.ChangeXp;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SpendXp;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
@@ -27,7 +27,7 @@ public class SetMeritBuilder implements TraitChangeBuilder {
 	
 	@Override
 	public SetTrait buy() {
-		return new SpendXp(TraitChangeStatus.PENDING, merit.getPoints()).and(merit());
+		return ChangeXp.spend(merit.getPoints()).and(merit());
 	}
 
 	@Override

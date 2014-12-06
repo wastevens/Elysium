@@ -1,7 +1,7 @@
 package com.dstevens.characters.traits.attributes;
 
+import com.dstevens.characters.traits.ChangeXp;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SpendXp;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
@@ -15,7 +15,7 @@ public class SetSocialAttributeBuilder implements TraitChangeBuilder {
     
     @Override
     public SetTrait buy() {
-		return new SpendXp(TraitChangeStatus.PENDING, 3).and(setAttribute());
+		return ChangeXp.spend(3).and(setAttribute());
     }
 
     @Override

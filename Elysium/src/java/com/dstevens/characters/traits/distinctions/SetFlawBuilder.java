@@ -1,6 +1,7 @@
 package com.dstevens.characters.traits.distinctions;
 
-import com.dstevens.characters.traits.GainXp;
+import com.dstevens.characters.traits.GainExperience;
+import com.dstevens.characters.traits.ChangeXp;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
@@ -27,7 +28,7 @@ public class SetFlawBuilder implements TraitChangeBuilder {
     
     @Override
     public SetTrait buy() {
-        return new GainXp(TraitChangeStatus.PENDING, flaw.getPoints()).and(setFlaw());
+        return new ChangeXp(TraitChangeStatus.PENDING, new GainExperience(flaw.getPoints())).and(setFlaw());
     }
 
     @Override

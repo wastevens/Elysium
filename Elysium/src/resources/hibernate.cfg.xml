@@ -19,8 +19,6 @@
     
     <mapping class="com.dstevens.characters.traits.SetTrait"/>
     <mapping class="com.dstevens.characters.traits.RemoveTrait"/>
-    <mapping class="com.dstevens.characters.traits.GainXp"/>
-    <mapping class="com.dstevens.characters.traits.SpendXp"/>
     <mapping class="com.dstevens.characters.traits.powers.SetElderPower"/>
     <mapping class="com.dstevens.characters.traits.powers.SetThaumaturgicalRitual"/>
     <mapping class="com.dstevens.characters.traits.powers.SetNecromanticRitual"/>
@@ -29,6 +27,10 @@
     <mapping class="com.dstevens.characters.traits.powers.SetNecromancy"/>
     <mapping class="com.dstevens.characters.traits.backgrounds.SetBackground"/>
     <mapping class="com.dstevens.characters.traits.skills.SetSkill"/>
+    <mapping class="com.dstevens.characters.traits.Experience"/>
+    <mapping class="com.dstevens.characters.traits.GainExperience"/>
+    <mapping class="com.dstevens.characters.traits.SpendExperience"/>
+    
     
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>
