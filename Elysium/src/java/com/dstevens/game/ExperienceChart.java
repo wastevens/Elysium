@@ -9,7 +9,6 @@ import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.SetCharacterBackgroundBuilder;
 import com.dstevens.characters.traits.changes.builders.FlawTraitChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.MeritTraitChangeBuilder;
-import com.dstevens.characters.traits.changes.builders.SkillTraitChangeBuilder;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.powers.ElderPower;
@@ -22,6 +21,7 @@ import com.dstevens.characters.traits.powers.SetRitualBuilder;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.powers.TechniqueChangeBuilder;
 import com.dstevens.characters.traits.skills.Skill;
+import com.dstevens.characters.traits.skills.SkillTraitChangeBuilder;
 
 public class ExperienceChart {
 
