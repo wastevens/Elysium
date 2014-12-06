@@ -11,7 +11,8 @@ import org.springframework.context.ApplicationContext;
 
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
-import com.dstevens.characters.traits.ExperienceChart;
+import com.dstevens.characters.traits.TraitChangeFactory;
+import com.dstevens.characters.traits.TraitChangeFactoryProvider;
 import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
@@ -82,16 +83,16 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(SocialAttributeFocus.MANIPULATION), maryWollstonecraftWhenNewlyCreated.getSocialAttributeFocuses());
 		assertEquals(7, maryWollstonecraftWhenNewlyCreated.getMentalAttribute());
 		assertEquals(set(MentalAttributeFocus.PERCEPTION), maryWollstonecraftWhenNewlyCreated.getMentalAttributeFocuses());
-		assertEquals(set(CharacterSkill.skillFor(Skill.ACADEMICS, 1, set("Philosophy")),
-				         CharacterSkill.skillFor(Skill.AWARENESS, 1),
-				         CharacterSkill.skillFor(Skill.COMPUTER, 1),
-				         CharacterSkill.skillFor(Skill.LEADERSHIP, 1),
-				         CharacterSkill.skillFor(Skill.DODGE, 2),
-				         CharacterSkill.skillFor(Skill.EMPATHY, 2),
-				         CharacterSkill.skillFor(Skill.STEALTH, 2),
-				         CharacterSkill.skillFor(Skill.SUBTERFUGE, 3),
-				         CharacterSkill.skillFor(Skill.INVESTIGATION, 3),
-				         CharacterSkill.skillFor(Skill.CRAFTS, 4, "Writing")), 
+		assertEquals(set(new CharacterSkill(Skill.ACADEMICS, 1, null, set("Philosophy")),
+				         new CharacterSkill(Skill.AWARENESS, 1, null, set()),
+				         new CharacterSkill(Skill.COMPUTER, 1, null, set()),
+				         new CharacterSkill(Skill.LEADERSHIP, 1, null, set()),
+				         new CharacterSkill(Skill.DODGE, 2, null, set()),
+				         new CharacterSkill(Skill.EMPATHY, 2, null, set()),
+				         new CharacterSkill(Skill.STEALTH, 2, null, set()),
+				         new CharacterSkill(Skill.SUBTERFUGE, 3, null, set()),
+				         new CharacterSkill(Skill.INVESTIGATION, 3, null, set()),
+				         new CharacterSkill(Skill.CRAFTS, 4, "Writing", set())), 
 				     maryWollstonecraftWhenNewlyCreated.getSkills());
 		assertEquals(set(CharacterBackground.backgroundFor(Background.FAME, 3, "Writing"),
 				         CharacterBackground.backgroundFor(Background.RESOURCES, 2),
@@ -118,16 +119,16 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(SocialAttributeFocus.MANIPULATION), maryWollstonecraftWithExperienceSpentButNotYetApproved.getSocialAttributeFocuses());
 		assertEquals(7, maryWollstonecraftWithExperienceSpentButNotYetApproved.getMentalAttribute());
 		assertEquals(set(MentalAttributeFocus.PERCEPTION), maryWollstonecraftWithExperienceSpentButNotYetApproved.getMentalAttributeFocuses());
-		assertEquals(set(CharacterSkill.skillFor(Skill.ACADEMICS, 1, set("Philosophy")),
-				         CharacterSkill.skillFor(Skill.AWARENESS, 1),
-				         CharacterSkill.skillFor(Skill.COMPUTER, 1),
-				         CharacterSkill.skillFor(Skill.LEADERSHIP, 1),
-				         CharacterSkill.skillFor(Skill.DODGE, 2),
-				         CharacterSkill.skillFor(Skill.EMPATHY, 2),
-				         CharacterSkill.skillFor(Skill.STEALTH, 2),
-				         CharacterSkill.skillFor(Skill.SUBTERFUGE, 3),
-				         CharacterSkill.skillFor(Skill.INVESTIGATION, 3),
-				         CharacterSkill.skillFor(Skill.CRAFTS, 4, "Writing")), 
+		assertEquals(set(new CharacterSkill(Skill.ACADEMICS, 1, null, set("Philosophy")),
+				         new CharacterSkill(Skill.AWARENESS, 1, null, set()),
+				         new CharacterSkill(Skill.COMPUTER, 1, null, set()),
+				         new CharacterSkill(Skill.LEADERSHIP, 1, null, set()),
+				         new CharacterSkill(Skill.DODGE, 2, null, set()),
+				         new CharacterSkill(Skill.EMPATHY, 2, null, set()),
+				         new CharacterSkill(Skill.STEALTH, 2, null, set()),
+				         new CharacterSkill(Skill.SUBTERFUGE, 3, null, set()),
+				         new CharacterSkill(Skill.INVESTIGATION, 3, null, set()),
+				         new CharacterSkill(Skill.CRAFTS, 4, "Writing", set())), 
 				     maryWollstonecraftWithExperienceSpentButNotYetApproved.getSkills());
 		assertEquals(set(CharacterBackground.backgroundFor(Background.FAME, 3, "Writing"),
 				         CharacterBackground.backgroundFor(Background.RESOURCES, 2),
@@ -154,17 +155,17 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(SocialAttributeFocus.MANIPULATION), maryWollstonecraftWithExperienceSpentAndApproved.getSocialAttributeFocuses());
 		assertEquals(8, maryWollstonecraftWithExperienceSpentAndApproved.getMentalAttribute());
 		assertEquals(set(MentalAttributeFocus.PERCEPTION, MentalAttributeFocus.WITS), maryWollstonecraftWithExperienceSpentAndApproved.getMentalAttributeFocuses());
-		assertEquals(set(CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("Philosophy", "Latin Poetry", "Greek Poetry")),
-				         CharacterSkill.skillFor(Skill.AWARENESS, 1),
-				         CharacterSkill.skillFor(Skill.COMPUTER, 1),
-				         CharacterSkill.skillFor(Skill.LEADERSHIP, 1),
-				         CharacterSkill.skillFor(Skill.DODGE, 2),
-				         CharacterSkill.skillFor(Skill.EMPATHY, 2),
-				         CharacterSkill.skillFor(Skill.STEALTH, 2),
-				         CharacterSkill.skillFor(Skill.SUBTERFUGE, 3),
-				         CharacterSkill.skillFor(Skill.INVESTIGATION, 3),
-				         CharacterSkill.skillFor(Skill.CRAFTS, 4, "Writing"),
-				         CharacterSkill.skillFor(Skill.CRAFTS, 3, "Poetry")), 
+		assertEquals(set(new CharacterSkill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry")),
+				         new CharacterSkill(Skill.AWARENESS, 1, null, set()),
+				         new CharacterSkill(Skill.COMPUTER, 1, null, set()),
+				         new CharacterSkill(Skill.LEADERSHIP, 1, null, set()),
+				         new CharacterSkill(Skill.DODGE, 2, null, set()),
+				         new CharacterSkill(Skill.EMPATHY, 2, null, set()),
+				         new CharacterSkill(Skill.STEALTH, 2, null, set()),
+				         new CharacterSkill(Skill.SUBTERFUGE, 3, null, set()),
+				         new CharacterSkill(Skill.INVESTIGATION, 3, null, set()),
+				         new CharacterSkill(Skill.CRAFTS, 4, "Writing", set()),
+				         new CharacterSkill(Skill.CRAFTS, 3, "Poetry", set())), 
 				     maryWollstonecraftWithExperienceSpentAndApproved.getSkills());
 		assertEquals(set(CharacterBackground.backgroundFor(Background.FAME, 3, "Writing"),
 				         CharacterBackground.backgroundFor(Background.RESOURCES, 2),
@@ -224,16 +225,16 @@ public class AddAndModifyCharacterTest {
                                              withPhysicalAttribute(3).withPhysicalAttributeFocus(PhysicalAttributeFocus.DEXTERITY).
                                              withSocialAttribute(5).withSocialAttributeFocus(SocialAttributeFocus.MANIPULATION).
                                              withMentalAttribute(7).withMentalAttributeFocus(MentalAttributeFocus.PERCEPTION).
-                                             withSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 1, set("Philosophy"))).
-                                             withSkill(CharacterSkill.skillFor(Skill.AWARENESS, 1)).
-                                             withSkill(CharacterSkill.skillFor(Skill.COMPUTER, 1)).
-                                             withSkill(CharacterSkill.skillFor(Skill.LEADERSHIP, 1)).
-                                             withSkill(CharacterSkill.skillFor(Skill.DODGE, 2)).
-                                             withSkill(CharacterSkill.skillFor(Skill.EMPATHY, 2)).
-                                             withSkill(CharacterSkill.skillFor(Skill.STEALTH, 2)).
-                                             withSkill(CharacterSkill.skillFor(Skill.SUBTERFUGE, 3)).
-                                             withSkill(CharacterSkill.skillFor(Skill.INVESTIGATION, 3)).
-                                             withSkill(CharacterSkill.skillFor(Skill.CRAFTS, 4, "Writing")).
+                                             withSkill(new CharacterSkill(Skill.ACADEMICS, 1, null, set("Philosophy"))).
+                                             withSkill(new CharacterSkill(Skill.AWARENESS, 1, null, set())).
+                                             withSkill(new CharacterSkill(Skill.COMPUTER, 1, null, set())).
+                                             withSkill(new CharacterSkill(Skill.LEADERSHIP, 1, null, set())).
+                                             withSkill(new CharacterSkill(Skill.DODGE, 2, null, set())).
+                                             withSkill(new CharacterSkill(Skill.EMPATHY, 2, null, set())).
+                                             withSkill(new CharacterSkill(Skill.STEALTH, 2, null, set())).
+                                             withSkill(new CharacterSkill(Skill.SUBTERFUGE, 3, null, set())).
+                                             withSkill(new CharacterSkill(Skill.INVESTIGATION, 3, null, set())).
+                                             withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Writing", set())).
                                              withBackground(CharacterBackground.backgroundFor(Background.FAME, 3, "Writing")).
                                              withBackground(CharacterBackground.backgroundFor(Background.RESOURCES, 2)).
                                              withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 1)).
@@ -243,33 +244,34 @@ public class AddAndModifyCharacterTest {
                                              setXp(200));
         characterRepository.update(saved);
     }
-    
 
     private void spendXpForMaryWollstonecraft() {
         PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-        ExperienceChart experienceChart = ExperienceChart.chartFor(getMaryWollstonecraft());
+        TraitChangeFactoryProvider TraitChangeFactoryProvider = appConfig.getBean(TraitChangeFactoryProvider.class);
+		TraitChangeFactory experienceChart = TraitChangeFactoryProvider.buyTraitsFor(getMaryWollstonecraft());
+        TraitChangeFactory traitFactory = TraitChangeFactoryProvider.giveTraits();
         
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS).withRating(2).withFocus("Philosophy").withFocus("Latin Poetry").buy()));
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS).withRating(3).withFocus("Philosophy").withFocus("Latin Poetry").withFocus("Greek Poetry").buy()));
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ARTISTS_BLESSING, "Poetry", experienceChart.skill(Skill.CRAFTS).withSpecialization("Poetry").withRating(3).add()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.LUCKY).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, "Wits", experienceChart.mentalFocus(MentalAttributeFocus.WITS).add()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.CURIOUSITY).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.LESSER_GENERATION_2).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.physical(getMaryWollstonecraft()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.social(getMaryWollstonecraft()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.mental(getMaryWollstonecraft()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN).withRating(1).withSpecialization("Luxury Home").withFocus("Luxury").buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN).withRating(2).withSpecialization("Luxury Home").withFocus("Luxury").withFocus("Location").buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX).withRating(2).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX).withRating(3).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.ANIMALISM).withRating(1).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD).withRating(1).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD).withRating(2).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.LURE_OF_FLAMES).withRating(1).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH).withRating(1).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH).withRating(2).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.BONE_PATH).withRating(1).buy()));
+        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS, 2, null, set("Philosophy", "Latin Poetry"))));
+        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry"))));
+        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ARTISTS_BLESSING, "Poetry", traitFactory.skill(Skill.CRAFTS, 3, "Poetry", set())).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.LUCKY, null, null).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, "Wits", traitFactory.mentalFocus(MentalAttributeFocus.WITS)).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.CURIOUSITY, null, null).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.LESSER_GENERATION_2, null, null).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.physical(getMaryWollstonecraft())));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.social(getMaryWollstonecraft())));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.mental(getMaryWollstonecraft())));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN, 1, "Luxury Home", set("Luxury"))));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN, 2, "Luxury Home", set("Luxury", "Location"))));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX, 2)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX, 3)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.ANIMALISM, 1)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD, 1)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD, 2)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.LURE_OF_FLAMES, 1)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH, 1)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH, 2)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.BONE_PATH, 1)));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(ThaumaturgicalRitual.CRAFT_BLOODSTONE).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(ThaumaturgicalRitual.BURNING_BLADE).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(NecromanticRitual.BLACK_BLOOD).buy()));

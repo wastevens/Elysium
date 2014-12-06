@@ -119,10 +119,10 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testSaveWithSkills() {
-        CharacterSkill athletics = CharacterSkill.skillFor(Skill.ATHLETICS, 2);
-        CharacterSkill pottery = CharacterSkill.skillFor(Skill.CRAFTS, 3, "Pottery");
-        CharacterSkill painting = CharacterSkill.skillFor(Skill.CRAFTS, 4, "Painting");
-        CharacterSkill academics = CharacterSkill.skillFor(Skill.ACADEMICS, 5, set("Underwater Basket Weaving", "Ancient Greek Poems"));
+        CharacterSkill athletics = new CharacterSkill(Skill.ATHLETICS, 2, null, set());
+        CharacterSkill pottery = new CharacterSkill(Skill.CRAFTS, 3, "Pottery", set());
+        CharacterSkill painting = new CharacterSkill(Skill.CRAFTS, 4, "Painting", set());
+        CharacterSkill academics = new CharacterSkill(Skill.ACADEMICS, 5, null, set("Underwater Basket Weaving", "Ancient Greek Poems"));
         
         characterDao.save(character.withSkill(athletics).withSkill(pottery).withSkill(painting).withSkill(academics));
         PlayerCharacter characterWithSkills = characterDao.findOne(character.getId());
@@ -326,10 +326,10 @@ public class PlayerCharacterDaoTest {
         
         List<CharacterSkill> skills = sort(listFrom(twiceApproved.getSkills()));
         
-        assertExpectedSkill(CharacterSkill.skillFor(Skill.ATHLETICS, 4, null, set()), skills.get(0));
-        assertExpectedSkill(CharacterSkill.skillFor(Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
-        assertExpectedSkill(CharacterSkill.skillFor(Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
-        assertExpectedSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
+        assertExpectedSkill(new CharacterSkill(Skill.ATHLETICS, 4, null, set()), skills.get(0));
+        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
+        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
+        assertExpectedSkill(new CharacterSkill(Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
         
         List<CharacterBackground> backgrounds = sort(listFrom(twiceApproved.getBackgrounds()));  
         assertEquals(4, twiceApproved.getBackgrounds().size());
@@ -363,10 +363,10 @@ public class PlayerCharacterDaoTest {
         assertEquals(4, characterWithApprovedChanges.getSkills().size());
         List<CharacterSkill> skills = sort(listFrom(characterWithApprovedChanges.getSkills()));
         
-        assertExpectedSkill(CharacterSkill.skillFor(Skill.ATHLETICS, 4, null, set()), skills.get(0));
-        assertExpectedSkill(CharacterSkill.skillFor(Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
-        assertExpectedSkill(CharacterSkill.skillFor(Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
-        assertExpectedSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
+        assertExpectedSkill(new CharacterSkill(Skill.ATHLETICS, 4, null, set()), skills.get(0));
+        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Pottery", set()), skills.get(1));
+        assertExpectedSkill(new CharacterSkill(Skill.CRAFTS, 3, "Writing", set()), skills.get(2));
+        assertExpectedSkill(new CharacterSkill(Skill.ACADEMICS, 2, null, set("Reading", "Writing")), skills.get(3));
         
         assertEquals(4, characterWithApprovedChanges.getBackgrounds().size());
         List<CharacterBackground> backgrounds = sort(listFrom(characterWithApprovedChanges.getBackgrounds()));

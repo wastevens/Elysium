@@ -48,12 +48,13 @@ public class CharacterSkill implements EnumeratedTrait<Skill>, ApplicableTrait, 
     private Set<String> focuses;
 
     //Hibernate only
-    @Deprecated
+    @SuppressWarnings("unused")
+	@Deprecated
     private CharacterSkill() {
         this(null, 0, null, set());
     }
     
-    private CharacterSkill(Skill trait, int rating, String specialization, Set<String> focuses) {
+    public CharacterSkill(Skill trait, int rating, String specialization, Set<String> focuses) {
         this.id = new IdSupplier().get();
         this.trait = trait;
         this.rating = rating;
@@ -61,25 +62,6 @@ public class CharacterSkill implements EnumeratedTrait<Skill>, ApplicableTrait, 
         this.focuses = focuses;
     }
 
-    private static final String NO_SPECIALIZATION = null;
-    private static final Set<String> NO_FOCUSES = set();
-    
-    public static CharacterSkill skillFor(Skill skill, int rating) {
-        return skillFor(skill, rating, NO_SPECIALIZATION, NO_FOCUSES);
-    }
-    
-    public static CharacterSkill skillFor(Skill skill, int rating, String specialization) {
-        return skillFor(skill, rating, specialization, NO_FOCUSES);
-    }
-    
-    public static CharacterSkill skillFor(Skill skill, int rating, Set<String> focuses) {
-        return skillFor(skill, rating, NO_SPECIALIZATION, focuses);
-    }
-    
-    public static CharacterSkill skillFor(Skill skill, int rating, String specialization,  Set<String> focuses) {
-        return new CharacterSkill(skill, rating, specialization, focuses);
-    }
-    
     @Override
     public final Skill trait() {
         return trait;

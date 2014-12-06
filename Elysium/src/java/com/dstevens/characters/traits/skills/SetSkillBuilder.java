@@ -53,7 +53,7 @@ public class SetSkillBuilder implements TraitChangeBuilder {
     }
 
     private SetSkill setSkill() {
-    	return new SetSkill(TraitChangeStatus.PENDING, CharacterSkill.skillFor(skill, rating, specialization, focuses));
+    	return new SetSkill(TraitChangeStatus.PENDING, new CharacterSkill(skill, rating, specialization, focuses));
     }
 
 	@Override

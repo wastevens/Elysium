@@ -31,58 +31,58 @@ public class PlayerCharacterTest {
     @Test
     public void testWithSkill() {
     	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME).
-    			withSkill(CharacterSkill.skillFor(Skill.ANIMAL_KEN, 2)).
-    			withSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("foo", "bar"))).
-    			withSkill(CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry"));
+    			withSkill(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set())).
+    			withSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar"))).
+    			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set()));
     	
-    	assertEquals(set(CharacterSkill.skillFor(Skill.ANIMAL_KEN, 2), 
-    			         CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("foo", "bar")), 
-    			         CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry")) , 
+    	assertEquals(set(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set()), 
+    			         new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar")), 
+    			         new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set())) , 
     			     characterWithSkills.getSkills());
     }
     
     @Test
     public void testWithSkillWillReplaceExistingSkills() {
     	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME).
-    			withSkill(CharacterSkill.skillFor(Skill.ANIMAL_KEN, 2)).
-    			withSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("foo", "bar"))).
-    			withSkill(CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry"));
+    			withSkill(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set())).
+    			withSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar"))).
+    			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set()));
     	
     	PlayerCharacter characterWithReplacedSkills = characterWithSkills.
-    			withSkill(CharacterSkill.skillFor(Skill.ANIMAL_KEN, 5)).
-    			withSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 1, set("baz", "baq"))).
-    			withSkill(CharacterSkill.skillFor(Skill.CRAFTS, 4, "Painting"));
+    			withSkill(new CharacterSkill(Skill.ANIMAL_KEN, 5, null, set())).
+    			withSkill(new CharacterSkill(Skill.ACADEMICS, 1, null, set("baz", "baq"))).
+    			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Painting", set()));
     	
-    	assertEquals(set(CharacterSkill.skillFor(Skill.ANIMAL_KEN, 5), 
-    			         CharacterSkill.skillFor(Skill.ACADEMICS, 1, set("baz", "baq")), 
-    			         CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry"),
-    			         CharacterSkill.skillFor(Skill.CRAFTS, 4, "Painting")), 
+    	assertEquals(set(new CharacterSkill(Skill.ANIMAL_KEN, 5, null, set()), 
+    			         new CharacterSkill(Skill.ACADEMICS, 1, null, set("baz", "baq")), 
+    			         new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set()),
+    			         new CharacterSkill(Skill.CRAFTS, 4, "Painting", set())), 
     			         characterWithReplacedSkills.getSkills());
     }
     
     @Test
     public void testWithoutSkill() {
     	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME).
-    			withSkill(CharacterSkill.skillFor(Skill.ANIMAL_KEN, 2)).
-    			withSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("foo", "bar"))).
-    			withSkill(CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry"));
+    			withSkill(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set())).
+    			withSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar"))).
+    			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set()));
     	
-    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(CharacterSkill.skillFor(Skill.ANIMAL_KEN, 2));
+    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set()));
     	
-    	assertEquals(set(CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("foo", "bar")),
-    			         CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry")), 
+    	assertEquals(set(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar")),
+    			         new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set())), 
     			         characterWithoutAnimalKen.getSkills());
     }
     
     @Test
     public void testWithoutSkillWhenSkillHasSpeciality() {
     	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME).
-    			withSkill(CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry")).
-    			withSkill(CharacterSkill.skillFor(Skill.CRAFTS, 4, "Painting"));
+    			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set())).
+    			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Painting", set()));
     	
-    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry"));
+    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set()));
     	
-    	assertEquals(set(CharacterSkill.skillFor(Skill.CRAFTS, 4, "Painting")), 
+    	assertEquals(set(new CharacterSkill(Skill.CRAFTS, 4, "Painting", set())), 
     			     characterWithoutAnimalKen.getSkills());
     }
     
@@ -90,21 +90,21 @@ public class PlayerCharacterTest {
     public void testWithoutSkillDoesNotConsiderRating() {
     	int rating = 3;
     	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME).
-    			withSkill(CharacterSkill.skillFor(Skill.CRAFTS, rating, "Poetry")).
-    			withSkill(CharacterSkill.skillFor(Skill.CRAFTS, rating, "Painting"));
+    			withSkill(new CharacterSkill(Skill.CRAFTS, rating, "Poetry", set())).
+    			withSkill(new CharacterSkill(Skill.CRAFTS, rating, "Painting", set()));
     	
-    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(CharacterSkill.skillFor(Skill.CRAFTS, rating+1, "Poetry"));
+    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(new CharacterSkill(Skill.CRAFTS, rating+1, "Poetry", set()));
     	
-    	assertEquals(set(CharacterSkill.skillFor(Skill.CRAFTS, rating, "Painting")), 
+    	assertEquals(set(new CharacterSkill(Skill.CRAFTS, rating, "Painting", set())), 
     			characterWithoutAnimalKen.getSkills());
     }
     
     @Test
     public void testWithoutSkillDoesNotConsiderFocuses() {
     	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME).
-    			withSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("foo", "bar")));
+    			withSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar")));
     	
-    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("baz")));
+    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("baz")));
     	
     	assertEquals(set(), characterWithoutAnimalKen.getSkills());
     }
@@ -112,15 +112,15 @@ public class PlayerCharacterTest {
     @Test
     public void testWithoutSkillWhenNoMatchingSkillFound() {
     	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME).
-    			withSkill(CharacterSkill.skillFor(Skill.ANIMAL_KEN, 2)).
-    			withSkill(CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("foo", "bar"))).
-    			withSkill(CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry"));
+    			withSkill(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set())).
+    			withSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar"))).
+    			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set()));
     	
-    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(CharacterSkill.skillFor(Skill.DRIVE, 2));
+    	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(new CharacterSkill(Skill.DRIVE, 2, null, set()));
     	
-    	assertEquals(set(CharacterSkill.skillFor(Skill.ANIMAL_KEN, 2),
-    			         CharacterSkill.skillFor(Skill.ACADEMICS, 3, set("foo", "bar")),
-    			         CharacterSkill.skillFor(Skill.CRAFTS, 4, "Poetry")), 
+    	assertEquals(set(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set()),
+    			         new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar")),
+    			         new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set())), 
     			     characterWithoutAnimalKen.getSkills());
     }
     
