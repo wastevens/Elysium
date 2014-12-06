@@ -9,7 +9,6 @@ import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
-import com.dstevens.characters.traits.distinctions.SetFlawBuilder;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
@@ -116,8 +115,8 @@ public class PurchasedTraitChangeFactory implements TraitChangeFactory {
     }
     
     @Override
-	public SetFlawBuilder flaw(Flaw flaw, String specialization, SetTrait associatedTrait) {
-    	return new SetFlawBuilder(flaw, specialization, associatedTrait);
+	public SetTrait flaw(Flaw flaw, String specialization, SetTrait associatedTrait) {
+    	return ChangeExperience.gain(flaw.getPoints()).and(traitChangeFactory.flaw(flaw, specialization, associatedTrait));
     }
 
 	@Override

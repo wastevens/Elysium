@@ -17,7 +17,7 @@ import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.SetBackgroundFactory;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
-import com.dstevens.characters.traits.distinctions.SetFlawBuilder;
+import com.dstevens.characters.traits.distinctions.SetFlawFactory;
 import com.dstevens.characters.traits.distinctions.SetMeritFactory;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Power;
@@ -41,6 +41,7 @@ public class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	private final SetPowerFactory setPowerFactory = new SetPowerFactory();
 	private final SetRitualFactory setRitualFactory = new SetRitualFactory();
 	private final SetMeritFactory setMeritFactory = new SetMeritFactory();
+	private final SetFlawFactory setFlawFactory = new SetFlawFactory();
 	
 	@Override
 	public SetTrait physical(PlayerCharacter character) {
@@ -98,8 +99,8 @@ public class ProvidedTraitChangeFactory implements TraitChangeFactory {
     }
     
     @Override
-	public SetFlawBuilder flaw(Flaw flaw, String specialization, SetTrait associatedTrait) {
-    	return new SetFlawBuilder(flaw, specialization, associatedTrait);
+	public SetTrait flaw(Flaw flaw, String specialization, SetTrait associatedTrait) {
+    	return setFlawFactory.flaw(flaw, specialization, associatedTrait);
     }
 
 	@Override

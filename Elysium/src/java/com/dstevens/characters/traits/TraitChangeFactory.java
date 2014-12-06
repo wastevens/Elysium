@@ -9,7 +9,6 @@ import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
-import com.dstevens.characters.traits.distinctions.SetFlawBuilder;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
@@ -20,8 +19,6 @@ import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.Skill;
 
 public interface TraitChangeFactory {
-
-	SetFlawBuilder flaw(Flaw flaw, String specialization, SetTrait associatedTrait);
 
 	SetTrait physicalFocus(PhysicalAttributeFocus focus);
 
@@ -50,5 +47,7 @@ public interface TraitChangeFactory {
 	SetTrait mental(PlayerCharacter character);
 	
 	SetTrait merit(Merit merit, String specialization, SetTrait associatedTrait);
+	
+	SetTrait flaw(Flaw flaw, String specialization, SetTrait associatedTrait);
 
 }
