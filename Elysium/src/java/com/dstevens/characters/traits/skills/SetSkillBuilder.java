@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.backgrounds;
+package com.dstevens.characters.traits.skills;
 
 import static com.dstevens.collections.Sets.set;
 
@@ -10,30 +10,30 @@ import com.dstevens.characters.traits.SpendXp;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-public class SetCharacterBackgroundBuilder implements TraitChangeBuilder {
+public class SetSkillBuilder implements TraitChangeBuilder {
 
 	private final PlayerCharacter character;
-    private final Background background;
+    private final Skill skill;
     private String specialization;
     private Set<String> focuses = set();
     private int rating = 0;
 
-    public SetCharacterBackgroundBuilder(PlayerCharacter character, Background background) {
+    public SetSkillBuilder(PlayerCharacter character, Skill skill) {
         this.character = character;
-		this.background = background;
+		this.skill = skill;
     }
 
-    public SetCharacterBackgroundBuilder withSpecialization(String specialization) {
+    public SetSkillBuilder withSpecialization(String specialization) {
         this.specialization = specialization;
         return this;
     }
     
-    public SetCharacterBackgroundBuilder withFocus(String focus) {
+    public SetSkillBuilder withFocus(String focus) {
         this.focuses.add(focus);
         return this;
     }
     
-    public SetCharacterBackgroundBuilder withRating(int rating) {
+    public SetSkillBuilder withRating(int rating) {
         this.rating = rating;
         return this;
     }
@@ -43,7 +43,7 @@ public class SetCharacterBackgroundBuilder implements TraitChangeBuilder {
     	if(character.getGeneration().orElse(1) == 1) {
     		return new SpendXp(TraitChangeStatus.PENDING, rating).and(setSkill());
     	} else {
-    		return new SpendXp(TraitChangeStatus.PENDING, rating).and(setSkill());
+    		return new SpendXp(TraitChangeStatus.PENDING, rating * 2).and(setSkill());
     	}
     }
 
@@ -52,8 +52,8 @@ public class SetCharacterBackgroundBuilder implements TraitChangeBuilder {
         return setSkill();
     }
 
-    private SetBackground setSkill() {
-        return new SetBackground(TraitChangeStatus.PENDING, new CharacterBackground(background, rating, specialization, focuses));
+    private SetSkill setSkill() {
+    	return new SetSkill(TraitChangeStatus.PENDING, CharacterSkill.skillFor(skill, rating, specialization, focuses));
     }
 
 	@Override

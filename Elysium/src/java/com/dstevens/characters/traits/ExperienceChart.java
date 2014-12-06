@@ -11,7 +11,7 @@ import com.dstevens.characters.traits.attributes.SetSocialAttributeBuilder;
 import com.dstevens.characters.traits.attributes.SetSocialFocusBuilder;
 import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
-import com.dstevens.characters.traits.backgrounds.SetCharacterBackgroundBuilder;
+import com.dstevens.characters.traits.backgrounds.SetBackgroundBuilder;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.distinctions.SetFlawBuilder;
@@ -25,7 +25,7 @@ import com.dstevens.characters.traits.powers.SetPowerBuilder;
 import com.dstevens.characters.traits.powers.SetRitualBuilder;
 import com.dstevens.characters.traits.powers.SetTechniqueBuilder;
 import com.dstevens.characters.traits.powers.Technique;
-import com.dstevens.characters.traits.skills.SetSkillChangeBuilder;
+import com.dstevens.characters.traits.skills.SetSkillBuilder;
 import com.dstevens.characters.traits.skills.Skill;
 
 public class ExperienceChart {
@@ -91,12 +91,12 @@ public class ExperienceChart {
     	return new SetSocialFocusBuilder(focus);
     }
 
-    public SetSkillChangeBuilder skill(Skill skill) {
-        return new SetSkillChangeBuilder(character, skill);
+    public SetSkillBuilder skill(Skill skill) {
+        return new SetSkillBuilder(character, skill);
     }
 
-	public SetCharacterBackgroundBuilder background(Background background) {
-		return new SetCharacterBackgroundBuilder(character, background);
+	public SetBackgroundBuilder background(Background background) {
+		return new SetBackgroundBuilder(character, background);
 	}
 
 	public SetPowerBuilder power(Power<?> power) {

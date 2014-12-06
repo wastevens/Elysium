@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.skills;
+package com.dstevens.characters.traits.backgrounds;
 
 import static com.dstevens.collections.Sets.set;
 
@@ -10,30 +10,30 @@ import com.dstevens.characters.traits.SpendXp;
 import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-public class SetSkillChangeBuilder implements TraitChangeBuilder {
+public class SetBackgroundBuilder implements TraitChangeBuilder {
 
 	private final PlayerCharacter character;
-    private final Skill skill;
+    private final Background background;
     private String specialization;
     private Set<String> focuses = set();
     private int rating = 0;
 
-    public SetSkillChangeBuilder(PlayerCharacter character, Skill skill) {
+    public SetBackgroundBuilder(PlayerCharacter character, Background background) {
         this.character = character;
-		this.skill = skill;
+		this.background = background;
     }
 
-    public SetSkillChangeBuilder withSpecialization(String specialization) {
+    public SetBackgroundBuilder withSpecialization(String specialization) {
         this.specialization = specialization;
         return this;
     }
     
-    public SetSkillChangeBuilder withFocus(String focus) {
+    public SetBackgroundBuilder withFocus(String focus) {
         this.focuses.add(focus);
         return this;
     }
     
-    public SetSkillChangeBuilder withRating(int rating) {
+    public SetBackgroundBuilder withRating(int rating) {
         this.rating = rating;
         return this;
     }
@@ -43,7 +43,7 @@ public class SetSkillChangeBuilder implements TraitChangeBuilder {
     	if(character.getGeneration().orElse(1) == 1) {
     		return new SpendXp(TraitChangeStatus.PENDING, rating).and(setSkill());
     	} else {
-    		return new SpendXp(TraitChangeStatus.PENDING, rating * 2).and(setSkill());
+    		return new SpendXp(TraitChangeStatus.PENDING, rating).and(setSkill());
     	}
     }
 
@@ -52,8 +52,8 @@ public class SetSkillChangeBuilder implements TraitChangeBuilder {
         return setSkill();
     }
 
-    private SetSkill setSkill() {
-    	return new SetSkill(TraitChangeStatus.PENDING, CharacterSkill.skillFor(skill, rating, specialization, focuses));
+    private SetBackground setSkill() {
+        return new SetBackground(TraitChangeStatus.PENDING, new CharacterBackground(background, rating, specialization, focuses));
     }
 
 	@Override

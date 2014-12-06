@@ -1,9 +1,27 @@
 package com.dstevens.characters.traits.attributes;
 
-public enum SocialAttributeFocus implements AttributeFocus {
+import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.EnumeratedTrait;
+
+public enum SocialAttributeFocus implements EnumeratedTrait<SocialAttributeFocus> {
 
     CHARISMA,
     MANIPULATION,
     APPEARANCE;
+
+	@Override
+	public SocialAttributeFocus trait() {
+		return this;
+	}
+
+	@Override
+	public PlayerCharacter applyTo(PlayerCharacter character) {
+		return character.withSocialAttributeFocus(this);
+	}
+
+	@Override
+	public PlayerCharacter removeFrom(PlayerCharacter character) {
+		return character.withoutSocialAttributeFocus(this);
+	}
     
 }
