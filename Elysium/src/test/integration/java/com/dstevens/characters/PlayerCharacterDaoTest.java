@@ -32,7 +32,6 @@ import com.dstevens.characters.distinctions.GeneralMerit;
 import com.dstevens.characters.distinctions.RarityMerit;
 import com.dstevens.characters.distinctions.SettingSpecificFlaw;
 import com.dstevens.characters.powers.CharacterDiscipline;
-import com.dstevens.characters.powers.CharacterElderPower;
 import com.dstevens.characters.powers.Discipline;
 import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.characters.powers.Power;
@@ -184,8 +183,8 @@ public class PlayerCharacterDaoTest {
     public void testSaveWithPowers() {
         characterDao.save(character.withDiscipline(new CharacterDiscipline(Discipline.ANIMALISM, 2)).
                                     withDiscipline(new CharacterDiscipline(Discipline.QUIETUS, 4)).
-                                    withElderPower(new CharacterElderPower(ElderPower.ACID_BLOOD)).
-                                    withElderPower(new CharacterElderPower(ElderPower.CRIMSON_FURY)).
+                                    withElderPower(ElderPower.ACID_BLOOD).
+                                    withElderPower(ElderPower.CRIMSON_FURY).
                                     withTechnique(Technique.AN_DA_SHEALLADH).
                                     withTechnique(Technique.FEARFUL_BLOW).
                                     withInClanDiscipline(Discipline.AUSPEX).

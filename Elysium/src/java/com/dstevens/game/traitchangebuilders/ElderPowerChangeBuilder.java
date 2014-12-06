@@ -5,7 +5,6 @@ import com.dstevens.characters.changes.SetElderPower;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
 import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.powers.CharacterElderPower;
 import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.game.TraitChangeBuilder;
 
@@ -38,7 +37,7 @@ public class ElderPowerChangeBuilder implements TraitChangeBuilder {
     }
 
     private SetTrait setElderPower() {
-    	return new SetElderPower(TraitChangeStatus.PENDING, new CharacterElderPower(elderPower));
+    	return new SetElderPower(TraitChangeStatus.PENDING, elderPower);
     }
 
 	@Override

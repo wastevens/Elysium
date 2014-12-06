@@ -23,7 +23,6 @@ import com.dstevens.characters.distinctions.ClanSpecificMerit;
 import com.dstevens.characters.distinctions.GeneralFlaw;
 import com.dstevens.characters.distinctions.GeneralMerit;
 import com.dstevens.characters.powers.CharacterDiscipline;
-import com.dstevens.characters.powers.CharacterElderPower;
 import com.dstevens.characters.powers.Discipline;
 import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.characters.powers.Technique;
@@ -191,7 +190,7 @@ public class AddAndModifyCharacterTest {
                      maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticRituals());
         assertEquals(set(Technique.ARMOR_OF_DARKNESS, Technique.CONTROL_THE_SAVAGE_BEAST),
         		     maryWollstonecraftWithExperienceSpentAndApproved.getTechniques());
-		assertEquals(set(new CharacterElderPower(ElderPower.CLAIRVOYANCE), new CharacterElderPower(ElderPower.ACID_BLOOD)),
+		assertEquals(set(ElderPower.CLAIRVOYANCE, ElderPower.ACID_BLOOD),
 		             maryWollstonecraftWithExperienceSpentAndApproved.getElderPowers());
 		assertEquals(set(new CharacterMerit(ClanSpecificMerit.ARTISTS_BLESSING, "Poetry"),
 				         new CharacterMerit(GeneralMerit.LUCKY),

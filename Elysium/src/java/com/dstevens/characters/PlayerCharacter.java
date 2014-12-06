@@ -24,8 +24,8 @@ import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.distinctions.CharacterFlaw;
 import com.dstevens.characters.distinctions.CharacterMerit;
 import com.dstevens.characters.powers.CharacterDiscipline;
-import com.dstevens.characters.powers.CharacterElderPower;
 import com.dstevens.characters.powers.Discipline;
+import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.characters.powers.Power;
 import com.dstevens.characters.powers.Technique;
 import com.dstevens.characters.powers.magics.CharacterNecromancy;
@@ -120,10 +120,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @ForeignKey(name="PlayerCharacter_InClanNecromanticPaths_FK")
     private final Set<Necromancy> inClanNecromanticPaths;
     
-    @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"elderPowers_id"}, name="PlayerCharacter_ElderPowers_UC")})
-    @ForeignKey(name="PlayerCharacter_ElderPowers_FK", inverseName="ElderPowers_PlayerCharacter_FK")
-    private final Set<CharacterElderPower> elderPowers;
+    @ElementCollection
+    @ForeignKey(name="PlayerCharacter_ElderPowers_FK")
+    private final Set<ElderPower> elderPowers;
     
     @ElementCollection
     @ForeignKey(name="PlayerCharacter_Techniques_FK")
@@ -192,7 +191,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                             Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
                             Set<Discipline> inClanDisciplines, Set<Thaumaturgy> inClanThaumaturgicalPaths, 
-                            Set<Necromancy> inClanNecromanticPaths, Set<CharacterDiscipline> disciplines, Set<CharacterElderPower> elderPowers,
+                            Set<Necromancy> inClanNecromanticPaths, Set<CharacterDiscipline> disciplines, Set<ElderPower> elderPowers,
                             Set<Technique> techniques, Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, 
                             Set<ThaumaturgicalRitual> thaumaturgicalRituals, Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath,
                             Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws,
@@ -429,16 +428,16 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public Set<CharacterElderPower> getElderPowers() {
+    public Set<ElderPower> getElderPowers() {
         return elderPowers;
     }
     
-    public PlayerCharacter withElderPower(CharacterElderPower power) {
+    public PlayerCharacter withElderPower(ElderPower power) {
         this.elderPowers.add(power);
         return this;
     }
     
-    public PlayerCharacter withoutElderPower(CharacterElderPower power) {
+    public PlayerCharacter withoutElderPower(ElderPower power) {
         this.elderPowers.remove(power);
         return this;
     }
