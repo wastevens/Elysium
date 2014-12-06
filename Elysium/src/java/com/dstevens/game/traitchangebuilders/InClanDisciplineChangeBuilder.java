@@ -1,11 +1,10 @@
 package com.dstevens.game.traitchangebuilders;
 
-import com.dstevens.characters.changes.SetEnumeratedTrait;
 import com.dstevens.characters.changes.SetInClanDiscipline;
+import com.dstevens.characters.changes.SetInClanNecromancy;
 import com.dstevens.characters.changes.SetInClanThaumaturgy;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.changes.TraitFactory;
 import com.dstevens.characters.powers.Discipline;
 import com.dstevens.characters.powers.Power;
 import com.dstevens.characters.powers.magics.Necromancy;
@@ -40,7 +39,7 @@ public class InClanDisciplineChangeBuilder implements TraitChangeBuilder {
 			return new SetInClanThaumaturgy(TraitChangeStatus.PENDING, (Thaumaturgy) power);
 		}
 		if(power instanceof Necromancy) {
-			return new SetEnumeratedTrait(TraitChangeStatus.PENDING, power, TraitFactory.IN_CLAN_NECROMANCY);
+			return new SetInClanNecromancy(TraitChangeStatus.PENDING, (Necromancy) power);
 		}
 		throw new IllegalArgumentException("Could not create InClanDisciplineChangeBuilder for " + power);
 	}

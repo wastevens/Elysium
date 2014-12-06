@@ -20,7 +20,6 @@
     
     <mapping class="com.dstevens.characters.changes.SetTrait"/>
     <mapping class="com.dstevens.characters.changes.RemoveTrait"/>
-    <mapping class="com.dstevens.characters.changes.SetEnumeratedTrait"/>
     <mapping class="com.dstevens.characters.changes.SetElderPower"/>
     <mapping class="com.dstevens.characters.changes.SetThaumaturgicalRitual"/>
     <mapping class="com.dstevens.characters.changes.SetNecromanticRitual"/>
