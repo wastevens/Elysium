@@ -4,25 +4,24 @@ import com.dstevens.characters.PlayerCharacter;
 
 public abstract class SetEnumeratedTrait<T extends EnumeratedTrait<?>> extends SetTrait {
 
-	private final T trait;
-
-	protected SetEnumeratedTrait(TraitChangeStatus status, T trait) {
+	protected SetEnumeratedTrait(TraitChangeStatus status) {
 		super(status);
-		this.trait = trait;
 	}
-
+	
+	protected abstract T trait();
+	
 	public final PlayerCharacter apply(PlayerCharacter character) {
-		return trait.applyTo(character);
+		return trait().applyTo(character);
 	}
 
 	@Override
 	public final PlayerCharacter remove(PlayerCharacter character) {
-		return trait.removeFrom(character);
+		return trait().removeFrom(character);
 	}
 
 	@Override
 	public final String describe() {
-		return trait.toString();
+		return trait().toString();
 	}
 
 }
