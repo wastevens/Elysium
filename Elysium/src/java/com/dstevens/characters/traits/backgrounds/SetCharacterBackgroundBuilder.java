@@ -5,7 +5,6 @@ import static com.dstevens.collections.Sets.set;
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.changes.SetBackground;
 import com.dstevens.characters.traits.changes.SetTrait;
 import com.dstevens.characters.traits.changes.SpendXp;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;

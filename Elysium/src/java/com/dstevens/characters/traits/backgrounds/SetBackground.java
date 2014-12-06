@@ -1,11 +1,12 @@
-package com.dstevens.characters.traits.changes;
+package com.dstevens.characters.traits.backgrounds;
 
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.backgrounds.CharacterBackground;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;

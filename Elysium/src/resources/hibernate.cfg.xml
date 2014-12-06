@@ -20,19 +20,19 @@
     
     <mapping class="com.dstevens.characters.traits.changes.SetTrait"/>
     <mapping class="com.dstevens.characters.traits.changes.RemoveTrait"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetElderPower"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetThaumaturgicalRitual"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetNecromanticRitual"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetDiscipline"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetThaumaturgy"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetNecromancy"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetBackground"/>
+    <mapping class="com.dstevens.characters.traits.powers.SetElderPower"/>
+    <mapping class="com.dstevens.characters.traits.powers.SetThaumaturgicalRitual"/>
+    <mapping class="com.dstevens.characters.traits.powers.SetNecromanticRitual"/>
+    <mapping class="com.dstevens.characters.traits.powers.SetDiscipline"/>
+    <mapping class="com.dstevens.characters.traits.powers.SetThaumaturgy"/>
+    <mapping class="com.dstevens.characters.traits.powers.SetNecromancy"/>
+    <mapping class="com.dstevens.characters.traits.backgrounds.SetBackground"/>
     <mapping class="com.dstevens.characters.traits.changes.SetSkill"/>
     <mapping class="com.dstevens.characters.traits.changes.SetDistinction"/>
     <mapping class="com.dstevens.characters.traits.changes.GainXp"/>
     <mapping class="com.dstevens.characters.traits.changes.SpendXp"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetAttributeFocus"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetAttribute"/>
+    <mapping class="com.dstevens.characters.traits.attributes.SetAttributeFocus"/>
+    <mapping class="com.dstevens.characters.traits.attributes.SetAttribute"/>
     
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
   </session-factory>
