@@ -31,6 +31,7 @@ alter table PlayerCharacter_techniques drop foreign key PlayerCharacter_Techniqu
 alter table PlayerCharacter_thaumaturgicalRituals drop foreign key PlayerCharacter_CharacterThaumaturgicalRituals_FK;
 alter table TraitChanges drop foreign key TraitChange_ChildTraitChange_FK;
 alter table TraitChanges drop foreign key TraitChange_TraitToRemove_FK;
+drop table if exists AttributeValue;
 drop table if exists AuditEvent;
 drop table if exists Backgrounds;
 drop table if exists CharacterBackground_focuses;
@@ -64,6 +65,7 @@ drop table if exists Skills;
 drop table if exists ThaumaturgicalPaths;
 drop table if exists TraitChanges;
 drop table if exists Troupe;
+create table AttributeValue (attribute_type varchar(31) not null, id varchar(255) not null, value integer, primary key (id));
 create table AuditEvent (id varchar(255) not null, audit_message varchar(255), audited_type varchar(255), audited_id varchar(255), timestamp datetime, primary key (id));
 create table Backgrounds (id varchar(255) not null, rating integer, specialization varchar(255), background integer, primary key (id));
 create table CharacterBackground_focuses (CharacterBackground_id varchar(255) not null, focuses varchar(255));

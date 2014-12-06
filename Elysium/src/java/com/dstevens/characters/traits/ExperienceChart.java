@@ -2,14 +2,15 @@ package com.dstevens.characters.traits;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
+import com.dstevens.characters.traits.attributes.MentalAttributeValue;
 import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
-import com.dstevens.characters.traits.attributes.SetMentalAttributeBuilder;
+import com.dstevens.characters.traits.attributes.PhysicalAttributeValue;
+import com.dstevens.characters.traits.attributes.SetAttributeValueBuilder;
 import com.dstevens.characters.traits.attributes.SetMentalFocusBuilder;
-import com.dstevens.characters.traits.attributes.SetPhysicalAttributeBuilder;
 import com.dstevens.characters.traits.attributes.SetPhysicalFocusBuilder;
-import com.dstevens.characters.traits.attributes.SetSocialAttributeBuilder;
 import com.dstevens.characters.traits.attributes.SetSocialFocusBuilder;
 import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
+import com.dstevens.characters.traits.attributes.SocialAttributeValue;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.SetBackgroundBuilder;
 import com.dstevens.characters.traits.distinctions.Flaw;
@@ -118,17 +119,17 @@ public class ExperienceChart {
 	public SetInClanPowerBuilder inClanPower(Power<?> power) {
 		return new SetInClanPowerBuilder(power);
 	}
-
-	public SetPhysicalAttributeBuilder physical(int rating) {
-		return new SetPhysicalAttributeBuilder(rating);
+	
+	public SetAttributeValueBuilder physical(PlayerCharacter character) {
+		return new SetAttributeValueBuilder(PhysicalAttributeValue.increase(character));
 	}
 	
-	public SetMentalAttributeBuilder mental(int rating) {
-		return new SetMentalAttributeBuilder(rating);
+	public SetAttributeValueBuilder social(PlayerCharacter character) {
+		return new SetAttributeValueBuilder(SocialAttributeValue.increase(character));
 	}
 	
-	public SetSocialAttributeBuilder social(int rating) {
-		return new SetSocialAttributeBuilder(rating);
+	public SetAttributeValueBuilder mental(PlayerCharacter character) {
+		return new SetAttributeValueBuilder(MentalAttributeValue.increase(character));
 	}
     
 }

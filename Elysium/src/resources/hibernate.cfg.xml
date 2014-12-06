@@ -28,8 +28,8 @@
     <mapping class="com.dstevens.characters.traits.backgrounds.SetBackground"/>
     <mapping class="com.dstevens.characters.traits.skills.SetSkill"/>
     <mapping class="com.dstevens.characters.traits.Experience"/>
-    <mapping class="com.dstevens.characters.traits.GainExperience"/>
-    <mapping class="com.dstevens.characters.traits.SpendExperience"/>
+    
+    <mapping class="com.dstevens.characters.traits.attributes.AttributeValue"/>
     
     
     <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
