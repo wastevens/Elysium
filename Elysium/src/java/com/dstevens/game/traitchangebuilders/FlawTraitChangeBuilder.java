@@ -1,11 +1,11 @@
 package com.dstevens.game.traitchangebuilders;
 
-import com.dstevens.characters.changes.DistinctionFactory;
-import com.dstevens.characters.changes.GainXp;
-import com.dstevens.characters.changes.SetDistinction;
-import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.changes.TraitChangeStatus;
 import com.dstevens.characters.distinctions.Flaw;
+import com.dstevens.characters.traits.changes.DistinctionFactory;
+import com.dstevens.characters.traits.changes.GainXp;
+import com.dstevens.characters.traits.changes.SetDistinction;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class FlawTraitChangeBuilder implements TraitChangeBuilder {

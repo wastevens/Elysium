@@ -1,14 +1,14 @@
 package com.dstevens.game.traitchangebuilders;
 
-import com.dstevens.characters.changes.SetInClanDiscipline;
-import com.dstevens.characters.changes.SetInClanNecromancy;
-import com.dstevens.characters.changes.SetInClanThaumaturgy;
-import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.powers.Discipline;
-import com.dstevens.characters.powers.Power;
-import com.dstevens.characters.powers.magics.Necromancy;
-import com.dstevens.characters.powers.magics.Thaumaturgy;
+import com.dstevens.characters.traits.changes.SetInClanDiscipline;
+import com.dstevens.characters.traits.changes.SetInClanNecromancy;
+import com.dstevens.characters.traits.changes.SetInClanThaumaturgy;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.powers.Discipline;
+import com.dstevens.characters.traits.powers.Necromancy;
+import com.dstevens.characters.traits.powers.Power;
+import com.dstevens.characters.traits.powers.Thaumaturgy;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class InClanDisciplineChangeBuilder implements TraitChangeBuilder {

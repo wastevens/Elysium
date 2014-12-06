@@ -1,11 +1,11 @@
 package com.dstevens.game.traitchangebuilders;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.changes.SetTechnique;
-import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.changes.SpendXp;
-import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.powers.Technique;
+import com.dstevens.characters.traits.changes.SetTechnique;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.SpendXp;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class TechniqueChangeBuilder implements TraitChangeBuilder {

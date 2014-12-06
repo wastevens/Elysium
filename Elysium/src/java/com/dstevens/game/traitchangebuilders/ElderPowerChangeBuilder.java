@@ -1,11 +1,11 @@
 package com.dstevens.game.traitchangebuilders;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.changes.SetElderPower;
-import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.changes.SpendXp;
-import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.powers.ElderPower;
+import com.dstevens.characters.traits.changes.SetElderPower;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.SpendXp;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class ElderPowerChangeBuilder implements TraitChangeBuilder {

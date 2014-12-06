@@ -4,10 +4,10 @@ import com.dstevens.characters.attributes.AttributeFocus;
 import com.dstevens.characters.attributes.MentalAttributeFocus;
 import com.dstevens.characters.attributes.PhysicalAttributeFocus;
 import com.dstevens.characters.attributes.SocialAttributeFocus;
-import com.dstevens.characters.changes.AttributeFactory;
-import com.dstevens.characters.changes.SetAttributeFocus;
-import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.changes.AttributeFactory;
+import com.dstevens.characters.traits.changes.SetAttributeFocus;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class AttributeFocusBuilder implements TraitChangeBuilder {

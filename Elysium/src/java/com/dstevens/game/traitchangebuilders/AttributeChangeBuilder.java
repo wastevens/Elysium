@@ -1,11 +1,11 @@
 package com.dstevens.game.traitchangebuilders;
 
-import com.dstevens.characters.changes.AttributeFactory;
-import com.dstevens.characters.changes.GainXp;
-import com.dstevens.characters.changes.SetAttribute;
-import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.changes.SpendXp;
-import com.dstevens.characters.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.changes.AttributeFactory;
+import com.dstevens.characters.traits.changes.GainXp;
+import com.dstevens.characters.traits.changes.SetAttribute;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.SpendXp;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class AttributeChangeBuilder implements TraitChangeBuilder {

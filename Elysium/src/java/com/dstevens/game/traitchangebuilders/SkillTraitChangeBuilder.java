@@ -5,12 +5,12 @@ import static com.dstevens.collections.Sets.set;
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.changes.SetSkill;
-import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.changes.SpendXp;
-import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.skills.CharacterSkill;
-import com.dstevens.characters.skills.Skill;
+import com.dstevens.characters.traits.changes.SetSkill;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.SpendXp;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.skills.CharacterSkill;
+import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class SkillTraitChangeBuilder implements TraitChangeBuilder {

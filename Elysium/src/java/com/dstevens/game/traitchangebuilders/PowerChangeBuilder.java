@@ -1,19 +1,19 @@
 package com.dstevens.game.traitchangebuilders;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.changes.SetDiscipline;
-import com.dstevens.characters.changes.SetNecromancy;
-import com.dstevens.characters.changes.SetThaumaturgy;
-import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.changes.SpendXp;
-import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.powers.CharacterDiscipline;
-import com.dstevens.characters.powers.Discipline;
-import com.dstevens.characters.powers.Power;
-import com.dstevens.characters.powers.magics.CharacterNecromancy;
-import com.dstevens.characters.powers.magics.CharacterThaumaturgy;
-import com.dstevens.characters.powers.magics.Necromancy;
-import com.dstevens.characters.powers.magics.Thaumaturgy;
+import com.dstevens.characters.traits.changes.SetDiscipline;
+import com.dstevens.characters.traits.changes.SetNecromancy;
+import com.dstevens.characters.traits.changes.SetThaumaturgy;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.SpendXp;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.powers.CharacterDiscipline;
+import com.dstevens.characters.traits.powers.CharacterNecromancy;
+import com.dstevens.characters.traits.powers.CharacterThaumaturgy;
+import com.dstevens.characters.traits.powers.Discipline;
+import com.dstevens.characters.traits.powers.Necromancy;
+import com.dstevens.characters.traits.powers.Power;
+import com.dstevens.characters.traits.powers.Thaumaturgy;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class PowerChangeBuilder implements TraitChangeBuilder {

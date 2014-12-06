@@ -4,10 +4,10 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
-import com.dstevens.characters.powers.Discipline;
-import com.dstevens.characters.powers.Power;
-import com.dstevens.characters.powers.magics.Necromancy;
-import com.dstevens.characters.powers.magics.Thaumaturgy;
+import com.dstevens.characters.traits.powers.Discipline;
+import com.dstevens.characters.traits.powers.Necromancy;
+import com.dstevens.characters.traits.powers.Power;
+import com.dstevens.characters.traits.powers.Thaumaturgy;
 
 public enum Bloodline {
 

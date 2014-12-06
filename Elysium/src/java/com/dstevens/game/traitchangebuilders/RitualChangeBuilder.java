@@ -1,13 +1,13 @@
 package com.dstevens.game.traitchangebuilders;
 
-import com.dstevens.characters.changes.SetNecromanticRitual;
-import com.dstevens.characters.changes.SetThaumaturgicalRitual;
-import com.dstevens.characters.changes.SetTrait;
-import com.dstevens.characters.changes.SpendXp;
-import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.powers.magics.NecromanticRitual;
-import com.dstevens.characters.powers.magics.Ritual;
-import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
+import com.dstevens.characters.traits.changes.SetNecromanticRitual;
+import com.dstevens.characters.traits.changes.SetThaumaturgicalRitual;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.SpendXp;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.powers.NecromanticRitual;
+import com.dstevens.characters.traits.powers.Ritual;
+import com.dstevens.characters.traits.powers.ThaumaturgicalRitual;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class RitualChangeBuilder implements TraitChangeBuilder {
