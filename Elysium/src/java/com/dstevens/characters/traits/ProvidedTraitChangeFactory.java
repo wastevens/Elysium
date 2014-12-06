@@ -26,7 +26,7 @@ import com.dstevens.characters.traits.powers.SetElderPowerBuilder;
 import com.dstevens.characters.traits.powers.SetInClanPowerBuilder;
 import com.dstevens.characters.traits.powers.SetPowerFactory;
 import com.dstevens.characters.traits.powers.SetRitualFactory;
-import com.dstevens.characters.traits.powers.SetTechniqueBuilder;
+import com.dstevens.characters.traits.powers.SetTechniqueFactory;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.SetSkillFactory;
 import com.dstevens.characters.traits.skills.Skill;
@@ -42,6 +42,7 @@ public class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	private final SetRitualFactory setRitualFactory = new SetRitualFactory();
 	private final SetMeritFactory setMeritFactory = new SetMeritFactory();
 	private final SetFlawFactory setFlawFactory = new SetFlawFactory();
+	private final SetTechniqueFactory setTechniqueFactory = new SetTechniqueFactory();
 	
 	@Override
 	public SetTrait physical(PlayerCharacter character) {
@@ -104,9 +105,8 @@ public class ProvidedTraitChangeFactory implements TraitChangeFactory {
     }
 
 	@Override
-	public SetTechniqueBuilder technique(Technique technique) {
-		return null;
-//		return new SetTechniqueBuilder(character, technique);
+	public SetTrait technique(Technique technique) {
+		return setTechniqueFactory.technique(technique);
 	}
 
 	@Override

@@ -14,7 +14,6 @@ import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.SetElderPowerBuilder;
 import com.dstevens.characters.traits.powers.SetInClanPowerBuilder;
-import com.dstevens.characters.traits.powers.SetTechniqueBuilder;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.Skill;
 
@@ -34,7 +33,7 @@ public interface TraitChangeFactory {
 
 	SetTrait ritual(Ritual<?> ritual);
 
-	SetTechniqueBuilder technique(Technique technique);
+	SetTrait technique(Technique technique);
 
 	SetElderPowerBuilder elderPower(ElderPower power);
 

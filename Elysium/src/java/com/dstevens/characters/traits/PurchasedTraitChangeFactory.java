@@ -14,7 +14,6 @@ import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.SetElderPowerBuilder;
 import com.dstevens.characters.traits.powers.SetInClanPowerBuilder;
-import com.dstevens.characters.traits.powers.SetTechniqueBuilder;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.Skill;
 
@@ -120,9 +119,17 @@ public class PurchasedTraitChangeFactory implements TraitChangeFactory {
     }
 
 	@Override
-	public SetTechniqueBuilder technique(Technique technique) {
-		return new SetTechniqueBuilder(character, technique);
+	public SetTrait technique(Technique technique) {
+		return costForTechnique().and(traitChangeFactory.technique(technique));
 	}
+	
+    private SetTrait costForTechnique() {
+    	if(character.getGeneration().orElse(1) >= 3) {
+    		return ChangeExperience.spend(20);
+    	} else {
+    		return ChangeExperience.spend(12);
+    	}
+    }
 
 	@Override
 	public SetElderPowerBuilder elderPower(ElderPower power) {
