@@ -16,11 +16,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
-import com.dstevens.characters.attributes.MentalAttributeFocus;
-import com.dstevens.characters.attributes.PhysicalAttributeFocus;
-import com.dstevens.characters.attributes.SocialAttributeFocus;
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
+import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
+import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
+import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
 import com.dstevens.characters.traits.changes.SetTrait;

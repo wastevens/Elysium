@@ -1,7 +1,7 @@
 package com.dstevens.game;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.attributes.AttributeFocus;
+import com.dstevens.characters.traits.attributes.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.changes.AttributeFactory;
 import com.dstevens.characters.traits.changes.builders.AttributeChangeBuilder;

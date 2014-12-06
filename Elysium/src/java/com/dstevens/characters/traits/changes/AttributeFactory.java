@@ -1,10 +1,10 @@
 package com.dstevens.characters.traits.changes;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.attributes.AttributeFocus;
-import com.dstevens.characters.attributes.MentalAttributeFocus;
-import com.dstevens.characters.attributes.PhysicalAttributeFocus;
-import com.dstevens.characters.attributes.SocialAttributeFocus;
+import com.dstevens.characters.traits.attributes.AttributeFocus;
+import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
+import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
+import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 
 public enum AttributeFactory {
 

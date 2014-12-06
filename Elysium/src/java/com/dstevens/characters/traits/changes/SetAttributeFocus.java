@@ -1,7 +1,7 @@
 package com.dstevens.characters.traits.changes;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.attributes.AttributeFocus;
+import com.dstevens.characters.traits.attributes.AttributeFocus;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;

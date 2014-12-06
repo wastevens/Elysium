@@ -1,9 +1,9 @@
 package com.dstevens.characters.traits.changes.builders;
 
-import com.dstevens.characters.attributes.AttributeFocus;
-import com.dstevens.characters.attributes.MentalAttributeFocus;
-import com.dstevens.characters.attributes.PhysicalAttributeFocus;
-import com.dstevens.characters.attributes.SocialAttributeFocus;
+import com.dstevens.characters.traits.attributes.AttributeFocus;
+import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
+import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
+import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.changes.AttributeFactory;
 import com.dstevens.characters.traits.changes.SetAttributeFocus;
 import com.dstevens.characters.traits.changes.SetTrait;
