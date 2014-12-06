@@ -7,19 +7,19 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 
 public class SetMeritBuilder implements TraitChangeBuilder {
 
-	private Merits merit;
+	private Merit merit;
 	private String specialization;
 	private SetTrait associatedChange;
 
-	public SetMeritBuilder(Merits merit) {
+	public SetMeritBuilder(Merit merit) {
 		this(merit, null, null);
 	}
 	
-	public SetMeritBuilder(Merits merit, String specialization) {
+	public SetMeritBuilder(Merit merit, String specialization) {
 		this(merit, specialization, null);
 	}
 	
-	public SetMeritBuilder(Merits merit, String specialization, SetTrait associatedchange) {
+	public SetMeritBuilder(Merit merit, String specialization, SetTrait associatedchange) {
 		this.merit = merit;
 		this.specialization = specialization;
 		this.associatedChange = associatedchange;

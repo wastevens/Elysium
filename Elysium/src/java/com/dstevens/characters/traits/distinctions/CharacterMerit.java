@@ -18,13 +18,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Merits")
-public class CharacterMerit implements EnumeratedTrait<Merits>, Comparable<CharacterMerit> {
+public class CharacterMerit implements EnumeratedTrait<Merit>, Comparable<CharacterMerit> {
 
 	@Id
     private final String id;
 	
 	@Basic(optional=false)
-	private Merits merit;
+	private Merit merit;
 	
 	@Column(name="specialization")
     private String specialization;
@@ -36,11 +36,11 @@ public class CharacterMerit implements EnumeratedTrait<Merits>, Comparable<Chara
         this(null, null);
     }
 	
-	public CharacterMerit(Merits merit) {
+	public CharacterMerit(Merit merit) {
 		this(merit, null);
 	}
 	
-	public CharacterMerit(Merits merit, String specialization) {
+	public CharacterMerit(Merit merit, String specialization) {
 		this.id = new IdSupplier().get();
 		this.merit = merit;
 		this.specialization = specialization;
@@ -56,7 +56,7 @@ public class CharacterMerit implements EnumeratedTrait<Merits>, Comparable<Chara
 	}
 	
 	@Override
-	public Merits trait() {
+	public Merit trait() {
 		return merit;
 	}
 

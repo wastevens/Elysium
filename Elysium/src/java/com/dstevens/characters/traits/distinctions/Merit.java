@@ -9,7 +9,7 @@ import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.players.Setting;
 
-public enum Merits {
+public enum Merit {
 	//General merits
 	ACUTE_SENSE(MeritType.GENERAL, 1),
     ADDITIONAL_COMMON_DISCIPLINE(MeritType.GENERAL, 4),
@@ -203,23 +203,23 @@ public enum Merits {
 	private final Bloodline bloodline;
 	private final Setting setting;
 	
-    private Merits(MeritType meritType, int points) {
+    private Merit(MeritType meritType, int points) {
     	this(meritType, points, null, null, null);
     }
     
-    private Merits(MeritType meritType, Clan clan, int points) {
+    private Merit(MeritType meritType, Clan clan, int points) {
     	this(meritType, points, clan, null, null);
     }
 
-	private Merits(MeritType meritType, Clan clan, Bloodline bloodline, int points) {
+	private Merit(MeritType meritType, Clan clan, Bloodline bloodline, int points) {
 		this(meritType, points, clan, bloodline, null);
 	}
 	
-	private Merits(MeritType meritType, Setting setting, int points) {
+	private Merit(MeritType meritType, Setting setting, int points) {
 		this(meritType, points, null, null, setting);
 	}
 	
-    private Merits(MeritType type, int points, Clan clan, Bloodline bloodline, Setting setting) {
+    private Merit(MeritType type, int points, Clan clan, Bloodline bloodline, Setting setting) {
         this.points = points;
 		this.type = type;
 		this.clan = clan;
@@ -247,48 +247,48 @@ public enum Merits {
 		return setting;
 	}
     
-    public static List<Merits> general() {
+    public static List<Merit> general() {
     	return ofType(MeritType.GENERAL);
     }
     
-    public static List<Merits> rarity() {
+    public static List<Merit> rarity() {
     	return ofType(MeritType.RARITY);
     }
     
-    public static List<Merits> morality() {
+    public static List<Merit> morality() {
     	return ofType(MeritType.MORALITY);
     }
     
-    public static List<Merits> bloodline(Clan clan) {
+    public static List<Merit> bloodline(Clan clan) {
     	return ofType(MeritType.BLOODLINE, clan);
     }
     
-    public static List<Merits> clan(Clan clan) {
+    public static List<Merit> clan(Clan clan) {
     	return ofType(MeritType.CLAN, clan);
     }
     
-    public static List<Merits> setting(Setting setting) {
+    public static List<Merit> setting(Setting setting) {
     	return ofType(MeritType.SETTING, setting);
     }
     
-    private static Stream<Merits> meritStream() {
-    	return Arrays.stream(Merits.values());
+    private static Stream<Merit> meritStream() {
+    	return Arrays.stream(Merit.values());
     }
     
-    private static List<Merits> ofType(MeritType meritType) {
-    	return meritStream().filter((Merits m) -> m.getType() == meritType).
+    private static List<Merit> ofType(MeritType meritType) {
+    	return meritStream().filter((Merit m) -> m.getType() == meritType).
     		                 collect(Collectors.toList());
     }
     
-    private static List<Merits> ofType(MeritType meritType, Clan clan) {
-    	return meritStream().filter((Merits m) -> m.getType() == meritType).
-    			             filter((Merits m) -> m.getClan() == clan).
+    private static List<Merit> ofType(MeritType meritType, Clan clan) {
+    	return meritStream().filter((Merit m) -> m.getType() == meritType).
+    			             filter((Merit m) -> m.getClan() == clan).
     			             collect(Collectors.toList());
     }
     
-    private static List<Merits> ofType(MeritType meritType, Setting setting) {
-    	return meritStream().filter((Merits m) -> m.getType() == meritType).
-    			             filter((Merits m) -> m.getSetting() == setting).
+    private static List<Merit> ofType(MeritType meritType, Setting setting) {
+    	return meritStream().filter((Merit m) -> m.getType() == meritType).
+    			             filter((Merit m) -> m.getSetting() == setting).
     			             collect(Collectors.toList());
     }
 }

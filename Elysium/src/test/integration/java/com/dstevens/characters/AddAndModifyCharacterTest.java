@@ -20,7 +20,7 @@ import com.dstevens.characters.traits.backgrounds.CharacterBackground;
 import com.dstevens.characters.traits.distinctions.CharacterFlaw;
 import com.dstevens.characters.traits.distinctions.CharacterMerit;
 import com.dstevens.characters.traits.distinctions.GeneralFlaw;
-import com.dstevens.characters.traits.distinctions.Merits;
+import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.powers.CharacterDiscipline;
 import com.dstevens.characters.traits.powers.CharacterNecromancy;
 import com.dstevens.characters.traits.powers.CharacterThaumaturgy;
@@ -190,12 +190,12 @@ public class AddAndModifyCharacterTest {
         		     maryWollstonecraftWithExperienceSpentAndApproved.getTechniques());
 		assertEquals(set(ElderPower.CLAIRVOYANCE, ElderPower.ACID_BLOOD),
 		             maryWollstonecraftWithExperienceSpentAndApproved.getElderPowers());
-		assertEquals(set(new CharacterMerit(Merits.ARTISTS_BLESSING, "Poetry"),
-				         new CharacterMerit(Merits.LUCKY),
-				         new CharacterMerit(Merits.THAUMATURGIC_TRAINING, "Path of Corruption"),
-				         new CharacterMerit(Merits.NECROMANTIC_TRAINING, "Ash Path"),
-				         new CharacterMerit(Merits.ADDITIONAL_COMMON_DISCIPLINE, "Dominate"),
-				         new CharacterMerit(Merits.VERSATILE, "Wits")), 
+		assertEquals(set(new CharacterMerit(Merit.ARTISTS_BLESSING, "Poetry"),
+				         new CharacterMerit(Merit.LUCKY),
+				         new CharacterMerit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption"),
+				         new CharacterMerit(Merit.NECROMANTIC_TRAINING, "Ash Path"),
+				         new CharacterMerit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate"),
+				         new CharacterMerit(Merit.VERSATILE, "Wits")), 
 				     maryWollstonecraftWithExperienceSpentAndApproved.getMerits());
 		assertEquals(set(new CharacterFlaw(GeneralFlaw.CURIOUSITY),
 		                 new CharacterFlaw(GeneralFlaw.LESSER_GENERATION_2)), 
@@ -251,9 +251,9 @@ public class AddAndModifyCharacterTest {
         
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS).withRating(2).withFocus("Philosophy").withFocus("Latin Poetry").buy()));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS).withRating(3).withFocus("Philosophy").withFocus("Latin Poetry").withFocus("Greek Poetry").buy()));
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merits.ARTISTS_BLESSING, "Poetry", experienceChart.skill(Skill.CRAFTS).withSpecialization("Poetry").withRating(3).add()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merits.LUCKY).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merits.VERSATILE, "Wits", experienceChart.mentalFocus(MentalAttributeFocus.WITS).add()).buy()));
+        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ARTISTS_BLESSING, "Poetry", experienceChart.skill(Skill.CRAFTS).withSpecialization("Poetry").withRating(3).add()).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.LUCKY).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, "Wits", experienceChart.mentalFocus(MentalAttributeFocus.WITS).add()).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(GeneralFlaw.CURIOUSITY).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(GeneralFlaw.LESSER_GENERATION_2).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.physical(getMaryWollstonecraft().getPhysicalAttribute()+1).buy()));
@@ -278,9 +278,9 @@ public class AddAndModifyCharacterTest {
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.CONTROL_THE_SAVAGE_BEAST).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.CLAIRVOYANCE).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.ACID_BLOOD).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merits.THAUMATURGIC_TRAINING, "Path of Corruption", experienceChart.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION).add()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merits.NECROMANTIC_TRAINING, "Ash Path", experienceChart.inClanPower(Necromancy.ASH_PATH).add()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merits.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", experienceChart.inClanPower(Discipline.DOMINATE).add()).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", experienceChart.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION).add()).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", experienceChart.inClanPower(Necromancy.ASH_PATH).add()).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", experienceChart.inClanPower(Discipline.DOMINATE).add()).buy()));
     }
 
     private void backoutSomeOfThoseChanges() {

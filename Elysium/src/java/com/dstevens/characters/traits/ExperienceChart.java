@@ -13,7 +13,7 @@ import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.SetCharacterBackgroundBuilder;
 import com.dstevens.characters.traits.distinctions.Flaw;
-import com.dstevens.characters.traits.distinctions.Merits;
+import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.distinctions.SetFlawBuilder;
 import com.dstevens.characters.traits.distinctions.SetMeritBuilder;
 import com.dstevens.characters.traits.powers.ElderPower;
@@ -40,15 +40,15 @@ public class ExperienceChart {
         return new ExperienceChart(character);
     }
 
-    public SetMeritBuilder merit(Merits merit) {
+    public SetMeritBuilder merit(Merit merit) {
         return new SetMeritBuilder(merit);
     }
     
-    public SetMeritBuilder merit(Merits merit, String specialization) {
+    public SetMeritBuilder merit(Merit merit, String specialization) {
     	return new SetMeritBuilder(merit, specialization);
     }
     
-    public SetMeritBuilder merit(Merits merit, String specialization, SetTrait associatedTrait) {
+    public SetMeritBuilder merit(Merit merit, String specialization, SetTrait associatedTrait) {
     	return new SetMeritBuilder(merit, specialization, associatedTrait);
     }
     
