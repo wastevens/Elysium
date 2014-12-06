@@ -1,6 +1,7 @@
 package com.dstevens.game.traitchangebuilders;
 
 import com.dstevens.characters.changes.SetEnumeratedTrait;
+import com.dstevens.characters.changes.SetThaumaturgicalRitual;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
 import com.dstevens.characters.changes.TraitChangeStatus;
@@ -28,9 +29,9 @@ public class RitualChangeBuilder implements TraitChangeBuilder {
         return setRitual();
     }
 
-    private SetEnumeratedTrait setRitual() {
+    private SetTrait setRitual() {
     	if(ritual instanceof ThaumaturgicalRitual) {
-    		return new SetEnumeratedTrait(TraitChangeStatus.PENDING, ritual, TraitFactory.THAUMATURGICAL_RITUAL);
+    		return new SetThaumaturgicalRitual(TraitChangeStatus.PENDING, (ThaumaturgicalRitual) ritual);
     	} else if(ritual instanceof NecromanticRitual) {
     		return new SetEnumeratedTrait(TraitChangeStatus.PENDING, ritual, TraitFactory.NECROMANTIC_RITUAL);
     	}

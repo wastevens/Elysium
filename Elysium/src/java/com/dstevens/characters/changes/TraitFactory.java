@@ -5,25 +5,12 @@ import java.util.Set;
 import com.dstevens.characters.powers.Discipline;
 import com.dstevens.characters.powers.magics.Necromancy;
 import com.dstevens.characters.powers.magics.NecromanticRitual;
-import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
 import com.dstevens.characters.powers.magics.Thaumaturgy;
 import com.dstevens.characters.traits.CharacterDefinedTrait;
 import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 
 public enum TraitFactory {
-    THAUMATURGICAL_RITUAL {
-        @Override
-        public EnumeratedTrait<?> traitFor(int ordinal) {
-            return ThaumaturgicalRitual.values()[ordinal];
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public <E extends Enum<?>> E trait(int ordinal) {
-            return (E) ThaumaturgicalRitual.values()[ordinal];
-        }
-    },
     NECROMANTIC_RITUAL {
         @Override
         public EnumeratedTrait<?> traitFor(int ordinal) {
