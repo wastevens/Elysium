@@ -18,7 +18,7 @@ import com.dstevens.characters.traits.backgrounds.SetBackgroundFactory;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.distinctions.SetFlawBuilder;
-import com.dstevens.characters.traits.distinctions.SetMeritBuilder;
+import com.dstevens.characters.traits.distinctions.SetMeritFactory;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
@@ -40,6 +40,7 @@ public class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	private final SetBackgroundFactory backgroundFactory = new SetBackgroundFactory();
 	private final SetPowerFactory setPowerFactory = new SetPowerFactory();
 	private final SetRitualFactory setRitualFactory = new SetRitualFactory();
+	private final SetMeritFactory setMeritFactory = new SetMeritFactory();
 	
 	@Override
 	public SetTrait physical(PlayerCharacter character) {
@@ -91,28 +92,30 @@ public class ProvidedTraitChangeFactory implements TraitChangeFactory {
 		return setRitualFactory.setRitual(ritual);
 	}
 	
-	@Override
-	public SetMeritBuilder merit(Merit merit, String specialization, SetTrait associatedTrait) {
-		return null;
-	}
-
-	@Override
+	 @Override
+	public SetTrait merit(Merit merit, String specialization, SetTrait associatedTrait) {
+		 return setMeritFactory.merit(merit, specialization, associatedTrait);
+    }
+    
+    @Override
 	public SetFlawBuilder flaw(Flaw flaw, String specialization, SetTrait associatedTrait) {
-		return null;
-	}
+    	return new SetFlawBuilder(flaw, specialization, associatedTrait);
+    }
 
 	@Override
 	public SetTechniqueBuilder technique(Technique technique) {
 		return null;
+//		return new SetTechniqueBuilder(character, technique);
 	}
 
 	@Override
 	public SetElderPowerBuilder elderPower(ElderPower power) {
 		return null;
+//		return new SetElderPowerBuilder(character, power);
 	}
 
 	@Override
 	public SetInClanPowerBuilder inClanPower(Power<?> power) {
-		return null;
+		return new SetInClanPowerBuilder(power);
 	}
 }

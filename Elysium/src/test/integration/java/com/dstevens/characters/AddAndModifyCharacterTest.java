@@ -253,9 +253,9 @@ public class AddAndModifyCharacterTest {
         
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS, 2, null, set("Philosophy", "Latin Poetry"))));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry"))));
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ARTISTS_BLESSING, "Poetry", traitFactory.skill(Skill.CRAFTS, 3, "Poetry", set())).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.LUCKY, null, null).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, "Wits", traitFactory.mentalFocus(MentalAttributeFocus.WITS)).buy()));
+        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ARTISTS_BLESSING, "Poetry", traitFactory.skill(Skill.CRAFTS, 3, "Poetry", set()))));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.LUCKY, null, null)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, "Wits", traitFactory.mentalFocus(MentalAttributeFocus.WITS))));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.CURIOUSITY, null, null).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.LESSER_GENERATION_2, null, null).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.physical(getMaryWollstonecraft())));
@@ -280,9 +280,9 @@ public class AddAndModifyCharacterTest {
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.CONTROL_THE_SAVAGE_BEAST).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.CLAIRVOYANCE).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.ACID_BLOOD).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", experienceChart.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION).add()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", experienceChart.inClanPower(Necromancy.ASH_PATH).add()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", experienceChart.inClanPower(Discipline.DOMINATE).add()).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", experienceChart.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION).add())));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", experienceChart.inClanPower(Necromancy.ASH_PATH).add())));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", experienceChart.inClanPower(Discipline.DOMINATE).add())));
     }
 
     private void backoutSomeOfThoseChanges() {
