@@ -362,6 +362,16 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
 
+	public PlayerCharacter withMerit(CharacterMerit characterMerits) {
+		this.withoutMerit(characterMerits).merits.add(characterMerits);
+		return this;
+	}
+
+	public PlayerCharacter withoutMerit(CharacterMerit characterMerits) {
+		this.merits.removeIf(characterMerits.matches());
+		return this;
+	}
+	
     public Set<CharacterBackground> getBackgrounds() {
         return backgrounds;
     }
@@ -532,16 +542,6 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     
     public Set<CharacterMerit> getMerits() {
         return merits;
-    }
-    
-    public PlayerCharacter withMerit(CharacterMerit merit) {
-        this.merits.add(merit);
-        return this;
-    }
-    
-    public PlayerCharacter withoutMerit(CharacterMerit merit) {
-        this.merits.removeIf(merit.matches());
-        return this;
     }
     
     public Set<CharacterFlaw> getFlaws() {

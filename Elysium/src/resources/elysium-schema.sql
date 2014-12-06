@@ -37,6 +37,7 @@ drop table if exists CharacterBackground_focuses;
 drop table if exists CharacterSkill_focuses;
 drop table if exists Disciplines;
 drop table if exists Distinctions;
+drop table if exists Merits;
 drop table if exists NecromanticPaths;
 drop table if exists Player;
 drop table if exists PlayerCharacter;
@@ -68,6 +69,7 @@ create table CharacterBackground_focuses (CharacterBackground_id varchar(255) no
 create table CharacterSkill_focuses (CharacterSkill_id varchar(255) not null, focuses varchar(255));
 create table Disciplines (id varchar(255) not null, rating integer, trait integer not null, primary key (id));
 create table Distinctions (distinction_type varchar(31) not null, id varchar(255) not null, details varchar(255), ordinal integer, type varchar(255), primary key (id));
+create table Merits (id varchar(255) not null, merit integer not null, specialization varchar(255), primary key (id));
 create table NecromanticPaths (id varchar(255) not null, power integer not null, rating integer, primary key (id));
 create table Player (id varchar(255) not null, deleted_at datetime, email varchar(255), name varchar(255), troupe_id varchar(255), primary key (id));
 create table PlayerCharacter (id varchar(255) not null, bloodline integer, clan integer, deleted_at datetime, mental_attribute integer, name varchar(255), physical_attribute integer, primary_necromantic_path integer, primary_thaumaturgical_path integer, social_attribute integer, xp integer, player_id varchar(255), troupe_id varchar(255), primary key (id));
@@ -112,7 +114,7 @@ alter table PlayerCharacter_Disciplines add constraint Disciplines_PlayerCharact
 alter table PlayerCharacter_Disciplines add constraint PlayerCharacter_Disciplines_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_Flaws add constraint Flaws_PlayerCharacter_FK foreign key (flaws_id) references Distinctions (id);
 alter table PlayerCharacter_Flaws add constraint PlayerCharacter_Flaws_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
-alter table PlayerCharacter_Merits add constraint Merits_PlayerCharacter_FK foreign key (merits_id) references Distinctions (id);
+alter table PlayerCharacter_Merits add constraint Merits_PlayerCharacter_FK foreign key (merits_id) references Merits (id);
 alter table PlayerCharacter_Merits add constraint PlayerCharacter_Merits_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_NecromanticPaths add constraint NecromanticPaths_PlayerCharacter_FK foreign key (necromanticPaths_id) references NecromanticPaths (id);
 alter table PlayerCharacter_NecromanticPaths add constraint PlayerCharacter_NecromanticPaths_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);

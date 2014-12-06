@@ -4,6 +4,8 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -93,13 +95,13 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return characterDefinedTraitEquals(obj);
+    public boolean equals(Object that) {
+    	return EqualsBuilder.reflectionEquals(this, that, "id");
     }
 
     @Override
     public int hashCode() {
-        return characterDefinedTraitHashcode();
+    	return HashCodeBuilder.reflectionHashCode(this, "id");
     }
     
     @Override

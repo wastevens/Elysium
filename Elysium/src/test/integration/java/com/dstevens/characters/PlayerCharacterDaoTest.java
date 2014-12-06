@@ -26,10 +26,8 @@ import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
 import com.dstevens.characters.traits.distinctions.CharacterFlaw;
 import com.dstevens.characters.traits.distinctions.CharacterMerit;
-import com.dstevens.characters.traits.distinctions.ClanSpecificMerit;
 import com.dstevens.characters.traits.distinctions.GeneralFlaw;
-import com.dstevens.characters.traits.distinctions.GeneralMerit;
-import com.dstevens.characters.traits.distinctions.RarityMerit;
+import com.dstevens.characters.traits.distinctions.Merits;
 import com.dstevens.characters.traits.distinctions.SettingSpecificFlaw;
 import com.dstevens.characters.traits.powers.CharacterDiscipline;
 import com.dstevens.characters.traits.powers.CharacterNecromancy;
@@ -252,15 +250,15 @@ public class PlayerCharacterDaoTest {
     
     @Test
     public void testSaveWithMeritsAndFlaws() {
-        characterDao.save(character.withMerit(new CharacterMerit(RarityMerit.RARE)).
-                                    withMerit(new CharacterMerit(ClanSpecificMerit.PARAGON, "Bob the Ventrue Assistant")).
+        characterDao.save(character.withMerit(new CharacterMerit(Merits.RARE)).
+                                    withMerit(new CharacterMerit(Merits.PARAGON, "Bob the Ventrue Assistant")).
                                     withFlaw(new CharacterFlaw(GeneralFlaw.BAD_SIGHT)).
                                     withFlaw(new CharacterFlaw(GeneralFlaw.ADDICTION, "To meth!")).
                                     withFlaw(new CharacterFlaw(SettingSpecificFlaw.DUBIOUS_LOYALTIES)));
         
         PlayerCharacter characterWithMerits = characterDao.findOne(character.getId());
         
-        assertEquals(set(new CharacterMerit(RarityMerit.RARE), new CharacterMerit(ClanSpecificMerit.PARAGON, "Bob the Ventrue Assistant")),
+        assertEquals(set(new CharacterMerit(Merits.RARE), new CharacterMerit(Merits.PARAGON, "Bob the Ventrue Assistant")),
                      characterWithMerits.getMerits());
         assertEquals(set(new CharacterFlaw(GeneralFlaw.BAD_SIGHT), new CharacterFlaw(GeneralFlaw.ADDICTION, "To meth!"), new CharacterFlaw(SettingSpecificFlaw.DUBIOUS_LOYALTIES)), 
                      characterWithMerits.getFlaws());
@@ -307,7 +305,7 @@ public class PlayerCharacterDaoTest {
         PlayerCharacter characterWithApprovedChanges = verifyThatAllPendingChangesApproved();
         
         assertEquals(set(new CharacterFlaw(GeneralFlaw.ADDICTION, "Uppers")), characterWithApprovedChanges.getFlaws());
-        assertEquals(set(new CharacterMerit(GeneralMerit.ACUTE_SENSE, "Eyesight")), characterWithApprovedChanges.getMerits());
+        assertEquals(set(new CharacterMerit(Merits.ACUTE_SENSE, "Eyesight")), characterWithApprovedChanges.getMerits());
         assertEquals(set(Technique.ARMOR_OF_DARKNESS), characterWithApprovedChanges.getTechniques());
         assertEquals(set(ElderPower.ARMY_OF_APPARITIONS), characterWithApprovedChanges.getElderPowers());
         assertEquals(set(NecromanticRitual.CHILL_OF_OBLIVION), characterWithApprovedChanges.getNecromanticRituals());

@@ -7,45 +7,46 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 
 public class SetMeritBuilder implements TraitChangeBuilder {
 
-    private Merit<?> merit;
-    private String details;
-    private SetTrait traitChange;
+	private Merits merit;
+	private String specialization;
+	private SetTrait associatedChange;
 
-    public SetMeritBuilder(Merit<?> merit) {
-        this.merit = merit;
-    }
+	public SetMeritBuilder(Merits merit) {
+		this(merit, null, null);
+	}
+	
+	public SetMeritBuilder(Merits merit, String specialization) {
+		this(merit, specialization, null);
+	}
+	
+	public SetMeritBuilder(Merits merit, String specialization, SetTrait associatedchange) {
+		this.merit = merit;
+		this.specialization = specialization;
+		this.associatedChange = associatedchange;
+	}
+	
+	@Override
+	public SetTrait buy() {
+		return new SpendXp(TraitChangeStatus.PENDING, merit.getPoints()).and(merit());
+	}
 
-    public SetMeritBuilder withDetails(String details) {
-        this.details = details;
-        return this;
-    }
-    
-    public SetMeritBuilder withTraitChange(SetTrait traitChange) {
-        this.traitChange = traitChange;
-        return this;
-    }
-    
-    @Override
-    public SetTrait buy() {
-        return new SpendXp(TraitChangeStatus.PENDING, merit.getPoints()).and(setDistinction());
-    }
-
-    @Override
-    public SetTrait add() {
-        return setDistinction();
-    }
-
-    private SetTrait setDistinction() {
-    	return new SetMerit(TraitChangeStatus.PENDING, new CharacterMerit(merit, details)).and(traitChange);
-    }
+	@Override
+	public SetTrait add() {
+		return merit();
+	}
+	
+	private SetTrait merit() {
+		return new SetMerit(TraitChangeStatus.PENDING, new CharacterMerit(merit, specialization)).and(associatedChange);
+	}
 
 	@Override
 	public SetTrait sell() {
-		throw new IllegalStateException("not yet implemented");
+		throw new IllegalStateException("nyi");
 	}
 
 	@Override
 	public SetTrait remove() {
-		throw new IllegalStateException("not yet implemented");
+		throw new IllegalStateException("nyi");
 	}
+
 }
