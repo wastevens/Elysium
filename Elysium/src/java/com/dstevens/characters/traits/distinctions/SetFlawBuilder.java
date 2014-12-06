@@ -7,36 +7,36 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 
 public class SetFlawBuilder implements TraitChangeBuilder {
 
-    private Flaw<?> flaw;
-    private String details;
-    private SetTrait traitChange;
+    private Flaw flaw;
+    private String specialization;
+    private SetTrait associatedChange;
 
-    public SetFlawBuilder(Flaw<?> flaw) {
-        this.flaw = flaw;
-    }
-
-    public SetFlawBuilder withDetails(String details) {
-        this.details = details;
-        return this;
+    public SetFlawBuilder(Flaw flaw) {
+    	this(flaw, null, null);
     }
     
-    public SetFlawBuilder withTraitChange(SetTrait traitChange) {
-        this.traitChange = traitChange;
-        return this;
+    public SetFlawBuilder(Flaw flaw, String specialization) {
+    	this(flaw, specialization, null);
+    }
+    
+    public SetFlawBuilder(Flaw flaw, String specialization, SetTrait associatedChange) {
+    	this.flaw = flaw;
+		this.specialization = specialization;
+		this.associatedChange = associatedChange;
     }
     
     @Override
     public SetTrait buy() {
-        return new GainXp(TraitChangeStatus.PENDING, flaw.getPoints()).and(setDistinction());
+        return new GainXp(TraitChangeStatus.PENDING, flaw.getPoints()).and(setFlaw());
     }
 
     @Override
     public SetTrait add() {
-        return setDistinction();
+        return setFlaw();
     }
 
-    private SetTrait setDistinction() {
-    	return new SetFlaw(TraitChangeStatus.PENDING, new CharacterFlaw(flaw, details)).and(traitChange);
+    private SetTrait setFlaw() {
+    	return new SetFlaw(TraitChangeStatus.PENDING, new CharacterFlaw(flaw, specialization)).and(associatedChange);
     }
 
 	@Override

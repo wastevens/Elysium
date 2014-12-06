@@ -52,8 +52,16 @@ public class ExperienceChart {
     	return new SetMeritBuilder(merit, specialization, associatedTrait);
     }
     
-    public SetFlawBuilder flaw(Flaw<?> flaw) {
+    public SetFlawBuilder flaw(Flaw flaw) {
     	return new SetFlawBuilder(flaw);
+    }
+    
+    public SetFlawBuilder flaw(Flaw flaw, String specialization) {
+    	return new SetFlawBuilder(flaw, specialization);
+    }
+    
+    public SetFlawBuilder flaw(Flaw flaw, String specialization, SetTrait associatedTrait) {
+    	return new SetFlawBuilder(flaw, specialization, associatedTrait);
     }
 
     public TraitChangeBuilder physicalAttribute() {

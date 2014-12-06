@@ -19,7 +19,7 @@ import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
 import com.dstevens.characters.traits.distinctions.CharacterFlaw;
 import com.dstevens.characters.traits.distinctions.CharacterMerit;
-import com.dstevens.characters.traits.distinctions.GeneralFlaw;
+import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.powers.CharacterDiscipline;
 import com.dstevens.characters.traits.powers.CharacterNecromancy;
@@ -197,8 +197,8 @@ public class AddAndModifyCharacterTest {
 				         new CharacterMerit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate"),
 				         new CharacterMerit(Merit.VERSATILE, "Wits")), 
 				     maryWollstonecraftWithExperienceSpentAndApproved.getMerits());
-		assertEquals(set(new CharacterFlaw(GeneralFlaw.CURIOUSITY),
-		                 new CharacterFlaw(GeneralFlaw.LESSER_GENERATION_2)), 
+		assertEquals(set(new CharacterFlaw(Flaw.CURIOUSITY),
+		                 new CharacterFlaw(Flaw.LESSER_GENERATION_2)), 
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
 		//Double check this
 		assertEquals(37, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
@@ -254,8 +254,8 @@ public class AddAndModifyCharacterTest {
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ARTISTS_BLESSING, "Poetry", experienceChart.skill(Skill.CRAFTS).withSpecialization("Poetry").withRating(3).add()).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.LUCKY).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, "Wits", experienceChart.mentalFocus(MentalAttributeFocus.WITS).add()).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(GeneralFlaw.CURIOUSITY).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(GeneralFlaw.LESSER_GENERATION_2).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.CURIOUSITY).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.LESSER_GENERATION_2).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.physical(getMaryWollstonecraft().getPhysicalAttribute()+1).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.social(getMaryWollstonecraft().getSocialAttribute()+1).buy()));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.mental(getMaryWollstonecraft().getMentalAttribute()+1).buy()));
