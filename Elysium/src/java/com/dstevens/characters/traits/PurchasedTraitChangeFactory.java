@@ -12,7 +12,6 @@ import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
-import com.dstevens.characters.traits.powers.SetInClanPowerBuilder;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.Skill;
 
@@ -148,7 +147,7 @@ public class PurchasedTraitChangeFactory implements TraitChangeFactory {
     }
 	
 	@Override
-	public SetInClanPowerBuilder inClanPower(Power<?> power) {
-		return new SetInClanPowerBuilder(power);
+	public SetTrait inClanPower(Power<?> power) {
+		throw new IllegalStateException("Cannot buy additional in clan powers");
 	}
 }
