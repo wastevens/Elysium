@@ -2,6 +2,7 @@ package com.dstevens.characters.traits;
 
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -46,7 +47,18 @@ public class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	private final SetElderPowerFactory setElderPowerFactory;
 	private final SetInClanPowerFactory setInClanPowerFactory;
 	
-	public ProvidedTraitChangeFactory() {
+	@Autowired
+	public ProvidedTraitChangeFactory(SetAttributeValueFactory attributeValueFactory,
+	                                  SetAttributeFocusFactory attributeFocusFactory,
+	                                  SetSkillFactory skillFactory,                  
+	                                  SetBackgroundFactory backgroundFactory,        
+	                                  SetPowerFactory setPowerFactory,        
+	                                  SetRitualFactory setRitualFactory,             
+	                                  SetMeritFactory setMeritFactory,             
+	                                  SetFlawFactory setFlawFactory,               
+	                                  SetTechniqueFactory setTechniqueFactory,       
+	                                  SetElderPowerFactory setElderPowerFactory,     
+	                                  SetInClanPowerFactory setInClanPowerFactory) {
 		this.attributeValueFactory = new SetAttributeValueFactory();
 		this.attributeFocusFactory = new SetAttributeFocusFactory();
 		this.skillFactory = new SetSkillFactory();
