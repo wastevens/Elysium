@@ -1,7 +1,8 @@
-package com.dstevens.characters.traits.changes;
+package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.powers.CharacterThaumaturgy;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;

@@ -1,40 +1,41 @@
-package com.dstevens.characters.traits.changes;
+package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.powers.Discipline;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("InClanDiscipline")
-public class SetInClanDiscipline extends SetTrait {
+@DiscriminatorValue("Technique")
+public class SetTechnique extends SetTrait {
 
 	@Column(name="trait_ordinal")
-    private Discipline trait;
+    private Technique trait;
 	
 
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
-    private SetInClanDiscipline() {
+    private SetTechnique() {
         this(null, null);
     }
     
-    public SetInClanDiscipline(TraitChangeStatus status, Discipline trait) {
+    public SetTechnique(TraitChangeStatus status, Technique trait) {
     	super(status);
 		this.trait = trait;
     }
 	
 	@Override
 	public PlayerCharacter apply(PlayerCharacter character) {
-		return character.withInClanDiscipline(trait);
+		return character.withTechnique(trait);
 	}
 
 	@Override
 	public PlayerCharacter remove(PlayerCharacter character) {
-		return character.withoutInClanDiscipline(trait);
+		return character.withoutTechnique(trait);
 	}
 
 	@Override

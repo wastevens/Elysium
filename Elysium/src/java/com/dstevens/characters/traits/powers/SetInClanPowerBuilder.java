@@ -1,21 +1,14 @@
-package com.dstevens.characters.traits.changes.builders;
+package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.traits.changes.SetInClanDiscipline;
-import com.dstevens.characters.traits.changes.SetInClanNecromancy;
-import com.dstevens.characters.traits.changes.SetInClanThaumaturgy;
 import com.dstevens.characters.traits.changes.SetTrait;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
-import com.dstevens.characters.traits.powers.Discipline;
-import com.dstevens.characters.traits.powers.Necromancy;
-import com.dstevens.characters.traits.powers.Power;
-import com.dstevens.characters.traits.powers.Thaumaturgy;
 import com.dstevens.game.TraitChangeBuilder;
 
-public class InClanDisciplineChangeBuilder implements TraitChangeBuilder {
+public class SetInClanPowerBuilder implements TraitChangeBuilder {
 
 	private Power<?> power;
 
-	public InClanDisciplineChangeBuilder(Power<?> power) {
+	public SetInClanPowerBuilder(Power<?> power) {
 		this.power = power;
 	}
 

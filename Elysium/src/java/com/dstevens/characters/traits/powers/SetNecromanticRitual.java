@@ -1,39 +1,40 @@
-package com.dstevens.characters.traits.changes;
+package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.powers.ThaumaturgicalRitual;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("ThaumaturgicalRitual")
-public class SetThaumaturgicalRitual extends SetTrait {
+@DiscriminatorValue("NecromanticRitual")
+public class SetNecromanticRitual extends SetTrait {
 
 	@Column(name="trait_ordinal")
-    private ThaumaturgicalRitual trait;
+    private NecromanticRitual trait;
 
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
-    private SetThaumaturgicalRitual() {
+    private SetNecromanticRitual() {
         this(null, null);
     }
     
-    public SetThaumaturgicalRitual(TraitChangeStatus status, ThaumaturgicalRitual trait) {
+    public SetNecromanticRitual(TraitChangeStatus status, NecromanticRitual trait) {
     	super(status);
 		this.trait = trait;
     }
 	
 	@Override
 	public PlayerCharacter apply(PlayerCharacter character) {
-		return character.withThaumaturgicalRitual(trait);
+		return character.withNecromanticRitual(trait);
 	}
 
 	@Override
 	public PlayerCharacter remove(PlayerCharacter character) {
-		return character.withoutThaumaturgicalRitual(trait);
+		return character.withoutNecromanticRitual(trait);
 	}
 
 	@Override

@@ -1,44 +1,46 @@
-package com.dstevens.characters.traits.changes;
+package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.powers.NecromanticRitual;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("NecromanticRitual")
-public class SetNecromanticRitual extends SetTrait {
+@DiscriminatorValue("InClanNecromancy")
+public class SetInClanNecromancy extends SetTrait {
 
 	@Column(name="trait_ordinal")
-    private NecromanticRitual trait;
+    private Necromancy trait;
+	
 
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
-    private SetNecromanticRitual() {
+    private SetInClanNecromancy() {
         this(null, null);
     }
     
-    public SetNecromanticRitual(TraitChangeStatus status, NecromanticRitual trait) {
+    public SetInClanNecromancy(TraitChangeStatus status, Necromancy trait) {
     	super(status);
 		this.trait = trait;
     }
 	
 	@Override
 	public PlayerCharacter apply(PlayerCharacter character) {
-		return character.withNecromanticRitual(trait);
+		return character.withInClanDiscipline(trait);
 	}
 
 	@Override
 	public PlayerCharacter remove(PlayerCharacter character) {
-		return character.withoutNecromanticRitual(trait);
+		return character.withoutInClanDiscipline(trait);
 	}
 
 	@Override
 	public String describe() {
 		return trait.toString();
 	}
-	
+
 }

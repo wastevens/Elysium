@@ -1,45 +1,45 @@
-package com.dstevens.characters.traits.changes;
+package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.powers.Technique;
+import com.dstevens.characters.traits.changes.SetTrait;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("Technique")
-public class SetTechnique extends SetTrait {
+@DiscriminatorValue("ThaumaturgicalRitual")
+public class SetThaumaturgicalRitual extends SetTrait {
 
 	@Column(name="trait_ordinal")
-    private Technique trait;
-	
+    private ThaumaturgicalRitual trait;
 
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
-    private SetTechnique() {
+    private SetThaumaturgicalRitual() {
         this(null, null);
     }
     
-    public SetTechnique(TraitChangeStatus status, Technique trait) {
+    public SetThaumaturgicalRitual(TraitChangeStatus status, ThaumaturgicalRitual trait) {
     	super(status);
 		this.trait = trait;
     }
 	
 	@Override
 	public PlayerCharacter apply(PlayerCharacter character) {
-		return character.withTechnique(trait);
+		return character.withThaumaturgicalRitual(trait);
 	}
 
 	@Override
 	public PlayerCharacter remove(PlayerCharacter character) {
-		return character.withoutTechnique(trait);
+		return character.withoutThaumaturgicalRitual(trait);
 	}
 
 	@Override
 	public String describe() {
 		return trait.toString();
 	}
-
+	
 }

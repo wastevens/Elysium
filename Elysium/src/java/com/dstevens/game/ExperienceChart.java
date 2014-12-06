@@ -7,20 +7,20 @@ import com.dstevens.characters.traits.attributes.SetAttributeBuilder;
 import com.dstevens.characters.traits.attributes.SetAttributeFocusBuilder;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.SetCharacterBackgroundBuilder;
-import com.dstevens.characters.traits.changes.builders.ElderPowerChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.FlawTraitChangeBuilder;
-import com.dstevens.characters.traits.changes.builders.InClanDisciplineChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.MeritTraitChangeBuilder;
-import com.dstevens.characters.traits.changes.builders.PowerChangeBuilder;
-import com.dstevens.characters.traits.changes.builders.RitualChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.SkillTraitChangeBuilder;
-import com.dstevens.characters.traits.changes.builders.TechniqueChangeBuilder;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.powers.ElderPower;
+import com.dstevens.characters.traits.powers.SetElderPowerBuilder;
+import com.dstevens.characters.traits.powers.SetInClanPowerBuilder;
 import com.dstevens.characters.traits.powers.Power;
+import com.dstevens.characters.traits.powers.PowerChangeBuilder;
 import com.dstevens.characters.traits.powers.Ritual;
+import com.dstevens.characters.traits.powers.SetRitualBuilder;
 import com.dstevens.characters.traits.powers.Technique;
+import com.dstevens.characters.traits.powers.TechniqueChangeBuilder;
 import com.dstevens.characters.traits.skills.Skill;
 
 public class ExperienceChart {
@@ -74,20 +74,20 @@ public class ExperienceChart {
 		return new PowerChangeBuilder(character, power);
 	}
 
-	public RitualChangeBuilder ritual(Ritual<?> ritual) {
-		return new RitualChangeBuilder(ritual);
+	public SetRitualBuilder ritual(Ritual<?> ritual) {
+		return new SetRitualBuilder(ritual);
 	}
 
 	public TechniqueChangeBuilder technique(Technique technique) {
 		return new TechniqueChangeBuilder(character, technique);
 	}
 
-	public ElderPowerChangeBuilder elderPower(ElderPower power) {
-		return new ElderPowerChangeBuilder(character, power);
+	public SetElderPowerBuilder elderPower(ElderPower power) {
+		return new SetElderPowerBuilder(character, power);
 	}
 
-	public InClanDisciplineChangeBuilder inClanPower(Power<?> power) {
-		return new InClanDisciplineChangeBuilder(power);
+	public SetInClanPowerBuilder inClanPower(Power<?> power) {
+		return new SetInClanPowerBuilder(power);
 	}
 
 	public SetAttributeBuilder attribute(AttributeFactory attributeFactory) {
