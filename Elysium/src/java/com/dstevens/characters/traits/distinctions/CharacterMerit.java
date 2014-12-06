@@ -1,11 +1,14 @@
 package com.dstevens.characters.traits.distinctions;
 
 import java.util.Comparator;
+import java.util.function.Predicate;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.CharacterSpecializedTrait;
 import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -18,13 +21,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Merits")
-public class CharacterMerit implements EnumeratedTrait<Merit>, Comparable<CharacterMerit> {
+public class CharacterMerit implements EnumeratedTrait<Merit>, CharacterSpecializedTrait, Comparable<CharacterMerit> {
 
 	@Id
     private final String id;
 	
 	@Basic(optional=false)
-	private Merit merit;
+	private Merit trait;
 	
 	@Column(name="specialization")
     private String specialization;
@@ -36,28 +39,29 @@ public class CharacterMerit implements EnumeratedTrait<Merit>, Comparable<Charac
         this(null, null);
     }
 	
-	public CharacterMerit(Merit merit) {
-		this(merit, null);
+	public CharacterMerit(Merit trait) {
+		this(trait, null);
 	}
 	
-	public CharacterMerit(Merit merit, String specialization) {
+	public CharacterMerit(Merit trait, String specialization) {
 		this.id = new IdSupplier().get();
-		this.merit = merit;
+		this.trait = trait;
 		this.specialization = specialization;
 	}
 	
 	@Override
 	public int ordinal() {
-		return merit.ordinal();
+		return trait.ordinal();
 	}
 
-	private String getSpecialization() {
+	@Override
+	public String getSpecialization() {
 		return specialization;
 	}
 	
 	@Override
 	public Merit trait() {
-		return merit;
+		return trait;
 	}
 
 	@Override
@@ -94,4 +98,9 @@ public class CharacterMerit implements EnumeratedTrait<Merit>, Comparable<Charac
         return Comparator.comparing((CharacterMerit t) -> t.ordinal()).
  thenComparing(Comparator.comparing((CharacterMerit t) -> t.getSpecialization()));
     }
+
+	public Predicate<CharacterMerit> matches() {
+		return ((Predicate<CharacterMerit>)(CharacterMerit t) -> t.trait.equals(this.trait)).
+		    and((Predicate<CharacterMerit>)(CharacterMerit t) -> StringUtils.equalsIgnoreCase(t.specialization, this.specialization));
+	}
 }

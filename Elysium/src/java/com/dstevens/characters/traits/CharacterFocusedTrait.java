@@ -3,14 +3,14 @@ package com.dstevens.characters.traits;
 import java.util.Comparator;
 import java.util.Set;
 
-public interface CharacterFocusedTrait<T> extends EnumeratedTrait<T> {
+public interface CharacterFocusedTrait {
 
 	Set<String> getFocuses();
 	
-	default Comparator<? super CharacterFocusedTrait<T>> byFocuses() {
-        return new Comparator<CharacterFocusedTrait<T>>() {
+	default Comparator<CharacterFocusedTrait> byFocuses() {
+        return new Comparator<CharacterFocusedTrait>() {
             @Override
-            public int compare(CharacterFocusedTrait<T> o1, CharacterFocusedTrait<T> o2) {
+            public int compare(CharacterFocusedTrait o1, CharacterFocusedTrait o2) {
                 String[] array1 = (String[]) o1.getFocuses().stream().sorted().toArray();
                 String[] array2 = (String[]) o1.getFocuses().stream().sorted().toArray();
                 if (array1.length != array2.length) return array1.length - array2.length;

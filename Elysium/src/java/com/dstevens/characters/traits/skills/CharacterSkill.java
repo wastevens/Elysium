@@ -2,14 +2,20 @@ package com.dstevens.characters.traits.skills;
 
 import static com.dstevens.collections.Sets.set;
 
+import java.util.Comparator;
 import java.util.Set;
+import java.util.function.Predicate;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.CharacterDefinedTrait;
+import com.dstevens.characters.traits.CharacterFocusedTrait;
+import com.dstevens.characters.traits.CharacterSpecializedTrait;
+import com.dstevens.characters.traits.EnumeratedTrait;
+import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -22,7 +28,7 @@ import javax.persistence.Table;
 @SuppressWarnings("deprecation")
 @Entity
 @Table(name="Skills")
-public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<CharacterSkill> {
+public class CharacterSkill implements EnumeratedTrait<Skill>, RatedTrait, CharacterSpecializedTrait, CharacterFocusedTrait, Comparable<CharacterSkill> {
     
     @Id
     private final String id;
@@ -111,7 +117,10 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
 
     @Override
     public int compareTo(CharacterSkill that) {
-        return characterDefinedTraitComparator().compare(this, that);
+		return Comparator.comparing((CharacterSkill t) -> t.trait).
+			          thenComparing((CharacterSkill t) -> t.specialization).
+			          thenComparing(byFocuses()).
+			          compare(this, that);
     }
     
     @Override
@@ -123,4 +132,9 @@ public class CharacterSkill implements CharacterDefinedTrait<Skill>, Comparable<
     public PlayerCharacter removeFrom(PlayerCharacter character) {
     	return character.withoutSkill(this);
     }
+
+	public Predicate<CharacterSkill> matches() {
+		return ((Predicate<CharacterSkill>)(CharacterSkill t) -> t.trait.equals(this.trait)).
+		    and((Predicate<CharacterSkill>)(CharacterSkill t) -> StringUtils.equalsIgnoreCase(t.specialization, this.specialization));
+	}
 }

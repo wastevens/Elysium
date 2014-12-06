@@ -1,6 +1,13 @@
 package com.dstevens.characters.traits.powers;
 
+import java.util.Comparator;
+import java.util.function.Predicate;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -13,13 +20,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="NecromanticPaths")
-public class CharacterNecromancy implements Comparable<CharacterNecromancy>, RatedTrait<Necromancy> {
+public class CharacterNecromancy implements EnumeratedTrait<Necromancy>, RatedTrait, Comparable<CharacterNecromancy> {
 
 	@Id
     private final String id;
 	
     @Basic(optional=false)
-    private final Necromancy power;
+    private final Necromancy trait;
     
     @Column(name="rating")
     private int rating;
@@ -33,18 +40,18 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy>, Rat
     
     public CharacterNecromancy(Necromancy trait, int rating) {
     	this.id = new IdSupplier().get();
-        this.power = trait;
+        this.trait = trait;
         this.rating = rating;
     }
     
     @Override
     public Necromancy trait() {
-        return power;
+        return trait;
     }
     
     @Override
     public final int ordinal() {
-        return power.ordinal();
+        return trait.ordinal();
     }
     
     @Override
@@ -53,17 +60,17 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy>, Rat
     }
     
     public final CharacterNecromancy withRating(int rating) {
-        return new CharacterNecromancy(power, rating);
+        return new CharacterNecromancy(trait, rating);
     }
     
     @Override
     public boolean equals(Object that) {
-        return ratedTraitEquals(that);
+    	return EqualsBuilder.reflectionEquals(this, that, "id");
     }
-    
+
     @Override
     public int hashCode() {
-        return ratedTraitHashcode();
+    	return HashCodeBuilder.reflectionHashCode(this, "id");
     }
     
     @Override
@@ -73,7 +80,9 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy>, Rat
 
     @Override
     public int compareTo(CharacterNecromancy that) {
-        return ratedTraitComparator().compare(this, that);
+    	return Comparator.comparing((CharacterNecromancy t) -> t.rating).
+    			      thenComparing((CharacterNecromancy t) -> t.trait).
+    			      compare(this, that);
     }
 
     @Override
@@ -85,4 +94,8 @@ public class CharacterNecromancy implements Comparable<CharacterNecromancy>, Rat
     public PlayerCharacter removeFrom(PlayerCharacter character) {
     	return character.withoutNecromanticPath(this);
     }
+
+    public Predicate<CharacterNecromancy> matches() {
+		return ((Predicate<CharacterNecromancy>)(CharacterNecromancy t) -> t.trait.equals(this.trait));
+	}
 }

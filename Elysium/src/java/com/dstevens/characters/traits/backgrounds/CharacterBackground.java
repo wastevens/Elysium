@@ -2,12 +2,20 @@ package com.dstevens.characters.traits.backgrounds;
 
 import static com.dstevens.collections.Sets.set;
 
+import java.util.Comparator;
 import java.util.Set;
+import java.util.function.Predicate;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.CharacterDefinedTrait;
+import com.dstevens.characters.traits.CharacterFocusedTrait;
+import com.dstevens.characters.traits.CharacterSpecializedTrait;
+import com.dstevens.characters.traits.EnumeratedTrait;
+import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -20,7 +28,7 @@ import javax.persistence.Table;
 @SuppressWarnings("deprecation")
 @Entity
 @Table(name="Backgrounds")
-public class CharacterBackground implements CharacterDefinedTrait<Background>, Comparable<CharacterBackground> {
+public class CharacterBackground implements EnumeratedTrait<Background>, RatedTrait, CharacterSpecializedTrait, CharacterFocusedTrait, Comparable<CharacterBackground> {
     
     @Id
     private final String id;
@@ -98,13 +106,13 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return characterDefinedTraitEquals(obj);
+    public boolean equals(Object that) {
+    	return EqualsBuilder.reflectionEquals(this, that, "id");
     }
 
     @Override
     public int hashCode() {
-        return characterDefinedTraitHashcode();
+    	return HashCodeBuilder.reflectionHashCode(this, "id");
     }
     
     @Override
@@ -114,7 +122,10 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
 
     @Override
     public int compareTo(CharacterBackground that) {
-        return characterDefinedTraitComparator().compare(this, that);
+		return Comparator.comparing((CharacterBackground t) -> t.trait).
+				      thenComparing((CharacterBackground t) -> t.specialization).
+				      thenComparing(byFocuses()).
+				      compare(this, that);
     }
 
     public PlayerCharacter applyTo(PlayerCharacter character) {
@@ -124,4 +135,9 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     public PlayerCharacter removeFrom(PlayerCharacter character) {
     	return character.withoutBackground(this);
     }
+
+	public Predicate<CharacterBackground> matches() {
+		return ((Predicate<CharacterBackground>)(CharacterBackground t) -> t.trait.equals(this.trait)).
+		    and((Predicate<CharacterBackground>)(CharacterBackground t) -> StringUtils.equalsIgnoreCase(t.specialization, this.specialization));
+	}
 }

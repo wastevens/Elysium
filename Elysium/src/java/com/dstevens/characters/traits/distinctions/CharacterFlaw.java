@@ -1,11 +1,14 @@
 package com.dstevens.characters.traits.distinctions;
 
 import java.util.Comparator;
+import java.util.function.Predicate;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.CharacterSpecializedTrait;
 import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -18,13 +21,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Flaws")
-public class CharacterFlaw implements EnumeratedTrait<Flaw>, Comparable<CharacterFlaw> {
+public class CharacterFlaw implements EnumeratedTrait<Flaw>, CharacterSpecializedTrait, Comparable<CharacterFlaw> {
 
 	@Id
     private final String id;
 	
 	@Basic(optional=false)
-	private Flaw flaw;
+	private Flaw trait;
 	
 	@Column(name="specialization")
     private String specialization;
@@ -36,28 +39,29 @@ public class CharacterFlaw implements EnumeratedTrait<Flaw>, Comparable<Characte
         this(null, null);
     }
 	
-	public CharacterFlaw(Flaw flaw) {
-		this(flaw, null);
+	public CharacterFlaw(Flaw trait) {
+		this(trait, null);
 	}
 	
-	public CharacterFlaw(Flaw flaw, String specialization) {
+	public CharacterFlaw(Flaw trait, String specialization) {
 		this.id = new IdSupplier().get();
-		this.flaw = flaw;
+		this.trait = trait;
 		this.specialization = specialization;
 	}
 	
 	@Override
 	public int ordinal() {
-		return flaw.ordinal();
+		return trait.ordinal();
 	}
 
-	private String getSpecialization() {
+	@Override
+	public String getSpecialization() {
 		return specialization;
 	}
 	
 	@Override
 	public Flaw trait() {
-		return flaw;
+		return trait;
 	}
 
 	@Override
@@ -94,4 +98,9 @@ public class CharacterFlaw implements EnumeratedTrait<Flaw>, Comparable<Characte
         return Comparator.comparing((CharacterFlaw t) -> t.ordinal()).
  thenComparing(Comparator.comparing((CharacterFlaw t) -> t.getSpecialization()));
     }
+
+	public Predicate<CharacterFlaw> matches() {
+		return ((Predicate<CharacterFlaw>)(CharacterFlaw t) -> t.trait.equals(this.trait)).
+		    and((Predicate<CharacterFlaw>)(CharacterFlaw t) -> StringUtils.equalsIgnoreCase(t.specialization, this.specialization));
+	}
 }

@@ -1,6 +1,13 @@
 package com.dstevens.characters.traits.powers;
 
+import java.util.Comparator;
+import java.util.function.Predicate;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -13,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Disciplines")
-public class CharacterDiscipline implements Comparable<CharacterDiscipline>, RatedTrait<Discipline> {
+public class CharacterDiscipline implements EnumeratedTrait<Discipline>, RatedTrait, Comparable<CharacterDiscipline> {
 
 	@Id
     private final String id;
@@ -54,12 +61,12 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
     
     @Override
     public boolean equals(Object that) {
-        return ratedTraitEquals(that);
+    	return EqualsBuilder.reflectionEquals(this, that, "id");
     }
     
     @Override
     public int hashCode() {
-        return ratedTraitHashcode();
+    	return HashCodeBuilder.reflectionHashCode(this, "id");
     }
     
     @Override
@@ -69,7 +76,9 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
 
     @Override
     public int compareTo(CharacterDiscipline that) {
-        return ratedTraitComparator().compare(this, that);
+        return Comparator.comparing((CharacterDiscipline t) -> t.rating).
+        		      thenComparing((CharacterDiscipline t) -> t.trait).
+        		      compare(this, that);
     }
 
     @Override
@@ -81,4 +90,8 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
     public PlayerCharacter removeFrom(PlayerCharacter character) {
     	return character.withoutDiscipline(this);
     }
+
+	public Predicate<CharacterDiscipline> matches() {
+		return ((Predicate<CharacterDiscipline>)(CharacterDiscipline t) -> t.trait.equals(this.trait));
+	}
 }

@@ -68,9 +68,9 @@ create table Backgrounds (id varchar(255) not null, rating integer, specializati
 create table CharacterBackground_focuses (CharacterBackground_id varchar(255) not null, focuses varchar(255));
 create table CharacterSkill_focuses (CharacterSkill_id varchar(255) not null, focuses varchar(255));
 create table Disciplines (id varchar(255) not null, rating integer, trait integer not null, primary key (id));
-create table Flaws (id varchar(255) not null, flaw integer not null, specialization varchar(255), primary key (id));
-create table Merits (id varchar(255) not null, merit integer not null, specialization varchar(255), primary key (id));
-create table NecromanticPaths (id varchar(255) not null, power integer not null, rating integer, primary key (id));
+create table Flaws (id varchar(255) not null, specialization varchar(255), trait integer not null, primary key (id));
+create table Merits (id varchar(255) not null, specialization varchar(255), trait integer not null, primary key (id));
+create table NecromanticPaths (id varchar(255) not null, rating integer, trait integer not null, primary key (id));
 create table Player (id varchar(255) not null, deleted_at datetime, email varchar(255), name varchar(255), troupe_id varchar(255), primary key (id));
 create table PlayerCharacter (id varchar(255) not null, bloodline integer, clan integer, deleted_at datetime, mental_attribute integer, name varchar(255), physical_attribute integer, primary_necromantic_path integer, primary_thaumaturgical_path integer, social_attribute integer, xp integer, player_id varchar(255), troupe_id varchar(255), primary key (id));
 create table PlayerCharacter_Backgrounds (PlayerCharacter_id varchar(255) not null, backgrounds_id varchar(255) not null, primary key (PlayerCharacter_id, backgrounds_id));

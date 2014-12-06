@@ -1,6 +1,13 @@
 package com.dstevens.characters.traits.powers;
 
+import java.util.Comparator;
+import java.util.function.Predicate;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -13,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ThaumaturgicalPaths")
-public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, RatedTrait<Thaumaturgy> {
+public class CharacterThaumaturgy implements RatedTrait, EnumeratedTrait<Thaumaturgy>, Comparable<CharacterThaumaturgy> {
 
 	@Id
     private final String id;
@@ -58,12 +65,12 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, R
     
     @Override
     public boolean equals(Object that) {
-        return ratedTraitEquals(that);
+    	return EqualsBuilder.reflectionEquals(this, that, "id");
     }
-    
+
     @Override
     public int hashCode() {
-        return ratedTraitHashcode();
+    	return HashCodeBuilder.reflectionHashCode(this, "id");
     }
     
     @Override
@@ -73,7 +80,9 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, R
 
     @Override
     public int compareTo(CharacterThaumaturgy that) {
-        return ratedTraitComparator().compare(this, that);
+    	return Comparator.comparing((CharacterThaumaturgy t) -> t.rating).
+			          thenComparing((CharacterThaumaturgy t) -> t.trait).
+			          compare(this, that);
     }
 
     @Override
@@ -85,4 +94,8 @@ public class CharacterThaumaturgy implements Comparable<CharacterThaumaturgy>, R
     public PlayerCharacter removeFrom(PlayerCharacter character) {
     	return character.withoutThaumaturgicalPath(this);
     }
+
+    public Predicate<CharacterThaumaturgy> matches() {
+		return ((Predicate<CharacterThaumaturgy>)(CharacterThaumaturgy t) -> t.trait.equals(this.trait));
+	}
 }
