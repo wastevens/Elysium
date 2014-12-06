@@ -10,7 +10,7 @@ import com.dstevens.characters.PlayerCharacter;
 
 
 
-public interface EnumeratedTrait<T extends Enum<?>> {
+public interface EnumeratedTrait<T> {
 
     int ordinal();
     T trait();

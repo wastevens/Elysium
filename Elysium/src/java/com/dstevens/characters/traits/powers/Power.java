@@ -4,5 +4,5 @@ import com.dstevens.characters.traits.EnumeratedTrait;
 
 
 
-public interface Power<T extends Enum<?>> extends EnumeratedTrait<T> {
+public interface Power<T> extends EnumeratedTrait<T> {
 }

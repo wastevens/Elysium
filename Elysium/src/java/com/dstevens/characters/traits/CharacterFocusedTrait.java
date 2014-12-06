@@ -3,7 +3,7 @@ package com.dstevens.characters.traits;
 import java.util.Comparator;
 import java.util.Set;
 
-public interface CharacterFocusedTrait<T extends Enum<?>> extends EnumeratedTrait<T> {
+public interface CharacterFocusedTrait<T> extends EnumeratedTrait<T> {
 
 	Set<String> getFocuses();
 	

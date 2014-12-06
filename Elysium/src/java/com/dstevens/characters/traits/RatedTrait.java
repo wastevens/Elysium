@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
-public interface RatedTrait<T extends Enum<?>> extends EnumeratedTrait<T> {
+public interface RatedTrait<T> extends EnumeratedTrait<T> {
 
     int rating();
     

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public interface CharacterDefinedTrait<T extends Enum<?>> extends RatedTrait<T> {
+public interface CharacterDefinedTrait<T> extends RatedTrait<T> {
 
     String getSpecialization();
     Set<String> getFocuses();
