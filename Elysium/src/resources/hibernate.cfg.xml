@@ -30,7 +30,7 @@
     <mapping class="com.dstevens.characters.traits.powers.SetNecromancy"/>
     <mapping class="com.dstevens.characters.traits.backgrounds.SetBackground"/>
     <mapping class="com.dstevens.characters.traits.skills.SetSkill"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetDistinction"/>
+    <mapping class="com.dstevens.characters.traits.distinctions.SetDistinction"/>
     <mapping class="com.dstevens.characters.traits.attributes.SetAttributeFocus"/>
     <mapping class="com.dstevens.characters.traits.attributes.SetAttribute"/>
     
