@@ -6,10 +6,7 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
-import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.EnumeratedTrait;
-
-public enum Technique implements EnumeratedTrait<Technique> {
+public enum Technique {
 
     AN_DA_SHEALLADH(required(Discipline.DEMENTATION, 3), required(Discipline.AUSPEX, 2)),
     ANIMAL_SUCCULENCE(required(Discipline.ANIMALISM, 2), required(Discipline.FORTITUDE, 1)),
@@ -59,20 +56,4 @@ public enum Technique implements EnumeratedTrait<Technique> {
     public Set<TechniqueRequirement> requirements() {
         return requirements;
     }
-
-    @Override
-    public Technique trait() {
-        return this;
-    }
-    
-    @Override
-    public PlayerCharacter applyTo(PlayerCharacter character) {
-        return character.withTechnique(this);
-    }
-    
-    @Override
-    public PlayerCharacter removeFrom(PlayerCharacter character) {
-    	return character.withoutTechnique(this);
-    }
-    
 }

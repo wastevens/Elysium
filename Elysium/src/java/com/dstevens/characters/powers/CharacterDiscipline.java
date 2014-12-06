@@ -52,10 +52,6 @@ public class CharacterDiscipline implements Comparable<CharacterDiscipline>, Rat
         return rating;
     }
     
-    public final CharacterDiscipline withRating(int rating) {
-        return new CharacterDiscipline(trait, rating);
-    }
-    
     @Override
     public boolean equals(Object that) {
         return ratedTraitEquals(that);

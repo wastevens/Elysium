@@ -33,6 +33,7 @@ import com.dstevens.characters.distinctions.RarityMerit;
 import com.dstevens.characters.distinctions.SettingSpecificFlaw;
 import com.dstevens.characters.powers.CharacterDiscipline;
 import com.dstevens.characters.powers.CharacterElderPower;
+import com.dstevens.characters.powers.CharacterTechnique;
 import com.dstevens.characters.powers.Discipline;
 import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.characters.powers.Power;
@@ -186,8 +187,8 @@ public class PlayerCharacterDaoTest {
                                     withDiscipline(new CharacterDiscipline(Discipline.QUIETUS, 4)).
                                     withElderPower(new CharacterElderPower(ElderPower.ACID_BLOOD)).
                                     withElderPower(new CharacterElderPower(ElderPower.CRIMSON_FURY)).
-                                    withTechnique(Technique.AN_DA_SHEALLADH).
-                                    withTechnique(Technique.FEARFUL_BLOW).
+                                    withTechnique(new CharacterTechnique(Technique.AN_DA_SHEALLADH)).
+                                    withTechnique(new CharacterTechnique(Technique.FEARFUL_BLOW)).
                                     withInClanDiscipline(Discipline.AUSPEX).
                                     withInClanDiscipline(Discipline.CHIMERSTRY).
                                     withInClanDiscipline(Thaumaturgy.MOVEMENT_OF_THE_MIND).

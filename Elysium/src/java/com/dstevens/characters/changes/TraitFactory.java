@@ -3,7 +3,6 @@ package com.dstevens.characters.changes;
 import java.util.Set;
 
 import com.dstevens.characters.powers.Discipline;
-import com.dstevens.characters.powers.Technique;
 import com.dstevens.characters.powers.magics.Necromancy;
 import com.dstevens.characters.powers.magics.NecromanticRitual;
 import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
@@ -35,18 +34,6 @@ public enum TraitFactory {
         @Override
         public <E extends Enum<?>> E trait(int ordinal) {
             return (E) NecromanticRitual.values()[ordinal];
-        }
-    },
-    TECHNIQUE {
-        @Override
-        public EnumeratedTrait<?> traitFor(int ordinal) {
-            return Technique.values()[ordinal];
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public <E extends Enum<?>> E trait(int ordinal) {
-            return (E) Technique.values()[ordinal];
         }
     },
     IN_CLAN_DISCIPLINE {

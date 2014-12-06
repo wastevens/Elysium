@@ -24,6 +24,7 @@ import com.dstevens.characters.distinctions.GeneralFlaw;
 import com.dstevens.characters.distinctions.GeneralMerit;
 import com.dstevens.characters.powers.CharacterDiscipline;
 import com.dstevens.characters.powers.CharacterElderPower;
+import com.dstevens.characters.powers.CharacterTechnique;
 import com.dstevens.characters.powers.Discipline;
 import com.dstevens.characters.powers.ElderPower;
 import com.dstevens.characters.powers.Technique;
@@ -189,7 +190,7 @@ public class AddAndModifyCharacterTest {
                      maryWollstonecraftWithExperienceSpentAndApproved.getThaumaturgicalRituals());
         assertEquals(set(NecromanticRitual.BLACK_BLOOD, NecromanticRitual.DARK_ASSISTANT), 
                      maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticRituals());
-        assertEquals(set(Technique.ARMOR_OF_DARKNESS, Technique.CONTROL_THE_SAVAGE_BEAST),
+        assertEquals(set(new CharacterTechnique(Technique.ARMOR_OF_DARKNESS), new CharacterTechnique(Technique.CONTROL_THE_SAVAGE_BEAST)),
         		     maryWollstonecraftWithExperienceSpentAndApproved.getTechniques());
 		assertEquals(set(new CharacterElderPower(ElderPower.CLAIRVOYANCE), new CharacterElderPower(ElderPower.ACID_BLOOD)),
 		             maryWollstonecraftWithExperienceSpentAndApproved.getElderPowers());
@@ -207,8 +208,6 @@ public class AddAndModifyCharacterTest {
 		
 		System.out.println("Removed");
 		backoutSomeOfThoseChanges();
-		
-		System.out.println(new PlayerCharacterDisplayer().display(getMaryWollstonecraft()));
     }
 
     private void createMaryWollstonecraft() {

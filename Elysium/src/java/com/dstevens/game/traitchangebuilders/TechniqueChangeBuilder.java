@@ -1,11 +1,11 @@
 package com.dstevens.game.traitchangebuilders;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.changes.SetEnumeratedTrait;
+import com.dstevens.characters.changes.SetTechnique;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
 import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.changes.TraitFactory;
+import com.dstevens.characters.powers.CharacterTechnique;
 import com.dstevens.characters.powers.Technique;
 import com.dstevens.game.TraitChangeBuilder;
 
@@ -33,8 +33,8 @@ public class TechniqueChangeBuilder implements TraitChangeBuilder {
         return setTechnique();
     }
 
-    private SetEnumeratedTrait setTechnique() {
-        return new SetEnumeratedTrait(TraitChangeStatus.PENDING, technique, TraitFactory.TECHNIQUE);
+    private SetTrait setTechnique() {
+        return new SetTechnique(TraitChangeStatus.PENDING, new CharacterTechnique(technique));
     }
 
 	@Override
