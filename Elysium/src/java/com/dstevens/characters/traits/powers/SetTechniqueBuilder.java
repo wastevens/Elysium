@@ -3,15 +3,15 @@ package com.dstevens.characters.traits.powers;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.SpendXp;
+import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
-import com.dstevens.game.TraitChangeBuilder;
 
-public class TechniqueChangeBuilder implements TraitChangeBuilder {
+public class SetTechniqueBuilder implements TraitChangeBuilder {
 
 	private final PlayerCharacter character;
     private final Technique technique;
 
-    public TechniqueChangeBuilder(PlayerCharacter character, Technique technique) {
+    public SetTechniqueBuilder(PlayerCharacter character, Technique technique) {
         this.character = character;
 		this.technique = technique;
     }

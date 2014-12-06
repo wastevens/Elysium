@@ -3,21 +3,21 @@ package com.dstevens.characters.traits.powers;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.SpendXp;
+import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
-import com.dstevens.game.TraitChangeBuilder;
 
-public class PowerChangeBuilder implements TraitChangeBuilder {
+public class SetPowerBuilder implements TraitChangeBuilder {
 
 	private final PlayerCharacter character;
     private final Power<?> power;
     private int rating = 0;
 
-    public PowerChangeBuilder(PlayerCharacter character, Power<?> power) {
+    public SetPowerBuilder(PlayerCharacter character, Power<?> power) {
         this.character = character;
 		this.power = power;
     }
 
-    public PowerChangeBuilder withRating(int rating) {
+    public SetPowerBuilder withRating(int rating) {
         this.rating = rating;
         return this;
     }

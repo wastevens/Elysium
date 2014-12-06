@@ -1,6 +1,5 @@
-package com.dstevens.game;
+package com.dstevens.characters.traits;
 
-import com.dstevens.characters.traits.SetTrait;
 
 public interface TraitChangeBuilder {
     

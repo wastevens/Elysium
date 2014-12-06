@@ -1,33 +1,33 @@
 package com.dstevens.characters.traits.distinctions;
 
+import com.dstevens.characters.traits.GainXp;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SpendXp;
+import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
-import com.dstevens.game.TraitChangeBuilder;
 
-public class MeritTraitChangeBuilder implements TraitChangeBuilder {
+public class SetFlawBuilder implements TraitChangeBuilder {
 
-    private Merit<?> merit;
+    private Flaw<?> flaw;
     private String details;
     private SetTrait traitChange;
 
-    public MeritTraitChangeBuilder(Merit<?> merit) {
-        this.merit = merit;
+    public SetFlawBuilder(Flaw<?> flaw) {
+        this.flaw = flaw;
     }
 
-    public MeritTraitChangeBuilder withDetails(String details) {
+    public SetFlawBuilder withDetails(String details) {
         this.details = details;
         return this;
     }
     
-    public MeritTraitChangeBuilder withTraitChange(SetTrait traitChange) {
+    public SetFlawBuilder withTraitChange(SetTrait traitChange) {
         this.traitChange = traitChange;
         return this;
     }
     
     @Override
     public SetTrait buy() {
-        return new SpendXp(TraitChangeStatus.PENDING, merit.getPoints()).and(setDistinction());
+        return new GainXp(TraitChangeStatus.PENDING, flaw.getPoints()).and(setDistinction());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MeritTraitChangeBuilder implements TraitChangeBuilder {
     }
 
     private SetTrait setDistinction() {
-        return new SetDistinction(TraitChangeStatus.PENDING, merit, details, DistinctionFactory.MERIT).and(traitChange);
+        return new SetDistinction(TraitChangeStatus.PENDING, flaw, details, DistinctionFactory.FLAW).and(traitChange);
     }
 
 	@Override

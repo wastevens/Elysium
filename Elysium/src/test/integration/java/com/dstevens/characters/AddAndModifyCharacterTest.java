@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
+import com.dstevens.characters.traits.ExperienceChart;
 import com.dstevens.characters.traits.attributes.AttributeFactory;
 import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
@@ -35,7 +36,6 @@ import com.dstevens.characters.traits.powers.Thaumaturgy;
 import com.dstevens.characters.traits.skills.CharacterSkill;
 import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.configuration.ApplicationConfiguration;
-import com.dstevens.game.ExperienceChart;
 import com.dstevens.players.Player;
 import com.dstevens.players.PlayerRepository;
 import com.dstevens.players.Setting;

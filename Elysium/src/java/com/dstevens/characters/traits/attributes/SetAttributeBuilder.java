@@ -3,8 +3,8 @@ package com.dstevens.characters.traits.attributes;
 import com.dstevens.characters.traits.GainXp;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.SpendXp;
+import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
-import com.dstevens.game.TraitChangeBuilder;
 
 public class SetAttributeBuilder implements TraitChangeBuilder {
 

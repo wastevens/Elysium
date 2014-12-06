@@ -7,8 +7,8 @@ import java.util.Set;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.SpendXp;
+import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
-import com.dstevens.game.TraitChangeBuilder;
 
 public class SetCharacterBackgroundBuilder implements TraitChangeBuilder {
 

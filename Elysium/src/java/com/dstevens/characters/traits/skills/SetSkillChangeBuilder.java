@@ -7,10 +7,10 @@ import java.util.Set;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.SpendXp;
+import com.dstevens.characters.traits.TraitChangeBuilder;
 import com.dstevens.characters.traits.TraitChangeStatus;
-import com.dstevens.game.TraitChangeBuilder;
 
-public class SkillTraitChangeBuilder implements TraitChangeBuilder {
+public class SetSkillChangeBuilder implements TraitChangeBuilder {
 
 	private final PlayerCharacter character;
     private final Skill skill;
@@ -18,22 +18,22 @@ public class SkillTraitChangeBuilder implements TraitChangeBuilder {
     private Set<String> focuses = set();
     private int rating = 0;
 
-    public SkillTraitChangeBuilder(PlayerCharacter character, Skill skill) {
+    public SetSkillChangeBuilder(PlayerCharacter character, Skill skill) {
         this.character = character;
 		this.skill = skill;
     }
 
-    public SkillTraitChangeBuilder withSpecialization(String specialization) {
+    public SetSkillChangeBuilder withSpecialization(String specialization) {
         this.specialization = specialization;
         return this;
     }
     
-    public SkillTraitChangeBuilder withFocus(String focus) {
+    public SetSkillChangeBuilder withFocus(String focus) {
         this.focuses.add(focus);
         return this;
     }
     
-    public SkillTraitChangeBuilder withRating(int rating) {
+    public SetSkillChangeBuilder withRating(int rating) {
         this.rating = rating;
         return this;
     }
