@@ -1,20 +1,14 @@
-package com.dstevens.characters.traits.changes.builders;
+package com.dstevens.characters.traits.attributes;
 
-import com.dstevens.characters.traits.attributes.AttributeFocus;
-import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
-import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
-import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
-import com.dstevens.characters.traits.changes.AttributeFactory;
-import com.dstevens.characters.traits.changes.SetAttributeFocus;
 import com.dstevens.characters.traits.changes.SetTrait;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.game.TraitChangeBuilder;
 
-public class AttributeFocusBuilder implements TraitChangeBuilder {
+public class SetAttributeFocusBuilder implements TraitChangeBuilder {
 
 	private AttributeFocus focus;
 
-	public AttributeFocusBuilder(AttributeFocus focus) {
+	public SetAttributeFocusBuilder(AttributeFocus focus) {
 		this.focus = focus;
 	}
 

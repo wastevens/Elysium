@@ -1,11 +1,11 @@
 package com.dstevens.game;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.attributes.AttributeFactory;
 import com.dstevens.characters.traits.attributes.AttributeFocus;
+import com.dstevens.characters.traits.attributes.SetAttributeBuilder;
+import com.dstevens.characters.traits.attributes.SetAttributeFocusBuilder;
 import com.dstevens.characters.traits.backgrounds.Background;
-import com.dstevens.characters.traits.changes.AttributeFactory;
-import com.dstevens.characters.traits.changes.builders.AttributeChangeBuilder;
-import com.dstevens.characters.traits.changes.builders.AttributeFocusBuilder;
 import com.dstevens.characters.traits.changes.builders.BackgroundTraitChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.ElderPowerChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.FlawTraitChangeBuilder;
@@ -59,7 +59,7 @@ public class ExperienceChart {
     }
       
     public TraitChangeBuilder attributeFocus(AttributeFocus focus) {
-    	return new AttributeFocusBuilder(focus);
+    	return new SetAttributeFocusBuilder(focus);
     }
 
     public SkillTraitChangeBuilder skill(Skill skill) {
@@ -90,8 +90,8 @@ public class ExperienceChart {
 		return new InClanDisciplineChangeBuilder(power);
 	}
 
-	public AttributeChangeBuilder attribute(AttributeFactory attributeFactory) {
-		return new AttributeChangeBuilder(attributeFactory);
+	public SetAttributeBuilder attribute(AttributeFactory attributeFactory) {
+		return new SetAttributeBuilder(attributeFactory);
 	}
     
 }

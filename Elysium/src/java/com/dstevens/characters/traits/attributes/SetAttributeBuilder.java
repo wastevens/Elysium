@@ -1,23 +1,21 @@
-package com.dstevens.characters.traits.changes.builders;
+package com.dstevens.characters.traits.attributes;
 
-import com.dstevens.characters.traits.changes.AttributeFactory;
 import com.dstevens.characters.traits.changes.GainXp;
-import com.dstevens.characters.traits.changes.SetAttribute;
 import com.dstevens.characters.traits.changes.SetTrait;
 import com.dstevens.characters.traits.changes.SpendXp;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.game.TraitChangeBuilder;
 
-public class AttributeChangeBuilder implements TraitChangeBuilder {
+public class SetAttributeBuilder implements TraitChangeBuilder {
 
 	private AttributeFactory factory;
 	private int rating;
 
-	public AttributeChangeBuilder(AttributeFactory factory) {
+	public SetAttributeBuilder(AttributeFactory factory) {
 		this.factory = factory;
 	}
 	
-	public AttributeChangeBuilder withRating(int rating) {
+	public SetAttributeBuilder withRating(int rating) {
 		this.rating = rating;
 		return this;
 	}
