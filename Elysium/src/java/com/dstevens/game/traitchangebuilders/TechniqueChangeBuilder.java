@@ -5,7 +5,6 @@ import com.dstevens.characters.changes.SetTechnique;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
 import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.powers.CharacterTechnique;
 import com.dstevens.characters.powers.Technique;
 import com.dstevens.game.TraitChangeBuilder;
 
@@ -34,7 +33,7 @@ public class TechniqueChangeBuilder implements TraitChangeBuilder {
     }
 
     private SetTrait setTechnique() {
-        return new SetTechnique(TraitChangeStatus.PENDING, new CharacterTechnique(technique));
+        return new SetTechnique(TraitChangeStatus.PENDING, technique);
     }
 
 	@Override

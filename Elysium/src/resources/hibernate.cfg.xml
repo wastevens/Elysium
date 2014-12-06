@@ -10,7 +10,6 @@
     <mapping class="com.dstevens.players.Player"/>
     <mapping class="com.dstevens.characters.PlayerCharacter"/>
     <mapping class="com.dstevens.characters.powers.CharacterElderPower"/>
-    <mapping class="com.dstevens.characters.powers.CharacterTechnique"/>
     <mapping class="com.dstevens.characters.powers.CharacterDiscipline"/>
     <mapping class="com.dstevens.characters.powers.magics.CharacterThaumaturgy"/>
     <mapping class="com.dstevens.characters.powers.magics.CharacterNecromancy"/>

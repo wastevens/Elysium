@@ -1,22 +1,18 @@
 package com.dstevens.characters.changes;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.powers.CharacterTechnique;
+import com.dstevens.characters.powers.Technique;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Technique")
 public class SetTechnique extends SetTrait {
 
-	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
-    private CharacterTechnique trait;
+	@Column(name="trait_id")
+    private Technique trait;
 	
 
 	//Hibernate only
@@ -26,19 +22,19 @@ public class SetTechnique extends SetTrait {
         this(null, null);
     }
     
-    public SetTechnique(TraitChangeStatus status, CharacterTechnique trait) {
+    public SetTechnique(TraitChangeStatus status, Technique trait) {
     	super(status);
 		this.trait = trait;
     }
 	
 	@Override
 	public PlayerCharacter apply(PlayerCharacter character) {
-		return trait.applyTo(character);
+		return character.withTechnique(trait);
 	}
 
 	@Override
 	public PlayerCharacter remove(PlayerCharacter character) {
-		return trait.removeFrom(character);
+		return character.withoutTechnique(trait);
 	}
 
 	@Override
