@@ -17,11 +17,12 @@ import com.dstevens.characters.traits.skills.Skill;
 
 public class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
-    private PlayerCharacter character;
-    private final ProvidedTraitChangeFactory traitChangeFactory = new ProvidedTraitChangeFactory();
+    private final PlayerCharacter character;
+    private final ProvidedTraitChangeFactory traitChangeFactory;
     
-    PurchasedTraitChangeFactory(PlayerCharacter character) {
+    PurchasedTraitChangeFactory(PlayerCharacter character, ProvidedTraitChangeFactory traitChangeFactory) {
         this.character = character;
+		this.traitChangeFactory = traitChangeFactory;
     }
 
 	@Override

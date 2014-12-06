@@ -34,17 +34,31 @@ import com.dstevens.characters.traits.skills.Skill;
 @Service
 public class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
-	private final SetAttributeValueFactory attributeValueFactory = new SetAttributeValueFactory();
-	private final SetAttributeFocusFactory attributeFocusFactory = new SetAttributeFocusFactory();
-	private final SetSkillFactory skillFactory = new SetSkillFactory();
-	private final SetBackgroundFactory backgroundFactory = new SetBackgroundFactory();
-	private final SetPowerFactory setPowerFactory = new SetPowerFactory();
-	private final SetRitualFactory setRitualFactory = new SetRitualFactory();
-	private final SetMeritFactory setMeritFactory = new SetMeritFactory();
-	private final SetFlawFactory setFlawFactory = new SetFlawFactory();
-	private final SetTechniqueFactory setTechniqueFactory = new SetTechniqueFactory();
-	private final SetElderPowerFactory setElderPowerFactory = new SetElderPowerFactory();
-	private final SetInClanPowerFactory setInClanPowerFactory = new SetInClanPowerFactory();
+	private final SetAttributeValueFactory attributeValueFactory;
+	private final SetAttributeFocusFactory attributeFocusFactory;
+	private final SetSkillFactory skillFactory;
+	private final SetBackgroundFactory backgroundFactory;
+	private final SetPowerFactory setPowerFactory;
+	private final SetRitualFactory setRitualFactory;
+	private final SetMeritFactory setMeritFactory;
+	private final SetFlawFactory setFlawFactory;
+	private final SetTechniqueFactory setTechniqueFactory;
+	private final SetElderPowerFactory setElderPowerFactory;
+	private final SetInClanPowerFactory setInClanPowerFactory;
+	
+	public ProvidedTraitChangeFactory() {
+		this.attributeValueFactory = new SetAttributeValueFactory();
+		this.attributeFocusFactory = new SetAttributeFocusFactory();
+		this.skillFactory = new SetSkillFactory();
+		this.backgroundFactory = new SetBackgroundFactory();
+		this.setPowerFactory = new SetPowerFactory();
+		this.setRitualFactory = new SetRitualFactory();
+		this.setMeritFactory = new SetMeritFactory();
+		this.setFlawFactory = new SetFlawFactory();
+		this.setTechniqueFactory = new SetTechniqueFactory();
+		this.setElderPowerFactory = new SetElderPowerFactory();
+		this.setInClanPowerFactory = new SetInClanPowerFactory();
+	}
 	
 	@Override
 	public SetTrait physical(PlayerCharacter character) {
