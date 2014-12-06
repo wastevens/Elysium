@@ -27,7 +27,7 @@
     <mapping class="com.dstevens.characters.traits.powers.SetThaumaturgy"/>
     <mapping class="com.dstevens.characters.traits.powers.SetNecromancy"/>
     <mapping class="com.dstevens.characters.traits.backgrounds.SetBackground"/>
-    <mapping class="com.dstevens.characters.traits.changes.SetSkill"/>
+    <mapping class="com.dstevens.characters.traits.skills.SetSkill"/>
     <mapping class="com.dstevens.characters.traits.changes.SetDistinction"/>
     <mapping class="com.dstevens.characters.traits.changes.GainXp"/>
     <mapping class="com.dstevens.characters.traits.changes.SpendXp"/>
