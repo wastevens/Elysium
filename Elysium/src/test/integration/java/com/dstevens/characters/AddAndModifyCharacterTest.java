@@ -278,8 +278,8 @@ public class AddAndModifyCharacterTest {
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(NecromanticRitual.DARK_ASSISTANT)));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.ARMOR_OF_DARKNESS)));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.CONTROL_THE_SAVAGE_BEAST)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.CLAIRVOYANCE).buy()));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.ACID_BLOOD).buy()));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.CLAIRVOYANCE)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.ACID_BLOOD)));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", experienceChart.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION).add())));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", experienceChart.inClanPower(Necromancy.ASH_PATH).add())));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", experienceChart.inClanPower(Discipline.DOMINATE).add())));

@@ -12,7 +12,6 @@ import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
-import com.dstevens.characters.traits.powers.SetElderPowerBuilder;
 import com.dstevens.characters.traits.powers.SetInClanPowerBuilder;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.Skill;
@@ -132,10 +131,22 @@ public class PurchasedTraitChangeFactory implements TraitChangeFactory {
     }
 
 	@Override
-	public SetElderPowerBuilder elderPower(ElderPower power) {
-		return new SetElderPowerBuilder(character, power);
+	public SetTrait elderPower(ElderPower power) {
+		return costForElderPower(power).and(traitChangeFactory.elderPower(power));
 	}
 
+    private SetTrait costForElderPower(ElderPower power) {
+    	if(character.getInClanDisciplines().contains(power.getPower())) {
+    		return ChangeExperience.spend(18);
+    	} else {
+    		if(character.getGeneration().orElse(1) == 5) {
+    			return ChangeExperience.spend(30);
+    		} else {
+    			return ChangeExperience.spend(24);
+    		}
+    	}
+    }
+	
 	@Override
 	public SetInClanPowerBuilder inClanPower(Power<?> power) {
 		return new SetInClanPowerBuilder(power);
