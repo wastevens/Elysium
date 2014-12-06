@@ -1,11 +1,10 @@
 package com.dstevens.game.traitchangebuilders;
 
-import com.dstevens.characters.changes.SetEnumeratedTrait;
+import com.dstevens.characters.changes.SetNecromanticRitual;
 import com.dstevens.characters.changes.SetThaumaturgicalRitual;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.SpendXp;
 import com.dstevens.characters.changes.TraitChangeStatus;
-import com.dstevens.characters.changes.TraitFactory;
 import com.dstevens.characters.powers.magics.NecromanticRitual;
 import com.dstevens.characters.powers.magics.Ritual;
 import com.dstevens.characters.powers.magics.ThaumaturgicalRitual;
@@ -33,7 +32,7 @@ public class RitualChangeBuilder implements TraitChangeBuilder {
     	if(ritual instanceof ThaumaturgicalRitual) {
     		return new SetThaumaturgicalRitual(TraitChangeStatus.PENDING, (ThaumaturgicalRitual) ritual);
     	} else if(ritual instanceof NecromanticRitual) {
-    		return new SetEnumeratedTrait(TraitChangeStatus.PENDING, ritual, TraitFactory.NECROMANTIC_RITUAL);
+    		return new SetNecromanticRitual(TraitChangeStatus.PENDING, (NecromanticRitual) ritual);
     	}
     	throw new IllegalArgumentException("Could not find a trait factory for " + ritual);
     }
