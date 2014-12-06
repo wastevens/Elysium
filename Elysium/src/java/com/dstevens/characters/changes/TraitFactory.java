@@ -2,7 +2,6 @@ package com.dstevens.characters.changes;
 
 import java.util.Set;
 
-import com.dstevens.characters.powers.Discipline;
 import com.dstevens.characters.powers.magics.Necromancy;
 import com.dstevens.characters.powers.magics.Thaumaturgy;
 import com.dstevens.characters.traits.CharacterDefinedTrait;
@@ -10,18 +9,6 @@ import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 
 public enum TraitFactory {
-    IN_CLAN_DISCIPLINE {
-        @Override
-        public EnumeratedTrait<?> traitFor(int ordinal) {
-            return Discipline.values()[ordinal];
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public <E extends Enum<?>> E trait(int ordinal) {
-            return (E) Discipline.values()[ordinal];
-        }
-    },
     IN_CLAN_THAUMATURGY {
         @Override
         public EnumeratedTrait<?> traitFor(int ordinal) {

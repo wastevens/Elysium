@@ -1,6 +1,7 @@
 package com.dstevens.game.traitchangebuilders;
 
 import com.dstevens.characters.changes.SetEnumeratedTrait;
+import com.dstevens.characters.changes.SetInClanDiscipline;
 import com.dstevens.characters.changes.SetTrait;
 import com.dstevens.characters.changes.TraitChangeStatus;
 import com.dstevens.characters.changes.TraitFactory;
@@ -32,7 +33,7 @@ public class InClanDisciplineChangeBuilder implements TraitChangeBuilder {
 	@Override
 	public SetTrait add() {
 		if(power instanceof Discipline) {
-			return new SetEnumeratedTrait(TraitChangeStatus.PENDING, power, TraitFactory.IN_CLAN_DISCIPLINE);
+			return new SetInClanDiscipline(TraitChangeStatus.PENDING, (Discipline) power);
 		}
 		if(power instanceof Thaumaturgy) {
 			return new SetEnumeratedTrait(TraitChangeStatus.PENDING, power, TraitFactory.IN_CLAN_THAUMATURGY);
