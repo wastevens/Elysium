@@ -39,7 +39,8 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
     private Set<String> focuses;
 
     //Hibernate only
-    @Deprecated
+    @SuppressWarnings("unused")
+	@Deprecated
     private CharacterBackground() {
         this(null, 0, null, set());
     }
@@ -63,7 +64,7 @@ public class CharacterBackground implements CharacterDefinedTrait<Background>, C
         return new CharacterBackground(background, rating, specialization, focuses);
     }
     
-    private CharacterBackground(Background trait, int rating, String specialization, Set<String> focuses) {
+    CharacterBackground(Background trait, int rating, String specialization, Set<String> focuses) {
         this.id = new IdSupplier().get();
         this.trait = trait;
         this.rating = rating;

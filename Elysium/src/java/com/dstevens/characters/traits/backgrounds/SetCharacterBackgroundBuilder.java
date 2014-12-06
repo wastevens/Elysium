@@ -1,19 +1,17 @@
-package com.dstevens.characters.traits.changes.builders;
+package com.dstevens.characters.traits.backgrounds;
 
 import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.backgrounds.Background;
-import com.dstevens.characters.traits.backgrounds.CharacterBackground;
 import com.dstevens.characters.traits.changes.SetBackground;
 import com.dstevens.characters.traits.changes.SetTrait;
 import com.dstevens.characters.traits.changes.SpendXp;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.game.TraitChangeBuilder;
 
-public class BackgroundTraitChangeBuilder implements TraitChangeBuilder {
+public class SetCharacterBackgroundBuilder implements TraitChangeBuilder {
 
 	private final PlayerCharacter character;
     private final Background background;
@@ -21,22 +19,22 @@ public class BackgroundTraitChangeBuilder implements TraitChangeBuilder {
     private Set<String> focuses = set();
     private int rating = 0;
 
-    public BackgroundTraitChangeBuilder(PlayerCharacter character, Background background) {
+    public SetCharacterBackgroundBuilder(PlayerCharacter character, Background background) {
         this.character = character;
 		this.background = background;
     }
 
-    public BackgroundTraitChangeBuilder withSpecialization(String specialization) {
+    public SetCharacterBackgroundBuilder withSpecialization(String specialization) {
         this.specialization = specialization;
         return this;
     }
     
-    public BackgroundTraitChangeBuilder withFocus(String focus) {
+    public SetCharacterBackgroundBuilder withFocus(String focus) {
         this.focuses.add(focus);
         return this;
     }
     
-    public BackgroundTraitChangeBuilder withRating(int rating) {
+    public SetCharacterBackgroundBuilder withRating(int rating) {
         this.rating = rating;
         return this;
     }
@@ -56,7 +54,7 @@ public class BackgroundTraitChangeBuilder implements TraitChangeBuilder {
     }
 
     private SetBackground setSkill() {
-        return new SetBackground(TraitChangeStatus.PENDING, CharacterBackground.backgroundFor(background, rating, specialization, focuses));
+        return new SetBackground(TraitChangeStatus.PENDING, new CharacterBackground(background, rating, specialization, focuses));
     }
 
 	@Override

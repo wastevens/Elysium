@@ -6,7 +6,7 @@ import com.dstevens.characters.traits.attributes.AttributeFocus;
 import com.dstevens.characters.traits.attributes.SetAttributeBuilder;
 import com.dstevens.characters.traits.attributes.SetAttributeFocusBuilder;
 import com.dstevens.characters.traits.backgrounds.Background;
-import com.dstevens.characters.traits.changes.builders.BackgroundTraitChangeBuilder;
+import com.dstevens.characters.traits.backgrounds.SetCharacterBackgroundBuilder;
 import com.dstevens.characters.traits.changes.builders.ElderPowerChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.FlawTraitChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.InClanDisciplineChangeBuilder;
@@ -66,8 +66,8 @@ public class ExperienceChart {
         return new SkillTraitChangeBuilder(character, skill);
     }
 
-	public BackgroundTraitChangeBuilder background(Background background) {
-		return new BackgroundTraitChangeBuilder(character, background);
+	public SetCharacterBackgroundBuilder background(Background background) {
+		return new SetCharacterBackgroundBuilder(character, background);
 	}
 
 	public PowerChangeBuilder power(Power<?> power) {
