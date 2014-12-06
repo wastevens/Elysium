@@ -1,7 +1,10 @@
 package com.dstevens.characters.traits.powers;
 
+import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.EnumeratedTrait;
 
-public enum ElderPower {
+
+public enum ElderPower implements EnumeratedTrait<ElderPower> {
 
     CRIMSON_FURY(Discipline.ANIMALISM),
     INTIMIDATE_THE_BEAST(Discipline.ANIMALISM),
@@ -75,4 +78,19 @@ public enum ElderPower {
     private ElderPower(Discipline power) {
         this.power = power;
     }
+
+	@Override
+	public ElderPower trait() {
+		return this;
+	}
+
+	@Override
+	public PlayerCharacter applyTo(PlayerCharacter character) {
+		return character.withElderPower(this);
+	}
+
+	@Override
+	public PlayerCharacter removeFrom(PlayerCharacter character) {
+		return character.withoutElderPower(this);
+	}
 }

@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.attributes;
 
-import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SetEnumeratedTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.Column;
@@ -10,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("SocialFocus")
-public class SetSocialFocus extends SetTrait {
+public class SetSocialFocus extends SetEnumeratedTrait<SocialAttributeFocus> {
 
 	@Column(name="trait_ordinal")
     private SocialAttributeFocus trait;
@@ -26,20 +25,9 @@ public class SetSocialFocus extends SetTrait {
     	super(status);
     	this.trait = trait;
     }
-    
-    @Override
-    public PlayerCharacter apply(PlayerCharacter character) {
-    	return character.withSocialAttributeFocus(trait);
-    }
-    
-    @Override
-    public PlayerCharacter remove(PlayerCharacter character) {
-    	return character.withoutSocialAttributeFocus(trait);
-    }
-    
-    @Override
-    public String describe() {
-        String nextTrait = (hasAssociatedTrait() ? String.format("with %1$s", associatedTrait().describe()) : "");
-        return String.format("(%1$s) Added social focus %2$s %3$s", status(), trait, nextTrait);
-    }
+
+	@Override
+	protected SocialAttributeFocus trait() {
+		return trait;
+	}
 }

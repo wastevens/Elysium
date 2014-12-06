@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SetEnumeratedTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.Column;
@@ -10,11 +9,10 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("ElderPower")
-public class SetElderPower extends SetTrait {
+public class SetElderPower extends SetEnumeratedTrait<ElderPower> {
 
 	@Column(name="trait_ordinal")
-    private ElderPower trait;
-	
+    private final ElderPower trait;
 
 	//Hibernate only
     @Deprecated
@@ -27,20 +25,10 @@ public class SetElderPower extends SetTrait {
     	super(status);
 		this.trait = trait;
     }
-	
-	@Override
-	public PlayerCharacter apply(PlayerCharacter character) {
-		return character.withElderPower(trait);
-	}
 
 	@Override
-	public PlayerCharacter remove(PlayerCharacter character) {
-		return character.withoutElderPower(trait);
-	}
-
-	@Override
-	public String describe() {
-		return trait.toString();
+	protected ElderPower trait() {
+		return trait;
 	}
 
 }

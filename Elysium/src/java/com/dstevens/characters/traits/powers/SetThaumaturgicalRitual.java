@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SetEnumeratedTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.Column;
@@ -10,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("ThaumaturgicalRitual")
-public class SetThaumaturgicalRitual extends SetTrait {
+public class SetThaumaturgicalRitual extends SetEnumeratedTrait<ThaumaturgicalRitual> {
 
 	@Column(name="trait_ordinal")
     private ThaumaturgicalRitual trait;
@@ -26,20 +25,10 @@ public class SetThaumaturgicalRitual extends SetTrait {
     	super(status);
 		this.trait = trait;
     }
-	
-	@Override
-	public PlayerCharacter apply(PlayerCharacter character) {
-		return character.withThaumaturgicalRitual(trait);
-	}
 
-	@Override
-	public PlayerCharacter remove(PlayerCharacter character) {
-		return character.withoutThaumaturgicalRitual(trait);
-	}
-
-	@Override
-	public String describe() {
-		return trait.toString();
-	}
+    @Override
+    protected ThaumaturgicalRitual trait() {
+    	return trait;
+    }
 	
 }

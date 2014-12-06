@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SetEnumeratedTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.Column;
@@ -10,11 +9,10 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("InClanDiscipline")
-public class SetInClanDiscipline extends SetTrait {
+public class SetInClanDiscipline extends SetEnumeratedTrait<Discipline> {
 
 	@Column(name="trait_ordinal")
     private Discipline trait;
-	
 
 	//Hibernate only
     @Deprecated
@@ -27,20 +25,9 @@ public class SetInClanDiscipline extends SetTrait {
     	super(status);
 		this.trait = trait;
     }
-	
-	@Override
-	public PlayerCharacter apply(PlayerCharacter character) {
-		return character.withInClanDiscipline(trait);
-	}
 
 	@Override
-	public PlayerCharacter remove(PlayerCharacter character) {
-		return character.withoutInClanDiscipline(trait);
+	protected Discipline trait() {
+		return trait;
 	}
-
-	@Override
-	public String describe() {
-		return trait.toString();
-	}
-
 }

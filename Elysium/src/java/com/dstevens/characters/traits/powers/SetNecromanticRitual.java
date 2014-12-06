@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SetEnumeratedTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.Column;
@@ -10,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("NecromanticRitual")
-public class SetNecromanticRitual extends SetTrait {
+public class SetNecromanticRitual extends SetEnumeratedTrait<NecromanticRitual> {
 
 	@Column(name="trait_ordinal")
     private NecromanticRitual trait;
@@ -26,20 +25,10 @@ public class SetNecromanticRitual extends SetTrait {
     	super(status);
 		this.trait = trait;
     }
-	
-	@Override
-	public PlayerCharacter apply(PlayerCharacter character) {
-		return character.withNecromanticRitual(trait);
-	}
 
 	@Override
-	public PlayerCharacter remove(PlayerCharacter character) {
-		return character.withoutNecromanticRitual(trait);
-	}
-
-	@Override
-	public String describe() {
-		return trait.toString();
+	protected NecromanticRitual trait() {
+		return trait;
 	}
 	
 }

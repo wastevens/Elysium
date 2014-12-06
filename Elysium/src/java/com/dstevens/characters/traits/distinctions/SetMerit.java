@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.distinctions;
 
-import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SetEnumeratedTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.CascadeType;
@@ -13,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Merit")
-public class SetMerit extends SetTrait {
+public class SetMerit extends SetEnumeratedTrait<CharacterMerit> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
 	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
@@ -32,18 +31,8 @@ public class SetMerit extends SetTrait {
 	}
 
 	@Override
-	public PlayerCharacter apply(PlayerCharacter character) {
-		return character.withMerit(trait);
-	}
-
-	@Override
-	public PlayerCharacter remove(PlayerCharacter character) {
-		return character.withoutMerit(trait);
-	}
-
-	@Override
-	public String describe() {
-		return trait.toString();
+	protected CharacterMerit trait() {
+		return trait;
 	}
 
 }
