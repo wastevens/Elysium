@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.changes;
+package com.dstevens.characters.traits;
 
 import org.hibernate.annotations.ForeignKey;
 

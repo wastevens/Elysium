@@ -5,9 +5,9 @@ import static com.dstevens.collections.Sets.set;
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.changes.SetTrait;
-import com.dstevens.characters.traits.changes.SpendXp;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SpendXp;
+import com.dstevens.characters.traits.TraitChangeStatus;
 import com.dstevens.characters.traits.skills.CharacterSkill;
 import com.dstevens.characters.traits.skills.SetSkill;
 import com.dstevens.characters.traits.skills.Skill;

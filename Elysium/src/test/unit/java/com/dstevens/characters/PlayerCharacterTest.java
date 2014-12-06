@@ -9,9 +9,9 @@ import static org.mockito.Mockito.mock;
 
 import org.junit.Test;
 
+import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
-import com.dstevens.characters.traits.changes.SetTrait;
 import com.dstevens.characters.traits.skills.CharacterSkill;
 import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.testing.EqualityTester;

@@ -15,12 +15,12 @@ import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
+import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
-import com.dstevens.characters.traits.changes.SetTrait;
 import com.dstevens.characters.traits.distinctions.CharacterFlaw;
 import com.dstevens.characters.traits.distinctions.CharacterMerit;
 import com.dstevens.characters.traits.powers.CharacterDiscipline;

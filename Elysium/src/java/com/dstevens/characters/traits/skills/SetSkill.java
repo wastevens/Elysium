@@ -5,8 +5,8 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.changes.SetTrait;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;

@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.changes;
+package com.dstevens.characters.traits;
 
 import com.dstevens.characters.PlayerCharacter;
 
@@ -7,8 +7,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("SpendXP")
-public class SpendXp extends SetTrait {
+@DiscriminatorValue("GainXP")
+public class GainXp extends SetTrait {
 
     @Column(name="rating")
     private int xp;
@@ -16,27 +16,27 @@ public class SpendXp extends SetTrait {
     //Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
-    private SpendXp() {
+    private GainXp() {
         this(null, 0);
     }
     
-    public SpendXp(TraitChangeStatus status, int xp) {
+    public GainXp(TraitChangeStatus status, int xp) {
         super(status);
         this.xp = xp;
     }
     
     @Override
     public final PlayerCharacter apply(PlayerCharacter character) {
-        return character.setXp(character.getXp() - xp);
+        return character.setXp(character.getXp() + xp);
     }
     
     @Override
-    public final PlayerCharacter remove(PlayerCharacter character) {
-    	return character.setXp(character.getXp() + xp);
+    public PlayerCharacter remove(PlayerCharacter character) {
+    	return character.setXp(character.getXp() - xp);
     }
 
     @Override
     public String describe() {
         String nextTrait = (hasAssociatedTrait() ? String.format (" for %1$s", associatedTrait().describe()) : "");
-        return String.format("(%1$s) Spend %2$s xp%3$s", status(), xp, nextTrait);    }
+        return String.format("(%1$s) Gain %2$s xp%3$s", status(), xp, nextTrait);    }
 }

@@ -1,8 +1,8 @@
 package com.dstevens.characters.traits.powers;
 
-import com.dstevens.characters.traits.changes.SetTrait;
-import com.dstevens.characters.traits.changes.SpendXp;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SpendXp;
+import com.dstevens.characters.traits.TraitChangeStatus;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class SetRitualBuilder implements TraitChangeBuilder {
