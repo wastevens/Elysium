@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Attribute")
-public class SetAttributeValue extends SetApplicableTrait<AttributeValue> {
+class SetAttributeValue extends SetApplicableTrait<AttributeValue> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
 	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))

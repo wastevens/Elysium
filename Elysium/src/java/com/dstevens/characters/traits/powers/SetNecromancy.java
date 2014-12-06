@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Necromancy")
-public class SetNecromancy extends SetApplicableTrait<CharacterNecromancy> {
+class SetNecromancy extends SetApplicableTrait<CharacterNecromancy> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
 	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))

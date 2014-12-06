@@ -5,10 +5,11 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dstevens.suppliers.*;
+import com.dstevens.suppliers.ClockSupplier;
+import com.dstevens.suppliers.IdSupplier;
 
 @Service
-public class AuditEventFactory {
+class AuditEventFactory {
 
     private IdSupplier idSupplier;
     private ClockSupplier clockSupplier;

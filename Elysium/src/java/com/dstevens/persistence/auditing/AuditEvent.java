@@ -13,7 +13,7 @@ import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
 @Table(name="AuditEvent")
-public class AuditEvent<E> {
+class AuditEvent<E> {
 
     @Id
     private final String id;

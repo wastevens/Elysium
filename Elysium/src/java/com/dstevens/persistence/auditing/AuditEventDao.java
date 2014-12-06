@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.CrudRepository;
 
-public interface AuditEventDao extends CrudRepository<AuditEvent<?>, String> {
+interface AuditEventDao extends CrudRepository<AuditEvent<?>, String> {
 
     @Query("SELECT a FROM AuditEvent a WHERE a.audited = ?1 ORDER BY a.timestamp DESC")
     <E> List<AuditEvent<E>> findAllAuditEventsFor(E e);

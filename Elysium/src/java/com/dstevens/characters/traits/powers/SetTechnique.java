@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Technique")
-public class SetTechnique extends SetApplicableTrait<Technique> {
+class SetTechnique extends SetApplicableTrait<Technique> {
 
 	@Column(name="trait_ordinal")
     private Technique trait;

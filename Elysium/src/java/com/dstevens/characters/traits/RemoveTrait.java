@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 @SuppressWarnings("deprecation")
 @Entity
 @DiscriminatorValue("RemoveTrait")
-public class RemoveTrait extends SetTrait {
+class RemoveTrait extends SetTrait {
 
 	@OneToOne(cascade={CascadeType.ALL})
 	@ForeignKey(name="TraitChange_TraitToRemove_FK", inverseName="TraitToRemove_TraitChange_FK")

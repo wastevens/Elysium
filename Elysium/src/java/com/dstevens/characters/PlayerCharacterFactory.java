@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.dstevens.suppliers.IdSupplier;
 
 @Service
-public class PlayerCharacterFactory {
+class PlayerCharacterFactory {
 
     private IdSupplier idSupplier;
 

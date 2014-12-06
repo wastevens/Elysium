@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.dstevens.suppliers.ClockSupplier;
 
-public class AuditableRepositoryImpl<E extends Auditable<E>> implements AuditableRepository<E> {
+class AuditableRepositoryImpl<E extends Auditable<E>> implements AuditableRepository<E> {
 
     private CrudRepository<E, String> dao;
     private AuditEventRepository auditableRepository;

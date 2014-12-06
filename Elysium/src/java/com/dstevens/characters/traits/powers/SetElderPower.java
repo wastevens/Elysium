@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("ElderPower")
-public class SetElderPower extends SetApplicableTrait<ElderPower> {
+class SetElderPower extends SetApplicableTrait<ElderPower> {
 
 	@Column(name="trait_ordinal")
     private final ElderPower trait;

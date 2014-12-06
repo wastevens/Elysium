@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("PhysicalFocus")
-public class SetPhysicalFocus extends SetApplicableTrait<PhysicalAttributeFocus> {
+class SetPhysicalFocus extends SetApplicableTrait<PhysicalAttributeFocus> {
 
 	@Column(name="trait_ordinal")
     private PhysicalAttributeFocus trait;

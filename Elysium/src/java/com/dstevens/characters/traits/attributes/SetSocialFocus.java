@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("SocialFocus")
-public class SetSocialFocus extends SetApplicableTrait<SocialAttributeFocus> {
+class SetSocialFocus extends SetApplicableTrait<SocialAttributeFocus> {
 
 	@Column(name="trait_ordinal")
     private SocialAttributeFocus trait;

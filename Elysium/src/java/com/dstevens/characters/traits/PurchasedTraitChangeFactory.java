@@ -15,7 +15,7 @@ import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.Skill;
 
-public class PurchasedTraitChangeFactory implements TraitChangeFactory {
+class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
     private final PlayerCharacter character;
     private final ProvidedTraitChangeFactory traitChangeFactory;

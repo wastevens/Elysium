@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("ThaumaturgicalRitual")
-public class SetThaumaturgicalRitual extends SetApplicableTrait<ThaumaturgicalRitual> {
+class SetThaumaturgicalRitual extends SetApplicableTrait<ThaumaturgicalRitual> {
 
 	@Column(name="trait_ordinal")
     private ThaumaturgicalRitual trait;

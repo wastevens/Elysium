@@ -1,18 +1,29 @@
-package com.dstevens.players;
+package com.dstevens.persistence.auditing;
 
 import static com.dstevens.collections.Lists.list;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.time.*;
+import java.time.Clock;
+import java.time.Instant;
 
-import org.junit.*;
-import org.mockito.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.context.ApplicationContext;
 
 import com.dstevens.configuration.ApplicationConfiguration;
-import com.dstevens.persistence.auditing.*;
-import com.dstevens.suppliers.*;
+import com.dstevens.players.Player;
+import com.dstevens.players.PlayerDao;
+import com.dstevens.players.PlayerFactory;
+import com.dstevens.players.Setting;
+import com.dstevens.players.Troupe;
+import com.dstevens.players.TroupeDao;
+import com.dstevens.players.TroupeFactory;
+import com.dstevens.suppliers.ClockSupplier;
+import com.dstevens.suppliers.IdSupplier;
 
 public class AuditEventDaoTest {
 

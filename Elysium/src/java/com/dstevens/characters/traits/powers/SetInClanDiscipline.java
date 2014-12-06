@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("InClanDiscipline")
-public class SetInClanDiscipline extends SetApplicableTrait<Discipline> {
+class SetInClanDiscipline extends SetApplicableTrait<Discipline> {
 
 	@Column(name="trait_ordinal")
     private Discipline trait;

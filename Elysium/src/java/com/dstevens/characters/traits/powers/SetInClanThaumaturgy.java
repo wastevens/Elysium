@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("InClanThaumaturgy")
-public class SetInClanThaumaturgy extends SetApplicableTrait<Thaumaturgy> {
+class SetInClanThaumaturgy extends SetApplicableTrait<Thaumaturgy> {
 
 	@Column(name="trait_ordinal")
     private Thaumaturgy trait;

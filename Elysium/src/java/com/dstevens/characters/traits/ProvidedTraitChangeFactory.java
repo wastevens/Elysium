@@ -33,7 +33,7 @@ import com.dstevens.characters.traits.skills.SetSkillFactory;
 import com.dstevens.characters.traits.skills.Skill;
 
 @Service
-public class ProvidedTraitChangeFactory implements TraitChangeFactory {
+class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	private final SetAttributeValueFactory attributeValueFactory;
 	private final SetAttributeFocusFactory attributeFocusFactory;

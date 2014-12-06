@@ -1,16 +1,19 @@
-package com.dstevens.persistence;
+package com.dstevens.persistence.auditing;
 
 import static com.dstevens.testing.Assertions.assertEqualValues;
 import static org.mockito.Mockito.when;
 
-import java.time.*;
+import java.time.Clock;
+import java.time.Instant;
 import java.util.Date;
 
-import org.junit.*;
-import org.mockito.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import com.dstevens.persistence.auditing.*;
-import com.dstevens.suppliers.*;
+import com.dstevens.suppliers.ClockSupplier;
+import com.dstevens.suppliers.IdSupplier;
 
 public class AuditEventFactoryTest {
     

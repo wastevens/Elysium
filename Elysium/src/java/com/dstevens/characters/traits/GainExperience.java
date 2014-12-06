@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Gain")
-public class GainExperience extends Experience {
+class GainExperience extends Experience {
 
 	//Hibernate only
     @SuppressWarnings("unused")

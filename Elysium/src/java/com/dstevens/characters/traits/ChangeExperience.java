@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("ChangeExperience")
-public class ChangeExperience extends SetApplicableTrait<Experience> {
+class ChangeExperience extends SetApplicableTrait<Experience> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
 	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
