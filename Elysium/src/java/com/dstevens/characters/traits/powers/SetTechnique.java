@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("Technique")
 class SetTechnique extends SetApplicableTrait<Technique> {
 
-	@Column(name="trait_ordinal")
+	@Column(name="applicable_trait_ordinal")
     private Technique trait;
 	
 	//Hibernate only

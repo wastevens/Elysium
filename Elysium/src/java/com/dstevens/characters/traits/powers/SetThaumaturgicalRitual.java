@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("ThaumaturgicalRitual")
 class SetThaumaturgicalRitual extends SetApplicableTrait<ThaumaturgicalRitual> {
 
-	@Column(name="trait_ordinal")
+	@Column(name="applicable_trait_ordinal")
     private ThaumaturgicalRitual trait;
 
 	//Hibernate only

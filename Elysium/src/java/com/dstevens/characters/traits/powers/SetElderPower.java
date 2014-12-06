@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("ElderPower")
 class SetElderPower extends SetApplicableTrait<ElderPower> {
 
-	@Column(name="trait_ordinal")
+	@Column(name="applicable_trait_ordinal")
     private final ElderPower trait;
 
 	//Hibernate only

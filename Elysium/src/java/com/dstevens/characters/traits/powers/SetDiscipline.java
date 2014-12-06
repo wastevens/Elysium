@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 class SetDiscipline extends SetApplicableTrait<CharacterDiscipline> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
+	@JoinColumn(name="applicable_trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
     private CharacterDiscipline trait;
 
 	//Hibernate only

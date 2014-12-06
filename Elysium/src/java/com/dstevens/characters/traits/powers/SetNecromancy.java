@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 class SetNecromancy extends SetApplicableTrait<CharacterNecromancy> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
+	@JoinColumn(name="applicable_trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
     private CharacterNecromancy trait;
 
 	//Hibernate only

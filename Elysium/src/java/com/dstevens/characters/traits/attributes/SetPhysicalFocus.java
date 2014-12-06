@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("PhysicalFocus")
 class SetPhysicalFocus extends SetApplicableTrait<PhysicalAttributeFocus> {
 
-	@Column(name="trait_ordinal")
+	@Column(name="applicable_trait_ordinal")
     private PhysicalAttributeFocus trait;
 
     //Hibernate only

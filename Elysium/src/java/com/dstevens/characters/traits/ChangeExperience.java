@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 class ChangeExperience extends SetApplicableTrait<Experience> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
+	@JoinColumn(name="applicable_trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
     private final Experience trait;
 
 	//Hibernate only

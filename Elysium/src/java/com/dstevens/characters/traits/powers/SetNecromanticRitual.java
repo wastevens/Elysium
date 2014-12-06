@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("NecromanticRitual")
 class SetNecromanticRitual extends SetApplicableTrait<NecromanticRitual> {
 
-	@Column(name="trait_ordinal")
+	@Column(name="applicable_trait_ordinal")
     private NecromanticRitual trait;
 
 	//Hibernate only

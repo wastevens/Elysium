@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 class SetSkill extends SetApplicableTrait<CharacterSkill> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
+	@JoinColumn(name="applicable_trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
     private CharacterSkill trait;
 
 	//Hibernate only

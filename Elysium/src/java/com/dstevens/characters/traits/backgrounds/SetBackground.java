@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 class SetBackground extends SetApplicableTrait<CharacterBackground> {
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
+	@JoinColumn(name="applicable_trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
 	private final CharacterBackground trait;
 	
 	//Hibernate only

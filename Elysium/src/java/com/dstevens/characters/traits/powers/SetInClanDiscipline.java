@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("InClanDiscipline")
 class SetInClanDiscipline extends SetApplicableTrait<Discipline> {
 
-	@Column(name="trait_ordinal")
+	@Column(name="applicable_trait_ordinal")
     private Discipline trait;
 
 	//Hibernate only

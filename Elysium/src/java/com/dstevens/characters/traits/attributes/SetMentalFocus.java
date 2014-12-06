@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("MentalFocus")
 class SetMentalFocus extends SetApplicableTrait<MentalAttributeFocus> {
 
-	@Column(name="trait_ordinal")
+	@Column(name="applicable_trait_ordinal")
     private MentalAttributeFocus trait;
 
     //Hibernate only

@@ -97,7 +97,7 @@ create table PlayerCharacter_techniques (PlayerCharacter_id varchar(255) not nul
 create table PlayerCharacter_thaumaturgicalRituals (PlayerCharacter_id varchar(255) not null, thaumaturgicalRituals integer);
 create table Skills (id varchar(255) not null, rating integer, specialization varchar(255), skill integer, primary key (id));
 create table ThaumaturgicalPaths (id varchar(255) not null, rating integer, trait integer not null, primary key (id));
-create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, trait_ordinal integer, child_id varchar(255), traitToRemove_id varchar(255), trait_id varchar(255), primary key (id));
+create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, applicable_trait_ordinal integer, child_id varchar(255), traitToRemove_id varchar(255), applicable_trait_id varchar(255), primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
 alter table PlayerCharacter_Backgrounds add constraint PlayerCharacter_Backgrounds_UC  unique (backgrounds_id);
 alter table PlayerCharacter_Disciplines add constraint PlayerCharacter_Disciplines_UC  unique (disciplines_id);
