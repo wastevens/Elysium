@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.distinctions;
 
-public interface Distinction<T extends Enum<?>> {
+public interface Distinction<T> {
 
     int getPoints();
     int ordinal();

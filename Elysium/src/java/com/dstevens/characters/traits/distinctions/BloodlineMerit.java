@@ -7,7 +7,7 @@ public enum BloodlineMerit implements Merit<BloodlineMerit> {
 
     ASSAMITE(Bloodline.ASSAMITE, Clan.ASSAMITE),
     VIZIER(Bloodline.VIZIER, Clan.ASSAMITE, 2),
-    SORCERER(Bloodline.VIZIER, Clan.ASSAMITE, 4),
+    SORCERER(Bloodline.SORCERER, Clan.ASSAMITE, 4),
     
     BRUJAH(Bloodline.BRUJAH, Clan.BRUJAH),
     TRUE_BRUJAH(Bloodline.TRUE_BRUJAH, Clan.BRUJAH, 4),
