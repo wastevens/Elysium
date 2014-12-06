@@ -1,11 +1,11 @@
 package com.dstevens.characters.traits.changes.builders;
 
-import com.dstevens.characters.distinctions.Merit;
 import com.dstevens.characters.traits.changes.DistinctionFactory;
 import com.dstevens.characters.traits.changes.SetDistinction;
 import com.dstevens.characters.traits.changes.SetTrait;
 import com.dstevens.characters.traits.changes.SpendXp;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
+import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.game.TraitChangeBuilder;
 
 public class MeritTraitChangeBuilder implements TraitChangeBuilder {

@@ -1,7 +1,7 @@
 package com.dstevens.characters.traits.changes;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.distinctions.Distinction;
+import com.dstevens.characters.traits.distinctions.Distinction;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;

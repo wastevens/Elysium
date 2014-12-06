@@ -1,4 +1,4 @@
-package com.dstevens.characters.distinctions;
+package com.dstevens.characters.traits.distinctions;
 
 import java.util.Set;
 
@@ -10,7 +10,7 @@ public class MeritTranslator {
     }
     
     public static final Merit<?> ofTypeWithId(String type, int id) {
-        Reflections reflections = new Reflections("com.dstevens.characters.distinctions");
+        Reflections reflections = new Reflections("com.dstevens.characters.traits.distinctions");
         Set<Class<?>> meritClasses = reflections.getTypesAnnotatedWith(MeritAnnotation.class);
         for (Class<?> meritClass : meritClasses) {
             if (meritClass.getAnnotation(MeritAnnotation.class).value().equals(type)) {

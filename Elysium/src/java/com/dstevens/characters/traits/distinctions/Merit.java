@@ -1,4 +1,4 @@
-package com.dstevens.characters.distinctions;
+package com.dstevens.characters.traits.distinctions;
 
 
 public interface Merit<T extends Enum<?>> extends Distinction<T> {

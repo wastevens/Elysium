@@ -1,4 +1,4 @@
-package com.dstevens.characters.distinctions;
+package com.dstevens.characters.traits.distinctions;
 
 @MeritAnnotation("General")
 public enum GeneralMerit implements Merit<GeneralMerit> {

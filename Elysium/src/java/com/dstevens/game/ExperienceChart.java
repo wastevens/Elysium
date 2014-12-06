@@ -2,8 +2,6 @@ package com.dstevens.game;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.attributes.AttributeFocus;
-import com.dstevens.characters.distinctions.Flaw;
-import com.dstevens.characters.distinctions.Merit;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.changes.AttributeFactory;
 import com.dstevens.characters.traits.changes.builders.AttributeChangeBuilder;
@@ -17,6 +15,8 @@ import com.dstevens.characters.traits.changes.builders.PowerChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.RitualChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.SkillTraitChangeBuilder;
 import com.dstevens.characters.traits.changes.builders.TechniqueChangeBuilder;
+import com.dstevens.characters.traits.distinctions.Flaw;
+import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;

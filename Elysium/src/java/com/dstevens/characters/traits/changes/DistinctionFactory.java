@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.changes;
 
-import com.dstevens.characters.distinctions.*;
+import com.dstevens.characters.traits.distinctions.*;
 
 public enum DistinctionFactory {
 

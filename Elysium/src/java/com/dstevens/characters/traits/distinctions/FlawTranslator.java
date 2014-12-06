@@ -1,4 +1,4 @@
-package com.dstevens.characters.distinctions;
+package com.dstevens.characters.traits.distinctions;
 
 import java.util.Set;
 
@@ -10,7 +10,7 @@ public class FlawTranslator {
     }
     
     public static final Flaw<?> ofTypeWithId(String type, int id) {
-        Reflections reflections = new Reflections("com.dstevens.characters.distinctions");
+        Reflections reflections = new Reflections("com.dstevens.characters.traits.distinctions");
         Set<Class<?>> flawClasses = reflections.getTypesAnnotatedWith(FlawAnnotation.class);
         for (Class<?> flawClass : flawClasses) {
             if (flawClass.getAnnotation(FlawAnnotation.class).value().equals(type)) {
