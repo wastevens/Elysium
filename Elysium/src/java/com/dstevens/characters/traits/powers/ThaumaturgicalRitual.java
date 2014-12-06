@@ -1,8 +1,9 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 
-public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual> {
+public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, ApplicableTrait {
 
     BLOOD_MASTERY(1),
     BIND_THE_ACCUSING_TONGUE(1),

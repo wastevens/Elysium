@@ -12,6 +12,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterFocusedTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
 import com.dstevens.characters.traits.EnumeratedTrait;
@@ -28,7 +29,7 @@ import javax.persistence.Table;
 @SuppressWarnings("deprecation")
 @Entity
 @Table(name="Backgrounds")
-public class CharacterBackground implements EnumeratedTrait<Background>, RatedTrait, CharacterSpecializedTrait, CharacterFocusedTrait, Comparable<CharacterBackground> {
+public class CharacterBackground implements EnumeratedTrait<Background>, ApplicableTrait, RatedTrait, CharacterSpecializedTrait, CharacterFocusedTrait, Comparable<CharacterBackground> {
     
     @Id
     private final String id;

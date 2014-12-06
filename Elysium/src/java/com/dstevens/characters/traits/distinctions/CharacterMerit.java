@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
 import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.suppliers.IdSupplier;
@@ -21,7 +22,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Merits")
-public class CharacterMerit implements EnumeratedTrait<Merit>, CharacterSpecializedTrait, Comparable<CharacterMerit> {
+public class CharacterMerit implements EnumeratedTrait<Merit>, ApplicableTrait, CharacterSpecializedTrait, Comparable<CharacterMerit> {
 
 	@Id
     private final String id;

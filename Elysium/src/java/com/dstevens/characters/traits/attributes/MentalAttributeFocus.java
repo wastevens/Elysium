@@ -1,10 +1,11 @@
 package com.dstevens.characters.traits.attributes;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.EnumeratedTrait;
 
 
-public enum MentalAttributeFocus implements EnumeratedTrait<MentalAttributeFocus> {
+public enum MentalAttributeFocus implements EnumeratedTrait<MentalAttributeFocus>, ApplicableTrait {
 
     INTELLIGENCE,
     WITS,

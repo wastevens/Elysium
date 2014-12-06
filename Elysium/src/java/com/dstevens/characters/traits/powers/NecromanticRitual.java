@@ -1,8 +1,9 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 
-public enum NecromanticRitual implements Ritual<NecromanticRitual> {
+public enum NecromanticRitual implements Ritual<NecromanticRitual>, ApplicableTrait {
 
     CALL_OF_THE_HUNGRY_DEAD(1),
     CIRCLE_OF_CERBERUS(1),

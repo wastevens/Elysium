@@ -1,9 +1,10 @@
 package com.dstevens.characters.traits.attributes;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.EnumeratedTrait;
 
-public enum SocialAttributeFocus implements EnumeratedTrait<SocialAttributeFocus> {
+public enum SocialAttributeFocus implements EnumeratedTrait<SocialAttributeFocus>, ApplicableTrait {
 
     CHARISMA,
     MANIPULATION,

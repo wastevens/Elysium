@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ThaumaturgicalPaths")
-public class CharacterThaumaturgy implements RatedTrait, EnumeratedTrait<Thaumaturgy>, Comparable<CharacterThaumaturgy> {
+public class CharacterThaumaturgy implements RatedTrait, ApplicableTrait, EnumeratedTrait<Thaumaturgy>, Comparable<CharacterThaumaturgy> {
 
 	@Id
     private final String id;

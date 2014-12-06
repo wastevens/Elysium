@@ -1,10 +1,11 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.EnumeratedTrait;
 
 
-public enum ElderPower implements EnumeratedTrait<ElderPower> {
+public enum ElderPower implements EnumeratedTrait<ElderPower>, ApplicableTrait {
 
     CRIMSON_FURY(Discipline.ANIMALISM),
     INTIMIDATE_THE_BEAST(Discipline.ANIMALISM),
