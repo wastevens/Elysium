@@ -1,4 +1,4 @@
-package com.dstevens.game.traitchangebuilders;
+package com.dstevens.characters.traits.changes.builders;
 
 import com.dstevens.characters.traits.changes.SetNecromanticRitual;
 import com.dstevens.characters.traits.changes.SetThaumaturgicalRitual;

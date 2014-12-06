@@ -6,22 +6,22 @@ import com.dstevens.characters.distinctions.Flaw;
 import com.dstevens.characters.distinctions.Merit;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.changes.AttributeFactory;
+import com.dstevens.characters.traits.changes.builders.AttributeChangeBuilder;
+import com.dstevens.characters.traits.changes.builders.AttributeFocusBuilder;
+import com.dstevens.characters.traits.changes.builders.BackgroundTraitChangeBuilder;
+import com.dstevens.characters.traits.changes.builders.ElderPowerChangeBuilder;
+import com.dstevens.characters.traits.changes.builders.FlawTraitChangeBuilder;
+import com.dstevens.characters.traits.changes.builders.InClanDisciplineChangeBuilder;
+import com.dstevens.characters.traits.changes.builders.MeritTraitChangeBuilder;
+import com.dstevens.characters.traits.changes.builders.PowerChangeBuilder;
+import com.dstevens.characters.traits.changes.builders.RitualChangeBuilder;
+import com.dstevens.characters.traits.changes.builders.SkillTraitChangeBuilder;
+import com.dstevens.characters.traits.changes.builders.TechniqueChangeBuilder;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.Skill;
-import com.dstevens.game.traitchangebuilders.AttributeChangeBuilder;
-import com.dstevens.game.traitchangebuilders.AttributeFocusBuilder;
-import com.dstevens.game.traitchangebuilders.BackgroundTraitChangeBuilder;
-import com.dstevens.game.traitchangebuilders.ElderPowerChangeBuilder;
-import com.dstevens.game.traitchangebuilders.FlawTraitChangeBuilder;
-import com.dstevens.game.traitchangebuilders.InClanDisciplineChangeBuilder;
-import com.dstevens.game.traitchangebuilders.MeritTraitChangeBuilder;
-import com.dstevens.game.traitchangebuilders.PowerChangeBuilder;
-import com.dstevens.game.traitchangebuilders.RitualChangeBuilder;
-import com.dstevens.game.traitchangebuilders.SkillTraitChangeBuilder;
-import com.dstevens.game.traitchangebuilders.TechniqueChangeBuilder;
 
 public class ExperienceChart {
 

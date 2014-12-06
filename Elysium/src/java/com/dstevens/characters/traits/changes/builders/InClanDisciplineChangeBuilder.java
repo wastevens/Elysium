@@ -1,4 +1,4 @@
-package com.dstevens.game.traitchangebuilders;
+package com.dstevens.characters.traits.changes.builders;
 
 import com.dstevens.characters.traits.changes.SetInClanDiscipline;
 import com.dstevens.characters.traits.changes.SetInClanNecromancy;

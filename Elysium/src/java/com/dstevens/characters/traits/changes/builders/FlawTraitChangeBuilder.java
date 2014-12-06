@@ -1,36 +1,36 @@
-package com.dstevens.game.traitchangebuilders;
+package com.dstevens.characters.traits.changes.builders;
 
-import com.dstevens.characters.distinctions.Merit;
+import com.dstevens.characters.distinctions.Flaw;
 import com.dstevens.characters.traits.changes.DistinctionFactory;
+import com.dstevens.characters.traits.changes.GainXp;
 import com.dstevens.characters.traits.changes.SetDistinction;
 import com.dstevens.characters.traits.changes.SetTrait;
-import com.dstevens.characters.traits.changes.SpendXp;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.game.TraitChangeBuilder;
 
-public class MeritTraitChangeBuilder implements TraitChangeBuilder {
+public class FlawTraitChangeBuilder implements TraitChangeBuilder {
 
-    private Merit<?> merit;
+    private Flaw<?> flaw;
     private String details;
     private SetTrait traitChange;
 
-    public MeritTraitChangeBuilder(Merit<?> merit) {
-        this.merit = merit;
+    public FlawTraitChangeBuilder(Flaw<?> flaw) {
+        this.flaw = flaw;
     }
 
-    public MeritTraitChangeBuilder withDetails(String details) {
+    public FlawTraitChangeBuilder withDetails(String details) {
         this.details = details;
         return this;
     }
     
-    public MeritTraitChangeBuilder withTraitChange(SetTrait traitChange) {
+    public FlawTraitChangeBuilder withTraitChange(SetTrait traitChange) {
         this.traitChange = traitChange;
         return this;
     }
     
     @Override
     public SetTrait buy() {
-        return new SpendXp(TraitChangeStatus.PENDING, merit.getPoints()).and(setDistinction());
+        return new GainXp(TraitChangeStatus.PENDING, flaw.getPoints()).and(setDistinction());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class MeritTraitChangeBuilder implements TraitChangeBuilder {
     }
 
     private SetTrait setDistinction() {
-        return new SetDistinction(TraitChangeStatus.PENDING, merit, details, DistinctionFactory.MERIT).and(traitChange);
+        return new SetDistinction(TraitChangeStatus.PENDING, flaw, details, DistinctionFactory.FLAW).and(traitChange);
     }
 
 	@Override
