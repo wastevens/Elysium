@@ -8,13 +8,13 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Status")
-public class SetStatus extends SetApplicableTrait<ApplicableStatus> {
+public class SetStatus extends SetApplicableTrait<CharacterStatus> {
 
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
     private SetStatus() {
-        this(null, -1, null);
+        this(null, 0, null);
     }
     
     public SetStatus(TraitChangeStatus status, int ordinal, String specialization) {
@@ -22,8 +22,8 @@ public class SetStatus extends SetApplicableTrait<ApplicableStatus> {
     }
 	
 	@Override
-	protected ApplicableStatus trait() {
-		return new ApplicableStatus(Status.values()[ordinal], specialization);
+	protected CharacterStatus trait() {
+		return new CharacterStatus(Status.values()[ordinal], specialization);
 	}
 
 }

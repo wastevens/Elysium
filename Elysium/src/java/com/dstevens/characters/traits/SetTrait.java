@@ -1,5 +1,9 @@
 package com.dstevens.characters.traits;
 
+import static com.dstevens.collections.Sets.set;
+
+import java.util.Set;
+
 import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -9,6 +13,7 @@ import com.dstevens.utilities.ObjectExtensions;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -31,6 +36,13 @@ public abstract class SetTrait {
     @Column(name="ordinal")
     protected final int ordinal;
     
+    @Column(name="rating")
+    protected final int rating;
+    
+    @ElementCollection
+    @ForeignKey(name= "TraitChanges_focuses_FK")
+    private Set<String> focuses;
+    
     @Column(name="specialization")
     protected final String specialization;
     
@@ -46,13 +58,15 @@ public abstract class SetTrait {
     }
     
     protected SetTrait(TraitChangeStatus status) {
-        this(status, -1, null);
+        this(status, -1, -1, set(), null);
     }
     
-    protected SetTrait(TraitChangeStatus status, int ordinal, String specialization) {
-    	this.id = new IdSupplier().get();
+    protected SetTrait(TraitChangeStatus status, int ordinal, int rating, Set<String> focuses, String specialization) {
+		this.id = new IdSupplier().get();
     	this.ordinal = ordinal;
+    	this.rating = rating;
 		this.specialization = specialization;
+		this.focuses = focuses;
     	this.status = status;
     }
     

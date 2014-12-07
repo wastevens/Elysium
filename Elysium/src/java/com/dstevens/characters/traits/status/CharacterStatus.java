@@ -6,6 +6,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.CharacterSpecializedTrait;
+import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -17,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Status")
-public class CharacterStatus {
+public class CharacterStatus implements EnumeratedTrait<Status>, ApplicableTrait, CharacterSpecializedTrait, Comparable<CharacterStatus> {
 
 	@Id
     private final String id;
@@ -59,5 +63,40 @@ public class CharacterStatus {
     public String toString() {
         return ObjectExtensions.toStringFor(this);
     }
+
+	@Override
+	public int compareTo(CharacterStatus arg0) {
+		return this.trait.compareTo(arg0.trait);
+	}
+
+	@Override
+	public String getSpecialization() {
+		return specialization;
+	}
+
+	@Override
+	public PlayerCharacter applyTo(PlayerCharacter character) {
+		return character.withStatus(this);
+	}
+
+	@Override
+	public PlayerCharacter removeFrom(PlayerCharacter character) {
+		return character.withoutStatus(this);
+	}
+
+	@Override
+	public ApplicableTrait copy() {
+		return this;
+	}
+
+	@Override
+	public int ordinal() {
+		return trait.ordinal();
+	}
+
+	@Override
+	public Status trait() {
+		return trait;
+	}
 
 }

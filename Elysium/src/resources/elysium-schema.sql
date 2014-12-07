@@ -26,6 +26,7 @@ alter table PlayerCharacter_physicalAttributeFocuses drop foreign key PlayerChar
 alter table PlayerCharacter_socialAttributeFocuses drop foreign key PlayerCharacter_SocialAttributeFocuses_FK;
 alter table PlayerCharacter_techniques drop foreign key PlayerCharacter_Techniques_FK;
 alter table PlayerCharacter_thaumaturgicalRituals drop foreign key PlayerCharacter_CharacterThaumaturgicalRituals_FK;
+alter table SetTrait_focuses drop foreign key TraitChanges_focuses_FK;
 alter table Skills drop foreign key PlayerCharacter_Skills_FK;
 alter table TraitChanges drop foreign key TraitChange_ChildTraitChange_FK;
 alter table TraitChanges drop foreign key TraitChange_TraitToRemove_FK;
@@ -56,6 +57,7 @@ drop table if exists PlayerCharacter_physicalAttributeFocuses;
 drop table if exists PlayerCharacter_socialAttributeFocuses;
 drop table if exists PlayerCharacter_techniques;
 drop table if exists PlayerCharacter_thaumaturgicalRituals;
+drop table if exists SetTrait_focuses;
 drop table if exists Skills;
 drop table if exists Status;
 drop table if exists ThaumaturgicalPaths;
@@ -88,10 +90,11 @@ create table PlayerCharacter_physicalAttributeFocuses (PlayerCharacter_id varcha
 create table PlayerCharacter_socialAttributeFocuses (PlayerCharacter_id varchar(255) not null, socialAttributeFocuses integer);
 create table PlayerCharacter_techniques (PlayerCharacter_id varchar(255) not null, techniques integer);
 create table PlayerCharacter_thaumaturgicalRituals (PlayerCharacter_id varchar(255) not null, thaumaturgicalRituals integer);
+create table SetTrait_focuses (SetTrait_id varchar(255) not null, focuses varchar(255));
 create table Skills (id varchar(255) not null, rating integer, specialization varchar(255), skill integer, character_id varchar(255), primary key (id));
 create table Status (id varchar(255) not null, specialization varchar(255), trait integer not null, primary key (id));
 create table ThaumaturgicalPaths (id varchar(255) not null, rating integer, trait integer not null, primary key (id));
-create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, ordinal integer, specialization varchar(255), status integer, applicable_trait_ordinal integer, child_id varchar(255), traitToRemove_id varchar(255), applicable_trait_id varchar(255), primary key (id));
+create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, ordinal integer, rating integer, specialization varchar(255), status integer, applicable_trait_ordinal integer, child_id varchar(255), traitToRemove_id varchar(255), applicable_trait_id varchar(255), primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
 alter table PlayerCharacter_Flaws add constraint PlayerCharacter_Flaws_UC  unique (flaws_id);
 alter table PlayerCharacter_NecromanticPaths add constraint PlayerCharacter_NecromanticPaths_UC  unique (necromanticPaths_id);
@@ -126,6 +129,7 @@ alter table PlayerCharacter_physicalAttributeFocuses add constraint PlayerCharac
 alter table PlayerCharacter_socialAttributeFocuses add constraint PlayerCharacter_SocialAttributeFocuses_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_techniques add constraint PlayerCharacter_Techniques_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_thaumaturgicalRituals add constraint PlayerCharacter_CharacterThaumaturgicalRituals_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
+alter table SetTrait_focuses add constraint TraitChanges_focuses_FK foreign key (SetTrait_id) references TraitChanges (id);
 alter table Skills add constraint PlayerCharacter_Skills_FK foreign key (character_id) references PlayerCharacter (id);
 alter table TraitChanges add constraint TraitChange_ChildTraitChange_FK foreign key (child_id) references TraitChanges (id);
 alter table TraitChanges add constraint TraitChange_TraitToRemove_FK foreign key (traitToRemove_id) references TraitChanges (id);
