@@ -3,7 +3,6 @@ package com.dstevens.characters.traits.powers;
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -11,23 +10,19 @@ import javax.persistence.Entity;
 @DiscriminatorValue("InClanDiscipline")
 class SetInClanDiscipline extends SetApplicableTrait<Discipline> {
 
-	@Column(name="applicable_trait_ordinal")
-    private Discipline trait;
-
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
     private SetInClanDiscipline() {
-        this(null, null);
+        this(null, 0);
     }
     
-    public SetInClanDiscipline(TraitChangeStatus status, Discipline trait) {
-    	super(status);
-		this.trait = trait;
+    public SetInClanDiscipline(TraitChangeStatus status, int ordinal) {
+    	super(status, ordinal);
     }
 
 	@Override
 	protected Discipline trait() {
-		return trait;
+		return Discipline.values()[ordinal];
 	}
 }

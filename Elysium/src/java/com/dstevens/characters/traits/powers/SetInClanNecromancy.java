@@ -3,32 +3,27 @@ package com.dstevens.characters.traits.powers;
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("InClanNecromancy")
 class SetInClanNecromancy extends SetApplicableTrait<Necromancy> {
-
-	@Column(name="applicable_trait_ordinal")
-    private Necromancy trait;
 	
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
     private SetInClanNecromancy() {
-        this(null, null);
+        this(null, 0);
     }
     
-    public SetInClanNecromancy(TraitChangeStatus status, Necromancy trait) {
-    	super(status);
-		this.trait = trait;
+    public SetInClanNecromancy(TraitChangeStatus status, int ordinal) {
+    	super(status, ordinal);
     }
 
 	@Override
 	protected Necromancy trait() {
-		return trait;
+		return Necromancy.values()[ordinal];
 	}
 
 }

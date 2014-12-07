@@ -10,13 +10,13 @@ public class SetInClanPowerFactory {
 
 	public SetTrait add(Power<?> power) {
 		if(power instanceof Discipline) {
-			return new SetInClanDiscipline(TraitChangeStatus.PENDING, (Discipline) power);
+			return new SetInClanDiscipline(TraitChangeStatus.PENDING, power.ordinal());
 		}
 		if(power instanceof Thaumaturgy) {
-			return new SetInClanThaumaturgy(TraitChangeStatus.PENDING, (Thaumaturgy) power);
+			return new SetInClanThaumaturgy(TraitChangeStatus.PENDING, power.ordinal());
 		}
 		if(power instanceof Necromancy) {
-			return new SetInClanNecromancy(TraitChangeStatus.PENDING, (Necromancy) power);
+			return new SetInClanNecromancy(TraitChangeStatus.PENDING, power.ordinal());
 		}
 		throw new IllegalArgumentException("Could not create SetInClanPower for " + power);
 	}
