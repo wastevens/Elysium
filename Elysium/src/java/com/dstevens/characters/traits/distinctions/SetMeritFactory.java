@@ -9,7 +9,7 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 public class SetMeritFactory {
 
 	public SetTrait merit(Merit trait, String specialization, SetTrait associatedTrait) {
-		return new SetMerit(TraitChangeStatus.PENDING, new CharacterMerit(trait, specialization)).and(associatedTrait);
+		return new SetMerit(TraitChangeStatus.PENDING, trait.ordinal(), specialization).and(associatedTrait);
 	}
 	
 }

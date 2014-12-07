@@ -3,7 +3,6 @@ package com.dstevens.characters.traits.powers;
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -11,24 +10,20 @@ import javax.persistence.Entity;
 @DiscriminatorValue("NecromanticRitual")
 class SetNecromanticRitual extends SetApplicableTrait<NecromanticRitual> {
 
-	@Column(name="applicable_trait_ordinal")
-    private NecromanticRitual trait;
-
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
     private SetNecromanticRitual() {
-        this(null, null);
+        this(null, 0);
     }
     
-    public SetNecromanticRitual(TraitChangeStatus status, NecromanticRitual trait) {
-    	super(status);
-		this.trait = trait;
+    public SetNecromanticRitual(TraitChangeStatus status, int ordinal) {
+    	super(status, ordinal);
     }
 
 	@Override
 	protected NecromanticRitual trait() {
-		return trait;
+		return NecromanticRitual.values()[ordinal];
 	}
 	
 }

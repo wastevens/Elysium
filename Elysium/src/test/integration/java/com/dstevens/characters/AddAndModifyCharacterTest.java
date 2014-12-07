@@ -108,9 +108,7 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(), maryWollstonecraftWhenNewlyCreated.getFlaws());
 		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
 		
-		System.out.println("Created");
         spendXpForMaryWollstonecraft();
-        System.out.println("Spent");
         
         PlayerCharacter maryWollstonecraftWithExperienceSpentButNotYetApproved = getMaryWollstonecraft();
         assertEquals(maryWollstonecraftWithExperienceSpentButNotYetApproved.getClan(), Clan.TOREADOR);
@@ -144,7 +142,6 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getFlaws());
 		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
 		
-		System.out.println("Approved");
         approveChangesOnMary();
         
         PlayerCharacter maryWollstonecraftWithExperienceSpentAndApproved = getMaryWollstonecraft();
@@ -206,7 +203,6 @@ public class AddAndModifyCharacterTest {
 		//Double check this
 //		assertEquals(37, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
 		assertEquals(set(new CharacterStatus(Status.AWESOME, "So very awesome")), maryWollstonecraftWithExperienceSpentAndApproved.getStatus());
-		System.out.println("Removed");
 		backoutSomeOfThoseChanges();
     }
 
@@ -323,22 +319,7 @@ public class AddAndModifyCharacterTest {
     private void approveChangesOnMary() {
         PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
         PlayerCharacter maryWollstonecraft = getMaryWollstonecraft();
-        printMeritsFor(maryWollstonecraft);
 		PlayerCharacter approvePendingChanges = maryWollstonecraft.approvePendingChanges();
-		printMeritsFor(approvePendingChanges);
-		System.out.println("------------------------");
 		characterRepository.update(approvePendingChanges);
     }
-    
-    private void printMeritsFor(PlayerCharacter character) {
-//    	System.out.println(character.getMentalAttributeFocuses().stream().sorted().map((MentalAttributeFocus t) -> t.trait().toString()).collect(Collectors.joining(", ")));
-//    	System.out.println(character.getTechniques().stream().sorted().map((Technique t) -> t.trait().toString()).collect(Collectors.joining(", ")));
-//    	System.out.println(character.getElderPowers().stream().sorted().map((ElderPower t) -> t.trait().toString()).collect(Collectors.joining(", ")));
-//    	System.out.println(character.getDisciplines().stream().sorted().map((CharacterDiscipline t) -> t.trait().toString() + ": " + t.rating()).collect(Collectors.joining(", ")));
-//    	System.out.println(character.getThaumaturgicalPaths().stream().sorted().map((CharacterThaumaturgy t) -> t.trait().toString() + ": " + t.rating()).collect(Collectors.joining(", ")));
-//    	System.out.println(character.getNecromanticPaths().stream().sorted().map((CharacterNecromancy t) -> t.trait().toString() + ": " + t.rating()).collect(Collectors.joining(", ")));
-//    	System.out.println(character.getMerits().stream().sorted().map((CharacterMerit t) -> t.trait().toString()).collect(Collectors.joining(", ")));
-//    	System.out.println(character.getFlaws().stream().sorted().map((CharacterFlaw t) -> t.trait().toString()).collect(Collectors.joining(", ")));
-    }
-
 }

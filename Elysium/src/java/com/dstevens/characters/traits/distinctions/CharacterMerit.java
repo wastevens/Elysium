@@ -107,6 +107,6 @@ public class CharacterMerit implements EnumeratedTrait<Merit>, ApplicableTrait, 
 
 	@Override
 	public ApplicableTrait copy() {
-		return new CharacterMerit(trait, specialization);
+		return this;
 	}
 }

@@ -10,9 +10,9 @@ public class SetRitualFactory {
 
 	public SetTrait setRitual(Ritual<?> ritual) {
     	if(ritual instanceof ThaumaturgicalRitual) {
-    		return new SetThaumaturgicalRitual(TraitChangeStatus.PENDING, (ThaumaturgicalRitual) ritual);
+    		return new SetThaumaturgicalRitual(TraitChangeStatus.PENDING, ritual.ordinal());
     	} else if(ritual instanceof NecromanticRitual) {
-    		return new SetNecromanticRitual(TraitChangeStatus.PENDING, (NecromanticRitual) ritual);
+    		return new SetNecromanticRitual(TraitChangeStatus.PENDING, ritual.ordinal());
     	}
     	throw new IllegalArgumentException("Could not find a trait factory for " + ritual);
     }

@@ -3,7 +3,6 @@ package com.dstevens.characters.traits.powers;
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -11,24 +10,20 @@ import javax.persistence.Entity;
 @DiscriminatorValue("ThaumaturgicalRitual")
 class SetThaumaturgicalRitual extends SetApplicableTrait<ThaumaturgicalRitual> {
 
-	@Column(name="applicable_trait_ordinal")
-    private ThaumaturgicalRitual trait;
-
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
     private SetThaumaturgicalRitual() {
-        this(null, null);
+        this(null, 0);
     }
     
-    public SetThaumaturgicalRitual(TraitChangeStatus status, ThaumaturgicalRitual trait) {
-    	super(status);
-		this.trait = trait;
+    public SetThaumaturgicalRitual(TraitChangeStatus status, int ordinal) {
+    	super(status, ordinal);
     }
 
     @Override
     protected ThaumaturgicalRitual trait() {
-    	return trait;
+    	return ThaumaturgicalRitual.values()[ordinal];
     }
 	
 }
