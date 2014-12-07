@@ -24,7 +24,6 @@
     <mapping class="com.dstevens.characters.traits.distinctions.CharacterFlaw"/>
     <mapping class="com.dstevens.characters.traits.distinctions.CharacterMerit"/>
     <mapping class="com.dstevens.characters.traits.status.CharacterStatus"/>
-    <mapping class="com.dstevens.characters.traits.status.ApplicableStatus"/>
     <mapping class="com.dstevens.characters.traits.attributes.SetPhysicalFocus"/>
     <mapping class="com.dstevens.characters.traits.attributes.SetAttributeValue"/>
     

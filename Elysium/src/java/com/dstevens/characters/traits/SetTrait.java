@@ -28,6 +28,12 @@ public abstract class SetTrait {
     @Column(name="status")
     private TraitChangeStatus status;
     
+    @Column(name="ordinal")
+    protected final int ordinal;
+    
+    @Column(name="specialization")
+    protected final String specialization;
+    
     @OneToOne(cascade={CascadeType.ALL})
     @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
     private SetTrait child;
@@ -40,8 +46,14 @@ public abstract class SetTrait {
     }
     
     protected SetTrait(TraitChangeStatus status) {
-        this.id = new IdSupplier().get();
-        this.status = status;
+        this(status, -1, null);
+    }
+    
+    protected SetTrait(TraitChangeStatus status, int ordinal, String specialization) {
+    	this.id = new IdSupplier().get();
+    	this.ordinal = ordinal;
+		this.specialization = specialization;
+    	this.status = status;
     }
     
     public SetTrait and(SetTrait andTrait) {

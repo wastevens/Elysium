@@ -29,7 +29,6 @@ alter table PlayerCharacter_thaumaturgicalRituals drop foreign key PlayerCharact
 alter table Skills drop foreign key PlayerCharacter_Skills_FK;
 alter table TraitChanges drop foreign key TraitChange_ChildTraitChange_FK;
 alter table TraitChanges drop foreign key TraitChange_TraitToRemove_FK;
-drop table if exists ApplicableStatus;
 drop table if exists AttributeValue;
 drop table if exists AuditEvent;
 drop table if exists Backgrounds;
@@ -62,7 +61,6 @@ drop table if exists Status;
 drop table if exists ThaumaturgicalPaths;
 drop table if exists TraitChanges;
 drop table if exists Troupe;
-create table ApplicableStatus (id varchar(255) not null, specialization varchar(255), trait integer, primary key (id));
 create table AttributeValue (attribute_type varchar(31) not null, id varchar(255) not null, value integer, primary key (id));
 create table AuditEvent (id varchar(255) not null, audit_message varchar(255), audited_type varchar(255), audited_id varchar(255), timestamp datetime, primary key (id));
 create table Backgrounds (id varchar(255) not null, rating integer, specialization varchar(255), background integer, character_id varchar(255), primary key (id));
@@ -93,7 +91,7 @@ create table PlayerCharacter_thaumaturgicalRituals (PlayerCharacter_id varchar(2
 create table Skills (id varchar(255) not null, rating integer, specialization varchar(255), skill integer, character_id varchar(255), primary key (id));
 create table Status (id varchar(255) not null, specialization varchar(255), trait integer not null, primary key (id));
 create table ThaumaturgicalPaths (id varchar(255) not null, rating integer, trait integer not null, primary key (id));
-create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, status integer, applicable_trait_ordinal integer, child_id varchar(255), traitToRemove_id varchar(255), applicable_trait_id varchar(255), primary key (id));
+create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, ordinal integer, specialization varchar(255), status integer, applicable_trait_ordinal integer, child_id varchar(255), traitToRemove_id varchar(255), applicable_trait_id varchar(255), primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
 alter table PlayerCharacter_Flaws add constraint PlayerCharacter_Flaws_UC  unique (flaws_id);
 alter table PlayerCharacter_NecromanticPaths add constraint PlayerCharacter_NecromanticPaths_UC  unique (necromanticPaths_id);

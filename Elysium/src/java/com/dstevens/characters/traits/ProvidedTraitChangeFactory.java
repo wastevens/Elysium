@@ -31,7 +31,6 @@ import com.dstevens.characters.traits.powers.SetTechniqueFactory;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.SetSkillFactory;
 import com.dstevens.characters.traits.skills.Skill;
-import com.dstevens.characters.traits.status.ApplicableStatus;
 import com.dstevens.characters.traits.status.SetStatus;
 import com.dstevens.characters.traits.status.Status;
 
@@ -152,6 +151,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public SetTrait status(Status trait, String specialization) {
-		return new SetStatus(TraitChangeStatus.PENDING, new ApplicableStatus(trait, specialization));
+		return new SetStatus(TraitChangeStatus.PENDING, trait.ordinal(), specialization);
 	}
 }

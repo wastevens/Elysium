@@ -8,6 +8,10 @@ public abstract class SetApplicableTrait<T extends ApplicableTrait> extends SetT
 		super(status);
 	}
 	
+	protected SetApplicableTrait(TraitChangeStatus status, int ordinal, String specialization) {
+		super(status, ordinal, specialization);
+	}
+	
 	protected abstract T trait();
 	
 	public final PlayerCharacter apply(PlayerCharacter character) {
