@@ -35,6 +35,7 @@ import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.powers.ThaumaturgicalRitual;
 import com.dstevens.characters.traits.powers.Thaumaturgy;
 import com.dstevens.characters.traits.skills.CharacterSkill;
+import com.dstevens.characters.traits.status.CharacterStatus;
 import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -95,17 +96,17 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private Set<SocialAttributeFocus> socialAttributeFocuses;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"skills_id"}, name="PlayerCharacter_Skills_UC")})
-    @ForeignKey(name="PlayerCharacter_Skills_FK", inverseName="Skills_PlayerCharacter_FK")
+    @JoinColumn(name="character_id", referencedColumnName="id")
+    @ForeignKey(name="PlayerCharacter_Skills_FK", inverseName="none")
     private final Set<CharacterSkill> skills;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"backgrounds_id"}, name="PlayerCharacter_Backgrounds_UC")})
+    @JoinColumn(name="character_id", referencedColumnName="id")
     @ForeignKey(name="PlayerCharacter_Backgrounds_FK", inverseName="Backgrounds_PlayerCharacter_FK")
     private final Set<CharacterBackground> backgrounds;
 
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"disciplines_id"}, name="PlayerCharacter_Disciplines_UC")})
+    @JoinColumn(name="character_id", referencedColumnName="id")
     @ForeignKey(name="PlayerCharacter_Disciplines_FK", inverseName="Disciplines_PlayerCharacter_FK")
     private final Set<CharacterDiscipline> disciplines;
     
@@ -164,15 +165,21 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private final Set<CharacterFlaw> flaws;
     
     @OneToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="PlayerCharacter_Status", uniqueConstraints={@UniqueConstraint(columnNames={"status_id"}, name="PlayerCharacter_Status_UC")})
+    @ForeignKey(name="PlayerCharacter_Status_FK", inverseName="Status_PlayerCharacter_FK")
+    private final Set<CharacterStatus> status;
+    
+    @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="order_by")
     @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChangeEvents_id"}, name="PlayerCharacter_TraitChanges_UC")})
     @ForeignKey(name="PlayerCharacter_TraitChanges_FK", inverseName="TraitChanges_PlayerCharacter_FK")
     private final List<SetTrait> traitChangeEvents;
+
     
     //Hibernate only
     @Deprecated
     public PlayerCharacter() {
-        this(null, 0, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, 0, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, String name) {
@@ -183,7 +190,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
              set(), set(), set(),
              set(), set(), null,
              set(), set(), null,
-             set(), set(), set(),
+             set(), set(), set(), set(),
              list(), null);
     }
     
@@ -195,7 +202,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                             Set<Necromancy> inClanNecromanticPaths, Set<CharacterDiscipline> disciplines, Set<ElderPower> elderPowers,
                             Set<Technique> techniques, Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, 
                             Set<ThaumaturgicalRitual> thaumaturgicalRituals, Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath,
-                            Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws,
+                            Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
                             List<SetTrait> traitChangeEvents, Date deleteTimestamp) {
         this.id = id;
         this.xp = xp;
@@ -224,6 +231,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.necromanticRituals = necromanticRituals;
         this.merits = merits;
         this.flaws = flaws;
+		this.status = status;
         this.traitChangeEvents = traitChangeEvents;
         this.deleteTimestamp = deleteTimestamp;
     }
@@ -240,7 +248,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    inClanNecromanticPaths, disciplines, elderPowers, 
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                                   necromanticRituals, merits, flaws,
+                                   necromanticRituals, merits, flaws, status,
                                    traitChangeEvents, deleteTimestamp);
     }
     
@@ -256,7 +264,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                 inClanNecromanticPaths, disciplines, elderPowers, 
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                necromanticRituals, merits, flaws,
+                necromanticRituals, merits, flaws, status,
                 traitChangeEvents, deleteTimestamp);
     }
     
@@ -272,7 +280,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                 inClanNecromanticPaths, disciplines, elderPowers, 
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                necromanticRituals, merits, flaws,
+                necromanticRituals, merits, flaws, status,
                 traitChangeEvents, deleteTimestamp);
     }
     
@@ -568,7 +576,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    inClanNecromanticPaths, disciplines, elderPowers, 
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                                   necromanticRituals, merits, flaws,
+                                   necromanticRituals, merits, flaws, status,
                                    traitChangeEvents, timestamp);
     }
 
@@ -581,7 +589,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    inClanNecromanticPaths, disciplines, elderPowers, 
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                                   necromanticRituals, merits, flaws,
+                                   necromanticRituals, merits, flaws, status,
                                    traitChangeEvents, null);
     }
     
@@ -644,4 +652,18 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.traitChangeEvents.forEach((SetTrait t) -> t.approve(this));
         return this;
     }
+
+    public Set<CharacterStatus> getStatus() {
+    	return status;
+    }
+    
+	public PlayerCharacter withStatus(CharacterStatus characterStatus) {
+		this.status.add(characterStatus);
+		return this;
+	}
+	
+	public PlayerCharacter withoutStatus(CharacterStatus characterStatus) {
+		this.status.removeIf(characterStatus.matching());
+		return this;
+	}
 }

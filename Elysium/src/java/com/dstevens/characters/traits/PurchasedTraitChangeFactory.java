@@ -14,6 +14,7 @@ import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.Skill;
+import com.dstevens.characters.traits.status.Status;
 
 class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
@@ -150,5 +151,10 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 	@Override
 	public SetTrait inClanPower(Power<?> power) {
 		throw new IllegalStateException("Cannot buy additional in clan powers");
+	}
+
+	@Override
+	public SetTrait status(Status awesome, String string) {
+		throw new IllegalStateException("Cannot buy status");
 	}
 }

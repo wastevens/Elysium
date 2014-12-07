@@ -14,6 +14,7 @@ import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.Skill;
+import com.dstevens.characters.traits.status.Status;
 
 public interface TraitChangeFactory {
 
@@ -46,5 +47,7 @@ public interface TraitChangeFactory {
 	SetTrait merit(Merit merit, String specialization, SetTrait associatedTrait);
 	
 	SetTrait flaw(Flaw flaw, String specialization, SetTrait associatedTrait);
+
+	SetTrait status(Status awesome, String string);
 
 }

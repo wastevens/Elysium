@@ -34,6 +34,8 @@ import com.dstevens.characters.traits.powers.ThaumaturgicalRitual;
 import com.dstevens.characters.traits.powers.Thaumaturgy;
 import com.dstevens.characters.traits.skills.CharacterSkill;
 import com.dstevens.characters.traits.skills.Skill;
+import com.dstevens.characters.traits.status.CharacterStatus;
+import com.dstevens.characters.traits.status.Status;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.players.Player;
 import com.dstevens.players.PlayerRepository;
@@ -203,7 +205,7 @@ public class AddAndModifyCharacterTest {
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
 		//Double check this
 //		assertEquals(37, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
-//		
+		assertEquals(set(new CharacterStatus(Status.AWESOME, "So very awesome")), maryWollstonecraftWithExperienceSpentAndApproved.getStatus());
 		System.out.println("Removed");
 		backoutSomeOfThoseChanges();
     }
@@ -283,6 +285,8 @@ public class AddAndModifyCharacterTest {
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", traitFactory.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION))));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", traitFactory.inClanPower(Necromancy.ASH_PATH))));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", traitFactory.inClanPower(Discipline.DOMINATE))));
+		
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(traitFactory.status(Status.AWESOME, "So very awesome")));
     }
 
     private void backoutSomeOfThoseChanges() {
