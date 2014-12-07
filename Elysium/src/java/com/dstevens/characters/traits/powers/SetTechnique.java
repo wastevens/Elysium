@@ -3,7 +3,6 @@ package com.dstevens.characters.traits.powers;
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -11,24 +10,20 @@ import javax.persistence.Entity;
 @DiscriminatorValue("Technique")
 class SetTechnique extends SetApplicableTrait<Technique> {
 
-	@Column(name="applicable_trait_ordinal")
-    private Technique trait;
-	
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
     private SetTechnique() {
-        this(null, null);
+        this(null, 0);
     }
     
-    public SetTechnique(TraitChangeStatus status, Technique trait) {
-    	super(status);
-		this.trait = trait;
+    public SetTechnique(TraitChangeStatus status, int ordinal) {
+    	super(status, ordinal);
     }
 
 	@Override
 	protected Technique trait() {
-		return trait;
+		return Technique.values()[ordinal];
 	}
 
 }

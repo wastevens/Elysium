@@ -3,7 +3,6 @@ package com.dstevens.characters.traits.powers;
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -11,24 +10,20 @@ import javax.persistence.Entity;
 @DiscriminatorValue("ElderPower")
 class SetElderPower extends SetApplicableTrait<ElderPower> {
 
-	@Column(name="applicable_trait_ordinal")
-    private final ElderPower trait;
-
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
     private SetElderPower() {
-        this(null, null);
+        this(null, 0);
     }
     
-    public SetElderPower(TraitChangeStatus status, ElderPower trait) {
-    	super(status);
-		this.trait = trait;
+    public SetElderPower(TraitChangeStatus status, int ordinal) {
+    	super(status, ordinal);
     }
 
 	@Override
 	protected ElderPower trait() {
-		return trait;
+		return ElderPower.values()[ordinal];
 	}
 
 }

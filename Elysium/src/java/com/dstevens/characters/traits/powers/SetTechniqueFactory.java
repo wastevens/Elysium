@@ -9,7 +9,7 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 public class SetTechniqueFactory {
 
 	public SetTrait technique(Technique trait) {
-		return new SetTechnique(TraitChangeStatus.PENDING, trait);
+		return new SetTechnique(TraitChangeStatus.PENDING, trait.ordinal());
 	}
 	
 }

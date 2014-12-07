@@ -9,7 +9,7 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 public class SetElderPowerFactory {
 
 	public SetTrait elderPower(ElderPower trait) {
-		return new SetElderPower(TraitChangeStatus.PENDING, trait);
+		return new SetElderPower(TraitChangeStatus.PENDING, trait.ordinal());
 	}
 	
 }

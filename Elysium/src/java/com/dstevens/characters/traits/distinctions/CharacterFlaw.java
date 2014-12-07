@@ -107,6 +107,6 @@ public class CharacterFlaw implements EnumeratedTrait<Flaw>, ApplicableTrait, Ch
 
 	@Override
 	public ApplicableTrait copy() {
-		return new CharacterFlaw(trait, specialization);
+		return this;
 	}
 }

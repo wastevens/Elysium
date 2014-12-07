@@ -9,7 +9,7 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 public class SetFlawFactory {
 
 	public SetTrait flaw(Flaw trait, String specialization, SetTrait associatedTrait) {
-		return new SetFlaw(TraitChangeStatus.PENDING, new CharacterFlaw(trait, specialization)).and(associatedTrait);
+		return new SetFlaw(TraitChangeStatus.PENDING, trait.ordinal(), specialization).and(associatedTrait);
 	}
 	
 }
