@@ -104,4 +104,9 @@ public class CharacterFlaw implements EnumeratedTrait<Flaw>, ApplicableTrait, Ch
 		return ((Predicate<CharacterFlaw>)(CharacterFlaw t) -> t.trait.equals(this.trait)).
 		    and((Predicate<CharacterFlaw>)(CharacterFlaw t) -> StringUtils.equalsIgnoreCase(t.specialization, this.specialization));
 	}
+
+	@Override
+	public ApplicableTrait copy() {
+		return new CharacterFlaw(trait, specialization);
+	}
 }

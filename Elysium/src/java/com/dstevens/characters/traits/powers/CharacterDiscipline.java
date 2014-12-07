@@ -95,4 +95,9 @@ public class CharacterDiscipline implements EnumeratedTrait<Discipline>, Applica
 	public Predicate<CharacterDiscipline> matches() {
 		return ((Predicate<CharacterDiscipline>)(CharacterDiscipline t) -> t.trait.equals(this.trait));
 	}
+
+	@Override
+	public ApplicableTrait copy() {
+		return new CharacterDiscipline(trait, rating);
+	}
 }

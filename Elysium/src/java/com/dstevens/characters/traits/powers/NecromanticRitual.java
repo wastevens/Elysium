@@ -56,4 +56,9 @@ public enum NecromanticRitual implements Ritual<NecromanticRitual>, ApplicableTr
     	return character.withoutNecromanticRitual(this);
     }
     
+    @Override
+	public ApplicableTrait copy() {
+		return this;
+	}
+    
 }

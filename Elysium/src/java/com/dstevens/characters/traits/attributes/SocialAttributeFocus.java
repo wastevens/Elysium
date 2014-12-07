@@ -24,5 +24,10 @@ public enum SocialAttributeFocus implements EnumeratedTrait<SocialAttributeFocus
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutSocialAttributeFocus(this);
 	}
+	
+	@Override
+	public ApplicableTrait copy() {
+		return this;
+	}
     
 }

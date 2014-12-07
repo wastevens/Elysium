@@ -24,5 +24,10 @@ public enum PhysicalAttributeFocus implements EnumeratedTrait<PhysicalAttributeF
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutPhysicalAttributeFocus(this);
 	}
+	
+	@Override
+	public ApplicableTrait copy() {
+		return this;
+	}
     
 }

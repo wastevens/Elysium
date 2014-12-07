@@ -43,6 +43,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
@@ -152,9 +153,9 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @ForeignKey(name="PlayerCharacter_CharacterNecromanticRituals_FK")
     private final Set<NecromanticRitual> necromanticRituals;
     
-    @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="PlayerCharacter_Merits", uniqueConstraints={@UniqueConstraint(columnNames={"merits_id"}, name="PlayerCharacter_Merits_UC")})
-    @ForeignKey(name="PlayerCharacter_Merits_FK", inverseName="Merits_PlayerCharacter_FK")
+    @OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
+    @JoinColumn(name="character_id", referencedColumnName="id")
+    @ForeignKey(name="PlayerCharacter_Merits_FK")
     private final Set<CharacterMerit> merits;
     
     @OneToMany(cascade={CascadeType.ALL})

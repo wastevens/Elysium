@@ -25,5 +25,10 @@ public enum MentalAttributeFocus implements EnumeratedTrait<MentalAttributeFocus
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutMentalAttributeFocus(this);
 	}
+	
+	@Override
+	public ApplicableTrait copy() {
+		return this;
+	}
     
 }

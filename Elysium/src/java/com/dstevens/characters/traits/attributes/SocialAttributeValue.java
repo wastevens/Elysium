@@ -1,6 +1,7 @@
 package com.dstevens.characters.traits.attributes;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -35,5 +36,10 @@ public class SocialAttributeValue extends AttributeValue {
 	
 	public static AttributeValue decrease(PlayerCharacter character) {
 		return new SocialAttributeValue(character.getSocialAttribute()-1);
+	}
+	
+	@Override
+	public ApplicableTrait copy() {
+		return new SocialAttributeValue(value());
 	}
 }

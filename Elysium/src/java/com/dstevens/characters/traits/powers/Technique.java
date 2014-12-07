@@ -75,4 +75,9 @@ public enum Technique implements EnumeratedTrait<Technique>, ApplicableTrait {
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutTechnique(this);
 	}
+	
+	@Override
+	public ApplicableTrait copy() {
+		return this;
+	}
 }

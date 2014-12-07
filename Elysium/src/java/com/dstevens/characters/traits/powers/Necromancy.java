@@ -1,6 +1,7 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 
 public enum Necromancy implements Power<Necromancy> {
 
@@ -24,4 +25,8 @@ public enum Necromancy implements Power<Necromancy> {
 		return character.withoutInClanDiscipline(this);
 	}
     
+	@Override
+	public ApplicableTrait copy() {
+		return this;
+	}
 }

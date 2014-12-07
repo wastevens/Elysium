@@ -120,4 +120,9 @@ public class CharacterSkill implements EnumeratedTrait<Skill>, ApplicableTrait, 
 		return ((Predicate<CharacterSkill>)(CharacterSkill t) -> t.trait.equals(this.trait)).
 		    and((Predicate<CharacterSkill>)(CharacterSkill t) -> StringUtils.equalsIgnoreCase(t.specialization, this.specialization));
 	}
+
+	@Override
+	public ApplicableTrait copy() {
+		return new CharacterSkill(trait, rating, specialization, focuses);
+	}
 }

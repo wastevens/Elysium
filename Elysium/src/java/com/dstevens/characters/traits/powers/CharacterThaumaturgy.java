@@ -99,4 +99,9 @@ public class CharacterThaumaturgy implements RatedTrait, ApplicableTrait, Enumer
     public Predicate<CharacterThaumaturgy> matches() {
 		return ((Predicate<CharacterThaumaturgy>)(CharacterThaumaturgy t) -> t.trait.equals(this.trait));
 	}
+
+	@Override
+	public ApplicableTrait copy() {
+		return new CharacterThaumaturgy(trait, rating);
+	}
 }

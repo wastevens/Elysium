@@ -104,4 +104,9 @@ public class CharacterMerit implements EnumeratedTrait<Merit>, ApplicableTrait, 
 		return ((Predicate<CharacterMerit>)(CharacterMerit t) -> t.trait.equals(this.trait)).
 		    and((Predicate<CharacterMerit>)(CharacterMerit t) -> StringUtils.equalsIgnoreCase(t.specialization, this.specialization));
 	}
+
+	@Override
+	public ApplicableTrait copy() {
+		return new CharacterMerit(trait, specialization);
+	}
 }

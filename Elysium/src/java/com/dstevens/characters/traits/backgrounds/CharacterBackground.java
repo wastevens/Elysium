@@ -141,4 +141,9 @@ public class CharacterBackground implements EnumeratedTrait<Background>, Applica
 		return ((Predicate<CharacterBackground>)(CharacterBackground t) -> t.trait.equals(this.trait)).
 		    and((Predicate<CharacterBackground>)(CharacterBackground t) -> StringUtils.equalsIgnoreCase(t.specialization, this.specialization));
 	}
+
+	@Override
+	public ApplicableTrait copy() {
+		return new CharacterBackground(trait, rating, specialization, focuses);
+	}
 }

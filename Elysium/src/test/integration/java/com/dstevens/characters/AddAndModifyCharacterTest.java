@@ -4,8 +4,6 @@ import static com.dstevens.collections.Sets.set;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.stream.Collectors;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,13 +18,9 @@ import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
-import com.dstevens.characters.traits.distinctions.CharacterFlaw;
-import com.dstevens.characters.traits.distinctions.CharacterMerit;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.powers.CharacterDiscipline;
-import com.dstevens.characters.traits.powers.CharacterNecromancy;
-import com.dstevens.characters.traits.powers.CharacterThaumaturgy;
 import com.dstevens.characters.traits.powers.Discipline;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Necromancy;
@@ -147,7 +141,7 @@ public class AddAndModifyCharacterTest {
 		System.out.println("Approved");
         approveChangesOnMary();
         
-        PlayerCharacter maryWollstonecraftWithExperienceSpentAndApproved = getMaryWollstonecraft();
+//        PlayerCharacter maryWollstonecraftWithExperienceSpentAndApproved = getMaryWollstonecraft();
         
 //        assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getClan(), Clan.TOREADOR);
 //        assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getBloodline(), Bloodline.TOREADOR);
@@ -330,14 +324,14 @@ public class AddAndModifyCharacterTest {
     }
     
     private void printMeritsFor(PlayerCharacter character) {
-    	System.out.println(character.getMentalAttributeFocuses().stream().sorted().map((MentalAttributeFocus t) -> t.trait().toString()).collect(Collectors.joining(", ")));
-    	System.out.println(character.getTechniques().stream().sorted().map((Technique t) -> t.trait().toString()).collect(Collectors.joining(", ")));
-    	System.out.println(character.getElderPowers().stream().sorted().map((ElderPower t) -> t.trait().toString()).collect(Collectors.joining(", ")));
+//    	System.out.println(character.getMentalAttributeFocuses().stream().sorted().map((MentalAttributeFocus t) -> t.trait().toString()).collect(Collectors.joining(", ")));
+//    	System.out.println(character.getTechniques().stream().sorted().map((Technique t) -> t.trait().toString()).collect(Collectors.joining(", ")));
+//    	System.out.println(character.getElderPowers().stream().sorted().map((ElderPower t) -> t.trait().toString()).collect(Collectors.joining(", ")));
 //    	System.out.println(character.getDisciplines().stream().sorted().map((CharacterDiscipline t) -> t.trait().toString() + ": " + t.rating()).collect(Collectors.joining(", ")));
-    	System.out.println(character.getThaumaturgicalPaths().stream().sorted().map((CharacterThaumaturgy t) -> t.trait().toString() + ": " + t.rating()).collect(Collectors.joining(", ")));
-    	System.out.println(character.getNecromanticPaths().stream().sorted().map((CharacterNecromancy t) -> t.trait().toString() + ": " + t.rating()).collect(Collectors.joining(", ")));
-    	System.out.println(character.getMerits().stream().sorted().map((CharacterMerit t) -> t.trait().toString()).collect(Collectors.joining(", ")));
-    	System.out.println(character.getFlaws().stream().sorted().map((CharacterFlaw t) -> t.trait().toString()).collect(Collectors.joining(", ")));
+//    	System.out.println(character.getThaumaturgicalPaths().stream().sorted().map((CharacterThaumaturgy t) -> t.trait().toString() + ": " + t.rating()).collect(Collectors.joining(", ")));
+//    	System.out.println(character.getNecromanticPaths().stream().sorted().map((CharacterNecromancy t) -> t.trait().toString() + ": " + t.rating()).collect(Collectors.joining(", ")));
+//    	System.out.println(character.getMerits().stream().sorted().map((CharacterMerit t) -> t.trait().toString()).collect(Collectors.joining(", ")));
+//    	System.out.println(character.getFlaws().stream().sorted().map((CharacterFlaw t) -> t.trait().toString()).collect(Collectors.joining(", ")));
     }
 
 }
