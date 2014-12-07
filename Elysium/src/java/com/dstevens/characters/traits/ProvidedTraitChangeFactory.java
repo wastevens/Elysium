@@ -146,7 +146,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public SetTrait inClanPower(Power<?> power) {
-		return setInClanPowerFactory.add(power);
+		return setInClanPowerFactory.power(power);
 	}
 
 	@Override

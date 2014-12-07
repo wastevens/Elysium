@@ -8,7 +8,7 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 @Service
 public class SetInClanPowerFactory {
 
-	public SetTrait add(Power<?> power) {
+	public SetTrait power(Power<?> power) {
 		if(power instanceof Discipline) {
 			return new SetInClanDiscipline(TraitChangeStatus.PENDING, power.ordinal());
 		}
