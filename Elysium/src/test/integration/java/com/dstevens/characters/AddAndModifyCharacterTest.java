@@ -18,9 +18,13 @@ import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
+import com.dstevens.characters.traits.distinctions.CharacterFlaw;
+import com.dstevens.characters.traits.distinctions.CharacterMerit;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.powers.CharacterDiscipline;
+import com.dstevens.characters.traits.powers.CharacterNecromancy;
+import com.dstevens.characters.traits.powers.CharacterThaumaturgy;
 import com.dstevens.characters.traits.powers.Discipline;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Necromancy;
@@ -141,62 +145,62 @@ public class AddAndModifyCharacterTest {
 		System.out.println("Approved");
         approveChangesOnMary();
         
-//        PlayerCharacter maryWollstonecraftWithExperienceSpentAndApproved = getMaryWollstonecraft();
+        PlayerCharacter maryWollstonecraftWithExperienceSpentAndApproved = getMaryWollstonecraft();
         
-//        assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getClan(), Clan.TOREADOR);
-//        assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getBloodline(), Bloodline.TOREADOR);
-//		assertEquals(4, maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttribute());
-//		assertEquals(set(PhysicalAttributeFocus.DEXTERITY), maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttributeFocuses());
-//		assertEquals(6, maryWollstonecraftWithExperienceSpentAndApproved.getSocialAttribute());
-//		assertEquals(set(SocialAttributeFocus.MANIPULATION), maryWollstonecraftWithExperienceSpentAndApproved.getSocialAttributeFocuses());
-//		assertEquals(8, maryWollstonecraftWithExperienceSpentAndApproved.getMentalAttribute());
-//		assertEquals(set(MentalAttributeFocus.PERCEPTION, MentalAttributeFocus.WITS), maryWollstonecraftWithExperienceSpentAndApproved.getMentalAttributeFocuses());
-//		assertEquals(set(new CharacterSkill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry")),
-//				         new CharacterSkill(Skill.AWARENESS, 1, null, set()),
-//				         new CharacterSkill(Skill.COMPUTER, 1, null, set()),
-//				         new CharacterSkill(Skill.LEADERSHIP, 1, null, set()),
-//				         new CharacterSkill(Skill.DODGE, 2, null, set()),
-//				         new CharacterSkill(Skill.EMPATHY, 2, null, set()),
-//				         new CharacterSkill(Skill.STEALTH, 2, null, set()),
-//				         new CharacterSkill(Skill.SUBTERFUGE, 3, null, set()),
-//				         new CharacterSkill(Skill.INVESTIGATION, 3, null, set()),
-//				         new CharacterSkill(Skill.CRAFTS, 4, "Writing", set()),
-//				         new CharacterSkill(Skill.CRAFTS, 3, "Poetry", set())), 
-//				     maryWollstonecraftWithExperienceSpentAndApproved.getSkills());
-//		assertEquals(set(CharacterBackground.backgroundFor(Background.FAME, 3, "Writing"),
-//				         CharacterBackground.backgroundFor(Background.RESOURCES, 2),
-//				         CharacterBackground.backgroundFor(Background.GENERATION, 1),
-//				         CharacterBackground.backgroundFor(Background.HAVEN, 2, "Luxury Home", set("Luxury", "Location"))), 
-//		             maryWollstonecraftWithExperienceSpentAndApproved.getBackgrounds());
-//		assertEquals(set(new CharacterDiscipline(Discipline.AUSPEX, 3), 
-//				         new CharacterDiscipline(Discipline.CELERITY, 1), 
-//				         new CharacterDiscipline(Discipline.PRESENCE, 2),
-//				         new CharacterDiscipline(Discipline.ANIMALISM, 1)), 
-//   		             maryWollstonecraftWithExperienceSpentAndApproved.getDisciplines());
-//		assertEquals(set(new CharacterThaumaturgy(Thaumaturgy.PATH_OF_BLOOD, 2),
-//				         new CharacterThaumaturgy(Thaumaturgy.LURE_OF_FLAMES, 1)), 
-//	                 maryWollstonecraftWithExperienceSpentAndApproved.getThaumaturgicalPaths());
-//		assertEquals(set(new CharacterNecromancy(Necromancy.ASH_PATH, 2),
-//		                 new CharacterNecromancy(Necromancy.BONE_PATH, 1)), 
-//                     maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticPaths());
-//		assertEquals(set(ThaumaturgicalRitual.CRAFT_BLOODSTONE, ThaumaturgicalRitual.BURNING_BLADE),
-//                     maryWollstonecraftWithExperienceSpentAndApproved.getThaumaturgicalRituals());
-//        assertEquals(set(NecromanticRitual.BLACK_BLOOD, NecromanticRitual.DARK_ASSISTANT), 
-//                     maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticRituals());
-//        assertEquals(set(Technique.ARMOR_OF_DARKNESS, Technique.CONTROL_THE_SAVAGE_BEAST),
-//        		     maryWollstonecraftWithExperienceSpentAndApproved.getTechniques());
-//		assertEquals(set(ElderPower.CLAIRVOYANCE, ElderPower.ACID_BLOOD),
-//		             maryWollstonecraftWithExperienceSpentAndApproved.getElderPowers());
-//		assertEquals(set(new CharacterMerit(Merit.ARTISTS_BLESSING, "Poetry"),
-//				         new CharacterMerit(Merit.LUCKY),
-//				         new CharacterMerit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption"),
-//				         new CharacterMerit(Merit.NECROMANTIC_TRAINING, "Ash Path"),
-//				         new CharacterMerit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate"),
-//				         new CharacterMerit(Merit.VERSATILE, "Wits")), 
-//				     maryWollstonecraftWithExperienceSpentAndApproved.getMerits());
-//		assertEquals(set(new CharacterFlaw(Flaw.CURIOUSITY),
-//		                 new CharacterFlaw(Flaw.LESSER_GENERATION_2)), 
-//		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
+        assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getClan(), Clan.TOREADOR);
+        assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getBloodline(), Bloodline.TOREADOR);
+		assertEquals(4, maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttribute());
+		assertEquals(set(PhysicalAttributeFocus.DEXTERITY), maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttributeFocuses());
+		assertEquals(6, maryWollstonecraftWithExperienceSpentAndApproved.getSocialAttribute());
+		assertEquals(set(SocialAttributeFocus.MANIPULATION), maryWollstonecraftWithExperienceSpentAndApproved.getSocialAttributeFocuses());
+		assertEquals(8, maryWollstonecraftWithExperienceSpentAndApproved.getMentalAttribute());
+		assertEquals(set(MentalAttributeFocus.PERCEPTION, MentalAttributeFocus.WITS), maryWollstonecraftWithExperienceSpentAndApproved.getMentalAttributeFocuses());
+		assertEquals(set(new CharacterSkill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry")),
+				         new CharacterSkill(Skill.AWARENESS, 1, null, set()),
+				         new CharacterSkill(Skill.COMPUTER, 1, null, set()),
+				         new CharacterSkill(Skill.LEADERSHIP, 1, null, set()),
+				         new CharacterSkill(Skill.DODGE, 2, null, set()),
+				         new CharacterSkill(Skill.EMPATHY, 2, null, set()),
+				         new CharacterSkill(Skill.STEALTH, 2, null, set()),
+				         new CharacterSkill(Skill.SUBTERFUGE, 3, null, set()),
+				         new CharacterSkill(Skill.INVESTIGATION, 3, null, set()),
+				         new CharacterSkill(Skill.CRAFTS, 4, "Writing", set()),
+				         new CharacterSkill(Skill.CRAFTS, 3, "Poetry", set())), 
+				     maryWollstonecraftWithExperienceSpentAndApproved.getSkills());
+		assertEquals(set(CharacterBackground.backgroundFor(Background.FAME, 3, "Writing"),
+				         CharacterBackground.backgroundFor(Background.RESOURCES, 2),
+				         CharacterBackground.backgroundFor(Background.GENERATION, 1),
+				         CharacterBackground.backgroundFor(Background.HAVEN, 2, "Luxury Home", set("Luxury", "Location"))), 
+		             maryWollstonecraftWithExperienceSpentAndApproved.getBackgrounds());
+		assertEquals(set(new CharacterDiscipline(Discipline.AUSPEX, 3), 
+				         new CharacterDiscipline(Discipline.CELERITY, 1), 
+				         new CharacterDiscipline(Discipline.PRESENCE, 2),
+				         new CharacterDiscipline(Discipline.ANIMALISM, 1)), 
+   		             maryWollstonecraftWithExperienceSpentAndApproved.getDisciplines());
+		assertEquals(set(new CharacterThaumaturgy(Thaumaturgy.PATH_OF_BLOOD, 2),
+				         new CharacterThaumaturgy(Thaumaturgy.LURE_OF_FLAMES, 1)), 
+	                 maryWollstonecraftWithExperienceSpentAndApproved.getThaumaturgicalPaths());
+		assertEquals(set(new CharacterNecromancy(Necromancy.ASH_PATH, 2),
+		                 new CharacterNecromancy(Necromancy.BONE_PATH, 1)), 
+                     maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticPaths());
+		assertEquals(set(ThaumaturgicalRitual.CRAFT_BLOODSTONE, ThaumaturgicalRitual.BURNING_BLADE),
+                     maryWollstonecraftWithExperienceSpentAndApproved.getThaumaturgicalRituals());
+        assertEquals(set(NecromanticRitual.BLACK_BLOOD, NecromanticRitual.DARK_ASSISTANT), 
+                     maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticRituals());
+        assertEquals(set(Technique.ARMOR_OF_DARKNESS, Technique.CONTROL_THE_SAVAGE_BEAST),
+        		     maryWollstonecraftWithExperienceSpentAndApproved.getTechniques());
+		assertEquals(set(ElderPower.CLAIRVOYANCE, ElderPower.ACID_BLOOD),
+		             maryWollstonecraftWithExperienceSpentAndApproved.getElderPowers());
+		assertEquals(set(new CharacterMerit(Merit.ARTISTS_BLESSING, "Poetry"),
+				         new CharacterMerit(Merit.LUCKY),
+				         new CharacterMerit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption"),
+				         new CharacterMerit(Merit.NECROMANTIC_TRAINING, "Ash Path"),
+				         new CharacterMerit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate"),
+				         new CharacterMerit(Merit.VERSATILE, "Wits")), 
+				     maryWollstonecraftWithExperienceSpentAndApproved.getMerits());
+		assertEquals(set(new CharacterFlaw(Flaw.CURIOUSITY),
+		                 new CharacterFlaw(Flaw.LESSER_GENERATION_2)), 
+		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
 		//Double check this
 //		assertEquals(37, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
 //		
@@ -287,10 +291,8 @@ public class AddAndModifyCharacterTest {
 		TraitChangeFactory experienceChart = TraitChangeFactoryProvider.buyTraitsFor(getMaryWollstonecraft());
         TraitChangeFactory traitFactory = TraitChangeFactoryProvider.giveTraits();
       
-//        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry")).remove().
-//        		                                                               and(traitFactory.skill(Skill.ACADEMICS, 2, null, set("Philosophy", "Latin Poetry")))));
-//        CharacterMerit meritToRemove = getMaryWollstonecraft().getMerits().stream().filter((CharacterMerit t) -> t.trait().equals(Merit.LUCKY)).findFirst().get();
-//        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.remove(meritToRemove)));
+        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry")).remove().
+        		                                                               and(traitFactory.skill(Skill.ACADEMICS, 2, null, set("Philosophy", "Latin Poetry")))));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.LUCKY, null, null).remove()));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, null, traitFactory.mentalFocus(MentalAttributeFocus.WITS)).remove()));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.CURIOUSITY, null, null).remove()));
@@ -302,7 +304,7 @@ public class AddAndModifyCharacterTest {
         		                                                            and(traitFactory.power(Thaumaturgy.PATH_OF_BLOOD, 1))));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.ARMOR_OF_DARKNESS).remove()));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.ACID_BLOOD).remove()));
-//        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.ANIMALISM, 1).remove()));
+        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.ANIMALISM, 1).remove()));
         approveChangesOnMary();
     }
     
