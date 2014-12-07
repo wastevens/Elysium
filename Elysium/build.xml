@@ -12,6 +12,8 @@
   </fileset>
 </path>
 
+<ivy:settings file="ivysettings.xml"/>
+
 <target name="clean">
 <echo>Cleaning the ${build.dir}</echo>
 <delete dir="${build.dir}"/>
