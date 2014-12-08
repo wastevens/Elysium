@@ -8,8 +8,8 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 @Service
 public class SetAttributeValueFactory {
 
-	public SetTrait attributeValue(AttributeValue trait) {
-		return new SetAttributeValue(TraitChangeStatus.PENDING, trait);
+	public SetTrait attributeValue(Attribute attribute, int rating) {
+		return new SetAttributeValue(TraitChangeStatus.PENDING, attribute.ordinal(), rating);
 	}
 	
 }

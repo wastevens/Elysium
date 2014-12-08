@@ -6,14 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
-import com.dstevens.characters.traits.attributes.MentalAttributeValue;
 import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
-import com.dstevens.characters.traits.attributes.PhysicalAttributeValue;
 import com.dstevens.characters.traits.attributes.SetAttributeFocusFactory;
 import com.dstevens.characters.traits.attributes.SetAttributeValueFactory;
 import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
-import com.dstevens.characters.traits.attributes.SocialAttributeValue;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.SetBackgroundFactory;
 import com.dstevens.characters.traits.distinctions.Flaw;
@@ -76,17 +74,17 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
 	@Override
 	public SetTrait physical(PlayerCharacter character) {
-		return attributeValueFactory.attributeValue(PhysicalAttributeValue.increase(character));
+		return attributeValueFactory.attributeValue(Attribute.PHYSICAL, character.getPhysicalAttribute()+1);
 	}
 
 	@Override
 	public SetTrait social(PlayerCharacter character) {
-		return attributeValueFactory.attributeValue(SocialAttributeValue.increase(character));
+		return attributeValueFactory.attributeValue(Attribute.SOCIAL, character.getSocialAttribute()+1);
 	}
 
 	@Override
 	public SetTrait mental(PlayerCharacter character) {
-		return attributeValueFactory.attributeValue(MentalAttributeValue.increase(character));
+		return attributeValueFactory.attributeValue(Attribute.MENTAL, character.getMentalAttribute()+1);
 	}
 	
 	@Override

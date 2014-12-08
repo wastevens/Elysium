@@ -3,36 +3,27 @@ package com.dstevens.characters.traits.attributes;
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Attribute")
 class SetAttributeValue extends SetApplicableTrait<AttributeValue> {
 
-	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="applicable_trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
-	private AttributeValue trait;
-
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
     private SetAttributeValue() {
-        this(null, null);
+        super();
     }
 	
-	public SetAttributeValue(TraitChangeStatus status, AttributeValue trait) {
-		super(status);
-		this.trait = trait;
+	public SetAttributeValue(TraitChangeStatus status, int ordinal, int rating) {
+		super(status, ordinal, rating);
 	}
 
 	@Override
 	protected AttributeValue trait() {
-		return trait;
+		return Attribute.values()[ordinal].setAttributeTo(rating);
 	}
 
 }
