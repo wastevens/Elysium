@@ -20,7 +20,6 @@ import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Necromancy;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
-import com.dstevens.characters.traits.powers.SetElderPowerFactory;
 import com.dstevens.characters.traits.powers.SetInClanDisciplineFactory;
 import com.dstevens.characters.traits.powers.SetInClanNecromancyFactory;
 import com.dstevens.characters.traits.powers.SetInClanThaumaturgyFactory;
@@ -35,7 +34,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	private final SetAttributeValueFactory attributeValueFactory;
 	private final SetAttributeFocusFactory attributeFocusFactory;
-	private final SetElderPowerFactory setElderPowerFactory;
 	private final SetInClanDisciplineFactory setInClanDisciplineFactory;
 	private final SetInClanThaumaturgyFactory setInClanThaumaturgyFactory;
 	private final SetInClanNecromancyFactory setInClanNecromancyFactory;
@@ -43,13 +41,11 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	@Autowired
 	public ProvidedTraitChangeFactory(SetAttributeValueFactory attributeValueFactory,
 	                                  SetAttributeFocusFactory attributeFocusFactory,
-	                                  SetElderPowerFactory setElderPowerFactory,     
 	                                  SetInClanDisciplineFactory setInClanDisciplineFactory,
 	                                  SetInClanThaumaturgyFactory setInClanThaumaturgyFactory,
 	                                  SetInClanNecromancyFactory setInClanNecromancyFactory) {
 		this.attributeValueFactory = attributeValueFactory;
 		this.attributeFocusFactory = attributeFocusFactory;
-		this.setElderPowerFactory = setElderPowerFactory;
 		this.setInClanDisciplineFactory = setInClanDisciplineFactory;
 		this.setInClanThaumaturgyFactory =setInClanThaumaturgyFactory;
 		this.setInClanNecromancyFactory = setInClanNecromancyFactory;
@@ -122,7 +118,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public SetTrait elderPower(ElderPower power) {
-		return setElderPowerFactory.elderPower(power);
+		return power.set(TraitChangeStatus.PENDING);
 	}
 
 	@Override

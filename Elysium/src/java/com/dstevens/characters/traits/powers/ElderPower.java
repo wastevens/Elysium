@@ -2,9 +2,12 @@ package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SetTraitFactory;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
 
-public enum ElderPower implements ApplicableTrait {
+public enum ElderPower implements ApplicableTrait, SetTraitFactory {
 
     CRIMSON_FURY(Discipline.ANIMALISM),
     INTIMIDATE_THE_BEAST(Discipline.ANIMALISM),
@@ -87,5 +90,10 @@ public enum ElderPower implements ApplicableTrait {
 	@Override
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutElderPower(this);
+	}
+	
+	@Override
+	public SetTrait set(TraitChangeStatus status) {
+		return new SetElderPower(status, this.ordinal());
 	}
 }
