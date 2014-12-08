@@ -1,6 +1,9 @@
 package com.dstevens.characters.traits.backgrounds;
 
+import java.util.Set;
+
 import com.dstevens.characters.traits.DetailLevel;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
 public enum Background {
 
@@ -28,5 +31,9 @@ public enum Background {
     
     public DetailLevel detailLevel() {
     	return detailLevel;
+    }
+    
+    public SetBackground setBackgroundFor(int rating, String specialization, Set<String> focuses) {
+    	return new SetBackground(TraitChangeStatus.PENDING, this.ordinal(), rating, specialization, focuses);
     }
 }

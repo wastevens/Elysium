@@ -13,7 +13,6 @@ import com.dstevens.characters.traits.attributes.SetAttributeFocusFactory;
 import com.dstevens.characters.traits.attributes.SetAttributeValueFactory;
 import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
-import com.dstevens.characters.traits.backgrounds.SetBackgroundFactory;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.distinctions.SetFlawFactory;
@@ -46,7 +45,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	private final SetAttributeValueFactory attributeValueFactory;
 	private final SetAttributeFocusFactory attributeFocusFactory;
 	private final SetSkillFactory skillFactory;
-	private final SetBackgroundFactory backgroundFactory;
 	private final SetPowerFactory setPowerFactory;
 	private final SetThaumaturgicalRitualFactory setThaumaturgicalRitualFactory;
 	private final SetNecromanticRitualFactory setNecromanticRitualFactory;
@@ -62,7 +60,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	public ProvidedTraitChangeFactory(SetAttributeValueFactory attributeValueFactory,
 	                                  SetAttributeFocusFactory attributeFocusFactory,
 	                                  SetSkillFactory skillFactory,                  
-	                                  SetBackgroundFactory backgroundFactory,        
 	                                  SetPowerFactory setPowerFactory,        
 	                                  SetThaumaturgicalRitualFactory setThaumaturgicalRitualFactory,
 	                                  SetNecromanticRitualFactory setNecromanticRitualFactory,
@@ -76,7 +73,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 		this.attributeValueFactory = attributeValueFactory;
 		this.attributeFocusFactory = attributeFocusFactory;
 		this.skillFactory = skillFactory;
-		this.backgroundFactory = backgroundFactory;
 		this.setPowerFactory = setPowerFactory;
 		this.setThaumaturgicalRitualFactory = setThaumaturgicalRitualFactory;
 		this.setNecromanticRitualFactory = setNecromanticRitualFactory;
@@ -126,7 +122,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public SetTrait background(Background background, int rating, String specialization, Set<String> focuses) {
-		return backgroundFactory.setBackgroundFor(background, rating, specialization, focuses);
+		return background.setBackgroundFor(rating, specialization, focuses);
 	}
 	
 	@Override
