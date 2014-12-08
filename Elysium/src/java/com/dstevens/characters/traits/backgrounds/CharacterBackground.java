@@ -15,7 +15,6 @@ import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterFocusedTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
-import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -29,7 +28,7 @@ import javax.persistence.Table;
 @SuppressWarnings("deprecation")
 @Entity
 @Table(name="Backgrounds")
-public class CharacterBackground implements EnumeratedTrait<Background>, ApplicableTrait, RatedTrait, CharacterSpecializedTrait, CharacterFocusedTrait, Comparable<CharacterBackground> {
+public class CharacterBackground implements ApplicableTrait, RatedTrait, CharacterSpecializedTrait, CharacterFocusedTrait, Comparable<CharacterBackground> {
     
     @Id
     private final String id;
@@ -81,14 +80,8 @@ public class CharacterBackground implements EnumeratedTrait<Background>, Applica
         this.focuses = focuses;
     }
 
-    @Override
     public final Background trait() {
         return trait;
-    }
-
-    @Override
-    public final int ordinal() {
-        return trait.ordinal();
     }
 
     @Override
