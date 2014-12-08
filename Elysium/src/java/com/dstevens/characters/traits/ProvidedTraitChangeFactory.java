@@ -20,19 +20,15 @@ import com.dstevens.characters.traits.distinctions.SetMeritFactory;
 import com.dstevens.characters.traits.powers.Discipline;
 import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Necromancy;
-import com.dstevens.characters.traits.powers.NecromanticRitual;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.SetElderPowerFactory;
 import com.dstevens.characters.traits.powers.SetInClanDisciplineFactory;
 import com.dstevens.characters.traits.powers.SetInClanNecromancyFactory;
 import com.dstevens.characters.traits.powers.SetInClanThaumaturgyFactory;
-import com.dstevens.characters.traits.powers.SetNecromanticRitualFactory;
 import com.dstevens.characters.traits.powers.SetPowerFactory;
 import com.dstevens.characters.traits.powers.SetTechniqueFactory;
-import com.dstevens.characters.traits.powers.SetThaumaturgicalRitualFactory;
 import com.dstevens.characters.traits.powers.Technique;
-import com.dstevens.characters.traits.powers.ThaumaturgicalRitual;
 import com.dstevens.characters.traits.powers.Thaumaturgy;
 import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.characters.traits.status.SetStatus;
@@ -44,8 +40,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	private final SetAttributeValueFactory attributeValueFactory;
 	private final SetAttributeFocusFactory attributeFocusFactory;
 	private final SetPowerFactory setPowerFactory;
-	private final SetThaumaturgicalRitualFactory setThaumaturgicalRitualFactory;
-	private final SetNecromanticRitualFactory setNecromanticRitualFactory;
 	private final SetMeritFactory setMeritFactory;
 	private final SetFlawFactory setFlawFactory;
 	private final SetTechniqueFactory setTechniqueFactory;
@@ -58,8 +52,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	public ProvidedTraitChangeFactory(SetAttributeValueFactory attributeValueFactory,
 	                                  SetAttributeFocusFactory attributeFocusFactory,
 	                                  SetPowerFactory setPowerFactory,        
-	                                  SetThaumaturgicalRitualFactory setThaumaturgicalRitualFactory,
-	                                  SetNecromanticRitualFactory setNecromanticRitualFactory,
 	                                  SetMeritFactory setMeritFactory,             
 	                                  SetFlawFactory setFlawFactory,               
 	                                  SetTechniqueFactory setTechniqueFactory,       
@@ -70,8 +62,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 		this.attributeValueFactory = attributeValueFactory;
 		this.attributeFocusFactory = attributeFocusFactory;
 		this.setPowerFactory = setPowerFactory;
-		this.setThaumaturgicalRitualFactory = setThaumaturgicalRitualFactory;
-		this.setNecromanticRitualFactory = setNecromanticRitualFactory;
 		this.setMeritFactory = setMeritFactory;
 		this.setFlawFactory = setFlawFactory;
 		this.setTechniqueFactory = setTechniqueFactory;
@@ -128,13 +118,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public SetTrait ritual(Ritual<?> ritual) {
-		if(ritual instanceof ThaumaturgicalRitual) {
-			return setThaumaturgicalRitualFactory.setRitual(ThaumaturgicalRitual.class.cast(ritual));
-		}
-		if(ritual instanceof NecromanticRitual) {
-			return setNecromanticRitualFactory.setRitual(NecromanticRitual.class.cast(ritual));
-		}
-		throw new IllegalStateException("Could not find a ritual for " + ritual);
+		return ritual.set(TraitChangeStatus.PENDING);
 	}
 	
 	 @Override

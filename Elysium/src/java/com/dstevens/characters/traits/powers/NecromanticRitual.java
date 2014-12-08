@@ -2,6 +2,8 @@ package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
 public enum NecromanticRitual implements Ritual<NecromanticRitual>, ApplicableTrait {
 
@@ -49,6 +51,11 @@ public enum NecromanticRitual implements Ritual<NecromanticRitual>, ApplicableTr
     @Override
     public PlayerCharacter removeFrom(PlayerCharacter character) {
     	return character.withoutNecromanticRitual(this);
+    }
+    
+    @Override
+    public SetTrait set(TraitChangeStatus status) {
+    	return new SetNecromanticRitual(status, this.ordinal());
     }
     
 }

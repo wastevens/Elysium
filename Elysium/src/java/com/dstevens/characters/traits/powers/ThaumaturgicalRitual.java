@@ -2,6 +2,8 @@ package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
 public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, ApplicableTrait {
 
@@ -58,5 +60,10 @@ public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, Applic
     @Override
     public PlayerCharacter removeFrom(PlayerCharacter character) {
     	return character.withoutThaumaturgicalRitual(this);
+    }
+    
+    @Override
+    public SetTrait set(TraitChangeStatus status) {
+    	return new SetThaumaturgicalRitual(status, this.ordinal());
     }
 }
