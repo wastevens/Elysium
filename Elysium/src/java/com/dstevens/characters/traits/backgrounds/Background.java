@@ -3,9 +3,11 @@ package com.dstevens.characters.traits.backgrounds;
 import java.util.Set;
 
 import com.dstevens.characters.traits.DetailLevel;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SetTraitFactory;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-public enum Background {
+public enum Background implements SetTraitFactory {
 
     ALLIES(DetailLevel.REQUIRES_FOCUS),
     ALTERNATE_IDENTITY(DetailLevel.REQUIRES_SPECIALIZATION),
@@ -33,7 +35,7 @@ public enum Background {
     	return detailLevel;
     }
     
-    public SetBackground setBackgroundFor(int rating, String specialization, Set<String> focuses) {
-    	return new SetBackground(TraitChangeStatus.PENDING, this.ordinal(), rating, specialization, focuses);
+    public SetTrait set(TraitChangeStatus status, int rating, String specialization, Set<String> focuses) {
+    	return new SetBackground(status, this.ordinal(), rating, specialization, focuses);
     }
 }

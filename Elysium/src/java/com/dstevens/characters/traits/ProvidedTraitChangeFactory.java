@@ -34,7 +34,6 @@ import com.dstevens.characters.traits.powers.SetThaumaturgicalRitualFactory;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.powers.ThaumaturgicalRitual;
 import com.dstevens.characters.traits.powers.Thaumaturgy;
-import com.dstevens.characters.traits.skills.SetSkillFactory;
 import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.characters.traits.status.SetStatus;
 import com.dstevens.characters.traits.status.Status;
@@ -44,7 +43,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	private final SetAttributeValueFactory attributeValueFactory;
 	private final SetAttributeFocusFactory attributeFocusFactory;
-	private final SetSkillFactory skillFactory;
 	private final SetPowerFactory setPowerFactory;
 	private final SetThaumaturgicalRitualFactory setThaumaturgicalRitualFactory;
 	private final SetNecromanticRitualFactory setNecromanticRitualFactory;
@@ -59,7 +57,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	@Autowired
 	public ProvidedTraitChangeFactory(SetAttributeValueFactory attributeValueFactory,
 	                                  SetAttributeFocusFactory attributeFocusFactory,
-	                                  SetSkillFactory skillFactory,                  
 	                                  SetPowerFactory setPowerFactory,        
 	                                  SetThaumaturgicalRitualFactory setThaumaturgicalRitualFactory,
 	                                  SetNecromanticRitualFactory setNecromanticRitualFactory,
@@ -72,7 +69,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	                                  SetInClanNecromancyFactory setInClanNecromancyFactory) {
 		this.attributeValueFactory = attributeValueFactory;
 		this.attributeFocusFactory = attributeFocusFactory;
-		this.skillFactory = skillFactory;
 		this.setPowerFactory = setPowerFactory;
 		this.setThaumaturgicalRitualFactory = setThaumaturgicalRitualFactory;
 		this.setNecromanticRitualFactory = setNecromanticRitualFactory;
@@ -117,12 +113,12 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
 	@Override
 	public SetTrait skill(Skill skill, int rating, String specialization, Set<String> focuses) {
-		return skillFactory.setSkillFor(skill, rating, specialization, focuses);
+		return skill.set(TraitChangeStatus.PENDING, rating, specialization, focuses);
 	}
 
 	@Override
 	public SetTrait background(Background background, int rating, String specialization, Set<String> focuses) {
-		return background.setBackgroundFor(rating, specialization, focuses);
+		return background.set(TraitChangeStatus.PENDING, rating, specialization, focuses);
 	}
 	
 	@Override

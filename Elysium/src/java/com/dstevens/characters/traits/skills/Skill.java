@@ -1,8 +1,13 @@
 package com.dstevens.characters.traits.skills;
 
-import com.dstevens.characters.traits.DetailLevel;
+import java.util.Set;
 
-public enum Skill {
+import com.dstevens.characters.traits.DetailLevel;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SetTraitFactory;
+import com.dstevens.characters.traits.TraitChangeStatus;
+
+public enum Skill implements SetTraitFactory {
     
     ACADEMICS(DetailLevel.REQUIRES_FOCUS),
     ANIMAL_KEN,
@@ -43,6 +48,10 @@ public enum Skill {
     
     public DetailLevel detailLevel() {
     	return detailLevel;
+    }
+    
+    public SetTrait set(TraitChangeStatus status, int rating, String specialization, Set<String> focuses) {
+    	return new SetSkill(status, this.ordinal(), rating, specialization, focuses);
     }
     
 }
