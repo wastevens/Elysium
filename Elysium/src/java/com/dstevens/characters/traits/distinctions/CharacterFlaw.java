@@ -10,7 +10,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
-import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -22,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Flaws")
-public class CharacterFlaw implements EnumeratedTrait<Flaw>, ApplicableTrait, CharacterSpecializedTrait, Comparable<CharacterFlaw> {
+public class CharacterFlaw implements ApplicableTrait, CharacterSpecializedTrait, Comparable<CharacterFlaw> {
 
 	@Id
     private final String id;
@@ -51,20 +50,10 @@ public class CharacterFlaw implements EnumeratedTrait<Flaw>, ApplicableTrait, Ch
 	}
 	
 	@Override
-	public int ordinal() {
-		return trait.ordinal();
-	}
-
-	@Override
 	public String getSpecialization() {
 		return specialization;
 	}
 	
-	@Override
-	public Flaw trait() {
-		return trait;
-	}
-
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {
 		return character.withFlaw(this);
@@ -96,8 +85,8 @@ public class CharacterFlaw implements EnumeratedTrait<Flaw>, ApplicableTrait, Ch
     }
     
     private Comparator<? super CharacterFlaw> characterDistinctionComparator() {
-        return Comparator.comparing((CharacterFlaw t) -> t.ordinal()).
- thenComparing(Comparator.comparing((CharacterFlaw t) -> t.getSpecialization()));
+        return Comparator.comparing((CharacterFlaw t) -> t.trait).
+ thenComparing(Comparator.comparing((CharacterFlaw t) -> t.specialization));
     }
 
 	public Predicate<CharacterFlaw> matches() {

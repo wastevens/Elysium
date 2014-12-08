@@ -8,7 +8,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -21,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ThaumaturgicalPaths")
-public class CharacterThaumaturgy implements RatedTrait, ApplicableTrait, EnumeratedTrait<Thaumaturgy>, Comparable<CharacterThaumaturgy> {
+public class CharacterThaumaturgy implements RatedTrait, ApplicableTrait, Comparable<CharacterThaumaturgy> {
 
 	@Id
     private final String id;
@@ -46,22 +45,8 @@ public class CharacterThaumaturgy implements RatedTrait, ApplicableTrait, Enumer
     }
     
     @Override
-    public Thaumaturgy trait() {
-        return trait;
-    }
-    
-    @Override
-    public final int ordinal() {
-        return trait.ordinal();
-    }
-    
-    @Override
     public final int rating() {
         return rating;
-    }
-    
-    public final CharacterThaumaturgy withRating(int rating) {
-        return new CharacterThaumaturgy(trait, rating);
     }
     
     @Override

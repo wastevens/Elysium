@@ -9,7 +9,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
-import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -21,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Status")
-public class CharacterStatus implements EnumeratedTrait<Status>, ApplicableTrait, CharacterSpecializedTrait, Comparable<CharacterStatus> {
+public class CharacterStatus implements ApplicableTrait, CharacterSpecializedTrait, Comparable<CharacterStatus> {
 
 	@Id
     private final String id;
@@ -83,15 +82,4 @@ public class CharacterStatus implements EnumeratedTrait<Status>, ApplicableTrait
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutStatus(this);
 	}
-
-	@Override
-	public int ordinal() {
-		return trait.ordinal();
-	}
-
-	@Override
-	public Status trait() {
-		return trait;
-	}
-
 }

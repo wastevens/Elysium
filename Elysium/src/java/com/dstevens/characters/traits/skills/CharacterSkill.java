@@ -15,7 +15,6 @@ import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterFocusedTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
-import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -29,7 +28,7 @@ import javax.persistence.Table;
 @SuppressWarnings("deprecation")
 @Entity
 @Table(name="Skills")
-public class CharacterSkill implements EnumeratedTrait<Skill>, ApplicableTrait, RatedTrait, CharacterSpecializedTrait, CharacterFocusedTrait, Comparable<CharacterSkill> {
+public class CharacterSkill implements ApplicableTrait, RatedTrait, CharacterSpecializedTrait, CharacterFocusedTrait, Comparable<CharacterSkill> {
     
     @Id
     private final String id;
@@ -62,15 +61,10 @@ public class CharacterSkill implements EnumeratedTrait<Skill>, ApplicableTrait, 
         this.focuses = focuses;
     }
 
-    @Override
     public final Skill trait() {
         return trait;
     }
     
-    public final int ordinal() {
-        return trait.ordinal();
-    }
-
     public final String getSpecialization() {
         return specialization;
     }

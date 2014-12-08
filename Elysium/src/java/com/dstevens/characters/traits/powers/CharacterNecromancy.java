@@ -8,7 +8,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -21,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="NecromanticPaths")
-public class CharacterNecromancy implements EnumeratedTrait<Necromancy>, ApplicableTrait, RatedTrait, Comparable<CharacterNecromancy> {
+public class CharacterNecromancy implements ApplicableTrait, RatedTrait, Comparable<CharacterNecromancy> {
 
 	@Id
     private final String id;
@@ -43,16 +42,6 @@ public class CharacterNecromancy implements EnumeratedTrait<Necromancy>, Applica
     	this.id = new IdSupplier().get();
         this.trait = trait;
         this.rating = rating;
-    }
-    
-    @Override
-    public Necromancy trait() {
-        return trait;
-    }
-    
-    @Override
-    public final int ordinal() {
-        return trait.ordinal();
     }
     
     @Override

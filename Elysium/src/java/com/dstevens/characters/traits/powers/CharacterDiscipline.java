@@ -8,7 +8,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
@@ -21,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Disciplines")
-public class CharacterDiscipline implements EnumeratedTrait<Discipline>, ApplicableTrait, RatedTrait, Comparable<CharacterDiscipline> {
+public class CharacterDiscipline implements ApplicableTrait, RatedTrait, Comparable<CharacterDiscipline> {
 
 	@Id
     private final String id;
@@ -43,16 +42,6 @@ public class CharacterDiscipline implements EnumeratedTrait<Discipline>, Applica
     	this.id = new IdSupplier().get();
         this.trait = power;
         this.rating = rating;
-    }
-    
-    @Override
-    public Discipline trait() {
-        return trait;
-    }
-    
-    @Override
-    public final int ordinal() {
-        return trait.ordinal();
     }
     
     @Override

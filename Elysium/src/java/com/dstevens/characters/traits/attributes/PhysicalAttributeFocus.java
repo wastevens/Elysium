@@ -2,18 +2,12 @@ package com.dstevens.characters.traits.attributes;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.EnumeratedTrait;
 
-public enum PhysicalAttributeFocus implements EnumeratedTrait<PhysicalAttributeFocus>, ApplicableTrait {
+public enum PhysicalAttributeFocus implements ApplicableTrait {
 
     STRENGTH,
     DEXTERITY,
     STAMINA;
-
-	@Override
-	public PhysicalAttributeFocus trait() {
-		return this;
-	}
 
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {

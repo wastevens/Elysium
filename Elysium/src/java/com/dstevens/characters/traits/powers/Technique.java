@@ -8,9 +8,8 @@ import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.EnumeratedTrait;
 
-public enum Technique implements EnumeratedTrait<Technique>, ApplicableTrait {
+public enum Technique implements ApplicableTrait {
 
     AN_DA_SHEALLADH(required(Discipline.DEMENTATION, 3), required(Discipline.AUSPEX, 2)),
     ANIMAL_SUCCULENCE(required(Discipline.ANIMALISM, 2), required(Discipline.FORTITUDE, 1)),
@@ -60,11 +59,6 @@ public enum Technique implements EnumeratedTrait<Technique>, ApplicableTrait {
     public Set<TechniqueRequirement> requirements() {
         return requirements;
     }
-
-	@Override
-	public Technique trait() {
-		return this;
-	}
 
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {

@@ -10,7 +10,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
-import com.dstevens.characters.traits.EnumeratedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -22,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Merits")
-public class CharacterMerit implements EnumeratedTrait<Merit>, ApplicableTrait, CharacterSpecializedTrait, Comparable<CharacterMerit> {
+public class CharacterMerit implements ApplicableTrait, CharacterSpecializedTrait, Comparable<CharacterMerit> {
 
 	@Id
     private final String id;
@@ -51,20 +50,10 @@ public class CharacterMerit implements EnumeratedTrait<Merit>, ApplicableTrait, 
 	}
 	
 	@Override
-	public int ordinal() {
-		return trait.ordinal();
-	}
-
-	@Override
 	public String getSpecialization() {
 		return specialization;
 	}
 	
-	@Override
-	public Merit trait() {
-		return trait;
-	}
-
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {
 		return character.withMerit(this);
@@ -96,8 +85,8 @@ public class CharacterMerit implements EnumeratedTrait<Merit>, ApplicableTrait, 
     }
     
     private Comparator<? super CharacterMerit> characterDistinctionComparator() {
-        return Comparator.comparing((CharacterMerit t) -> t.ordinal()).
- thenComparing(Comparator.comparing((CharacterMerit t) -> t.getSpecialization()));
+        return Comparator.comparing((CharacterMerit t) -> t.trait).
+ thenComparing(Comparator.comparing((CharacterMerit t) -> t.specialization));
     }
 
 	public Predicate<CharacterMerit> matches() {
