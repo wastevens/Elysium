@@ -14,7 +14,6 @@ import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.skills.Skill;
-import com.dstevens.characters.traits.status.SetStatus;
 import com.dstevens.characters.traits.status.Status;
 
 @Service
@@ -77,6 +76,6 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
 	@Override
 	public SetTrait status(Status trait, String specialization) {
-		return new SetStatus(TraitChangeStatus.PENDING, trait.ordinal(), specialization);
+		return trait.set(TraitChangeStatus.PENDING, specialization);
 	}
 }
