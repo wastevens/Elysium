@@ -131,7 +131,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private final Set<Technique> techniques;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"thaumaturgicalPaths_id"}, name="PlayerCharacter_ThaumaturgicalPaths_UC")})
+    @JoinColumn(name="character_id", referencedColumnName="id")
     @ForeignKey(name="PlayerCharacter_ThaumaturgicalPaths_FK", inverseName="ThaumaturgicalPaths_PlayerCharacter_FK")
     private final Set<CharacterThaumaturgy> thaumaturgicalPaths;
     
@@ -143,7 +143,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private final Set<ThaumaturgicalRitual> thaumaturgicalRituals;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"necromanticPaths_id"}, name="PlayerCharacter_NecromanticPaths_UC")})
+    @JoinColumn(name="character_id", referencedColumnName="id")
     @ForeignKey(name="PlayerCharacter_NecromanticPaths_FK", inverseName="NecromanticPaths_PlayerCharacter_FK")
     private final Set<CharacterNecromancy> necromanticPaths;
     
@@ -160,21 +160,20 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     private final Set<CharacterMerit> merits;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="PlayerCharacter_Flaws", uniqueConstraints={@UniqueConstraint(columnNames={"flaws_id"}, name="PlayerCharacter_Flaws_UC")})
+    @JoinColumn(name="character_id", referencedColumnName="id")
     @ForeignKey(name="PlayerCharacter_Flaws_FK", inverseName="Flaws_PlayerCharacter_FK")
     private final Set<CharacterFlaw> flaws;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="PlayerCharacter_Status", uniqueConstraints={@UniqueConstraint(columnNames={"status_id"}, name="PlayerCharacter_Status_UC")})
+    @JoinColumn(name="character_id", referencedColumnName="id")
     @ForeignKey(name="PlayerCharacter_Status_FK", inverseName="Status_PlayerCharacter_FK")
     private final Set<CharacterStatus> status;
     
     @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="order_by")
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChangeEvents_id"}, name="PlayerCharacter_TraitChanges_UC")})
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChanges_id"}, name="PlayerCharacter_TraitChanges_UC")})
     @ForeignKey(name="PlayerCharacter_TraitChanges_FK", inverseName="TraitChanges_PlayerCharacter_FK")
-    private final List<TraitChange> traitChangeEvents;
-
+    private final List<TraitChange> traitChanges;
     
     //Hibernate only
     @Deprecated
@@ -203,7 +202,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                             Set<Technique> techniques, Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, 
                             Set<ThaumaturgicalRitual> thaumaturgicalRituals, Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath,
                             Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
-                            List<TraitChange> traitChangeEvents, Date deleteTimestamp) {
+                            List<TraitChange> traitChanges, Date deleteTimestamp) {
         this.id = id;
         this.xp = xp;
         this.name = name;
@@ -232,7 +231,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         this.merits = merits;
         this.flaws = flaws;
 		this.status = status;
-        this.traitChangeEvents = traitChangeEvents;
+        this.traitChanges = traitChanges;
         this.deleteTimestamp = deleteTimestamp;
     }
     
@@ -249,7 +248,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
-                                   traitChangeEvents, deleteTimestamp);
+                                   traitChanges, deleteTimestamp);
     }
     
     public String getName() {
@@ -265,7 +264,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                 necromanticRituals, merits, flaws, status,
-                traitChangeEvents, deleteTimestamp);
+                traitChanges, deleteTimestamp);
     }
     
     public Clan getClan() {
@@ -281,7 +280,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                 necromanticRituals, merits, flaws, status,
-                traitChangeEvents, deleteTimestamp);
+                traitChanges, deleteTimestamp);
     }
     
     public Bloodline getBloodline() {
@@ -577,7 +576,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
-                                   traitChangeEvents, timestamp);
+                                   traitChanges, timestamp);
     }
 
     @Override
@@ -590,7 +589,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
-                                   traitChangeEvents, null);
+                                   traitChanges, null);
     }
     
     public boolean isDeleted() {
@@ -634,12 +633,12 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public List<TraitChange> getTraitChangeEvents() {
-        return traitChangeEvents;
+    public List<TraitChange> getTraitChanges() {
+        return traitChanges;
     }
     
     public PlayerCharacter withTraitChangeEvent(TraitChange event) {
-        this.traitChangeEvents.add(event);
+        this.traitChanges.add(event);
         return this;
     }
     
@@ -649,7 +648,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     }
     
     public PlayerCharacter approvePendingChanges() {
-        this.traitChangeEvents.forEach((TraitChange t) -> t.approve(this));
+        this.traitChanges.forEach((TraitChange t) -> t.approve(this));
         return this;
     }
 

@@ -19,6 +19,7 @@ import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -43,6 +44,7 @@ public class CharacterSkill implements ApplicableTrait, RatedTrait, CharacterSpe
     private int rating;
     
 	@ElementCollection
+	@CollectionTable(name="Skills_Focuses")
     @ForeignKey(name= "CharacterSkill_focuses_FK")
     private Set<String> focuses;
 

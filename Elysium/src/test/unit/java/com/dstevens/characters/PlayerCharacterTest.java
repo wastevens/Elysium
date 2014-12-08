@@ -226,6 +226,6 @@ public class PlayerCharacterTest {
     	TraitChange someTraitChangeEvent2 = mock(TraitChange.class);
 		PlayerCharacter character = new PlayerCharacter(ID, NAME).withTraitChangeEvent(someTraitChangeEvent1).withTraitChangeEvent(someTraitChangeEvent2);
 		
-		assertEquals(character.getTraitChangeEvents(), list(someTraitChangeEvent1, someTraitChangeEvent2));
+		assertEquals(character.getTraitChanges(), list(someTraitChangeEvent1, someTraitChangeEvent2));
     }
 }

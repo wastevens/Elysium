@@ -19,6 +19,7 @@ import com.dstevens.characters.traits.RatedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -43,6 +44,7 @@ public class CharacterBackground implements ApplicableTrait, RatedTrait, Charact
     private int rating;
     
 	@ElementCollection
+	@CollectionTable(name="Backgrounds_Focuses")
     @ForeignKey(name="CharacterBackground_focuses_FK")
     private Set<String> focuses;
 
