@@ -1,10 +1,9 @@
 package com.dstevens.characters.traits.attributes;
 
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SetTraitFactory;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-public enum Attribute implements SetTraitFactory {
+public enum Attribute {
 
 	PHYSICAL {
 		@Override
@@ -25,7 +24,6 @@ public enum Attribute implements SetTraitFactory {
 		}
 	};
 
-	@Override
 	public SetTrait set(TraitChangeStatus status, int rating) {
 		return new SetAttributeValue(status, this.ordinal(), rating);
 	}

@@ -7,11 +7,10 @@ import java.util.Set;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SetTraitFactory;
 import com.dstevens.characters.traits.TraitChangeStatus;
 import com.dstevens.collections.Sets;
 
-public enum Technique implements ApplicableTrait, SetTraitFactory {
+public enum Technique implements ApplicableTrait {
 
     AN_DA_SHEALLADH(required(Discipline.DEMENTATION, 3), required(Discipline.AUSPEX, 2)),
     ANIMAL_SUCCULENCE(required(Discipline.ANIMALISM, 2), required(Discipline.FORTITUDE, 1)),
@@ -72,7 +71,6 @@ public enum Technique implements ApplicableTrait, SetTraitFactory {
 		return character.withoutTechnique(this);
 	}
 	
-	@Override
 	public SetTrait set(TraitChangeStatus status) {
 		return new SetTechnique(status, this.ordinal());
 	}

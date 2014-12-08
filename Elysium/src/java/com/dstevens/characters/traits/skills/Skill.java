@@ -4,10 +4,9 @@ import java.util.Set;
 
 import com.dstevens.characters.traits.DetailLevel;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SetTraitFactory;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-public enum Skill implements SetTraitFactory {
+public enum Skill {
     
     ACADEMICS(DetailLevel.REQUIRES_FOCUS),
     ANIMAL_KEN,
@@ -53,5 +52,4 @@ public enum Skill implements SetTraitFactory {
     public SetTrait set(TraitChangeStatus status, int rating, String specialization, Set<String> focuses) {
     	return new SetSkill(status, this.ordinal(), rating, specialization, focuses);
     }
-    
 }

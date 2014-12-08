@@ -8,12 +8,11 @@ import java.util.stream.Stream;
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SetTraitFactory;
 import com.dstevens.characters.traits.TraitChangeStatus;
 import com.dstevens.characters.traits.distinctions.DistinctionType;
 import com.dstevens.players.Setting;
 
-public enum Merit implements SetTraitFactory {
+public enum Merit {
 	//General merits
 	ACUTE_SENSE(DistinctionType.GENERAL, 1),
     ADDITIONAL_COMMON_DISCIPLINE(DistinctionType.GENERAL, 4),
@@ -296,7 +295,6 @@ public enum Merit implements SetTraitFactory {
     			             collect(Collectors.toList());
     }
     
-    @Override
     public SetTrait set(TraitChangeStatus status, String specialization) {
     	return new SetMerit(status, this.ordinal(), specialization);
     }

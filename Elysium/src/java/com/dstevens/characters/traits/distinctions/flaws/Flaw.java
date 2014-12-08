@@ -6,12 +6,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SetTraitFactory;
 import com.dstevens.characters.traits.TraitChangeStatus;
 import com.dstevens.characters.traits.distinctions.DistinctionType;
 import com.dstevens.players.Setting;
 
-public enum Flaw implements SetTraitFactory {
+public enum Flaw {
 
 	ADDICTION(DistinctionType.GENERAL, 2),
     AMNESIA(DistinctionType.GENERAL, 1),
@@ -148,7 +147,6 @@ public enum Flaw implements SetTraitFactory {
     			             collect(Collectors.toList());
     }
     
-    @Override
     public SetTrait set(TraitChangeStatus status, String specialization) {
     	return new SetFlaw(status, this.ordinal(), specialization);
     }

@@ -1,10 +1,9 @@
 package com.dstevens.characters.traits.status;
 
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SetTraitFactory;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-public enum Status implements SetTraitFactory {
+public enum Status {
 
 	AWESOME,
 	NOT_AWESOME;

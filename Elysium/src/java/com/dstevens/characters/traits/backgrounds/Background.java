@@ -4,10 +4,9 @@ import java.util.Set;
 
 import com.dstevens.characters.traits.DetailLevel;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.SetTraitFactory;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-public enum Background implements SetTraitFactory {
+public enum Background {
 
     ALLIES(DetailLevel.REQUIRES_FOCUS),
     ALTERNATE_IDENTITY(DetailLevel.REQUIRES_SPECIALIZATION),
