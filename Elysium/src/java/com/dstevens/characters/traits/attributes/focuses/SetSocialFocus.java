@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.attributes;
+package com.dstevens.characters.traits.attributes.focuses;
 
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;

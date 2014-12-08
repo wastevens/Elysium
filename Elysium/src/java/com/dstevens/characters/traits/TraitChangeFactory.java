@@ -3,7 +3,7 @@ package com.dstevens.characters.traits;
 import java.util.Set;
 
 import com.dstevens.characters.traits.attributes.Attribute;
-import com.dstevens.characters.traits.attributes.AttributeFocus;
+import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
