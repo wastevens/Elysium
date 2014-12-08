@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Physical")
-public class PhysicalAttributeValue extends AttributeValue {
+class PhysicalAttributeValue extends AttributeValue {
 
 	//Hibernate only
     @SuppressWarnings("unused")

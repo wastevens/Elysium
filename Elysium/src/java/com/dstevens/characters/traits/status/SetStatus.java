@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Status")
-public class SetStatus extends ApplicableTraitChange<CharacterStatus> {
+class SetStatus extends ApplicableTraitChange<CharacterStatus> {
 
 	//Hibernate only
     @Deprecated

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Mental")
-public class MentalAttributeValue extends AttributeValue {
+class MentalAttributeValue extends AttributeValue {
 
 	//Hibernate only
     @SuppressWarnings("unused")
