@@ -1,7 +1,8 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.traits.changes;
 
 import java.util.Set;
 
+import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;

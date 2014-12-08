@@ -1,6 +1,7 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.traits.changes;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.SetTrait;
 
 public enum TraitChangeStatus {
 

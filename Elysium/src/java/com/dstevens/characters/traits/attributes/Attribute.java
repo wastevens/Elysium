@@ -1,7 +1,7 @@
 package com.dstevens.characters.traits.attributes;
 
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.TraitChangeStatus;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 public enum Attribute {
 

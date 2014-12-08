@@ -2,7 +2,7 @@ package com.dstevens.characters.traits.powers.magic.necromancy;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.TraitChangeStatus;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.powers.Power;
 
 public enum Necromancy implements Power<Necromancy> {

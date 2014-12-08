@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.dstevens.characters.traits.DetailLevel;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.TraitChangeStatus;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 public enum Skill {
     

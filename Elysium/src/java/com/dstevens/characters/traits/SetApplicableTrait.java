@@ -5,6 +5,7 @@ import static com.dstevens.collections.Sets.set;
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 public abstract class SetApplicableTrait<T extends ApplicableTrait> extends SetTrait {
 

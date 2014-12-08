@@ -3,7 +3,7 @@ package com.dstevens.characters.traits.powers.magic.thaumaturgy;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.TraitChangeStatus;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.powers.magic.Ritual;
 
 public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, ApplicableTrait {

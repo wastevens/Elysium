@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.TraitChangeStatus;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.distinctions.DistinctionType;
 import com.dstevens.players.Setting;
 

@@ -3,7 +3,7 @@ package com.dstevens.characters.traits.attributes.focuses;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.TraitChangeStatus;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 public enum SocialAttributeFocus implements ApplicableTrait, AttributeFocus {
 

@@ -7,6 +7,7 @@ import java.util.Set;
 import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 

@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.traits.changes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -7,7 +7,7 @@ import java.util.Set;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.SetTrait;
-import com.dstevens.characters.traits.TraitChangeStatus;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.collections.Sets;
 
 public enum Technique implements ApplicableTrait {
