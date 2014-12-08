@@ -1,6 +1,7 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.traits.experience;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.suppliers.IdSupplier;
 
 import javax.persistence.Column;

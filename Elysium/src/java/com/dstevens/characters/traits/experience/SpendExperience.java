@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.traits.experience;
 
 import com.dstevens.characters.PlayerCharacter;
 
@@ -6,27 +6,27 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("Gain")
-class GainExperience extends Experience {
+@DiscriminatorValue("Spend")
+class SpendExperience extends Experience {
 
 	//Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
-    private GainExperience() {
+    private SpendExperience() {
         this(0);
     }
 	
-	public GainExperience(int xp) {
+	public SpendExperience(int xp) {
 		super(xp);
 	}
 	
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {
-		return character.setXp(character.getXp() + xp());
+		return character.setXp(character.getXp() - xp());
 	}
 
 	@Override
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
-		return character.setXp(character.getXp() - xp());
+		return character.setXp(character.getXp() + xp());
 	}
 }

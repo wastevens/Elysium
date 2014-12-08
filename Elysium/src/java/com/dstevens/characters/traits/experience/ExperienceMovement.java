@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.traits.experience;
 
 public enum ExperienceMovement {
 

@@ -1,11 +1,14 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.traits.experience;
+
+import com.dstevens.characters.traits.SetApplicableTrait;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("ChangeExperience")
-class ChangeExperience extends SetApplicableTrait<Experience> {
+public class ChangeExperience extends SetApplicableTrait<Experience> {
 
 	//Hibernate only
     @Deprecated
