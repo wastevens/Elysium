@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.SetTraitFactory;
+import com.dstevens.characters.traits.TraitChangeStatus;
 import com.dstevens.players.Setting;
 
-public enum Flaw {
+public enum Flaw implements SetTraitFactory {
 
 	ADDICTION(DistinctionType.GENERAL, 2),
     AMNESIA(DistinctionType.GENERAL, 1),
@@ -142,6 +145,11 @@ public enum Flaw {
     	return meritStream().filter((Merit m) -> m.getType() == meritType).
     			             filter((Merit m) -> m.getSetting() == setting).
     			             collect(Collectors.toList());
+    }
+    
+    @Override
+    public SetTrait set(TraitChangeStatus status, String specialization) {
+    	return new SetFlaw(status, this.ordinal(), specialization);
     }
 	
 }
