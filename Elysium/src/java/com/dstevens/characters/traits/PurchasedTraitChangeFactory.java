@@ -40,7 +40,6 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 	public SetTrait skill(Skill skill, int rating, String specialization, Set<String> focuses) {
     	return costForSkill(rating).and(traitChangeFactory.skill(skill, rating, specialization, focuses));
     }
-    
 	
 	private ChangeExperience costForSkill(int rating) {
 		if(character.getGeneration().orElse(1) == 1) {
