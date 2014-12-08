@@ -42,6 +42,11 @@ public enum Discipline implements Power<Discipline> {
 	}
 	
 	@Override
+	public SetTrait set(TraitChangeStatus status) {
+		return new SetInClanDiscipline(status, this.ordinal());
+	}
+	
+	@Override
 	public SetTrait set(TraitChangeStatus status, int rating) {
 		return new SetDiscipline(status, this.ordinal(), rating);
 	}

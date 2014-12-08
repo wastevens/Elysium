@@ -22,6 +22,11 @@ public enum Necromancy implements Power<Necromancy> {
 	}
 	
 	@Override
+	public SetTrait set(TraitChangeStatus status) {
+		return new SetInClanNecromancy(status, this.ordinal());
+	}
+	
+	@Override
 	public SetTrait set(TraitChangeStatus status, int rating) {
 		return new SetNecromancy(status, this.ordinal(), rating);
 	}

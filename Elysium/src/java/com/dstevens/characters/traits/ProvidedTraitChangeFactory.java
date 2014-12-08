@@ -15,16 +15,10 @@ import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
-import com.dstevens.characters.traits.powers.Discipline;
 import com.dstevens.characters.traits.powers.ElderPower;
-import com.dstevens.characters.traits.powers.Necromancy;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
-import com.dstevens.characters.traits.powers.SetInClanDisciplineFactory;
-import com.dstevens.characters.traits.powers.SetInClanNecromancyFactory;
-import com.dstevens.characters.traits.powers.SetInClanThaumaturgyFactory;
 import com.dstevens.characters.traits.powers.Technique;
-import com.dstevens.characters.traits.powers.Thaumaturgy;
 import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.characters.traits.status.SetStatus;
 import com.dstevens.characters.traits.status.Status;
@@ -34,21 +28,12 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	private final SetAttributeValueFactory attributeValueFactory;
 	private final SetAttributeFocusFactory attributeFocusFactory;
-	private final SetInClanDisciplineFactory setInClanDisciplineFactory;
-	private final SetInClanThaumaturgyFactory setInClanThaumaturgyFactory;
-	private final SetInClanNecromancyFactory setInClanNecromancyFactory;
 	
 	@Autowired
 	public ProvidedTraitChangeFactory(SetAttributeValueFactory attributeValueFactory,
-	                                  SetAttributeFocusFactory attributeFocusFactory,
-	                                  SetInClanDisciplineFactory setInClanDisciplineFactory,
-	                                  SetInClanThaumaturgyFactory setInClanThaumaturgyFactory,
-	                                  SetInClanNecromancyFactory setInClanNecromancyFactory) {
+	                                  SetAttributeFocusFactory attributeFocusFactory) {
 		this.attributeValueFactory = attributeValueFactory;
 		this.attributeFocusFactory = attributeFocusFactory;
-		this.setInClanDisciplineFactory = setInClanDisciplineFactory;
-		this.setInClanThaumaturgyFactory =setInClanThaumaturgyFactory;
-		this.setInClanNecromancyFactory = setInClanNecromancyFactory;
 	}
 	
 	@Override
@@ -123,16 +108,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public SetTrait inClanPower(Power<?> power) {
-		if(power instanceof Discipline) {
-			return setInClanDisciplineFactory.power(Discipline.class.cast(power));
-		}
-		if(power instanceof Thaumaturgy) {
-			return setInClanThaumaturgyFactory.power(Thaumaturgy.class.cast(power));
-		}
-		if(power instanceof Necromancy) {
-			return setInClanNecromancyFactory.power(Necromancy.class.cast(power));
-		}
-		throw new IllegalStateException("Could not find a power for " + power);
+		return power.set(TraitChangeStatus.PENDING);
 	}
 	
 	@Override
