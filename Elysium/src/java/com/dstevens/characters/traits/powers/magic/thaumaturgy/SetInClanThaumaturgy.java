@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.powers.magic.thaumaturgy;
 
-import com.dstevens.characters.traits.SetApplicableTrait;
+import com.dstevens.characters.traits.ApplicableTraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("InClanThaumaturgy")
-class SetInClanThaumaturgy extends SetApplicableTrait<Thaumaturgy> {
+class SetInClanThaumaturgy extends ApplicableTraitChange<Thaumaturgy> {
 
 	//Hibernate only
     @Deprecated

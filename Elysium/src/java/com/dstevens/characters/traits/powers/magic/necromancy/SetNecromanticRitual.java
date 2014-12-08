@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.powers.magic.necromancy;
 
-import com.dstevens.characters.traits.SetApplicableTrait;
+import com.dstevens.characters.traits.ApplicableTraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("NecromanticRitual")
-class SetNecromanticRitual extends SetApplicableTrait<NecromanticRitual> {
+class SetNecromanticRitual extends ApplicableTraitChange<NecromanticRitual> {
 
 	//Hibernate only
     @Deprecated

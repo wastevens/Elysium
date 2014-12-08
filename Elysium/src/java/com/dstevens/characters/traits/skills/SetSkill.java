@@ -2,7 +2,7 @@ package com.dstevens.characters.traits.skills;
 
 import java.util.Set;
 
-import com.dstevens.characters.traits.SetApplicableTrait;
+import com.dstevens.characters.traits.ApplicableTraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Skill")
-class SetSkill extends SetApplicableTrait<CharacterSkill> {
+class SetSkill extends ApplicableTraitChange<CharacterSkill> {
 
 	//Hibernate only
     @SuppressWarnings("unused")

@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.powers.disciplines;
 
-import com.dstevens.characters.traits.SetApplicableTrait;
+import com.dstevens.characters.traits.ApplicableTraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("InClanDiscipline")
-class SetInClanDiscipline extends SetApplicableTrait<Discipline> {
+class SetInClanDiscipline extends ApplicableTraitChange<Discipline> {
 
 	//Hibernate only
     @Deprecated

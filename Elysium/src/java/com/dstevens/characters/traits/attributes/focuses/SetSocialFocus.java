@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.attributes.focuses;
 
-import com.dstevens.characters.traits.SetApplicableTrait;
+import com.dstevens.characters.traits.ApplicableTraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("SocialFocus")
-class SetSocialFocus extends SetApplicableTrait<SocialAttributeFocus> {
+class SetSocialFocus extends ApplicableTraitChange<SocialAttributeFocus> {
 
     //Hibernate only
     @Deprecated

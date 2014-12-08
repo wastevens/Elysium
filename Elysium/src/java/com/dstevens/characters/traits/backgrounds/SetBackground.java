@@ -4,7 +4,7 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
-import com.dstevens.characters.traits.SetApplicableTrait;
+import com.dstevens.characters.traits.ApplicableTraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Background")
-class SetBackground extends SetApplicableTrait<CharacterBackground> {
+class SetBackground extends ApplicableTraitChange<CharacterBackground> {
 
 	//Hibernate only
     @Deprecated
