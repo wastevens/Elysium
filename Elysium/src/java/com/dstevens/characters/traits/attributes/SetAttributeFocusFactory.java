@@ -8,15 +8,15 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 public class SetAttributeFocusFactory {
 
 	public SetPhysicalFocus setFocus(PhysicalAttributeFocus trait) {
-		return new SetPhysicalFocus(TraitChangeStatus.PENDING, trait);
+		return new SetPhysicalFocus(TraitChangeStatus.PENDING, trait.ordinal());
 	}
 	
 	public SetSocialFocus setFocus(SocialAttributeFocus trait) {
-		return new SetSocialFocus(TraitChangeStatus.PENDING, trait);
+		return new SetSocialFocus(TraitChangeStatus.PENDING, trait.ordinal());
 	}
 	
 	public SetMentalFocus setFocus(MentalAttributeFocus trait) {
-		return new SetMentalFocus(TraitChangeStatus.PENDING, trait);
+		return new SetMentalFocus(TraitChangeStatus.PENDING, trait.ordinal());
 	}
 	
 }

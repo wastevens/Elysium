@@ -3,7 +3,6 @@ package com.dstevens.characters.traits.attributes;
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -11,23 +10,19 @@ import javax.persistence.Entity;
 @DiscriminatorValue("MentalFocus")
 class SetMentalFocus extends SetApplicableTrait<MentalAttributeFocus> {
 
-	@Column(name="applicable_trait_ordinal")
-    private MentalAttributeFocus trait;
-
     //Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
     private SetMentalFocus() {
-        this(null, null);
+        super();
     }
     
-    public SetMentalFocus(TraitChangeStatus status, MentalAttributeFocus trait) {
-    	super(status);
-    	this.trait = trait;
+    public SetMentalFocus(TraitChangeStatus status, int ordinal) {
+    	super(status, ordinal);
     }
     
     @Override
     protected MentalAttributeFocus trait() {
-    	return trait;
+    	return MentalAttributeFocus.values()[ordinal];
     }
 }
