@@ -3,9 +3,8 @@ package com.dstevens.characters.traits;
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
-import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
-import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
+import com.dstevens.characters.traits.attributes.Attribute;
+import com.dstevens.characters.traits.attributes.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
@@ -27,35 +26,15 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     }
 
 	@Override
-	public SetTrait physical(PlayerCharacter character) {
-		return ChangeExperience.spend(3).and(traitChangeFactory.physical(character));
-	}
-	
-	@Override
-	public SetTrait social(PlayerCharacter character) {
-		return ChangeExperience.spend(3).and(traitChangeFactory.social(character));
-	}
-	
-	@Override
-	public SetTrait mental(PlayerCharacter character) {
-		return ChangeExperience.spend(3).and(traitChangeFactory.mental(character));
+	public SetTrait attribute(Attribute attribute, int rating) {
+		return ChangeExperience.spend(3).and(traitChangeFactory.attribute(attribute, rating));
 	}
     
     @Override
-	public SetTrait physicalFocus(PhysicalAttributeFocus focus) {
+	public SetTrait focus(AttributeFocus focus) {
     	throw new IllegalStateException("Cannot purchase attribute focuses");
     }
     
-    @Override
-	public SetTrait mentalFocus(MentalAttributeFocus focus) {
-    	throw new IllegalStateException("Cannot purchase attribute focuses");
-    }
-    
-    @Override
-	public SetTrait socialFocus(SocialAttributeFocus focus) {
-    	throw new IllegalStateException("Cannot purchase attribute focuses");
-    }
-
     @Override
 	public SetTrait skill(Skill skill, int rating, String specialization, Set<String> focuses) {
     	return costForSkill(rating).and(traitChangeFactory.skill(skill, rating, specialization, focuses));

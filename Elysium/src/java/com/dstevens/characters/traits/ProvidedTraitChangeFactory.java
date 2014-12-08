@@ -2,16 +2,10 @@ package com.dstevens.characters.traits;
 
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.attributes.Attribute;
-import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
-import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
-import com.dstevens.characters.traits.attributes.SetAttributeFocusFactory;
-import com.dstevens.characters.traits.attributes.SetAttributeValueFactory;
-import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
+import com.dstevens.characters.traits.attributes.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
@@ -25,45 +19,15 @@ import com.dstevens.characters.traits.status.Status;
 
 @Service
 class ProvidedTraitChangeFactory implements TraitChangeFactory {
-
-	private final SetAttributeValueFactory attributeValueFactory;
-	private final SetAttributeFocusFactory attributeFocusFactory;
-	
-	@Autowired
-	public ProvidedTraitChangeFactory(SetAttributeValueFactory attributeValueFactory,
-	                                  SetAttributeFocusFactory attributeFocusFactory) {
-		this.attributeValueFactory = attributeValueFactory;
-		this.attributeFocusFactory = attributeFocusFactory;
-	}
 	
 	@Override
-	public SetTrait physical(PlayerCharacter character) {
-		return attributeValueFactory.attributeValue(Attribute.PHYSICAL, character.getPhysicalAttribute()+1);
+	public SetTrait attribute(Attribute attribute, int rating) {
+		return attribute.set(TraitChangeStatus.PENDING, rating);
 	}
 
 	@Override
-	public SetTrait social(PlayerCharacter character) {
-		return attributeValueFactory.attributeValue(Attribute.SOCIAL, character.getSocialAttribute()+1);
-	}
-
-	@Override
-	public SetTrait mental(PlayerCharacter character) {
-		return attributeValueFactory.attributeValue(Attribute.MENTAL, character.getMentalAttribute()+1);
-	}
-	
-	@Override
-	public SetTrait physicalFocus(PhysicalAttributeFocus focus) {
-		return attributeFocusFactory.setFocus(focus);
-	}
-
-	@Override
-	public SetTrait mentalFocus(MentalAttributeFocus focus) {
-		return attributeFocusFactory.setFocus(focus);
-	}
-
-	@Override
-	public SetTrait socialFocus(SocialAttributeFocus focus) {
-		return attributeFocusFactory.setFocus(focus);
+	public SetTrait focus(AttributeFocus focus) {
+		return focus.set(TraitChangeStatus.PENDING);
 	}
 	
 	@Override

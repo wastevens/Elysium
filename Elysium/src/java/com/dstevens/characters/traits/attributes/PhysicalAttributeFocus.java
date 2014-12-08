@@ -2,8 +2,10 @@ package com.dstevens.characters.traits.attributes;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
-public enum PhysicalAttributeFocus implements ApplicableTrait {
+public enum PhysicalAttributeFocus implements ApplicableTrait, AttributeFocus {
 
     STRENGTH,
     DEXTERITY,
@@ -17,5 +19,10 @@ public enum PhysicalAttributeFocus implements ApplicableTrait {
 	@Override
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutPhysicalAttributeFocus(this);
+	}
+	
+	@Override
+	public SetTrait set(TraitChangeStatus status) {
+		return new SetPhysicalFocus(status, this.ordinal());
 	}
 }

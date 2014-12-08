@@ -13,6 +13,7 @@ import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.traits.TraitChangeFactory;
 import com.dstevens.characters.traits.TraitChangeFactoryProvider;
+import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.SocialAttributeFocus;
@@ -253,12 +254,12 @@ public class AddAndModifyCharacterTest {
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry"))));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ARTISTS_BLESSING, "Poetry", traitFactory.skill(Skill.CRAFTS, 3, "Poetry", set()))));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.LUCKY, null, null)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, "Wits", traitFactory.mentalFocus(MentalAttributeFocus.WITS))));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, "Wits", traitFactory.focus(MentalAttributeFocus.WITS))));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.CURIOUSITY, null, null)));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.LESSER_GENERATION_2, null, null)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.physical(getMaryWollstonecraft())));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.social(getMaryWollstonecraft())));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.mental(getMaryWollstonecraft())));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(Attribute.PHYSICAL, getMaryWollstonecraft().getPhysicalAttribute()+1)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(Attribute.SOCIAL ,getMaryWollstonecraft().getSocialAttribute()+1)));
+		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(Attribute.MENTAL, getMaryWollstonecraft().getMentalAttribute()+1)));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN, 1, "Luxury Home", set("Luxury"))));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN, 2, "Luxury Home", set("Luxury", "Location"))));
 		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX, 2)));
@@ -294,7 +295,7 @@ public class AddAndModifyCharacterTest {
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry")).remove().
         		                                                               and(traitFactory.skill(Skill.ACADEMICS, 2, null, set("Philosophy", "Latin Poetry")))));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.LUCKY, null, null).remove()));
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, null, traitFactory.mentalFocus(MentalAttributeFocus.WITS)).remove()));
+        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, null, traitFactory.focus(MentalAttributeFocus.WITS)).remove()));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.CURIOUSITY, null, null).remove()));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.BONE_PATH, 1).remove()));
         characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH, 2).remove().

@@ -2,9 +2,11 @@ package com.dstevens.characters.traits.attributes;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
 
-public enum MentalAttributeFocus implements ApplicableTrait {
+public enum MentalAttributeFocus implements ApplicableTrait, AttributeFocus {
 
     INTELLIGENCE,
     WITS,
@@ -18,6 +20,11 @@ public enum MentalAttributeFocus implements ApplicableTrait {
 	@Override
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutMentalAttributeFocus(this);
+	}
+	
+	@Override
+	public SetTrait set(TraitChangeStatus status) {
+		return new SetMentalFocus(status, this.ordinal());
 	}
     
 }
