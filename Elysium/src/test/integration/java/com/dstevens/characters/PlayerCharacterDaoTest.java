@@ -18,12 +18,12 @@ import org.springframework.context.ApplicationContext;
 
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
-import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.attributes.focuses.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
+import com.dstevens.characters.traits.changes.TraitChange;
 import com.dstevens.characters.traits.distinctions.flaws.CharacterFlaw;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.CharacterMerit;

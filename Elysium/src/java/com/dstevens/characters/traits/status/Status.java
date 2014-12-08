@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.status;
 
-import com.dstevens.characters.traits.TraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 public enum Status {

@@ -2,7 +2,7 @@ package com.dstevens.characters.traits.skills;
 
 import java.util.Set;
 
-import com.dstevens.characters.traits.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.ApplicableTraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;

@@ -4,7 +4,6 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;

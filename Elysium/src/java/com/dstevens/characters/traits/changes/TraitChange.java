@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.traits.changes;
 
 import static com.dstevens.collections.Sets.set;
 
@@ -7,7 +7,6 @@ import java.util.Set;
 import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 

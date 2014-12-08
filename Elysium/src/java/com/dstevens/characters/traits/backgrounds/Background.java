@@ -3,7 +3,7 @@ package com.dstevens.characters.traits.backgrounds;
 import java.util.Set;
 
 import com.dstevens.characters.traits.DetailLevel;
-import com.dstevens.characters.traits.TraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 public enum Background {

@@ -1,7 +1,7 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.TraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 

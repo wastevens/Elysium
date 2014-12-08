@@ -1,9 +1,8 @@
-package com.dstevens.characters.traits;
+package com.dstevens.characters.traits.changes;
 
 import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;

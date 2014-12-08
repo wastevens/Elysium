@@ -4,7 +4,7 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
-import com.dstevens.characters.traits.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.ApplicableTraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;

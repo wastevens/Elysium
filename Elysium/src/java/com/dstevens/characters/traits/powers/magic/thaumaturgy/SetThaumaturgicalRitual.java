@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.powers.magic.thaumaturgy;
 
-import com.dstevens.characters.traits.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.ApplicableTraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
