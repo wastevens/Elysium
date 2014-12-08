@@ -102,6 +102,6 @@ public class CharacterNecromancy implements EnumeratedTrait<Necromancy>, Applica
 
 	@Override
 	public ApplicableTrait copy() {
-		return new CharacterNecromancy(trait, rating);
+		return this;
 	}
 }

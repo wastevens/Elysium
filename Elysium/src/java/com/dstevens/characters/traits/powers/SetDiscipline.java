@@ -3,36 +3,27 @@ package com.dstevens.characters.traits.powers;
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Discipline")
 class SetDiscipline extends SetApplicableTrait<CharacterDiscipline> {
 
-	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="applicable_trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
-    private CharacterDiscipline trait;
-
-	//Hibernate only
-    @Deprecated
+    //Hibernate only
     @SuppressWarnings("unused")
+    @Deprecated
     private SetDiscipline() {
-        this(null, null);
+        this(null, 0, 0);
     }
-    
-    public SetDiscipline(TraitChangeStatus status, CharacterDiscipline trait) {
-    	super(status);
-		this.trait = trait;
+	
+    public SetDiscipline(TraitChangeStatus status, int ordinal, int rating) {
+    	super(status, ordinal, rating);
     }
     
     @Override
     protected CharacterDiscipline trait() {
-    	return trait;
+    	return new CharacterDiscipline(Discipline.values()[ordinal], rating);
     }
 
 }

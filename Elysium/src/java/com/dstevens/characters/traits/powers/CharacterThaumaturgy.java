@@ -102,6 +102,6 @@ public class CharacterThaumaturgy implements RatedTrait, ApplicableTrait, Enumer
 
 	@Override
 	public ApplicableTrait copy() {
-		return new CharacterThaumaturgy(trait, rating);
+		return this;
 	}
 }

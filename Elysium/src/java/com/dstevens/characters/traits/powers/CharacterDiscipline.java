@@ -98,6 +98,6 @@ public class CharacterDiscipline implements EnumeratedTrait<Discipline>, Applica
 
 	@Override
 	public ApplicableTrait copy() {
-		return new CharacterDiscipline(trait, rating);
+		return this;
 	}
 }

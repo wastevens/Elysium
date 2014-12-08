@@ -3,35 +3,26 @@ package com.dstevens.characters.traits.powers;
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Thaumaturgy")
 class SetThaumaturgy extends SetApplicableTrait<CharacterThaumaturgy> {
 
-	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="applicable_trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
-    private CharacterThaumaturgy trait;
-
 	//Hibernate only
-    @Deprecated
     @SuppressWarnings("unused")
+    @Deprecated
     private SetThaumaturgy() {
-        this(null, null);
+        this(null, 0, 0);
     }
-    
-    public SetThaumaturgy(TraitChangeStatus status, CharacterThaumaturgy trait) {
-    	super(status);
-		this.trait = trait;
+	
+    public SetThaumaturgy(TraitChangeStatus status, int ordinal, int rating) {
+    	super(status, ordinal, rating);
     }
     
     @Override
     protected CharacterThaumaturgy trait() {
-    	return trait;
+    	return new CharacterThaumaturgy(Thaumaturgy.values()[ordinal], rating);
     }
 }

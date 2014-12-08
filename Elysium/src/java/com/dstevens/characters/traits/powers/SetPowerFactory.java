@@ -10,11 +10,11 @@ public class SetPowerFactory {
 
 	public SetTrait setPower(Power<?> power, int rating) {
     	if(power instanceof Discipline) {
-    		return new SetDiscipline(TraitChangeStatus.PENDING, new CharacterDiscipline((Discipline) power, rating));
+    		return new SetDiscipline(TraitChangeStatus.PENDING, power.ordinal(), rating);
     	} else if(power instanceof Thaumaturgy) {
-    		return new SetThaumaturgy(TraitChangeStatus.PENDING, new CharacterThaumaturgy((Thaumaturgy) power, rating));
+    		return new SetThaumaturgy(TraitChangeStatus.PENDING, power.ordinal(), rating);
     	} else if(power instanceof Necromancy) {
-    		return new SetNecromancy(TraitChangeStatus.PENDING, new CharacterNecromancy((Necromancy) power, rating));
+    		return new SetNecromancy(TraitChangeStatus.PENDING, power.ordinal(), rating);
     	}
     	throw new IllegalArgumentException("Cannot find an implementing power type for " + power);
     }
