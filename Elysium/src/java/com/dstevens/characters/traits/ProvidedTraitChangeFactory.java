@@ -18,15 +18,20 @@ import com.dstevens.characters.traits.distinctions.Flaw;
 import com.dstevens.characters.traits.distinctions.Merit;
 import com.dstevens.characters.traits.distinctions.SetFlawFactory;
 import com.dstevens.characters.traits.distinctions.SetMeritFactory;
+import com.dstevens.characters.traits.powers.Discipline;
 import com.dstevens.characters.traits.powers.ElderPower;
+import com.dstevens.characters.traits.powers.Necromancy;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.Ritual;
 import com.dstevens.characters.traits.powers.SetElderPowerFactory;
-import com.dstevens.characters.traits.powers.SetInClanPowerFactory;
+import com.dstevens.characters.traits.powers.SetInClanDisciplineFactory;
+import com.dstevens.characters.traits.powers.SetInClanNecromancyFactory;
+import com.dstevens.characters.traits.powers.SetInClanThaumaturgyFactory;
 import com.dstevens.characters.traits.powers.SetPowerFactory;
 import com.dstevens.characters.traits.powers.SetRitualFactory;
 import com.dstevens.characters.traits.powers.SetTechniqueFactory;
 import com.dstevens.characters.traits.powers.Technique;
+import com.dstevens.characters.traits.powers.Thaumaturgy;
 import com.dstevens.characters.traits.skills.SetSkillFactory;
 import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.characters.traits.status.SetStatus;
@@ -45,7 +50,9 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	private final SetFlawFactory setFlawFactory;
 	private final SetTechniqueFactory setTechniqueFactory;
 	private final SetElderPowerFactory setElderPowerFactory;
-	private final SetInClanPowerFactory setInClanPowerFactory;
+	private final SetInClanDisciplineFactory setInClanDisciplineFactory;
+	private final SetInClanThaumaturgyFactory setInClanThaumaturgyFactory;
+	private final SetInClanNecromancyFactory setInClanNecromancyFactory;
 	
 	@Autowired
 	public ProvidedTraitChangeFactory(SetAttributeValueFactory attributeValueFactory,
@@ -58,18 +65,22 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	                                  SetFlawFactory setFlawFactory,               
 	                                  SetTechniqueFactory setTechniqueFactory,       
 	                                  SetElderPowerFactory setElderPowerFactory,     
-	                                  SetInClanPowerFactory setInClanPowerFactory) {
-		this.attributeValueFactory = new SetAttributeValueFactory();
-		this.attributeFocusFactory = new SetAttributeFocusFactory();
-		this.skillFactory = new SetSkillFactory();
-		this.backgroundFactory = new SetBackgroundFactory();
-		this.setPowerFactory = new SetPowerFactory();
-		this.setRitualFactory = new SetRitualFactory();
-		this.setMeritFactory = new SetMeritFactory();
-		this.setFlawFactory = new SetFlawFactory();
-		this.setTechniqueFactory = new SetTechniqueFactory();
-		this.setElderPowerFactory = new SetElderPowerFactory();
-		this.setInClanPowerFactory = new SetInClanPowerFactory();
+	                                  SetInClanDisciplineFactory setInClanDisciplineFactory,
+	                                  SetInClanThaumaturgyFactory setInClanThaumaturgyFactory,
+	                                  SetInClanNecromancyFactory setInClanNecromancyFactory) {
+		this.attributeValueFactory = attributeValueFactory;
+		this.attributeFocusFactory = attributeFocusFactory;
+		this.skillFactory = skillFactory;
+		this.backgroundFactory = backgroundFactory;
+		this.setPowerFactory = setPowerFactory;
+		this.setRitualFactory = setRitualFactory;
+		this.setMeritFactory = setMeritFactory;
+		this.setFlawFactory = setFlawFactory;
+		this.setTechniqueFactory = setTechniqueFactory;
+		this.setElderPowerFactory = setElderPowerFactory;
+		this.setInClanDisciplineFactory = setInClanDisciplineFactory;
+		this.setInClanThaumaturgyFactory =setInClanThaumaturgyFactory;
+		this.setInClanNecromancyFactory = setInClanNecromancyFactory;
 	}
 	
 	@Override
@@ -144,9 +155,18 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public SetTrait inClanPower(Power<?> power) {
-		return setInClanPowerFactory.power(power);
+		if(power instanceof Discipline) {
+			return setInClanDisciplineFactory.power(Discipline.class.cast(power));
+		}
+		if(power instanceof Thaumaturgy) {
+			return setInClanThaumaturgyFactory.power(Thaumaturgy.class.cast(power));
+		}
+		if(power instanceof Necromancy) {
+			return setInClanNecromancyFactory.power(Necromancy.class.cast(power));
+		}
+		throw new IllegalStateException("Could not find a power for " + power);
 	}
-
+	
 	@Override
 	public SetTrait status(Status trait, String specialization) {
 		return new SetStatus(TraitChangeStatus.PENDING, trait.ordinal(), specialization);
