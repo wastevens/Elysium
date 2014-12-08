@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.distinctions;
+package com.dstevens.characters.traits.distinctions.flaws;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.SetTraitFactory;
 import com.dstevens.characters.traits.TraitChangeStatus;
+import com.dstevens.characters.traits.distinctions.DistinctionType;
 import com.dstevens.players.Setting;
 
 public enum Flaw implements SetTraitFactory {
@@ -124,26 +125,26 @@ public enum Flaw implements SetTraitFactory {
 		return setting;
 	}
     
-    public static List<Merit> general() {
+    public static List<Flaw> general() {
     	return ofType(DistinctionType.GENERAL);
     }
     
-    public static List<Merit> setting(Setting setting) {
+    public static List<Flaw> setting(Setting setting) {
     	return ofType(DistinctionType.SETTING, setting);
     }
     
-    private static Stream<Merit> meritStream() {
-    	return Arrays.stream(Merit.values());
+    private static Stream<Flaw> flawStream() {
+    	return Arrays.stream(Flaw.values());
     }
     
-    private static List<Merit> ofType(DistinctionType meritType) {
-    	return meritStream().filter((Merit m) -> m.getType() == meritType).
+    private static List<Flaw> ofType(DistinctionType flawType) {
+    	return flawStream().filter((Flaw f) -> f.getType() == flawType).
     		                 collect(Collectors.toList());
     }
     
-    private static List<Merit> ofType(DistinctionType meritType, Setting setting) {
-    	return meritStream().filter((Merit m) -> m.getType() == meritType).
-    			             filter((Merit m) -> m.getSetting() == setting).
+    private static List<Flaw> ofType(DistinctionType flawType, Setting setting) {
+    	return flawStream().filter((Flaw f) -> f.getType() == flawType).
+    			             filter((Flaw f) -> f.getSetting() == setting).
     			             collect(Collectors.toList());
     }
     

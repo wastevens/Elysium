@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.distinctions;
+package com.dstevens.characters.traits.distinctions.merits;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +10,7 @@ import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.traits.SetTrait;
 import com.dstevens.characters.traits.SetTraitFactory;
 import com.dstevens.characters.traits.TraitChangeStatus;
+import com.dstevens.characters.traits.distinctions.DistinctionType;
 import com.dstevens.players.Setting;
 
 public enum Merit implements SetTraitFactory {

@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.distinctions;
+package com.dstevens.characters.traits.distinctions.merits;
 
 import java.util.Comparator;
 import java.util.function.Predicate;
