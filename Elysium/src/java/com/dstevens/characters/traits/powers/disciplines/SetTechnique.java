@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.powers;
+package com.dstevens.characters.traits.powers.disciplines;
 
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
@@ -7,22 +7,23 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("InClanDiscipline")
-class SetInClanDiscipline extends SetApplicableTrait<Discipline> {
+@DiscriminatorValue("Technique")
+class SetTechnique extends SetApplicableTrait<Technique> {
 
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
-    private SetInClanDiscipline() {
+    private SetTechnique() {
         this(null, 0);
     }
     
-    public SetInClanDiscipline(TraitChangeStatus status, int ordinal) {
+    public SetTechnique(TraitChangeStatus status, int ordinal) {
     	super(status, ordinal);
     }
 
 	@Override
-	protected Discipline trait() {
-		return Discipline.values()[ordinal];
+	protected Technique trait() {
+		return Technique.values()[ordinal];
 	}
+
 }

@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.powers;
+package com.dstevens.characters.traits.powers.magic.thaumaturgy;
 
 import java.util.Comparator;
 import java.util.function.Predicate;

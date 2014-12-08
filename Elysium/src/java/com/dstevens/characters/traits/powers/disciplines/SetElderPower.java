@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.powers;
+package com.dstevens.characters.traits.powers.disciplines;
 
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
@@ -7,23 +7,23 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("InClanNecromancy")
-class SetInClanNecromancy extends SetApplicableTrait<Necromancy> {
-	
+@DiscriminatorValue("ElderPower")
+class SetElderPower extends SetApplicableTrait<ElderPower> {
+
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
-    private SetInClanNecromancy() {
+    private SetElderPower() {
         this(null, 0);
     }
     
-    public SetInClanNecromancy(TraitChangeStatus status, int ordinal) {
+    public SetElderPower(TraitChangeStatus status, int ordinal) {
     	super(status, ordinal);
     }
 
 	@Override
-	protected Necromancy trait() {
-		return Necromancy.values()[ordinal];
+	protected ElderPower trait() {
+		return ElderPower.values()[ordinal];
 	}
 
 }

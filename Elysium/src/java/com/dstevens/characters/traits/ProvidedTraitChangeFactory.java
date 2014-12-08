@@ -9,10 +9,10 @@ import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.Merit;
-import com.dstevens.characters.traits.powers.ElderPower;
 import com.dstevens.characters.traits.powers.Power;
-import com.dstevens.characters.traits.powers.Ritual;
-import com.dstevens.characters.traits.powers.Technique;
+import com.dstevens.characters.traits.powers.disciplines.ElderPower;
+import com.dstevens.characters.traits.powers.disciplines.Technique;
+import com.dstevens.characters.traits.powers.magic.Ritual;
 import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.characters.traits.status.Status;
 

@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.powers;
+package com.dstevens.characters.traits.powers.disciplines;
 
 import com.dstevens.utilities.ObjectExtensions;
 

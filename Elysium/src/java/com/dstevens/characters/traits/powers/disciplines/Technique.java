@@ -1,6 +1,6 @@
-package com.dstevens.characters.traits.powers;
+package com.dstevens.characters.traits.powers.disciplines;
 
-import static com.dstevens.characters.traits.powers.TechniqueRequirement.required;
+import static com.dstevens.characters.traits.powers.disciplines.TechniqueRequirement.required;
 
 import java.util.Set;
 

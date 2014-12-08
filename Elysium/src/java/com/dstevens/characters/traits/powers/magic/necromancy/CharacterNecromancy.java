@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.powers;
+package com.dstevens.characters.traits.powers.magic.necromancy;
 
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -19,14 +19,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Disciplines")
-public class CharacterDiscipline implements ApplicableTrait, RatedTrait, Comparable<CharacterDiscipline> {
+@Table(name="NecromanticPaths")
+public class CharacterNecromancy implements ApplicableTrait, RatedTrait, Comparable<CharacterNecromancy> {
 
 	@Id
     private final String id;
 	
     @Basic(optional=false)
-    private final Discipline trait;
+    private final Necromancy trait;
     
     @Column(name="rating")
     private int rating;
@@ -34,13 +34,13 @@ public class CharacterDiscipline implements ApplicableTrait, RatedTrait, Compara
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
-    private CharacterDiscipline() {
+    private CharacterNecromancy() {
         this(null, 0);
     }
     
-    public CharacterDiscipline(Discipline power, int rating) {
+    public CharacterNecromancy(Necromancy trait, int rating) {
     	this.id = new IdSupplier().get();
-        this.trait = power;
+        this.trait = trait;
         this.rating = rating;
     }
     
@@ -49,11 +49,15 @@ public class CharacterDiscipline implements ApplicableTrait, RatedTrait, Compara
         return rating;
     }
     
+    public final CharacterNecromancy withRating(int rating) {
+        return new CharacterNecromancy(trait, rating);
+    }
+    
     @Override
     public boolean equals(Object that) {
     	return EqualsBuilder.reflectionEquals(this, that, "id");
     }
-    
+
     @Override
     public int hashCode() {
     	return HashCodeBuilder.reflectionHashCode(this, "id");
@@ -65,23 +69,23 @@ public class CharacterDiscipline implements ApplicableTrait, RatedTrait, Compara
     }
 
     @Override
-    public int compareTo(CharacterDiscipline that) {
-        return Comparator.comparing((CharacterDiscipline t) -> t.rating).
-        		      thenComparing((CharacterDiscipline t) -> t.trait).
-        		      compare(this, that);
+    public int compareTo(CharacterNecromancy that) {
+    	return Comparator.comparing((CharacterNecromancy t) -> t.rating).
+    			      thenComparing((CharacterNecromancy t) -> t.trait).
+    			      compare(this, that);
     }
 
     @Override
     public PlayerCharacter applyTo(PlayerCharacter character) {
-        return character.withDiscipline(this);
+        return character.withNecromanticPath(this);
     }
     
     @Override
     public PlayerCharacter removeFrom(PlayerCharacter character) {
-    	return character.withoutDiscipline(this);
+    	return character.withoutNecromanticPath(this);
     }
 
-	public Predicate<CharacterDiscipline> matches() {
-		return ((Predicate<CharacterDiscipline>)(CharacterDiscipline t) -> t.trait.equals(this.trait));
+    public Predicate<CharacterNecromancy> matches() {
+		return ((Predicate<CharacterNecromancy>)(CharacterNecromancy t) -> t.trait.equals(this.trait));
 	}
 }

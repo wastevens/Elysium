@@ -1,4 +1,4 @@
-package com.dstevens.characters.traits.powers;
+package com.dstevens.characters.traits.powers.magic.thaumaturgy;
 
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
@@ -7,23 +7,23 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("Technique")
-class SetTechnique extends SetApplicableTrait<Technique> {
+@DiscriminatorValue("InClanThaumaturgy")
+class SetInClanThaumaturgy extends SetApplicableTrait<Thaumaturgy> {
 
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
-    private SetTechnique() {
+    private SetInClanThaumaturgy() {
         this(null, 0);
     }
     
-    public SetTechnique(TraitChangeStatus status, int ordinal) {
+    public SetInClanThaumaturgy(TraitChangeStatus status, int ordinal) {
     	super(status, ordinal);
     }
 
 	@Override
-	protected Technique trait() {
-		return Technique.values()[ordinal];
+	protected Thaumaturgy trait() {
+		return Thaumaturgy.values()[ordinal];
 	}
 
 }
