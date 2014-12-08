@@ -8,6 +8,10 @@ import com.dstevens.characters.PlayerCharacter;
 
 public abstract class SetApplicableTrait<T extends ApplicableTrait> extends SetTrait {
 
+	protected SetApplicableTrait() {
+		super(null);
+	}
+	
 	protected SetApplicableTrait(TraitChangeStatus status) {
 		super(status);
 	}

@@ -10,6 +10,6 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 public class SetSkillFactory {
    
     public SetSkill setSkillFor(Skill skill, int rating, String specialization, Set<String> focuses) {
-    	return new SetSkill(TraitChangeStatus.PENDING, new CharacterSkill(skill, rating, specialization, focuses));
+    	return new SetSkill(TraitChangeStatus.PENDING, skill.ordinal(), rating, specialization, focuses);
     }
 }

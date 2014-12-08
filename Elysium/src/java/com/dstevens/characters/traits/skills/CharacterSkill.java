@@ -123,6 +123,6 @@ public class CharacterSkill implements EnumeratedTrait<Skill>, ApplicableTrait, 
 
 	@Override
 	public ApplicableTrait copy() {
-		return new CharacterSkill(trait, rating, specialization, focuses);
+		return this;
 	}
 }
