@@ -1,37 +1,32 @@
 package com.dstevens.characters.traits.backgrounds;
 
+import static com.dstevens.collections.Sets.set;
+
+import java.util.Set;
+
 import com.dstevens.characters.traits.SetApplicableTrait;
 import com.dstevens.characters.traits.TraitChangeStatus;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Background")
 class SetBackground extends SetApplicableTrait<CharacterBackground> {
 
-	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="applicable_trait_id", referencedColumnName="id", foreignKey=@ForeignKey(name="none"))
-	private final CharacterBackground trait;
-	
 	//Hibernate only
     @Deprecated
     @SuppressWarnings("unused")
     private SetBackground() {
-        this(null, null);
+        this(null, 0, 0, null, set());
     }
     
-    public SetBackground(TraitChangeStatus status, CharacterBackground trait) {
-    	super(status);
-		this.trait = trait;
+    public SetBackground(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+    	super(status, ordinal, rating, specialization, focuses);
     }
     
     @Override
     protected CharacterBackground trait() {
-    	return trait;
+    	return new CharacterBackground(Background.values()[ordinal], rating, specialization, focuses);
     }
 }

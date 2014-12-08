@@ -10,6 +10,6 @@ import com.dstevens.characters.traits.TraitChangeStatus;
 public class SetBackgroundFactory {
    
     public SetBackground setBackgroundFor(Background background, int rating, String specialization, Set<String> focuses) {
-    	return new SetBackground(TraitChangeStatus.PENDING, CharacterBackground.backgroundFor(background, rating, specialization, focuses));
+    	return new SetBackground(TraitChangeStatus.PENDING, background.ordinal(), rating, specialization, focuses);
     }
 }

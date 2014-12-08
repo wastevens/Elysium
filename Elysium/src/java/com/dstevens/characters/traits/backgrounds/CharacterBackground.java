@@ -144,6 +144,6 @@ public class CharacterBackground implements EnumeratedTrait<Background>, Applica
 
 	@Override
 	public ApplicableTrait copy() {
-		return new CharacterBackground(trait, rating, specialization, focuses);
+		return this;
 	}
 }

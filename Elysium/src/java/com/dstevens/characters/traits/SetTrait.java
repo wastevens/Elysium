@@ -41,7 +41,7 @@ public abstract class SetTrait {
     
     @ElementCollection
     @ForeignKey(name= "TraitChanges_focuses_FK")
-    private Set<String> focuses;
+    protected Set<String> focuses;
     
     @Column(name="specialization")
     protected final String specialization;
@@ -58,10 +58,10 @@ public abstract class SetTrait {
     }
     
     protected SetTrait(TraitChangeStatus status) {
-        this(status, -1, -1, set(), null);
+        this(status, -1, -1, null, set());
     }
     
-    protected SetTrait(TraitChangeStatus status, int ordinal, int rating, Set<String> focuses, String specialization) {
+    protected SetTrait(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
 		this.id = new IdSupplier().get();
     	this.ordinal = ordinal;
     	this.rating = rating;
