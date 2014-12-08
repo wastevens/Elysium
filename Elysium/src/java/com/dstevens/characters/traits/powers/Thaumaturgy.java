@@ -1,6 +1,8 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
 public enum Thaumaturgy implements Power<Thaumaturgy> {
 
@@ -14,11 +16,6 @@ public enum Thaumaturgy implements Power<Thaumaturgy> {
     PATH_OF_WEATHER_MASTERY;
     
 	@Override
-	public Thaumaturgy trait() {
-		return this;
-	}
-
-	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {
 		return character.withInClanDiscipline(this);
 	}
@@ -26,5 +23,10 @@ public enum Thaumaturgy implements Power<Thaumaturgy> {
 	@Override
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutInClanDiscipline(this);
+	}
+	
+	@Override
+	public SetTrait set(TraitChangeStatus status, int rating) {
+		return new SetThaumaturgy(status, this.ordinal(), rating);
 	}
 }

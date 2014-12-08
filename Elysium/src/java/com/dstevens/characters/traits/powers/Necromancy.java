@@ -1,6 +1,8 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
 public enum Necromancy implements Power<Necromancy> {
 
@@ -10,11 +12,6 @@ public enum Necromancy implements Power<Necromancy> {
     MORTIS_PATH;
     
 	@Override
-	public Necromancy trait() {
-		return this;
-	}
-
-	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {
 		return character.withInClanDiscipline(this);
 	}
@@ -22,5 +19,10 @@ public enum Necromancy implements Power<Necromancy> {
 	@Override
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutInClanDiscipline(this);
+	}
+	
+	@Override
+	public SetTrait set(TraitChangeStatus status, int rating) {
+		return new SetNecromancy(status, this.ordinal(), rating);
 	}
 }

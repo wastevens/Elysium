@@ -1,6 +1,8 @@
 package com.dstevens.characters.traits.powers;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChangeStatus;
 
 
 public enum Discipline implements Power<Discipline> {
@@ -30,11 +32,6 @@ public enum Discipline implements Power<Discipline> {
     VISCERATIKA;
 
 	@Override
-	public Discipline trait() {
-		return this;
-	}
-
-	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {
 		return character.withInClanDiscipline(this);
 	}
@@ -42,5 +39,10 @@ public enum Discipline implements Power<Discipline> {
 	@Override
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutInClanDiscipline(this);
+	}
+	
+	@Override
+	public SetTrait set(TraitChangeStatus status, int rating) {
+		return new SetDiscipline(status, this.ordinal(), rating);
 	}
 }

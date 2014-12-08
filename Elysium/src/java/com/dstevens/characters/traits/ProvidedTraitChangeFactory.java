@@ -26,8 +26,6 @@ import com.dstevens.characters.traits.powers.SetElderPowerFactory;
 import com.dstevens.characters.traits.powers.SetInClanDisciplineFactory;
 import com.dstevens.characters.traits.powers.SetInClanNecromancyFactory;
 import com.dstevens.characters.traits.powers.SetInClanThaumaturgyFactory;
-import com.dstevens.characters.traits.powers.SetPowerFactory;
-import com.dstevens.characters.traits.powers.SetTechniqueFactory;
 import com.dstevens.characters.traits.powers.Technique;
 import com.dstevens.characters.traits.powers.Thaumaturgy;
 import com.dstevens.characters.traits.skills.Skill;
@@ -39,10 +37,8 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	private final SetAttributeValueFactory attributeValueFactory;
 	private final SetAttributeFocusFactory attributeFocusFactory;
-	private final SetPowerFactory setPowerFactory;
 	private final SetMeritFactory setMeritFactory;
 	private final SetFlawFactory setFlawFactory;
-	private final SetTechniqueFactory setTechniqueFactory;
 	private final SetElderPowerFactory setElderPowerFactory;
 	private final SetInClanDisciplineFactory setInClanDisciplineFactory;
 	private final SetInClanThaumaturgyFactory setInClanThaumaturgyFactory;
@@ -51,20 +47,16 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	@Autowired
 	public ProvidedTraitChangeFactory(SetAttributeValueFactory attributeValueFactory,
 	                                  SetAttributeFocusFactory attributeFocusFactory,
-	                                  SetPowerFactory setPowerFactory,        
 	                                  SetMeritFactory setMeritFactory,             
 	                                  SetFlawFactory setFlawFactory,               
-	                                  SetTechniqueFactory setTechniqueFactory,       
 	                                  SetElderPowerFactory setElderPowerFactory,     
 	                                  SetInClanDisciplineFactory setInClanDisciplineFactory,
 	                                  SetInClanThaumaturgyFactory setInClanThaumaturgyFactory,
 	                                  SetInClanNecromancyFactory setInClanNecromancyFactory) {
 		this.attributeValueFactory = attributeValueFactory;
 		this.attributeFocusFactory = attributeFocusFactory;
-		this.setPowerFactory = setPowerFactory;
 		this.setMeritFactory = setMeritFactory;
 		this.setFlawFactory = setFlawFactory;
-		this.setTechniqueFactory = setTechniqueFactory;
 		this.setElderPowerFactory = setElderPowerFactory;
 		this.setInClanDisciplineFactory = setInClanDisciplineFactory;
 		this.setInClanThaumaturgyFactory =setInClanThaumaturgyFactory;
@@ -113,7 +105,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
 	@Override
 	public SetTrait power(Power<?> power, int rating) {
-		return setPowerFactory.setPower(power, rating);
+		return power.set(TraitChangeStatus.PENDING, rating);
 	}
 
 	@Override
@@ -133,7 +125,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public SetTrait technique(Technique technique) {
-		return setTechniqueFactory.technique(technique);
+		return technique.set(TraitChangeStatus.PENDING);
 	}
 
 	@Override
