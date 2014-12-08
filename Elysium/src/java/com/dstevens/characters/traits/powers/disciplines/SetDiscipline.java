@@ -14,7 +14,7 @@ class SetDiscipline extends ApplicableTraitChange<CharacterDiscipline> {
     @SuppressWarnings("unused")
     @Deprecated
     private SetDiscipline() {
-        this(null, 0, 0);
+    	super();
     }
 	
     public SetDiscipline(TraitChangeStatus status, int ordinal, int rating) {

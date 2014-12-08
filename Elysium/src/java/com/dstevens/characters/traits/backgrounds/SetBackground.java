@@ -1,7 +1,5 @@
 package com.dstevens.characters.traits.backgrounds;
 
-import static com.dstevens.collections.Sets.set;
-
 import java.util.Set;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
@@ -18,7 +16,7 @@ class SetBackground extends ApplicableTraitChange<CharacterBackground> {
     @Deprecated
     @SuppressWarnings("unused")
     private SetBackground() {
-        this(null, 0, 0, null, set());
+        super();
     }
     
     public SetBackground(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {

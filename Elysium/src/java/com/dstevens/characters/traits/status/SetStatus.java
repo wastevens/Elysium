@@ -14,7 +14,7 @@ public class SetStatus extends ApplicableTraitChange<CharacterStatus> {
     @Deprecated
     @SuppressWarnings("unused")
     private SetStatus() {
-        this(null, 0, null);
+    	super();
     }
     
     public SetStatus(TraitChangeStatus status, int ordinal, String specialization) {

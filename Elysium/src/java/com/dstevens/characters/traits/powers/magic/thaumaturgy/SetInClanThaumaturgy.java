@@ -14,7 +14,7 @@ class SetInClanThaumaturgy extends ApplicableTraitChange<Thaumaturgy> {
     @Deprecated
     @SuppressWarnings("unused")
     private SetInClanThaumaturgy() {
-        this(null, 0);
+    	super();
     }
     
     public SetInClanThaumaturgy(TraitChangeStatus status, int ordinal) {

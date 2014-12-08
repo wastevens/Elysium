@@ -14,7 +14,7 @@ class SetElderPower extends ApplicableTraitChange<ElderPower> {
     @Deprecated
     @SuppressWarnings("unused")
     private SetElderPower() {
-        this(null, 0);
+    	super();
     }
     
     public SetElderPower(TraitChangeStatus status, int ordinal) {

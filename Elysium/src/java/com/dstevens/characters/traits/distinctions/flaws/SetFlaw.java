@@ -14,7 +14,7 @@ class SetFlaw extends ApplicableTraitChange<CharacterFlaw> {
     @Deprecated
     @SuppressWarnings("unused")
     private SetFlaw() {
-        this(null, 0, null);
+    	super();
     }
 	
 	protected SetFlaw(TraitChangeStatus status, int ordinal, String specialization) {

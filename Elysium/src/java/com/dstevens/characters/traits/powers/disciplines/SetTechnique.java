@@ -14,7 +14,7 @@ class SetTechnique extends ApplicableTraitChange<Technique> {
     @Deprecated
     @SuppressWarnings("unused")
     private SetTechnique() {
-        this(null, 0);
+    	super();
     }
     
     public SetTechnique(TraitChangeStatus status, int ordinal) {

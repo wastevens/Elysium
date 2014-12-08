@@ -14,7 +14,7 @@ class SetInClanNecromancy extends ApplicableTraitChange<Necromancy> {
     @Deprecated
     @SuppressWarnings("unused")
     private SetInClanNecromancy() {
-        this(null, 0);
+    	super();
     }
     
     public SetInClanNecromancy(TraitChangeStatus status, int ordinal) {

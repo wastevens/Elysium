@@ -14,7 +14,7 @@ class SetThaumaturgy extends ApplicableTraitChange<CharacterThaumaturgy> {
     @SuppressWarnings("unused")
     @Deprecated
     private SetThaumaturgy() {
-        this(null, 0, 0);
+    	super();
     }
 	
     public SetThaumaturgy(TraitChangeStatus status, int ordinal, int rating) {

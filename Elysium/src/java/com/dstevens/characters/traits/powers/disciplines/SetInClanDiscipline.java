@@ -14,7 +14,7 @@ class SetInClanDiscipline extends ApplicableTraitChange<Discipline> {
     @Deprecated
     @SuppressWarnings("unused")
     private SetInClanDiscipline() {
-        this(null, 0);
+    	super();
     }
     
     public SetInClanDiscipline(TraitChangeStatus status, int ordinal) {

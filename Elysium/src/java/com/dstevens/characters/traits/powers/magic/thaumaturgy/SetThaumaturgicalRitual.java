@@ -14,7 +14,7 @@ class SetThaumaturgicalRitual extends ApplicableTraitChange<ThaumaturgicalRitual
     @Deprecated
     @SuppressWarnings("unused")
     private SetThaumaturgicalRitual() {
-        this(null, 0);
+    	super();
     }
     
     public SetThaumaturgicalRitual(TraitChangeStatus status, int ordinal) {

@@ -14,7 +14,7 @@ class SetMerit extends ApplicableTraitChange<CharacterMerit> {
     @Deprecated
     @SuppressWarnings("unused")
     private SetMerit() {
-        this(null, 0, null);
+    	super();
     }
 	
 	protected SetMerit(TraitChangeStatus status, int ordinal, String specialization) {

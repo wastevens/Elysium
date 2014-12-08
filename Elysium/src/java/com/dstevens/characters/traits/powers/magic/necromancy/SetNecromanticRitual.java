@@ -14,7 +14,7 @@ class SetNecromanticRitual extends ApplicableTraitChange<NecromanticRitual> {
     @Deprecated
     @SuppressWarnings("unused")
     private SetNecromanticRitual() {
-        this(null, 0);
+    	super();
     }
     
     public SetNecromanticRitual(TraitChangeStatus status, int ordinal) {
