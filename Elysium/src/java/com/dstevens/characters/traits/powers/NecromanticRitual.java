@@ -42,11 +42,6 @@ public enum NecromanticRitual implements Ritual<NecromanticRitual>, ApplicableTr
     }
 
     @Override
-    public NecromanticRitual trait() {
-        return this;
-    }
-    
-    @Override
     public PlayerCharacter applyTo(PlayerCharacter character) {
         return character.withNecromanticRitual(this);
     }

@@ -51,11 +51,6 @@ public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, Applic
     }
 
     @Override
-    public ThaumaturgicalRitual trait() {
-        return this;
-    }
-    
-    @Override
     public PlayerCharacter applyTo(PlayerCharacter character) {
         return character.withThaumaturgicalRitual(this);
     }
