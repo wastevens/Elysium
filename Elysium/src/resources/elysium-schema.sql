@@ -94,7 +94,7 @@ create table SetTrait_focuses (SetTrait_id varchar(255) not null, focuses varcha
 create table Skills (id varchar(255) not null, rating integer, specialization varchar(255), skill integer, character_id varchar(255), primary key (id));
 create table Status (id varchar(255) not null, specialization varchar(255), trait integer not null, primary key (id));
 create table ThaumaturgicalPaths (id varchar(255) not null, rating integer, trait integer not null, primary key (id));
-create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, ordinal integer, rating integer, specialization varchar(255), status integer, applicable_trait_ordinal integer, child_id varchar(255), traitToRemove_id varchar(255), applicable_trait_id varchar(255), primary key (id));
+create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, ordinal integer, rating integer, specialization varchar(255), status integer, child_id varchar(255), traitToRemove_id varchar(255), primary key (id));
 create table Troupe (id varchar(255) not null, deleted_at datetime, name varchar(255), setting integer, primary key (id));
 alter table PlayerCharacter_Flaws add constraint PlayerCharacter_Flaws_UC  unique (flaws_id);
 alter table PlayerCharacter_NecromanticPaths add constraint PlayerCharacter_NecromanticPaths_UC  unique (necromanticPaths_id);

@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.attributes;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.ApplicableTrait;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -36,10 +35,5 @@ public class MentalAttributeValue extends AttributeValue {
 	
 	public static AttributeValue decrease(PlayerCharacter character) {
 		return new MentalAttributeValue(character.getMentalAttribute()-1);
-	}
-	
-	@Override
-	public ApplicableTrait copy() {
-		return new MentalAttributeValue(value());
 	}
 }

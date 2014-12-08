@@ -39,12 +39,12 @@ public abstract class SetTrait {
     @Column(name="rating")
     protected final int rating;
     
+    @Column(name="specialization")
+    protected final String specialization;
+    
     @ElementCollection
     @ForeignKey(name= "TraitChanges_focuses_FK")
     protected Set<String> focuses;
-    
-    @Column(name="specialization")
-    protected final String specialization;
     
     @OneToOne(cascade={CascadeType.ALL})
     @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
@@ -108,7 +108,7 @@ public abstract class SetTrait {
     }
     
     public final boolean isPending() {
-        return this.status.equals(TraitChangeStatus.PENDING);
+        return TraitChangeStatus.PENDING.equals(this.status);
     }
 
     public abstract PlayerCharacter apply(PlayerCharacter character);

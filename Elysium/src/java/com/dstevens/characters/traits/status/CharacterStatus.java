@@ -85,11 +85,6 @@ public class CharacterStatus implements EnumeratedTrait<Status>, ApplicableTrait
 	}
 
 	@Override
-	public ApplicableTrait copy() {
-		return this;
-	}
-
-	@Override
 	public int ordinal() {
 		return trait.ordinal();
 	}

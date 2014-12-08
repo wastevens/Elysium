@@ -29,9 +29,4 @@ class GainExperience extends Experience {
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.setXp(character.getXp() - xp());
 	}
-
-	@Override
-	public ApplicableTrait copy() {
-		return new GainExperience(xp());
-	}
 }

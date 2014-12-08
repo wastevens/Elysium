@@ -99,9 +99,4 @@ public class CharacterNecromancy implements EnumeratedTrait<Necromancy>, Applica
     public Predicate<CharacterNecromancy> matches() {
 		return ((Predicate<CharacterNecromancy>)(CharacterNecromancy t) -> t.trait.equals(this.trait));
 	}
-
-	@Override
-	public ApplicableTrait copy() {
-		return this;
-	}
 }

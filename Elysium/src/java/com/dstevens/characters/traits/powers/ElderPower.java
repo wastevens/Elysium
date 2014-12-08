@@ -94,9 +94,4 @@ public enum ElderPower implements EnumeratedTrait<ElderPower>, ApplicableTrait {
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutElderPower(this);
 	}
-	
-	@Override
-	public ApplicableTrait copy() {
-		return this;
-	}
 }

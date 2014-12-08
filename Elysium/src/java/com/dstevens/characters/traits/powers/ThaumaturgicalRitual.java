@@ -64,10 +64,4 @@ public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, Applic
     public PlayerCharacter removeFrom(PlayerCharacter character) {
     	return character.withoutThaumaturgicalRitual(this);
     }
-    
-    @Override
-	public ApplicableTrait copy() {
-		return this;
-	}
-    
 }

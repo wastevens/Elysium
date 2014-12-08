@@ -6,7 +6,5 @@ public interface ApplicableTrait {
 
 	PlayerCharacter applyTo(PlayerCharacter character);
     PlayerCharacter removeFrom(PlayerCharacter character);
-    
-    ApplicableTrait copy();
 	
 }

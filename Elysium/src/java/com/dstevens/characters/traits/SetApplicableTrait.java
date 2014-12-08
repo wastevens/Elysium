@@ -35,12 +35,12 @@ public abstract class SetApplicableTrait<T extends ApplicableTrait> extends SetT
 	protected abstract T trait();
 	
 	public final PlayerCharacter apply(PlayerCharacter character) {
-		return trait().copy().applyTo(character);
+		return trait().applyTo(character);
 	}
 
 	@Override
 	public final PlayerCharacter remove(PlayerCharacter character) {
-		return trait().copy().removeFrom(character);
+		return trait().removeFrom(character);
 	}
 
 	@Override
