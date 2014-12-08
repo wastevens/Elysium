@@ -2,7 +2,7 @@ package com.dstevens.characters.traits.attributes.focuses;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 public enum SocialAttributeFocus implements ApplicableTrait, AttributeFocus {
@@ -22,7 +22,7 @@ public enum SocialAttributeFocus implements ApplicableTrait, AttributeFocus {
 	}
 	
 	@Override
-	public SetTrait set(TraitChangeStatus status) {
+	public TraitChange set(TraitChangeStatus status) {
 		return new SetSocialFocus(status, this.ordinal());
 	}
 }

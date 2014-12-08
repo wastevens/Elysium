@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
@@ -21,62 +21,62 @@ import com.dstevens.characters.traits.status.Status;
 class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
 	@Override
-	public SetTrait attribute(Attribute attribute, int rating) {
+	public TraitChange attribute(Attribute attribute, int rating) {
 		return attribute.set(TraitChangeStatus.PENDING, rating);
 	}
 
 	@Override
-	public SetTrait focus(AttributeFocus focus) {
+	public TraitChange focus(AttributeFocus focus) {
 		return focus.set(TraitChangeStatus.PENDING);
 	}
 	
 	@Override
-	public SetTrait skill(Skill skill, int rating, String specialization, Set<String> focuses) {
+	public TraitChange skill(Skill skill, int rating, String specialization, Set<String> focuses) {
 		return skill.set(TraitChangeStatus.PENDING, rating, specialization, focuses);
 	}
 
 	@Override
-	public SetTrait background(Background background, int rating, String specialization, Set<String> focuses) {
+	public TraitChange background(Background background, int rating, String specialization, Set<String> focuses) {
 		return background.set(TraitChangeStatus.PENDING, rating, specialization, focuses);
 	}
 	
 	@Override
-	public SetTrait power(Power<?> power, int rating) {
+	public TraitChange power(Power<?> power, int rating) {
 		return power.set(TraitChangeStatus.PENDING, rating);
 	}
 
 	@Override
-	public SetTrait ritual(Ritual<?> ritual) {
+	public TraitChange ritual(Ritual<?> ritual) {
 		return ritual.set(TraitChangeStatus.PENDING);
 	}
 	
 	 @Override
-	public SetTrait merit(Merit merit, String specialization, SetTrait associatedTrait) {
+	public TraitChange merit(Merit merit, String specialization, TraitChange associatedTrait) {
 		 return merit.set(TraitChangeStatus.PENDING, specialization).and(associatedTrait);
     }
     
     @Override
-	public SetTrait flaw(Flaw flaw, String specialization, SetTrait associatedTrait) {
+	public TraitChange flaw(Flaw flaw, String specialization, TraitChange associatedTrait) {
     	return flaw.set(TraitChangeStatus.PENDING, specialization).and(associatedTrait);
     }
 
 	@Override
-	public SetTrait technique(Technique technique) {
+	public TraitChange technique(Technique technique) {
 		return technique.set(TraitChangeStatus.PENDING);
 	}
 
 	@Override
-	public SetTrait elderPower(ElderPower power) {
+	public TraitChange elderPower(ElderPower power) {
 		return power.set(TraitChangeStatus.PENDING);
 	}
 
 	@Override
-	public SetTrait inClanPower(Power<?> power) {
+	public TraitChange inClanPower(Power<?> power) {
 		return power.set(TraitChangeStatus.PENDING);
 	}
 	
 	@Override
-	public SetTrait status(Status trait, String specialization) {
+	public TraitChange status(Status trait, String specialization) {
 		return trait.set(TraitChangeStatus.PENDING, specialization);
 	}
 }

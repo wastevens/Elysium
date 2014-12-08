@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.collections.Sets;
 
@@ -71,7 +71,7 @@ public enum Technique implements ApplicableTrait {
 		return character.withoutTechnique(this);
 	}
 	
-	public SetTrait set(TraitChangeStatus status) {
+	public TraitChange set(TraitChangeStatus status) {
 		return new SetTechnique(status, this.ordinal());
 	}
 }

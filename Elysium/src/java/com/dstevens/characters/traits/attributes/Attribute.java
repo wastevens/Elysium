@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.attributes;
 
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 public enum Attribute {
@@ -24,7 +24,7 @@ public enum Attribute {
 		}
 	};
 
-	public SetTrait set(TraitChangeStatus status, int rating) {
+	public TraitChange set(TraitChangeStatus status, int rating) {
 		return new SetAttributeValue(status, this.ordinal(), rating);
 	}
 	

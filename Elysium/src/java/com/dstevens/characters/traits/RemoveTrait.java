@@ -13,11 +13,11 @@ import javax.persistence.OneToOne;
 @SuppressWarnings("deprecation")
 @Entity
 @DiscriminatorValue("RemoveTrait")
-class RemoveTrait extends SetTrait {
+class RemoveTrait extends TraitChange {
 
 	@OneToOne(cascade={CascadeType.ALL})
 	@ForeignKey(name="TraitChange_TraitToRemove_FK", inverseName="TraitToRemove_TraitChange_FK")
-	private final SetTrait traitToRemove;
+	private final TraitChange traitToRemove;
 
 	//Hibernate only
     @Deprecated
@@ -26,17 +26,17 @@ class RemoveTrait extends SetTrait {
         this(null, null);
     }
 	
-	protected RemoveTrait(SetTrait traitToRemove) {
+	protected RemoveTrait(TraitChange traitToRemove) {
 		this(traitToRemove.status(), traitToRemove);
 	}
-	private RemoveTrait(TraitChangeStatus status, SetTrait traitToRemove) {
+	private RemoveTrait(TraitChangeStatus status, TraitChange traitToRemove) {
 		super(status);
 		this.traitToRemove = traitToRemove;
 	}
 
 	@Override
 	public PlayerCharacter apply(PlayerCharacter character) {
-		SetTrait currentTraitToRemove = traitToRemove;
+		TraitChange currentTraitToRemove = traitToRemove;
 		while(currentTraitToRemove != null) {
 			currentTraitToRemove.setStatus(TraitChangeStatus.APPLIED);
 			currentTraitToRemove.remove(character);
@@ -47,7 +47,7 @@ class RemoveTrait extends SetTrait {
 	
 	@Override
 	public PlayerCharacter remove(PlayerCharacter character) {
-		SetTrait currentTraitToRemove = traitToRemove;
+		TraitChange currentTraitToRemove = traitToRemove;
 		currentTraitToRemove.apply(character);
 		while(currentTraitToRemove.hasAssociatedTrait()) {
 			currentTraitToRemove = traitToRemove.associatedTrait();

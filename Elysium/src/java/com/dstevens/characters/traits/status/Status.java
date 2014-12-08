@@ -1,6 +1,6 @@
 package com.dstevens.characters.traits.status;
 
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 public enum Status {
@@ -8,7 +8,7 @@ public enum Status {
 	AWESOME,
 	NOT_AWESOME;
 	
-	public SetTrait set(TraitChangeStatus status, String specialization) {
+	public TraitChange set(TraitChangeStatus status, String specialization) {
 		return new SetStatus(status, this.ordinal(), specialization);
 	};
 	

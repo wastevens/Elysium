@@ -2,7 +2,7 @@ package com.dstevens.characters.traits.changes;
 
 import java.util.Set;
 
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
@@ -17,28 +17,28 @@ import com.dstevens.characters.traits.status.Status;
 
 public interface TraitChangeFactory {
 
-	SetTrait attribute(Attribute attribute, int rating);
+	TraitChange attribute(Attribute attribute, int rating);
 	
-	SetTrait focus(AttributeFocus focus);
+	TraitChange focus(AttributeFocus focus);
 
-	SetTrait skill(Skill skill, int rating, String specialization, Set<String> focuses);
+	TraitChange skill(Skill skill, int rating, String specialization, Set<String> focuses);
 
-	SetTrait background(Background background, int rating, String specialization, Set<String> focuses);
+	TraitChange background(Background background, int rating, String specialization, Set<String> focuses);
 
-	SetTrait power(Power<?> power, int rating);
+	TraitChange power(Power<?> power, int rating);
 
-	SetTrait ritual(Ritual<?> ritual);
+	TraitChange ritual(Ritual<?> ritual);
 
-	SetTrait technique(Technique technique);
+	TraitChange technique(Technique technique);
 
-	SetTrait elderPower(ElderPower power);
+	TraitChange elderPower(ElderPower power);
 
-	SetTrait inClanPower(Power<?> power);
+	TraitChange inClanPower(Power<?> power);
 	
-	SetTrait merit(Merit merit, String specialization, SetTrait associatedTrait);
+	TraitChange merit(Merit merit, String specialization, TraitChange associatedTrait);
 	
-	SetTrait flaw(Flaw flaw, String specialization, SetTrait associatedTrait);
+	TraitChange flaw(Flaw flaw, String specialization, TraitChange associatedTrait);
 
-	SetTrait status(Status awesome, String string);
+	TraitChange status(Status awesome, String string);
 
 }

@@ -9,7 +9,7 @@ import static org.mockito.Mockito.mock;
 
 import org.junit.Test;
 
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
 import com.dstevens.characters.traits.skills.CharacterSkill;
@@ -222,8 +222,8 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithTraitChangeEvent() {
-    	SetTrait someTraitChangeEvent1 = mock(SetTrait.class);
-    	SetTrait someTraitChangeEvent2 = mock(SetTrait.class);
+    	TraitChange someTraitChangeEvent1 = mock(TraitChange.class);
+    	TraitChange someTraitChangeEvent2 = mock(TraitChange.class);
 		PlayerCharacter character = new PlayerCharacter(ID, NAME).withTraitChangeEvent(someTraitChangeEvent1).withTraitChangeEvent(someTraitChangeEvent2);
 		
 		assertEquals(character.getTraitChangeEvents(), list(someTraitChangeEvent1, someTraitChangeEvent2));

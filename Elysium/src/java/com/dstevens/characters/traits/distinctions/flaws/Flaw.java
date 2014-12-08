@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.distinctions.DistinctionType;
 import com.dstevens.players.Setting;
@@ -147,7 +147,7 @@ public enum Flaw {
     			             collect(Collectors.toList());
     }
     
-    public SetTrait set(TraitChangeStatus status, String specialization) {
+    public TraitChange set(TraitChangeStatus status, String specialization) {
     	return new SetFlaw(status, this.ordinal(), specialization);
     }
 	

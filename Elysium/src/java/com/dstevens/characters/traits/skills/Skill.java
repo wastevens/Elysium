@@ -3,7 +3,7 @@ package com.dstevens.characters.traits.skills;
 import java.util.Set;
 
 import com.dstevens.characters.traits.DetailLevel;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 public enum Skill {
@@ -49,7 +49,7 @@ public enum Skill {
     	return detailLevel;
     }
     
-    public SetTrait set(TraitChangeStatus status, int rating, String specialization, Set<String> focuses) {
+    public TraitChange set(TraitChangeStatus status, int rating, String specialization, Set<String> focuses) {
     	return new SetSkill(status, this.ordinal(), rating, specialization, focuses);
     }
 }

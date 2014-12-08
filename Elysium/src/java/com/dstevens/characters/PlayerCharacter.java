@@ -15,7 +15,7 @@ import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.attributes.focuses.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.SocialAttributeFocus;
@@ -173,7 +173,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
     @OrderColumn(name="order_by")
     @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChangeEvents_id"}, name="PlayerCharacter_TraitChanges_UC")})
     @ForeignKey(name="PlayerCharacter_TraitChanges_FK", inverseName="TraitChanges_PlayerCharacter_FK")
-    private final List<SetTrait> traitChangeEvents;
+    private final List<TraitChange> traitChangeEvents;
 
     
     //Hibernate only
@@ -203,7 +203,7 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                             Set<Technique> techniques, Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, 
                             Set<ThaumaturgicalRitual> thaumaturgicalRituals, Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath,
                             Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
-                            List<SetTrait> traitChangeEvents, Date deleteTimestamp) {
+                            List<TraitChange> traitChangeEvents, Date deleteTimestamp) {
         this.id = id;
         this.xp = xp;
         this.name = name;
@@ -634,22 +634,22 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    public List<SetTrait> getTraitChangeEvents() {
+    public List<TraitChange> getTraitChangeEvents() {
         return traitChangeEvents;
     }
     
-    public PlayerCharacter withTraitChangeEvent(SetTrait event) {
+    public PlayerCharacter withTraitChangeEvent(TraitChange event) {
         this.traitChangeEvents.add(event);
         return this;
     }
     
-    public PlayerCharacter approvePendingChange(SetTrait event) {
+    public PlayerCharacter approvePendingChange(TraitChange event) {
         event.approve(this);
         return this;
     }
     
     public PlayerCharacter approvePendingChanges() {
-        this.traitChangeEvents.forEach((SetTrait t) -> t.approve(this));
+        this.traitChangeEvents.forEach((TraitChange t) -> t.approve(this));
         return this;
     }
 

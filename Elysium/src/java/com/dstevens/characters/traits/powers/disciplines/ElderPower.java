@@ -2,7 +2,7 @@ package com.dstevens.characters.traits.powers.disciplines;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 
@@ -91,7 +91,7 @@ public enum ElderPower implements ApplicableTrait {
 		return character.withoutElderPower(this);
 	}
 	
-	public SetTrait set(TraitChangeStatus status) {
+	public TraitChange set(TraitChangeStatus status) {
 		return new SetElderPower(status, this.ordinal());
 	}
 }

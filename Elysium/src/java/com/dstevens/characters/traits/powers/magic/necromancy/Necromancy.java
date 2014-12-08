@@ -1,7 +1,7 @@
 package com.dstevens.characters.traits.powers.magic.necromancy;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.SetTrait;
+import com.dstevens.characters.traits.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.powers.Power;
 
@@ -23,12 +23,12 @@ public enum Necromancy implements Power<Necromancy> {
 	}
 	
 	@Override
-	public SetTrait set(TraitChangeStatus status) {
+	public TraitChange set(TraitChangeStatus status) {
 		return new SetInClanNecromancy(status, this.ordinal());
 	}
 	
 	@Override
-	public SetTrait set(TraitChangeStatus status, int rating) {
+	public TraitChange set(TraitChangeStatus status, int rating) {
 		return new SetNecromancy(status, this.ordinal(), rating);
 	}
 }

@@ -26,7 +26,7 @@ import javax.persistence.Table;
 @Inheritance
 @DiscriminatorColumn(name="trait_change_type")
 @Table(name="TraitChanges")
-public abstract class SetTrait {
+public abstract class TraitChange {
 
     @Id
     private final String id;
@@ -49,20 +49,20 @@ public abstract class SetTrait {
     
     @OneToOne(cascade={CascadeType.ALL})
     @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
-    private SetTrait child;
+    private TraitChange child;
     
     //Hibernate only
     @SuppressWarnings("unused")
     @Deprecated
-    private SetTrait() {
+    private TraitChange() {
         this(null);
     }
     
-    protected SetTrait(TraitChangeStatus status) {
+    protected TraitChange(TraitChangeStatus status) {
         this(status, -1, -1, null, set());
     }
     
-    protected SetTrait(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+    protected TraitChange(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
 		this.id = new IdSupplier().get();
     	this.ordinal = ordinal;
     	this.rating = rating;
@@ -71,7 +71,7 @@ public abstract class SetTrait {
     	this.status = status;
     }
     
-    public SetTrait and(SetTrait andTrait) {
+    public TraitChange and(TraitChange andTrait) {
     	if(child != null) {
     		this.child.and(andTrait);
     	} else {
@@ -80,7 +80,7 @@ public abstract class SetTrait {
     	return this;
     }
     
-    public SetTrait remove() {
+    public TraitChange remove() {
     	return new RemoveTrait(this);
     }
     
@@ -96,7 +96,7 @@ public abstract class SetTrait {
         return child != null;
     }
 
-    public SetTrait associatedTrait() {
+    public TraitChange associatedTrait() {
         return child;
     }
     
