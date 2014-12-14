@@ -1,15 +1,19 @@
 package com.dstevens.configuration;
 
 import java.util.Properties;
-import javax.sql.DataSource;
 
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.*;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories("com.dstevens")
@@ -45,13 +49,32 @@ public class PersistanceConfiguration {
 
     private DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/elysium");
+        String jdbcUrl = "jdbc:mysql://" + hostName() + ":" + dbPort() + "/" + dbName() + "?user=" + dbUser() + "&password=" + dbPassword();
+        dataSource.setUrl(jdbcUrl);
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUsername("admin");
-        dataSource.setPassword("admin");
         return dataSource;
     }
-
+    
+    private String hostName() {
+    	return System.getProperty("RDS_HOSTNAME", "localhost");
+    }
+    
+    private String dbName() {
+    	return System.getProperty("RDS_DB_NAME", "elysium");
+    }
+    
+    private String dbPort() {
+    	return System.getProperty("RDS_PORT", "3306");
+    }
+    
+    private String dbUser() {
+    	return System.getProperty("RDS_USERNAME", "admin");
+    }
+    
+    private String dbPassword() {
+    	return System.getProperty("RDS_PASSWORD", "admin");
+    }
+    
     @Bean
     public PlatformTransactionManager transactionManager(){
        JpaTransactionManager transactionManager = new JpaTransactionManager();
