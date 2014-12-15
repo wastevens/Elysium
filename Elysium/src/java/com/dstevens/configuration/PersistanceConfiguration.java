@@ -51,28 +51,32 @@ public class PersistanceConfiguration {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         String jdbcUrl = "jdbc:mysql://" + hostName() + ":" + dbPort() + "/" + dbName() + "?user=" + dbUser() + "&password=" + dbPassword();
         dataSource.setUrl(jdbcUrl);
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName(driver());
         return dataSource;
     }
+
+	private String driver() {
+		return System.getProperty("DB_DRIVER", "com.mysql.jdbc.Driver");
+	}
     
     private String hostName() {
-    	return System.getProperty("RDS_HOSTNAME", "localhost");
+    	return System.getProperty("DB_HOSTNAME", "localhost");
     }
     
     private String dbName() {
-    	return System.getProperty("RDS_DB_NAME", "elysium");
+    	return System.getProperty("DB_NAME", "elysium");
     }
     
     private String dbPort() {
-    	return System.getProperty("RDS_PORT", "3306");
+    	return System.getProperty("DB_PORT", "3306");
     }
     
     private String dbUser() {
-    	return System.getProperty("RDS_USERNAME", "admin");
+    	return System.getProperty("DB_USERNAME", "admin");
     }
     
     private String dbPassword() {
-    	return System.getProperty("RDS_PASSWORD", "admin");
+    	return System.getProperty("DB_PASSWORD", "admin");
     }
     
     @Bean
