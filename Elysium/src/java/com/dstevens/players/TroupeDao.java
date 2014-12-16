@@ -16,4 +16,7 @@ public interface TroupeDao extends CrudRepository<Troupe, String> {
     
     @Query("SELECT COUNT(a) FROM Troupe a WHERE a.name = ?1")
     int countOfNamed(String name);
+
+    @Query("SELECT a FROM Troupe a WHERE a.deleteTimestamp is null")
+	Iterable<Troupe> findAllUndeleted();
 }

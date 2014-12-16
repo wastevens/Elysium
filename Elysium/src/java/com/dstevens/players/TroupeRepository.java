@@ -3,7 +3,8 @@ package com.dstevens.players;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dstevens.persistence.auditing.*;
+import com.dstevens.persistence.auditing.AbstractAuditableRepository;
+import com.dstevens.persistence.auditing.AuditableRepositoryProvider;
 
 @Service
 public class TroupeRepository extends AbstractAuditableRepository<Troupe> {
@@ -28,5 +29,9 @@ public class TroupeRepository extends AbstractAuditableRepository<Troupe> {
 
     public Troupe findNamed(String troupeName) {
         return dao.findUndeletedNamed(troupeName);
+    }
+    
+    public Iterable<Troupe> findAllUndeleted() {
+    	return dao.findAllUndeleted();
     }
 }
