@@ -27,6 +27,10 @@ public class TroupeRepository extends AbstractAuditableRepository<Troupe> {
         return create(factory.createTroupe(troupeName, setting));
     }
 
+    public Troupe findWithId(String id) {
+    	return dao.findOne(id);
+    }
+    
     public Troupe findNamed(String troupeName) {
         return dao.findUndeletedNamed(troupeName);
     }
