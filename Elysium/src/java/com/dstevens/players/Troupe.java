@@ -38,11 +38,6 @@ public class Troupe implements Comparable<Troupe> {
     
     @OneToMany(cascade={CascadeType.ALL})
     @JoinColumn(name="troupe_id", referencedColumnName="id")
-    @ForeignKey(name="Troupe_Players_FK")
-    private final Set<Player> players;
-
-    @OneToMany(cascade={CascadeType.ALL})
-    @JoinColumn(name="troupe_id", referencedColumnName="id")
     @ForeignKey(name="Troupe_PlayerCharacters_FK")
     private final Set<PlayerCharacter> characters;
 
@@ -50,20 +45,20 @@ public class Troupe implements Comparable<Troupe> {
     private final Date deleteTimestamp;
     
     //Used only for hibernate
-    @Deprecated
-    public Troupe() {
-        this(null, null, null);
+    @SuppressWarnings("unused")
+	@Deprecated
+    private Troupe() {
+        this(null, null, null, set(), null);
     }
     
     Troupe(String id, String name, Setting setting) {
-        this(id, name, setting, set(), set(), null);
+        this(id, name, setting, set(), null);
     }
     
-    private Troupe(String id, String name, Setting setting, Set<Player> players, Set<PlayerCharacter> characters, Date deleteTimestamp) {
+    private Troupe(String id, String name, Setting setting, Set<PlayerCharacter> characters, Date deleteTimestamp) {
         this.id = id;
         this.name = name;
         this.setting = setting;
-        this.players = players;
         this.characters = characters;
         this.deleteTimestamp = deleteTimestamp;
     }
@@ -90,29 +85,12 @@ public class Troupe implements Comparable<Troupe> {
         return setting;
     }
 
-    public Troupe withPlayer(Player player) {
-        Set<Player> setWith = setWith(players, player);
-        return new Troupe(id, name, setting, setWith, characters, deleteTimestamp);
-    }
-    
-    public Troupe withoutPlayer(Player player) {
-        return new Troupe(id, name, setting, setWithout(players, player), characters, deleteTimestamp);
-    }
-    
-    public Troupe clearPlayers() {
-        return new Troupe(id, name, setting, set(), characters, deleteTimestamp);
-    }
-    
-    public Set<Player> getPlayers() {
-        return players;
-    }
-    
     public Troupe withCharacter(PlayerCharacter character) {
-        return new Troupe(id, name, setting, players, setWith(characters, character), deleteTimestamp);
+        return new Troupe(id, name, setting, setWith(characters, character), deleteTimestamp);
     }
     
     public Troupe withoutCharacter(PlayerCharacter character) {
-        return new Troupe(id, name, setting, players, setWithout(characters, character), deleteTimestamp);
+        return new Troupe(id, name, setting, setWithout(characters, character), deleteTimestamp);
     }
     
     public Set<PlayerCharacter> getCharacters() {
@@ -120,11 +98,11 @@ public class Troupe implements Comparable<Troupe> {
     }
 
     public Troupe delete(Date deleteTimestamp) {
-        return new Troupe(id, name, setting, players, characters, deleteTimestamp);
+        return new Troupe(id, name, setting, characters, deleteTimestamp);
     }
     
     public Troupe undelete() {
-        return new Troupe(id, name, setting, players, characters, null);
+        return new Troupe(id, name, setting, characters, null);
     }
     
     @Override

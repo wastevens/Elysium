@@ -16,8 +16,6 @@ public class TroupeDaoTest {
     
     private TroupeDao troupeDao;
     private TroupeFactory troupeFactory;
-    private PlayerDao playerDao;
-    private PlayerFactory playerFactory;
     
     private Set<Troupe> troupesToDelete;
 
@@ -25,8 +23,6 @@ public class TroupeDaoTest {
     public void setUp() {
         troupeDao       = APP_CONFIG.getBean(TroupeDao.class);
         troupeFactory    = APP_CONFIG.getBean(TroupeFactory.class);
-        playerDao       = APP_CONFIG.getBean(PlayerDao.class);
-        playerFactory    = APP_CONFIG.getBean(PlayerFactory.class);
         
         troupesToDelete = set();
     }
@@ -81,21 +77,6 @@ public class TroupeDaoTest {
         assertEquals(troupe1, troupeDao.findUndeletedNamed(name));
         assertEquals(6, troupeDao.countOfNamed(name));
         assertEquals(1, troupeDao.countOfUndeletedNamed(name));
-    }
-    
-    @Test
-    public void testWithPlayers() {
-        Troupe savedTroupe = troupeDao.save(troupeFactory.createTroupe("some name", Setting.ANARCH));
-        Player player1 = playerDao.save(playerFactory.createPlayer("player 1 name", "player 1 email"));
-        Player player2 = playerDao.save(playerFactory.createPlayer("player 2 name", "player 2 email"));
-        Player player3 = playerDao.save(playerFactory.createPlayer("player 3 name", "player 3 email"));
-        Troupe troupeWithPlayers = troupeDao.save(savedTroupe.withPlayer(player1).withPlayer(player2));
-        assertEquals(set(player1, player2), troupeWithPlayers.getPlayers());
-        
-        Troupe troupeWithAnotherPlayer = troupeDao.save(troupeWithPlayers.withPlayer(player3));
-        troupesToDelete.add(troupeWithAnotherPlayer);
-        
-        assertEquals(set(player1, player2, player3), troupeWithAnotherPlayer.getPlayers());
     }
     
 }

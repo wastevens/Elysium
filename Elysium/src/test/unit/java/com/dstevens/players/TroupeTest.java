@@ -1,11 +1,12 @@
 package com.dstevens.players;
 
-import static com.dstevens.collections.Lists.*;
+import static com.dstevens.collections.Lists.list;
+import static com.dstevens.collections.Lists.sort;
 import static com.dstevens.testing.Assertions.assertListsEqual;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -15,22 +16,16 @@ public class TroupeTest {
 
     @Test
     public void testEquals() {
-        Player player1 = mock(Player.class);
-        Player player2 = mock(Player.class);
-        Player player3 = mock(Player.class);
-        Player player4 = mock(Player.class);
         String id = "id";
         String name = "name";
         Setting setting = Setting.CAMARILLA;
         Setting anotherSetting = Setting.values()[setting.ordinal()+1];
         
-        EqualityTester.testing(new Troupe(id, name, setting).withPlayer(player1).withPlayer(player2).withPlayer(player3)).
-                 assertEqualTo(new Troupe(id, name, setting).withPlayer(player1).withPlayer(player2).withPlayer(player3)).
-                 assertEqualTo(new Troupe(id, "Another " + name, setting).withPlayer(player1).withPlayer(player2).withPlayer(player3)).
-                 assertEqualTo(new Troupe(id, name, anotherSetting).withPlayer(player1).withPlayer(player2).withPlayer(player3)).
-                 assertEqualTo(new Troupe(id, name, setting).withPlayer(player1).withPlayer(player2)).
-                 assertEqualTo(new Troupe(id, name, setting).withPlayer(player1).withPlayer(player2).withPlayer(player3).withPlayer(player4)).
-              assertNotEqualTo(new Troupe("Another " + id, name, setting).withPlayer(player1).withPlayer(player2).withPlayer(player3)).
+        EqualityTester.testing(new Troupe(id, name, setting)).
+                 assertEqualTo(new Troupe(id, name, setting)).
+                 assertEqualTo(new Troupe(id, "Another " + name, setting)).
+                 assertEqualTo(new Troupe(id, name, anotherSetting)).
+              assertNotEqualTo(new Troupe("Another " + id, name, setting)).
         assertNotEqualTo("Not a enclosing_type");
     }
     
