@@ -6,10 +6,7 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <mapping package="com.dstevens"/>
-    <mapping class="com.dstevens.persistence.auditing.AuditEvent"/>
     
-    <mapping class="com.dstevens.players.Troupe"/>
-    <mapping class="com.dstevens.players.Player"/>
     <mapping class="com.dstevens.characters.PlayerCharacter"/>
     <mapping class="com.dstevens.characters.traits.changes.TraitChange"/>
     <mapping class="com.dstevens.characters.traits.changes.RemoveTrait"/>
