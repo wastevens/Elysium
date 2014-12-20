@@ -38,40 +38,20 @@ import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.characters.traits.status.CharacterStatus;
 import com.dstevens.characters.traits.status.Status;
 import com.dstevens.configuration.ApplicationConfiguration;
-import com.dstevens.players.Player;
-import com.dstevens.players.PlayerRepository;
-import com.dstevens.players.Setting;
-import com.dstevens.players.Troupe;
-import com.dstevens.players.TroupeRepository;
 
 public class AddAndModifyCharacterTest {
 
-	private static final String TROUPE_NAME = "some troupe";
-	private static final String PLAYER_NAME = "some player name";
-	private static final String PLAYER_EMAIL = "some email";
-	
     private ApplicationContext appConfig = ApplicationConfiguration.appConfig();
     
     @Before
     public void setUp() {
     	this.appConfig = ApplicationConfiguration.appConfig();
-        TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
-        PlayerRepository playerRepository = appConfig.getBean(PlayerRepository.class);
-        
-        Troupe troupe = troupeRepository.ensureExists(TROUPE_NAME, Setting.CAMARILLA);
-        playerRepository.ensureExists(PLAYER_NAME, PLAYER_EMAIL, troupe);
     }
     
     @After
     public void tearDown() {
-    	TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
-        PlayerRepository playerRepository = appConfig.getBean(PlayerRepository.class);
         PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-        
-        Troupe troupe = troupeRepository.findNamed(TROUPE_NAME);
-        troupe.getCharacters().stream().forEach(((PlayerCharacter pc) -> characterRepository.delete(pc)));
-        troupe.getPlayers().stream().forEach(((Player pc) -> playerRepository.delete(pc)));
-        troupeRepository.delete(troupe);
+       characterRepository.hardDelete(getMaryWollstonecraft());
     }
     
     @Test   
@@ -208,14 +188,9 @@ public class AddAndModifyCharacterTest {
     }
 
     private void createMaryWollstonecraft() {
-        TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
-        PlayerRepository playerRepository = appConfig.getBean(PlayerRepository.class);
         PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
         
-        Troupe troupe = troupeRepository.ensureExists(TROUPE_NAME, Setting.CAMARILLA);
-        Player player = playerRepository.ensureExists(PLAYER_NAME, PLAYER_EMAIL, troupe);
-        
-        PlayerCharacter character = characterRepository.ensureExists(troupe, player, "Mary Wollstonecraft");
+        PlayerCharacter character = characterRepository.ensureExists("Mary Wollstonecraft");
         PlayerCharacter saved = characterRepository.update(character.ofClan(Clan.TOREADOR).
                                              ofBloodline(Bloodline.TOREADOR).
                                              withInClanDiscipline(Discipline.PRESENCE).
@@ -311,10 +286,8 @@ public class AddAndModifyCharacterTest {
     }
     
 	private PlayerCharacter getMaryWollstonecraft() {
-		TroupeRepository troupeRepository = appConfig.getBean(TroupeRepository.class);
-		Troupe troupe = troupeRepository.findNamed(TROUPE_NAME);
-        Player player = troupe.getPlayers().stream().filter((Player p) -> p.getEmail().equals(PLAYER_EMAIL)).findFirst().get();
-        return player.getCharacters().stream().filter((PlayerCharacter pc) -> pc.getName().equals("Mary Wollstonecraft")).findFirst().get();
+		PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
+		return characterRepository.findNamed("Mary Wollstonecraft");
 	}
 
     private void approveChangesOnMary() {

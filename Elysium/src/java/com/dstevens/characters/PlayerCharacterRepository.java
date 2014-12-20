@@ -1,51 +1,41 @@
 package com.dstevens.characters;
 
-import java.util.function.Predicate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.dstevens.players.Player;
-import com.dstevens.players.PlayerDao;
-import com.dstevens.players.Troupe;
-import com.dstevens.players.TroupeDao;
 
 @Service
 public class PlayerCharacterRepository {
 
     private final PlayerCharacterFactory factory;
-    private final PlayerDao playerDao;
-    private final TroupeDao troupeDao;
-	private final PlayerCharacterDao playerCharacterDao;
+	private final PlayerCharacterDao dao;
 
     @Autowired
-    public PlayerCharacterRepository(PlayerCharacterDao playerCharacterDao, PlayerDao playerDao, TroupeDao troupeDao, PlayerCharacterFactory factory) {
-        this.playerCharacterDao = playerCharacterDao;
-		this.playerDao = playerDao;
-        this.troupeDao = troupeDao;
+    public PlayerCharacterRepository(PlayerCharacterDao playerCharacterDao, PlayerCharacterFactory factory) {
+        this.dao = playerCharacterDao;
         this.factory = factory;
     }
     
-    public PlayerCharacter ensureExists(Troupe troupe, Player player, String name) {
-        Predicate<PlayerCharacter> characterWithName = ((PlayerCharacter pc) -> (pc.getName().equals(name) && !pc.isDeleted()));
-        if (player.getCharacters().stream().anyMatch(characterWithName)) {
-            return player.getCharacters().stream().filter(characterWithName).findFirst().get();
-        }
-        return createNewCharacterFor(troupe, player, name);
+    public PlayerCharacter ensureExists(String name) {
+        return createNewCharacterFor(name);
     }
 
-    private PlayerCharacter createNewCharacterFor(Troupe troupe, Player player, String name) {
-        PlayerCharacter character = playerCharacterDao.save(factory.createPlayerCharacter(name));
-        playerDao.save(player.withCharacter(character));
-        troupeDao.save(troupe.withCharacter(character));
-        return character;
+    private PlayerCharacter createNewCharacterFor(String name) {
+        return dao.save(factory.createPlayerCharacter(name));
     }
 
 	public void delete(PlayerCharacter pc) {
-		playerCharacterDao.delete(pc);
+		dao.delete(pc);
 	}
 
 	public PlayerCharacter update(PlayerCharacter pc) {
-		return playerCharacterDao.save(pc);
+		return dao.save(pc);
+	}
+	
+	public PlayerCharacter findNamed(String name) {
+		return dao.findUndeletedNamed(name);
+	}
+
+	public void hardDelete(PlayerCharacter pc) {
+		dao.delete(pc);
 	}
 }
