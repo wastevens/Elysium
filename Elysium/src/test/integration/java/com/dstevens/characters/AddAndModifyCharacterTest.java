@@ -69,9 +69,9 @@ public class AddAndModifyCharacterTest {
         PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
         
         Troupe troupe = troupeRepository.findNamed(TROUPE_NAME);
-        troupe.getCharacters().stream().forEach(((PlayerCharacter pc) -> characterRepository.hardDelete(pc)));
-        troupe.getPlayers().stream().forEach(((Player pc) -> playerRepository.hardDelete(pc)));
-        troupeRepository.hardDelete(troupe);
+        troupe.getCharacters().stream().forEach(((PlayerCharacter pc) -> characterRepository.delete(pc)));
+        troupe.getPlayers().stream().forEach(((Player pc) -> playerRepository.delete(pc)));
+        troupeRepository.delete(troupe);
     }
     
     @Test   

@@ -5,20 +5,23 @@ import java.util.function.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dstevens.persistence.auditing.*;
-import com.dstevens.players.*;
+import com.dstevens.players.Player;
+import com.dstevens.players.PlayerDao;
+import com.dstevens.players.Troupe;
+import com.dstevens.players.TroupeDao;
 
 @Service
-public class PlayerCharacterRepository extends AbstractAuditableRepository<PlayerCharacter> {
+public class PlayerCharacterRepository {
 
     private final PlayerCharacterFactory factory;
-    private PlayerDao playerDao;
-    private TroupeDao troupeDao;
+    private final PlayerDao playerDao;
+    private final TroupeDao troupeDao;
+	private final PlayerCharacterDao playerCharacterDao;
 
     @Autowired
-    public PlayerCharacterRepository(PlayerCharacterDao dao, PlayerDao playerDao, TroupeDao troupeDao, AuditableRepositoryProvider repositoryProvider, PlayerCharacterFactory factory) {
-        super(repositoryProvider.repositoryFor(dao));
-        this.playerDao = playerDao;
+    public PlayerCharacterRepository(PlayerCharacterDao playerCharacterDao, PlayerDao playerDao, TroupeDao troupeDao, PlayerCharacterFactory factory) {
+        this.playerCharacterDao = playerCharacterDao;
+		this.playerDao = playerDao;
         this.troupeDao = troupeDao;
         this.factory = factory;
     }
@@ -32,9 +35,17 @@ public class PlayerCharacterRepository extends AbstractAuditableRepository<Playe
     }
 
     private PlayerCharacter createNewCharacterFor(Troupe troupe, Player player, String name) {
-        PlayerCharacter character = create(factory.createPlayerCharacter(name));
+        PlayerCharacter character = playerCharacterDao.save(factory.createPlayerCharacter(name));
         playerDao.save(player.withCharacter(character));
         troupeDao.save(troupe.withCharacter(character));
         return character;
     }
+
+	public void delete(PlayerCharacter pc) {
+		playerCharacterDao.delete(pc);
+	}
+
+	public PlayerCharacter update(PlayerCharacter pc) {
+		return playerCharacterDao.save(pc);
+	}
 }

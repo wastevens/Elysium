@@ -3,18 +3,14 @@ package com.dstevens.players;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dstevens.persistence.auditing.AbstractAuditableRepository;
-import com.dstevens.persistence.auditing.AuditableRepositoryProvider;
-
 @Service
-public class TroupeRepository extends AbstractAuditableRepository<Troupe> {
+public class TroupeRepository {
 
     private final TroupeFactory factory;
     private TroupeDao dao;
 
     @Autowired
-    public TroupeRepository(TroupeDao dao, AuditableRepositoryProvider repositoryProvider, TroupeFactory factory) {
-        super(repositoryProvider.repositoryFor(dao));
+    public TroupeRepository(TroupeDao dao, TroupeFactory factory) {
         this.dao = dao;
         this.factory = factory;
     }
@@ -24,7 +20,7 @@ public class TroupeRepository extends AbstractAuditableRepository<Troupe> {
         if (troupe != null) {
             return troupe;
         }
-        return create(factory.createTroupe(troupeName, setting));
+        return factory.createTroupe(troupeName, setting);
     }
 
     public Troupe findWithId(String id) {
@@ -38,4 +34,8 @@ public class TroupeRepository extends AbstractAuditableRepository<Troupe> {
     public Iterable<Troupe> findAllUndeleted() {
     	return dao.findAllUndeleted();
     }
+
+	public void delete(Troupe troupe) {
+		dao.delete(troupe);
+	}
 }

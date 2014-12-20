@@ -3,18 +3,15 @@ package com.dstevens.players;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dstevens.persistence.auditing.*;
-
 @Service
-public class PlayerRepository extends AbstractAuditableRepository<Player> {
+public class PlayerRepository {
 
     private TroupeDao troupeDao;
     private PlayerDao dao;
     private PlayerFactory factory;
 
     @Autowired
-    public PlayerRepository(PlayerDao dao, TroupeDao troupeDao, AuditableRepositoryProvider repositoryProvider, PlayerFactory factory) {
-        super(repositoryProvider.repositoryFor(dao));
+    public PlayerRepository(PlayerDao dao, TroupeDao troupeDao, PlayerFactory factory) {
         this.dao = dao;
         this.troupeDao = troupeDao;
         this.factory = factory;
@@ -28,10 +25,13 @@ public class PlayerRepository extends AbstractAuditableRepository<Player> {
             }
             return player;
         }
-        Player createPlayer = factory.createPlayer(playerName, playerEmail);
-        Player newPlayer = create(createPlayer);
+        Player newPlayer = factory.createPlayer(playerName, playerEmail);
         Troupe withPlayer = troupe.withPlayer(newPlayer);
         troupeDao.save(withPlayer);
         return newPlayer;
     }
+
+	public void delete(Player player) {
+		dao.delete(player);
+	}
 }

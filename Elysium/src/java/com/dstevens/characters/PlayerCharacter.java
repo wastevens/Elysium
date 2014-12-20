@@ -36,7 +36,6 @@ import com.dstevens.characters.traits.powers.magic.thaumaturgy.ThaumaturgicalRit
 import com.dstevens.characters.traits.powers.magic.thaumaturgy.Thaumaturgy;
 import com.dstevens.characters.traits.skills.CharacterSkill;
 import com.dstevens.characters.traits.status.CharacterStatus;
-import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 
 import javax.persistence.CascadeType;
@@ -54,7 +53,7 @@ import javax.persistence.UniqueConstraint;
 @SuppressWarnings("deprecation")
 @Entity
 @Table(name="PlayerCharacter")
-public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<PlayerCharacter> {
+public class PlayerCharacter implements Comparable<PlayerCharacter> {
 
     @Id
     private final String id;
@@ -566,7 +565,6 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
         return this;
     }
     
-    @Override
     public PlayerCharacter delete(Date timestamp) {
         return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
@@ -579,7 +577,6 @@ public class PlayerCharacter implements Auditable<PlayerCharacter>, Comparable<P
                                    traitChanges, timestamp);
     }
 
-    @Override
     public PlayerCharacter undelete() {
         return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 

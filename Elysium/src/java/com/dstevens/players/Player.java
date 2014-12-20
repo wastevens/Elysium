@@ -12,7 +12,6 @@ import java.util.function.Function;
 import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.persistence.auditing.Auditable;
 import com.dstevens.utilities.ObjectExtensions;
 
 import javax.persistence.CascadeType;
@@ -26,7 +25,7 @@ import javax.persistence.Table;
 @SuppressWarnings("deprecation")
 @Entity
 @Table(name="Player")
-public class Player implements Auditable<Player>, Comparable<Player> {
+public class Player implements Comparable<Player> {
 
     @Id
     private final String id;
