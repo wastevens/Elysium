@@ -95,12 +95,7 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     	return this;
     }
     
-    public final PlayerCharacter approve(final PlayerCharacter character) {
-    	this.stream().forEach((TraitChange<?> t) -> t.apply(character));
-        return character;
-    }
-
-    protected final Stream<TraitChange<?>> stream() {
+    private final Stream<TraitChange<?>> stream() {
     	Builder<TraitChange<?>> builder = Stream.builder();
     	TraitChange<?> traitToAdd = this;
     	while(traitToAdd != null) {
@@ -110,12 +105,14 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     	return builder.build();
     }
     
-	public PlayerCharacter apply(PlayerCharacter character) {
-		return trait().applyTo(character);
+	public final PlayerCharacter apply(final PlayerCharacter character) {
+		stream().forEach((TraitChange<?> t) -> t.trait().applyTo(character));
+		return character;
 	}
 
-	public PlayerCharacter remove(PlayerCharacter character) {
-		return trait().removeFrom(character);
+	public final PlayerCharacter remove(PlayerCharacter character) {
+		stream().forEach((TraitChange<?> t) -> t.trait().removeFrom(character));
+		return character;
 	}
     
     protected abstract T trait();

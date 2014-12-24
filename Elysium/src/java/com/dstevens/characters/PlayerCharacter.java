@@ -640,12 +640,12 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter approvePendingChange(TraitChange<?> event) {
-        event.approve(this);
+        event.apply(this);
         return this;
     }
     
     public PlayerCharacter approvePendingChanges() {
-        this.traitChanges.forEach((TraitChange<?> t) -> t.approve(this));
+        this.traitChanges.forEach((TraitChange<?> t) -> t.apply(this));
         return this;
     }
 
