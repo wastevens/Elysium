@@ -63,7 +63,7 @@ public abstract class TraitChange {
 		this.focuses = focuses;
     }
     
-    public TraitChange and(TraitChange andTrait) {
+    public final TraitChange and(TraitChange andTrait) {
     	if(child != null) {
     		this.child.and(andTrait);
     	} else {
@@ -72,7 +72,7 @@ public abstract class TraitChange {
     	return this;
     }
     
-    public TraitChange remove() {
+    public final TraitChange remove() {
     	return new RemoveTrait(this);
     }
     
@@ -81,7 +81,7 @@ public abstract class TraitChange {
         return character;
     }
 
-    public Stream<TraitChange> stream() {
+    protected final Stream<TraitChange> stream() {
     	Builder<TraitChange> builder = Stream.builder();
     	TraitChange traitToAdd = this;
     	while(traitToAdd != null) {
