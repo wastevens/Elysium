@@ -2,7 +2,6 @@ package com.dstevens.characters.traits.powers.magic.thaumaturgy;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.changes.TraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.powers.Power;
 
 public enum Thaumaturgy implements Power<Thaumaturgy> {
@@ -27,12 +26,12 @@ public enum Thaumaturgy implements Power<Thaumaturgy> {
 	}
 	
 	@Override
-	public TraitChange set(TraitChangeStatus status) {
-		return new SetInClanThaumaturgy(status, this.ordinal());
+	public TraitChange set() {
+		return new SetInClanThaumaturgy(this.ordinal());
 	}
 	
 	@Override
-	public TraitChange set(TraitChangeStatus status, int rating) {
-		return new SetThaumaturgy(status, this.ordinal(), rating);
+	public TraitChange set(int rating) {
+		return new SetThaumaturgy(this.ordinal(), rating);
 	}
 }

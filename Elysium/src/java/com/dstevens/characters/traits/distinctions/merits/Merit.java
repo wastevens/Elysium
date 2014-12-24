@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.traits.changes.TraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.distinctions.DistinctionType;
 import com.dstevens.players.Setting;
 
@@ -295,7 +294,7 @@ public enum Merit {
     			             collect(Collectors.toList());
     }
     
-    public TraitChange set(TraitChangeStatus status, String specialization) {
-    	return new SetMerit(status, this.ordinal(), specialization);
+    public TraitChange set(String specialization) {
+    	return new SetMerit(this.ordinal(), specialization);
     }
 }

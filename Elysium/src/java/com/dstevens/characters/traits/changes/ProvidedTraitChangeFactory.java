@@ -31,7 +31,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
 	@Override
 	public TraitChange skill(Skill skill, int rating, String specialization, Set<String> focuses) {
-		return skill.set(TraitChangeStatus.PENDING, rating, specialization, focuses);
+		return skill.set(rating, specialization, focuses);
 	}
 
 	@Override
@@ -41,17 +41,17 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
 	@Override
 	public TraitChange power(Power<?> power, int rating) {
-		return power.set(TraitChangeStatus.PENDING, rating);
+		return power.set(rating);
 	}
 
 	@Override
 	public TraitChange ritual(Ritual<?> ritual) {
-		return ritual.set(TraitChangeStatus.PENDING);
+		return ritual.set();
 	}
 	
 	 @Override
 	public TraitChange merit(Merit merit, String specialization, TraitChange associatedTrait) {
-		 return merit.set(TraitChangeStatus.PENDING, specialization).and(associatedTrait);
+		 return merit.set(specialization).and(associatedTrait);
     }
     
     @Override
@@ -61,21 +61,21 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public TraitChange technique(Technique technique) {
-		return technique.set(TraitChangeStatus.PENDING);
+		return technique.set();
 	}
 
 	@Override
 	public TraitChange elderPower(ElderPower power) {
-		return power.set(TraitChangeStatus.PENDING);
+		return power.set();
 	}
 
 	@Override
 	public TraitChange inClanPower(Power<?> power) {
-		return power.set(TraitChangeStatus.PENDING);
+		return power.set();
 	}
 	
 	@Override
 	public TraitChange status(Status trait, String specialization) {
-		return trait.set(TraitChangeStatus.PENDING, specialization);
+		return trait.set(specialization);
 	}
 }

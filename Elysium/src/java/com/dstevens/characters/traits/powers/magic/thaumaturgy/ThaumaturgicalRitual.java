@@ -3,7 +3,6 @@ package com.dstevens.characters.traits.powers.magic.thaumaturgy;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.changes.TraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.powers.magic.Ritual;
 
 public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, ApplicableTrait {
@@ -64,7 +63,7 @@ public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, Applic
     }
     
     @Override
-    public TraitChange set(TraitChangeStatus status) {
-    	return new SetThaumaturgicalRitual(status, this.ordinal());
+    public TraitChange set() {
+    	return new SetThaumaturgicalRitual(this.ordinal());
     }
 }

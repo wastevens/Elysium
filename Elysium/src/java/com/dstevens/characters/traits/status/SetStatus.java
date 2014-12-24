@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.status;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ class SetStatus extends ApplicableTraitChange<CharacterStatus> {
     	super();
     }
     
-    public SetStatus(TraitChangeStatus status, int ordinal, String specialization) {
+    public SetStatus(int ordinal, String specialization) {
     	super(ordinal, specialization);
     }
 	

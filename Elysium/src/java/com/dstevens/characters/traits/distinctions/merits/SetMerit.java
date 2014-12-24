@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.distinctions.merits;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ class SetMerit extends ApplicableTraitChange<CharacterMerit> {
     	super();
     }
 	
-	protected SetMerit(TraitChangeStatus status, int ordinal, String specialization) {
+	protected SetMerit(int ordinal, String specialization) {
 		super(ordinal, specialization);
 	}
 

@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.experience;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ public class ChangeExperience extends ApplicableTraitChange<Experience> {
         super();
     }
     
-    public ChangeExperience(TraitChangeStatus status, ExperienceMovement movement, int xp) {
+    public ChangeExperience(ExperienceMovement movement, int xp) {
     	super(movement.ordinal(), xp);
     }
 
@@ -27,10 +26,10 @@ public class ChangeExperience extends ApplicableTraitChange<Experience> {
 	}
 	
 	public static ChangeExperience spend(int xp) {
-		return new ChangeExperience(TraitChangeStatus.PENDING, ExperienceMovement.SPEND, xp);
+		return new ChangeExperience(ExperienceMovement.SPEND, xp);
 	}
 	
 	public static ChangeExperience gain(int xp) {
-		return new ChangeExperience(TraitChangeStatus.PENDING, ExperienceMovement.GAIN, xp);
+		return new ChangeExperience(ExperienceMovement.GAIN, xp);
 	}
 }

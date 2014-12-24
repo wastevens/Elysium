@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.powers.magic.thaumaturgy;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ class SetThaumaturgicalRitual extends ApplicableTraitChange<ThaumaturgicalRitual
     	super();
     }
     
-    public SetThaumaturgicalRitual(TraitChangeStatus status, int ordinal) {
+    public SetThaumaturgicalRitual(int ordinal) {
     	super(ordinal);
     }
 

@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.powers.magic.necromancy;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ class SetNecromanticRitual extends ApplicableTraitChange<NecromanticRitual> {
     	super();
     }
     
-    public SetNecromanticRitual(TraitChangeStatus status, int ordinal) {
+    public SetNecromanticRitual(int ordinal) {
     	super(ordinal);
     }
 

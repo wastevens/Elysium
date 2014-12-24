@@ -95,9 +95,6 @@ public abstract class TraitChange {
         return child;
     }
     
-    public final void setStatus(TraitChangeStatus status) {
-    }
-    
     public abstract PlayerCharacter apply(PlayerCharacter character);
     public abstract PlayerCharacter remove(PlayerCharacter character);
     public abstract String describe();

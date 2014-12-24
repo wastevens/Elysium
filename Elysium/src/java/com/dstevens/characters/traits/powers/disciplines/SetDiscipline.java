@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.powers.disciplines;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ class SetDiscipline extends ApplicableTraitChange<CharacterDiscipline> {
     	super();
     }
 	
-    public SetDiscipline(TraitChangeStatus status, int ordinal, int rating) {
+    public SetDiscipline(int ordinal, int rating) {
     	super(ordinal, rating);
     }
     

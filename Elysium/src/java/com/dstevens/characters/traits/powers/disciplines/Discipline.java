@@ -2,7 +2,6 @@ package com.dstevens.characters.traits.powers.disciplines;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.changes.TraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.powers.Power;
 
 
@@ -43,12 +42,12 @@ public enum Discipline implements Power<Discipline> {
 	}
 	
 	@Override
-	public TraitChange set(TraitChangeStatus status) {
-		return new SetInClanDiscipline(status, this.ordinal());
+	public TraitChange set() {
+		return new SetInClanDiscipline(this.ordinal());
 	}
 	
 	@Override
-	public TraitChange set(TraitChangeStatus status, int rating) {
-		return new SetDiscipline(status, this.ordinal(), rating);
+	public TraitChange set(int rating) {
+		return new SetDiscipline(this.ordinal(), rating);
 	}
 }

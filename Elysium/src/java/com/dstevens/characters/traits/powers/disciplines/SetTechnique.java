@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.powers.disciplines;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ class SetTechnique extends ApplicableTraitChange<Technique> {
     	super();
     }
     
-    public SetTechnique(TraitChangeStatus status, int ordinal) {
+    public SetTechnique(int ordinal) {
     	super(ordinal);
     }
 

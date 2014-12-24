@@ -3,7 +3,6 @@ package com.dstevens.characters.traits.powers.magic.necromancy;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.changes.TraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.powers.magic.Ritual;
 
 public enum NecromanticRitual implements Ritual<NecromanticRitual>, ApplicableTrait {
@@ -55,8 +54,8 @@ public enum NecromanticRitual implements Ritual<NecromanticRitual>, ApplicableTr
     }
     
     @Override
-    public TraitChange set(TraitChangeStatus status) {
-    	return new SetNecromanticRitual(status, this.ordinal());
+    public TraitChange set() {
+    	return new SetNecromanticRitual(this.ordinal());
     }
     
 }

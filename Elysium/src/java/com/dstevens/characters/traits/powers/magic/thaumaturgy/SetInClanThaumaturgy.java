@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.powers.magic.thaumaturgy;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ class SetInClanThaumaturgy extends ApplicableTraitChange<Thaumaturgy> {
     	super();
     }
     
-    public SetInClanThaumaturgy(TraitChangeStatus status, int ordinal) {
+    public SetInClanThaumaturgy(int ordinal) {
     	super(ordinal);
     }
 
