@@ -9,28 +9,26 @@ import com.dstevens.characters.traits.ApplicableTrait;
 
 public abstract class ApplicableTraitChange<T extends ApplicableTrait> extends TraitChange {
 
+	//Hibernate only
+	@SuppressWarnings("deprecation")
 	protected ApplicableTraitChange() {
-		super(null);
-	}
-	
-	protected ApplicableTraitChange(TraitChangeStatus status) {
-		super(status);
+		super();
 	}
 	
 	protected ApplicableTraitChange(TraitChangeStatus status, int ordinal) {
-		super(status, ordinal, 0, null, set());
+		super(ordinal, 0, null, set());
 	}
 	
 	protected ApplicableTraitChange(TraitChangeStatus status, int ordinal, int rating) {
-		super(status, ordinal, rating, null, set());
+		super(ordinal, rating, null, set());
 	}
 	
 	protected ApplicableTraitChange(TraitChangeStatus status, int ordinal, String specialization) {
-		super(status, ordinal, 0, specialization, set());
+		super(ordinal, 0, specialization, set());
 	}
 	
 	protected ApplicableTraitChange(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
-		super(status, ordinal, rating, specialization, focuses);
+		super(ordinal, rating, specialization, focuses);
 	}
 	
 	protected abstract T trait();

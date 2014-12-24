@@ -30,9 +30,6 @@ public abstract class TraitChange {
     @Id
     private final String id;
     
-    @Column(name="status")
-    private TraitChangeStatus status;
-    
     @Column(name="ordinal")
     protected final int ordinal;
     
@@ -51,23 +48,17 @@ public abstract class TraitChange {
     private TraitChange child;
     
     //Hibernate only
-    @SuppressWarnings("unused")
     @Deprecated
-    private TraitChange() {
-        this(null);
+    protected TraitChange() {
+    	this(-1, -1, null, set());
     }
     
-    protected TraitChange(TraitChangeStatus status) {
-        this(status, -1, -1, null, set());
-    }
-    
-    protected TraitChange(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+    protected TraitChange(int ordinal, int rating, String specialization, Set<String> focuses) {
 		this.id = new IdSupplier().get();
     	this.ordinal = ordinal;
     	this.rating = rating;
 		this.specialization = specialization;
 		this.focuses = focuses;
-    	this.status = status;
     }
     
     public TraitChange and(TraitChange andTrait) {
@@ -84,11 +75,16 @@ public abstract class TraitChange {
     }
     
     public final PlayerCharacter approve(PlayerCharacter character) {
-        return status.apply(character, this);
+    	TraitChange currentSetTrait = this;
+    	while(currentSetTrait != null) {
+    		character = currentSetTrait.apply(character);
+    		currentSetTrait = currentSetTrait.associatedTrait();
+    	}
+        return character;
     }
     
     public final PlayerCharacter deny(PlayerCharacter character) {
-        return status.deny(character, this);
+        return character;
     }
 
     public boolean hasAssociatedTrait() {
@@ -100,17 +96,8 @@ public abstract class TraitChange {
     }
     
     public final void setStatus(TraitChangeStatus status) {
-        this.status = status;
     }
     
-    protected final TraitChangeStatus status() {
-        return status;
-    }
-    
-    public final boolean isPending() {
-        return TraitChangeStatus.PENDING.equals(this.status);
-    }
-
     public abstract PlayerCharacter apply(PlayerCharacter character);
     public abstract PlayerCharacter remove(PlayerCharacter character);
     public abstract String describe();

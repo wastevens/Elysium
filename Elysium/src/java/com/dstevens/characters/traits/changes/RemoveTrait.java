@@ -26,10 +26,10 @@ class RemoveTrait extends TraitChange {
     }
 	
 	protected RemoveTrait(TraitChange traitToRemove) {
-		this(traitToRemove.status(), traitToRemove);
+		this(null, traitToRemove);
 	}
 	private RemoveTrait(TraitChangeStatus status, TraitChange traitToRemove) {
-		super(status);
+		super();
 		this.traitToRemove = traitToRemove;
 	}
 
@@ -59,7 +59,7 @@ class RemoveTrait extends TraitChange {
 	public String describe() {
 		String removeTrait = String.format("Removing %1$s", traitToRemove.describe());
 		String nextTrait = (hasAssociatedTrait() ? String.format(", restoring %1$s", associatedTrait().describe()) : "");
-		return String.format("(%1$s) %2$s%3$s", status(), removeTrait, nextTrait);
+		return String.format("%1$s%2$s", removeTrait, nextTrait);
 	}
 
 }
