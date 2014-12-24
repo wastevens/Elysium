@@ -3,6 +3,8 @@ package com.dstevens.characters.traits.changes;
 import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
+import java.util.stream.Stream;
+import java.util.stream.Stream.Builder;
 
 import org.hibernate.annotations.ForeignKey;
 
@@ -74,17 +76,19 @@ public abstract class TraitChange {
     	return new RemoveTrait(this);
     }
     
-    public final PlayerCharacter approve(PlayerCharacter character) {
-    	TraitChange currentSetTrait = this;
-    	while(currentSetTrait != null) {
-    		character = currentSetTrait.apply(character);
-    		currentSetTrait = currentSetTrait.associatedTrait();
-    	}
+    public final PlayerCharacter approve(final PlayerCharacter character) {
+    	this.stream().forEach((TraitChange t) -> t.apply(character));
         return character;
     }
 
-    public TraitChange associatedTrait() {
-        return child;
+    public Stream<TraitChange> stream() {
+    	Builder<TraitChange> builder = Stream.builder();
+    	TraitChange traitToAdd = this;
+    	while(traitToAdd != null) {
+    		builder.add(traitToAdd);
+    		traitToAdd = this.child;
+    	}
+    	return builder.build();
     }
     
     public abstract PlayerCharacter apply(PlayerCharacter character);
