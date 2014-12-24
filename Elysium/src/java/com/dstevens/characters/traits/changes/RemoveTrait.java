@@ -34,7 +34,6 @@ class RemoveTrait extends TraitChange {
 	public PlayerCharacter apply(PlayerCharacter character) {
 		TraitChange currentTraitToRemove = traitToRemove;
 		while(currentTraitToRemove != null) {
-			currentTraitToRemove.setStatus(TraitChangeStatus.APPLIED);
 			currentTraitToRemove.remove(character);
 			currentTraitToRemove = currentTraitToRemove.associatedTrait();
 		}

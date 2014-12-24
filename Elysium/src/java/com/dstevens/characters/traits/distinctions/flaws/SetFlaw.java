@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.distinctions.flaws;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ class SetFlaw extends ApplicableTraitChange<CharacterFlaw> {
     	super();
     }
 	
-	protected SetFlaw(TraitChangeStatus status, int ordinal, String specialization) {
+	protected SetFlaw(int ordinal, String specialization) {
 		super(ordinal, specialization);
 	}
 

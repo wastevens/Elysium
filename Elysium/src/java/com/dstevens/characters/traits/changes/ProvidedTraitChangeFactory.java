@@ -36,7 +36,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public TraitChange background(Background background, int rating, String specialization, Set<String> focuses) {
-		return background.set(TraitChangeStatus.PENDING, rating, specialization, focuses);
+		return background.set(rating, specialization, focuses);
 	}
 	
 	@Override
@@ -56,7 +56,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
     
     @Override
 	public TraitChange flaw(Flaw flaw, String specialization, TraitChange associatedTrait) {
-    	return flaw.set(TraitChangeStatus.PENDING, specialization).and(associatedTrait);
+    	return flaw.set(specialization).and(associatedTrait);
     }
 
 	@Override

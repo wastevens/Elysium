@@ -7,18 +7,11 @@ public enum TraitChangeStatus {
     PENDING() {
         @Override
         public PlayerCharacter apply(PlayerCharacter character, TraitChange event) {
-        	TraitChange currentSetTrait = event;
-        	while(currentSetTrait != null) {
-        		currentSetTrait.setStatus(APPLIED);
-        		character = currentSetTrait.apply(character);
-        		currentSetTrait = currentSetTrait.associatedTrait();
-        	}
             return character;
         }
         
         @Override
         public PlayerCharacter deny(PlayerCharacter character, TraitChange event) {
-            event.setStatus(TraitChangeStatus.DENIED);
             return character;
         }
     },

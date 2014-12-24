@@ -3,7 +3,6 @@ package com.dstevens.characters.traits.backgrounds;
 import java.util.Set;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -19,7 +18,7 @@ class SetBackground extends ApplicableTraitChange<CharacterBackground> {
         super();
     }
     
-    public SetBackground(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+    public SetBackground(int ordinal, int rating, String specialization, Set<String> focuses) {
     	super(ordinal, rating, specialization, focuses);
     }
     
