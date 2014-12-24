@@ -20,7 +20,7 @@ class SetSkill extends ApplicableTraitChange<CharacterSkill> {
     }
     
     public SetSkill(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
-    	super(status, ordinal, rating, specialization, focuses);
+    	super(ordinal, rating, specialization, focuses);
     }
     
     @Override

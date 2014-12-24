@@ -18,7 +18,7 @@ class SetFlaw extends ApplicableTraitChange<CharacterFlaw> {
     }
 	
 	protected SetFlaw(TraitChangeStatus status, int ordinal, String specialization) {
-		super(status, ordinal, specialization);
+		super(ordinal, specialization);
 	}
 
 	@Override

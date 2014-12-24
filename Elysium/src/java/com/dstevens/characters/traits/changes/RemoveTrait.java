@@ -22,13 +22,10 @@ class RemoveTrait extends TraitChange {
     @Deprecated
     @SuppressWarnings("unused")
     private RemoveTrait() {
-        this(null, null);
+        this(null);
     }
 	
 	protected RemoveTrait(TraitChange traitToRemove) {
-		this(null, traitToRemove);
-	}
-	private RemoveTrait(TraitChangeStatus status, TraitChange traitToRemove) {
 		super();
 		this.traitToRemove = traitToRemove;
 	}

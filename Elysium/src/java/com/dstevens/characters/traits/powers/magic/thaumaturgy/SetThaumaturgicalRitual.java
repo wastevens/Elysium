@@ -18,7 +18,7 @@ class SetThaumaturgicalRitual extends ApplicableTraitChange<ThaumaturgicalRitual
     }
     
     public SetThaumaturgicalRitual(TraitChangeStatus status, int ordinal) {
-    	super(status, ordinal);
+    	super(ordinal);
     }
 
     @Override

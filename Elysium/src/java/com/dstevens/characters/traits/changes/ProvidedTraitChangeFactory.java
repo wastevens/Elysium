@@ -21,12 +21,12 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
 	@Override
 	public TraitChange attribute(Attribute attribute, int rating) {
-		return attribute.set(TraitChangeStatus.PENDING, rating);
+		return attribute.set(rating);
 	}
 
 	@Override
 	public TraitChange focus(AttributeFocus focus) {
-		return focus.set(TraitChangeStatus.PENDING);
+		return focus.set();
 	}
 	
 	@Override

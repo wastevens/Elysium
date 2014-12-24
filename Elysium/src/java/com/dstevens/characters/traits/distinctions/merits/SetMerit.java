@@ -18,7 +18,7 @@ class SetMerit extends ApplicableTraitChange<CharacterMerit> {
     }
 	
 	protected SetMerit(TraitChangeStatus status, int ordinal, String specialization) {
-		super(status, ordinal, specialization);
+		super(ordinal, specialization);
 	}
 
 	@Override

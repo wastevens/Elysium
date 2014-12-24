@@ -1,7 +1,6 @@
 package com.dstevens.characters.traits.attributes.focuses;
 
 import com.dstevens.characters.traits.changes.ApplicableTraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,8 +16,8 @@ class SetMentalFocus extends ApplicableTraitChange<MentalAttributeFocus> {
         super();
     }
     
-    public SetMentalFocus(TraitChangeStatus status, int ordinal) {
-    	super(status, ordinal);
+    public SetMentalFocus(int ordinal) {
+    	super(ordinal);
     }
     
     @Override

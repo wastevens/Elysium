@@ -18,7 +18,7 @@ class SetStatus extends ApplicableTraitChange<CharacterStatus> {
     }
     
     public SetStatus(TraitChangeStatus status, int ordinal, String specialization) {
-    	super(status, ordinal, specialization);
+    	super(ordinal, specialization);
     }
 	
 	@Override

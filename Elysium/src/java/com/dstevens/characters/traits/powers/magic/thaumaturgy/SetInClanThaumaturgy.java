@@ -18,7 +18,7 @@ class SetInClanThaumaturgy extends ApplicableTraitChange<Thaumaturgy> {
     }
     
     public SetInClanThaumaturgy(TraitChangeStatus status, int ordinal) {
-    	super(status, ordinal);
+    	super(ordinal);
     }
 
 	@Override

@@ -18,7 +18,7 @@ class SetInClanDiscipline extends ApplicableTraitChange<Discipline> {
     }
     
     public SetInClanDiscipline(TraitChangeStatus status, int ordinal) {
-    	super(status, ordinal);
+    	super(ordinal);
     }
 
 	@Override

@@ -18,7 +18,7 @@ class SetTechnique extends ApplicableTraitChange<Technique> {
     }
     
     public SetTechnique(TraitChangeStatus status, int ordinal) {
-    	super(status, ordinal);
+    	super(ordinal);
     }
 
 	@Override

@@ -18,7 +18,7 @@ class SetDiscipline extends ApplicableTraitChange<CharacterDiscipline> {
     }
 	
     public SetDiscipline(TraitChangeStatus status, int ordinal, int rating) {
-    	super(status, ordinal, rating);
+    	super(ordinal, rating);
     }
     
     @Override

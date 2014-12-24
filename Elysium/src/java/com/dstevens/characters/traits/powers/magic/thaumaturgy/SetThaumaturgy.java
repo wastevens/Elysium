@@ -18,7 +18,7 @@ class SetThaumaturgy extends ApplicableTraitChange<CharacterThaumaturgy> {
     }
 	
     public SetThaumaturgy(TraitChangeStatus status, int ordinal, int rating) {
-    	super(status, ordinal, rating);
+    	super(ordinal, rating);
     }
     
     @Override

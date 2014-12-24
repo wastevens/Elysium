@@ -20,7 +20,7 @@ class SetBackground extends ApplicableTraitChange<CharacterBackground> {
     }
     
     public SetBackground(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
-    	super(status, ordinal, rating, specialization, focuses);
+    	super(ordinal, rating, specialization, focuses);
     }
     
     @Override

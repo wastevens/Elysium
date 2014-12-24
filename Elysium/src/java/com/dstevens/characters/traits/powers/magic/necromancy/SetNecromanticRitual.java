@@ -18,7 +18,7 @@ class SetNecromanticRitual extends ApplicableTraitChange<NecromanticRitual> {
     }
     
     public SetNecromanticRitual(TraitChangeStatus status, int ordinal) {
-    	super(status, ordinal);
+    	super(ordinal);
     }
 
 	@Override

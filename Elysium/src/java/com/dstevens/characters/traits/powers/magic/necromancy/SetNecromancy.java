@@ -18,7 +18,7 @@ class SetNecromancy extends ApplicableTraitChange<CharacterNecromancy> {
     }
 	
     public SetNecromancy(TraitChangeStatus status, int ordinal, int rating) {
-    	super(status, ordinal, rating);
+    	super(ordinal, rating);
     }
 
 	@Override

@@ -18,7 +18,7 @@ class SetInClanNecromancy extends ApplicableTraitChange<Necromancy> {
     }
     
     public SetInClanNecromancy(TraitChangeStatus status, int ordinal) {
-    	super(status, ordinal);
+    	super(ordinal);
     }
 
 	@Override

@@ -18,7 +18,7 @@ public class ChangeExperience extends ApplicableTraitChange<Experience> {
     }
     
     public ChangeExperience(TraitChangeStatus status, ExperienceMovement movement, int xp) {
-    	super(status, movement.ordinal(), xp);
+    	super(movement.ordinal(), xp);
     }
 
 	@Override

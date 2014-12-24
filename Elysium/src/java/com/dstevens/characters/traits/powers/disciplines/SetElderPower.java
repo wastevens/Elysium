@@ -18,7 +18,7 @@ class SetElderPower extends ApplicableTraitChange<ElderPower> {
     }
     
     public SetElderPower(TraitChangeStatus status, int ordinal) {
-    	super(status, ordinal);
+    	super(ordinal);
     }
 
 	@Override

@@ -15,19 +15,19 @@ public abstract class ApplicableTraitChange<T extends ApplicableTrait> extends T
 		super();
 	}
 	
-	protected ApplicableTraitChange(TraitChangeStatus status, int ordinal) {
+	protected ApplicableTraitChange(int ordinal) {
 		super(ordinal, 0, null, set());
 	}
 	
-	protected ApplicableTraitChange(TraitChangeStatus status, int ordinal, int rating) {
+	protected ApplicableTraitChange(int ordinal, int rating) {
 		super(ordinal, rating, null, set());
 	}
 	
-	protected ApplicableTraitChange(TraitChangeStatus status, int ordinal, String specialization) {
+	protected ApplicableTraitChange(int ordinal, String specialization) {
 		super(ordinal, 0, specialization, set());
 	}
 	
-	protected ApplicableTraitChange(TraitChangeStatus status, int ordinal, int rating, String specialization, Set<String> focuses) {
+	protected ApplicableTraitChange(int ordinal, int rating, String specialization, Set<String> focuses) {
 		super(ordinal, rating, specialization, focuses);
 	}
 	
