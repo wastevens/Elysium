@@ -1,10 +1,7 @@
 package com.dstevens.characters.traits.changes;
 
-import static com.dstevens.collections.Lists.list;
-
 import static com.dstevens.collections.Sets.set;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
@@ -24,7 +21,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @SuppressWarnings("deprecation")
@@ -54,11 +50,6 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
     private TraitChange<?> child;
     
-    @ElementCollection
-    @OrderBy("order")
-    @ForeignKey(name= "TraitChanges_StatusChanges_FK")
-    private List<StatusChange> statusChanges;
-    
     //Hibernate only
     @Deprecated
     protected TraitChange() {
@@ -83,7 +74,6 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     	this.rating = rating;
     	this.specialization = specialization;
     	this.focuses = focuses;
-    	this.statusChanges = list();
     }
     
     public final TraitChange<?> and(TraitChange<?> andTrait) {
