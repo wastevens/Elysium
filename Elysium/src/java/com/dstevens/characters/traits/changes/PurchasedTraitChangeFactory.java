@@ -20,15 +20,17 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
     private final PlayerCharacter character;
     private final ProvidedTraitChangeFactory traitChangeFactory;
+	private final TraitChangeStatusFactory traitChangeStatusFactory;
     
-    PurchasedTraitChangeFactory(PlayerCharacter character, ProvidedTraitChangeFactory traitChangeFactory) {
+    PurchasedTraitChangeFactory(PlayerCharacter character, ProvidedTraitChangeFactory traitChangeFactory, TraitChangeStatusFactory traitChangeStatusFactory) {
         this.character = character;
 		this.traitChangeFactory = traitChangeFactory;
+		this.traitChangeStatusFactory = traitChangeStatusFactory;
     }
 
 	@Override
 	public TraitChange<?> attribute(Attribute attribute, int rating) {
-		return ChangeExperience.spend(3).and(traitChangeFactory.attribute(attribute, rating));
+		return ChangeExperience.spend(3).and(traitChangeFactory.attribute(attribute, rating)).statusChanged(traitChangeStatusFactory.pending());
 	}
     
     @Override
@@ -38,7 +40,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     
     @Override
 	public TraitChange<?> skill(Skill skill, int rating, String specialization, Set<String> focuses) {
-    	return costForSkill(rating).and(traitChangeFactory.skill(skill, rating, specialization, focuses));
+    	return costForSkill(rating).and(traitChangeFactory.skill(skill, rating, specialization, focuses)).statusChanged(traitChangeStatusFactory.pending());
     }
 	
 	private ChangeExperience costForSkill(int rating) {
@@ -51,7 +53,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     
 	@Override
 	public TraitChange<?> background(Background background, int rating, String specialization, Set<String> focuses) {
-		return costForBackground(rating).and(traitChangeFactory.background(background, rating, specialization, focuses));
+		return costForBackground(rating).and(traitChangeFactory.background(background, rating, specialization, focuses)).statusChanged(traitChangeStatusFactory.pending());
 	}
 	
 	private ChangeExperience costForBackground(int rating) {
@@ -64,7 +66,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     
 	@Override
 	public TraitChange<?> power(Power<?> power, int rating) {
-		return costForPower(power, rating).and(traitChangeFactory.power(power, rating));
+		return costForPower(power, rating).and(traitChangeFactory.power(power, rating)).statusChanged(traitChangeStatusFactory.pending());
 	}
 	
     private TraitChange<?> costForPower(Power<?> power, int rating) {
@@ -84,22 +86,22 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public TraitChange<?> ritual(Ritual<?> ritual) {
-		return ChangeExperience.spend(ritual.rating() * 2).and(traitChangeFactory.ritual(ritual));
+		return ChangeExperience.spend(ritual.rating() * 2).and(traitChangeFactory.ritual(ritual)).statusChanged(traitChangeStatusFactory.pending());
 	}
     
     @Override
 	public TraitChange<?> merit(Merit merit, String specialization, TraitChange<?> associatedTrait) {
-    	return ChangeExperience.spend(merit.getPoints()).and(traitChangeFactory.merit(merit, specialization, associatedTrait));
+    	return ChangeExperience.spend(merit.getPoints()).and(traitChangeFactory.merit(merit, specialization, associatedTrait)).statusChanged(traitChangeStatusFactory.pending());
     }
     
     @Override
 	public TraitChange<?> flaw(Flaw flaw, String specialization, TraitChange<?> associatedTrait) {
-    	return ChangeExperience.gain(flaw.getPoints()).and(traitChangeFactory.flaw(flaw, specialization, associatedTrait));
+    	return ChangeExperience.gain(flaw.getPoints()).and(traitChangeFactory.flaw(flaw, specialization, associatedTrait)).statusChanged(traitChangeStatusFactory.pending());
     }
 
 	@Override
 	public TraitChange<?> technique(Technique technique) {
-		return costForTechnique().and(traitChangeFactory.technique(technique));
+		return costForTechnique().and(traitChangeFactory.technique(technique)).statusChanged(traitChangeStatusFactory.pending());
 	}
 	
     private TraitChange<?> costForTechnique() {
@@ -112,7 +114,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public TraitChange<?> elderPower(ElderPower power) {
-		return costForElderPower(power).and(traitChangeFactory.elderPower(power));
+		return costForElderPower(power).and(traitChangeFactory.elderPower(power)).statusChanged(traitChangeStatusFactory.pending());
 	}
 
     private TraitChange<?> costForElderPower(ElderPower power) {

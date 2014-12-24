@@ -21,6 +21,7 @@ import com.dstevens.characters.traits.attributes.focuses.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
 import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.distinctions.flaws.CharacterFlaw;
 import com.dstevens.characters.traits.distinctions.merits.CharacterMerit;
 import com.dstevens.characters.traits.powers.Power;
@@ -644,8 +645,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public PlayerCharacter approvePendingChanges() {
-        this.traitChanges.forEach((TraitChange<?> t) -> t.apply(this));
+    public PlayerCharacter approvePendingChanges(final TraitChangeStatus traitChangestatus) {
+        this.traitChanges.forEach((TraitChange<?> t) -> {
+        	t.apply(this);
+        	t.statusChanged(traitChangestatus);
+        });
         return this;
     }
 

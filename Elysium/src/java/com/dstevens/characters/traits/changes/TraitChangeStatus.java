@@ -2,6 +2,8 @@ package com.dstevens.characters.traits.changes;
 
 import java.util.Date;
 
+import com.dstevens.utilities.ObjectExtensions;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -31,4 +33,9 @@ public class TraitChangeStatus {
 	public boolean applied() {
 		return status.equals(Status.APPLIED);
 	}
+	
+	@Override
+    public final String toString() {
+        return ObjectExtensions.toStringFor(this);
+    }
 }

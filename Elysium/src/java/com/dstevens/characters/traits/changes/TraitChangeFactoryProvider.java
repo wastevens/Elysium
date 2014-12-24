@@ -9,18 +9,20 @@ import com.dstevens.characters.PlayerCharacter;
 public class TraitChangeFactoryProvider {
 
 	private final ProvidedTraitChangeFactory traitChangeFactory;
+	private final TraitChangeStatusFactory traitChangeStatusFactory;
 
 	@Autowired
-	public TraitChangeFactoryProvider(ProvidedTraitChangeFactory traitChangeFactory) {
+	public TraitChangeFactoryProvider(ProvidedTraitChangeFactory traitChangeFactory, TraitChangeStatusFactory traitChangeStatusFactory) {
 		this.traitChangeFactory = traitChangeFactory;
-	}
-	
-	public TraitChangeFactory buyTraitsFor(PlayerCharacter character) {
-		return new PurchasedTraitChangeFactory(character, traitChangeFactory);
+		this.traitChangeStatusFactory = traitChangeStatusFactory;
 	}
 	
 	public TraitChangeFactory giveTraits() {
 		return traitChangeFactory;
+	}
+
+	public TraitChangeFactory buyTraitsFor(PlayerCharacter character) {
+		return new PurchasedTraitChangeFactory(character, traitChangeFactory, traitChangeStatusFactory);
 	}
 	
 }

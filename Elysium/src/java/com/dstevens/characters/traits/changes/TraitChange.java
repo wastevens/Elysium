@@ -1,5 +1,7 @@
 package com.dstevens.characters.traits.changes;
 
+import static com.dstevens.collections.Lists.list;
+
 import static com.dstevens.collections.Sets.set;
 
 import java.util.List;
@@ -55,7 +57,7 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     private TraitChange<?> child;
     
     @ElementCollection
-    @OrderBy("changedOn")
+    @OrderBy("changedOn DESC")
     @CollectionTable(name="TraitChangeStatus", joinColumns=@JoinColumn(name="traitChange_id"))
     @ForeignKey(name="TraitChange_TraitChangeStatus_FK", inverseName="TraitChangeStatus_TraitChange_FK")
     private List<TraitChangeStatus> traitChangeHistory;
@@ -84,6 +86,7 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     	this.rating = rating;
     	this.specialization = specialization;
     	this.focuses = focuses;
+    	this.traitChangeHistory = list();
     }
     
     public final TraitChange<?> and(TraitChange<?> andTrait) {
@@ -116,6 +119,15 @@ public abstract class TraitChange<T extends ApplicableTrait> {
 	}
     
     protected abstract T trait();
+    
+    public TraitChange<T> statusChanged(TraitChangeStatus statusChanged) {
+    	stream().forEach((TraitChange<?> t) -> t.traitChangeHistory.add(0, statusChanged));
+    	return this;
+    }
+    
+    public TraitChangeStatus currentStatus() {
+    	return traitChangeHistory.get(0);
+    }
     
     @Override
     public final String toString() {

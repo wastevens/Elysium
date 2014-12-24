@@ -2,9 +2,9 @@ package com.dstevens.characters;
 
 import static com.dstevens.collections.Sets.set;
 
-import java.util.stream.StreamSupport;
-
 import static org.junit.Assert.assertEquals;
+
+import java.util.stream.StreamSupport;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,8 +19,10 @@ import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
+import com.dstevens.characters.traits.changes.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeFactory;
 import com.dstevens.characters.traits.changes.TraitChangeFactoryProvider;
+import com.dstevens.characters.traits.changes.TraitChangeStatusFactory;
 import com.dstevens.characters.traits.distinctions.flaws.CharacterFlaw;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.CharacterMerit;
@@ -97,6 +99,9 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(), maryWollstonecraftWhenNewlyCreated.getFlaws());
 		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
 		
+		assertEquals(0, maryWollstonecraftWhenNewlyCreated.getTraitChanges().stream().filter((TraitChange<?> t) -> t.currentStatus().pending()).count());
+		assertEquals(0, maryWollstonecraftWhenNewlyCreated.getTraitChanges().stream().filter((TraitChange<?> t) -> t.currentStatus().applied()).count());
+		
         spendXpForMaryWollstonecraft();
         
         PlayerCharacter maryWollstonecraftWithExperienceSpentButNotYetApproved = getMaryWollstonecraft();
@@ -130,6 +135,9 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getMerits());
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getFlaws());
 		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
+		
+		assertEquals(33, maryWollstonecraftWithExperienceSpentButNotYetApproved.getTraitChanges().stream().filter((TraitChange<?> t) -> t.currentStatus().pending()).count());
+		assertEquals(0, maryWollstonecraftWithExperienceSpentButNotYetApproved.getTraitChanges().stream().filter((TraitChange<?> t) -> t.currentStatus().applied()).count());
 		
         approveChangesOnMary();
         
@@ -193,6 +201,9 @@ public class AddAndModifyCharacterTest {
 //		assertEquals(37, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
 		assertEquals(set(new CharacterStatus(Status.AWESOME, "So very awesome")), maryWollstonecraftWithExperienceSpentAndApproved.getStatus());
 //		backoutSomeOfThoseChanges();
+		assertEquals(0, maryWollstonecraftWithExperienceSpentAndApproved.getTraitChanges().stream().filter((TraitChange<?> t) -> t.currentStatus().pending()).count());
+		assertEquals(33, maryWollstonecraftWithExperienceSpentAndApproved.getTraitChanges().stream().filter((TraitChange<?> t) -> t.currentStatus().applied()).count());
+		
     }
 
     private void createMaryWollstonecraft() {
@@ -300,8 +311,7 @@ public class AddAndModifyCharacterTest {
 
     private void approveChangesOnMary() {
         PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-        PlayerCharacter maryWollstonecraft = getMaryWollstonecraft();
-		PlayerCharacter approvePendingChanges = maryWollstonecraft.approvePendingChanges();
-		characterRepository.update(approvePendingChanges);
+        TraitChangeStatusFactory traitChangeStatusFactory = appConfig.getBean(TraitChangeStatusFactory.class);
+        characterRepository.update(getMaryWollstonecraft().approvePendingChanges(traitChangeStatusFactory.applied()));
     }
 }
