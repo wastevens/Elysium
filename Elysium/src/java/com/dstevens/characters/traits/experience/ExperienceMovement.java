@@ -2,6 +2,12 @@ package com.dstevens.characters.traits.experience;
 
 public enum ExperienceMovement {
 
+	EARN {
+		@Override
+		public Experience changeExperience(int xp) {
+			return new EarnExperience(xp);
+		}
+	},
 	GAIN {
 		@Override
 		public Experience changeExperience(int xp) {

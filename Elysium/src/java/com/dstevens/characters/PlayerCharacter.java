@@ -640,13 +640,15 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public PlayerCharacter approvePendingChange(TraitChange<?> event) {
+    public PlayerCharacter approvePendingChange(TraitChange<?> event, TraitChangeStatus traitChangestatus) {
         event.apply(this);
+        event.statusChanged(traitChangestatus);
         return this;
     }
     
     public PlayerCharacter approvePendingChanges(final TraitChangeStatus traitChangestatus) {
-        this.traitChanges.forEach((TraitChange<?> t) -> {
+        this.traitChanges.stream().filter((TraitChange<?> t) -> t.currentStatus().pending()).
+        forEach((TraitChange<?> t) -> {
         	t.apply(this);
         	t.statusChanged(traitChangestatus);
         });

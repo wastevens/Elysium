@@ -1,5 +1,6 @@
 package com.dstevens.characters.traits.changes;
 
+import java.time.Instant;
 import java.util.Date;
 
 import com.dstevens.utilities.ObjectExtensions;
@@ -38,4 +39,8 @@ public class TraitChangeStatus {
     public final String toString() {
         return ObjectExtensions.toStringFor(this);
     }
+	
+	public Instant changed() {
+		return changedOn.toInstant();
+	}
 }

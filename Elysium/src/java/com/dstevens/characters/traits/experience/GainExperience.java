@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Gain")
-class GainExperience extends Experience {
+public class GainExperience extends Experience {
 
 	//Hibernate only
     @SuppressWarnings("unused")
@@ -18,6 +18,10 @@ class GainExperience extends Experience {
 	
 	public GainExperience(int xp) {
 		super(xp);
+	}
+	
+	public int amountGained() {
+		return xp();
 	}
 	
 	@Override
