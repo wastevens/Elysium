@@ -172,7 +172,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @OrderColumn(name="order_by")
     @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChanges_id"}, name="PlayerCharacter_TraitChanges_UC")})
     @ForeignKey(name="PlayerCharacter_TraitChanges_FK", inverseName="TraitChanges_PlayerCharacter_FK")
-    private final List<TraitChange> traitChanges;
+    private final List<TraitChange<?>> traitChanges;
     
     //Hibernate only
     @Deprecated
@@ -201,7 +201,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                             Set<Technique> techniques, Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, 
                             Set<ThaumaturgicalRitual> thaumaturgicalRituals, Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath,
                             Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
-                            List<TraitChange> traitChanges, Date deleteTimestamp) {
+                            List<TraitChange<?>> traitChanges, Date deleteTimestamp) {
         this.id = id;
         this.xp = xp;
         this.name = name;
@@ -630,22 +630,22 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public List<TraitChange> getTraitChanges() {
+    public List<TraitChange<?>> getTraitChanges() {
         return traitChanges;
     }
     
-    public PlayerCharacter withTraitChangeEvent(TraitChange event) {
+    public PlayerCharacter withTraitChangeEvent(TraitChange<?> event) {
         this.traitChanges.add(event);
         return this;
     }
     
-    public PlayerCharacter approvePendingChange(TraitChange event) {
+    public PlayerCharacter approvePendingChange(TraitChange<?> event) {
         event.approve(this);
         return this;
     }
     
     public PlayerCharacter approvePendingChanges() {
-        this.traitChanges.forEach((TraitChange t) -> t.approve(this));
+        this.traitChanges.forEach((TraitChange<?> t) -> t.approve(this));
         return this;
     }
 

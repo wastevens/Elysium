@@ -48,7 +48,7 @@ public enum Skill {
     	return detailLevel;
     }
     
-    public TraitChange set(int rating, String specialization, Set<String> focuses) {
+    public TraitChange<CharacterSkill> set(int rating, String specialization, Set<String> focuses) {
     	return new SetSkill(this.ordinal(), rating, specialization, focuses);
     }
 }

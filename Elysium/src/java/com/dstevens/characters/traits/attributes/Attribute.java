@@ -23,7 +23,7 @@ public enum Attribute {
 		}
 	};
 
-	public TraitChange set(int rating) {
+	public TraitChange<AttributeValue> set(int rating) {
 		return new SetAttributeValue(this.ordinal(), rating);
 	}
 	

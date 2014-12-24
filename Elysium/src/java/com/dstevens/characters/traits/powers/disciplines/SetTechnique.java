@@ -1,13 +1,13 @@
 package com.dstevens.characters.traits.powers.disciplines;
 
-import com.dstevens.characters.traits.changes.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Technique")
-class SetTechnique extends ApplicableTraitChange<Technique> {
+class SetTechnique extends TraitChange<Technique> {
 
 	//Hibernate only
     @Deprecated

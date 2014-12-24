@@ -2,14 +2,14 @@ package com.dstevens.characters.traits.skills;
 
 import java.util.Set;
 
-import com.dstevens.characters.traits.changes.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Skill")
-class SetSkill extends ApplicableTraitChange<CharacterSkill> {
+class SetSkill extends TraitChange<CharacterSkill> {
 
 	//Hibernate only
     @SuppressWarnings("unused")

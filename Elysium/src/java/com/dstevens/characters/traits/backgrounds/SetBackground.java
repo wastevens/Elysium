@@ -2,14 +2,14 @@ package com.dstevens.characters.traits.backgrounds;
 
 import java.util.Set;
 
-import com.dstevens.characters.traits.changes.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Background")
-class SetBackground extends ApplicableTraitChange<CharacterBackground> {
+class SetBackground extends TraitChange<CharacterBackground> {
 
 	//Hibernate only
     @Deprecated

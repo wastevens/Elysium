@@ -26,12 +26,12 @@ public enum Thaumaturgy implements Power<Thaumaturgy> {
 	}
 	
 	@Override
-	public TraitChange set() {
+	public TraitChange<Thaumaturgy> set() {
 		return new SetInClanThaumaturgy(this.ordinal());
 	}
 	
 	@Override
-	public TraitChange set(int rating) {
+	public TraitChange<CharacterThaumaturgy> set(int rating) {
 		return new SetThaumaturgy(this.ordinal(), rating);
 	}
 }

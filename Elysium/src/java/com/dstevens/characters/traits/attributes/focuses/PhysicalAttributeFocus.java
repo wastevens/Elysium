@@ -21,7 +21,7 @@ public enum PhysicalAttributeFocus implements ApplicableTrait, AttributeFocus {
 	}
 	
 	@Override
-	public TraitChange set() {
+	public TraitChange<PhysicalAttributeFocus> set() {
 		return new SetPhysicalFocus(this.ordinal());
 	}
 }

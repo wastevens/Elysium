@@ -54,7 +54,7 @@ public enum NecromanticRitual implements Ritual<NecromanticRitual>, ApplicableTr
     }
     
     @Override
-    public TraitChange set() {
+    public TraitChange<NecromanticRitual> set() {
     	return new SetNecromanticRitual(this.ordinal());
     }
     

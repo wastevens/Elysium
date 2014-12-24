@@ -1,13 +1,13 @@
 package com.dstevens.characters.traits.status;
 
-import com.dstevens.characters.traits.changes.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Status")
-class SetStatus extends ApplicableTraitChange<CharacterStatus> {
+class SetStatus extends TraitChange<CharacterStatus> {
 
 	//Hibernate only
     @Deprecated

@@ -70,7 +70,7 @@ public enum Technique implements ApplicableTrait {
 		return character.withoutTechnique(this);
 	}
 	
-	public TraitChange set() {
+	public TraitChange<Technique> set() {
 		return new SetTechnique(this.ordinal());
 	}
 }

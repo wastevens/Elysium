@@ -294,7 +294,7 @@ public enum Merit {
     			             collect(Collectors.toList());
     }
     
-    public TraitChange set(String specialization) {
+    public TraitChange<CharacterMerit> set(String specialization) {
     	return new SetMerit(this.ordinal(), specialization);
     }
 }

@@ -33,7 +33,7 @@ public enum Background {
     	return detailLevel;
     }
     
-    public TraitChange set(int rating, String specialization, Set<String> focuses) {
+    public TraitChange<CharacterBackground> set(int rating, String specialization, Set<String> focuses) {
     	return new SetBackground(this.ordinal(), rating, specialization, focuses);
     }
 }

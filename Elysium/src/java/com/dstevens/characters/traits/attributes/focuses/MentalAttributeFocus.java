@@ -22,7 +22,7 @@ public enum MentalAttributeFocus implements ApplicableTrait, AttributeFocus {
 	}
 	
 	@Override
-	public TraitChange set() {
+	public TraitChange<MentalAttributeFocus> set() {
 		return new SetMentalFocus(this.ordinal());
 	}
     

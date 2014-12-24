@@ -42,12 +42,12 @@ public enum Discipline implements Power<Discipline> {
 	}
 	
 	@Override
-	public TraitChange set() {
+	public TraitChange<Discipline> set() {
 		return new SetInClanDiscipline(this.ordinal());
 	}
 	
 	@Override
-	public TraitChange set(int rating) {
+	public TraitChange<CharacterDiscipline> set(int rating) {
 		return new SetDiscipline(this.ordinal(), rating);
 	}
 }

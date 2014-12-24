@@ -90,7 +90,7 @@ public enum ElderPower implements ApplicableTrait {
 		return character.withoutElderPower(this);
 	}
 	
-	public TraitChange set() {
+	public TraitChange<ElderPower> set() {
 		return new SetElderPower(this.ordinal());
 	}
 }

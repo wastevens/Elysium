@@ -1,13 +1,13 @@
 package com.dstevens.characters.traits.powers.disciplines;
 
-import com.dstevens.characters.traits.changes.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Discipline")
-class SetDiscipline extends ApplicableTraitChange<CharacterDiscipline> {
+class SetDiscipline extends TraitChange<CharacterDiscipline> {
 
     //Hibernate only
     @SuppressWarnings("unused")

@@ -63,7 +63,7 @@ public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, Applic
     }
     
     @Override
-    public TraitChange set() {
+    public TraitChange<? extends ApplicableTrait> set() {
     	return new SetThaumaturgicalRitual(this.ordinal());
     }
 }

@@ -146,7 +146,7 @@ public enum Flaw {
     			             collect(Collectors.toList());
     }
     
-    public TraitChange set(String specialization) {
+    public TraitChange<CharacterFlaw> set(String specialization) {
     	return new SetFlaw(this.ordinal(), specialization);
     }
 	

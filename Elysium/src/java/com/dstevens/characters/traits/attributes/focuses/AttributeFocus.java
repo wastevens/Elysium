@@ -4,6 +4,6 @@ import com.dstevens.characters.traits.changes.TraitChange;
 
 public interface AttributeFocus {
 
-	TraitChange set();
+	TraitChange<? extends AttributeFocus> set();
 	
 }

@@ -1,13 +1,13 @@
 package com.dstevens.characters.traits.distinctions.flaws;
 
-import com.dstevens.characters.traits.changes.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Flaw")
-class SetFlaw extends ApplicableTraitChange<CharacterFlaw> {
+class SetFlaw extends TraitChange<CharacterFlaw> {
 
 	//Hibernate only
     @Deprecated

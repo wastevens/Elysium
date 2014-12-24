@@ -21,7 +21,7 @@ public enum SocialAttributeFocus implements ApplicableTrait, AttributeFocus {
 	}
 	
 	@Override
-	public TraitChange set() {
+	public TraitChange<SocialAttributeFocus> set() {
 		return new SetSocialFocus(this.ordinal());
 	}
 }

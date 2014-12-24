@@ -1,13 +1,13 @@
 package com.dstevens.characters.traits.attributes;
 
-import com.dstevens.characters.traits.changes.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Attribute")
-class SetAttributeValue extends ApplicableTraitChange<AttributeValue> {
+class SetAttributeValue extends TraitChange<AttributeValue> {
 
 	//Hibernate only
     @Deprecated

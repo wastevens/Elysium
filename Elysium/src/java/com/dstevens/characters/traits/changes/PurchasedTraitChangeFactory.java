@@ -27,17 +27,17 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     }
 
 	@Override
-	public TraitChange attribute(Attribute attribute, int rating) {
+	public TraitChange<?> attribute(Attribute attribute, int rating) {
 		return ChangeExperience.spend(3).and(traitChangeFactory.attribute(attribute, rating));
 	}
     
     @Override
-	public TraitChange focus(AttributeFocus focus) {
+	public TraitChange<?> focus(AttributeFocus focus) {
     	throw new IllegalStateException("Cannot purchase attribute focuses");
     }
     
     @Override
-	public TraitChange skill(Skill skill, int rating, String specialization, Set<String> focuses) {
+	public TraitChange<?> skill(Skill skill, int rating, String specialization, Set<String> focuses) {
     	return costForSkill(rating).and(traitChangeFactory.skill(skill, rating, specialization, focuses));
     }
 	
@@ -50,7 +50,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 	}
     
 	@Override
-	public TraitChange background(Background background, int rating, String specialization, Set<String> focuses) {
+	public TraitChange<?> background(Background background, int rating, String specialization, Set<String> focuses) {
 		return costForBackground(rating).and(traitChangeFactory.background(background, rating, specialization, focuses));
 	}
 	
@@ -63,11 +63,11 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 	}
     
 	@Override
-	public TraitChange power(Power<?> power, int rating) {
+	public TraitChange<?> power(Power<?> power, int rating) {
 		return costForPower(power, rating).and(traitChangeFactory.power(power, rating));
 	}
 	
-    private TraitChange costForPower(Power<?> power, int rating) {
+    private TraitChange<?> costForPower(Power<?> power, int rating) {
     	int cost = 0;
     	boolean inClan = character.getInClanDisciplines().contains(power);
     	if(inClan) {
@@ -83,26 +83,26 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     }
 
 	@Override
-	public TraitChange ritual(Ritual<?> ritual) {
+	public TraitChange<?> ritual(Ritual<?> ritual) {
 		return ChangeExperience.spend(ritual.rating() * 2).and(traitChangeFactory.ritual(ritual));
 	}
     
     @Override
-	public TraitChange merit(Merit merit, String specialization, TraitChange associatedTrait) {
+	public TraitChange<?> merit(Merit merit, String specialization, TraitChange<?> associatedTrait) {
     	return ChangeExperience.spend(merit.getPoints()).and(traitChangeFactory.merit(merit, specialization, associatedTrait));
     }
     
     @Override
-	public TraitChange flaw(Flaw flaw, String specialization, TraitChange associatedTrait) {
+	public TraitChange<?> flaw(Flaw flaw, String specialization, TraitChange<?> associatedTrait) {
     	return ChangeExperience.gain(flaw.getPoints()).and(traitChangeFactory.flaw(flaw, specialization, associatedTrait));
     }
 
 	@Override
-	public TraitChange technique(Technique technique) {
+	public TraitChange<?> technique(Technique technique) {
 		return costForTechnique().and(traitChangeFactory.technique(technique));
 	}
 	
-    private TraitChange costForTechnique() {
+    private TraitChange<?> costForTechnique() {
     	if(character.getGeneration().orElse(1) >= 3) {
     		return ChangeExperience.spend(20);
     	} else {
@@ -111,11 +111,11 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     }
 
 	@Override
-	public TraitChange elderPower(ElderPower power) {
+	public TraitChange<?> elderPower(ElderPower power) {
 		return costForElderPower(power).and(traitChangeFactory.elderPower(power));
 	}
 
-    private TraitChange costForElderPower(ElderPower power) {
+    private TraitChange<?> costForElderPower(ElderPower power) {
     	if(character.getInClanDisciplines().contains(power.getPower())) {
     		return ChangeExperience.spend(18);
     	} else {
@@ -128,12 +128,12 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     }
 	
 	@Override
-	public TraitChange inClanPower(Power<?> power) {
+	public TraitChange<?> inClanPower(Power<?> power) {
 		throw new IllegalStateException("Cannot buy additional in clan powers");
 	}
 
 	@Override
-	public TraitChange status(Status awesome, String string) {
+	public TraitChange<?> status(Status awesome, String string) {
 		throw new IllegalStateException("Cannot buy status");
 	}
 }

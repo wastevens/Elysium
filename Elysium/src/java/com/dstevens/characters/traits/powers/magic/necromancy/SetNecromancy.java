@@ -1,13 +1,13 @@
 package com.dstevens.characters.traits.powers.magic.necromancy;
 
-import com.dstevens.characters.traits.changes.ApplicableTraitChange;
+import com.dstevens.characters.traits.changes.TraitChange;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Necromancy")
-class SetNecromancy extends ApplicableTraitChange<CharacterNecromancy> {
+class SetNecromancy extends TraitChange<CharacterNecromancy> {
 
 	//Hibernate only
     @SuppressWarnings("unused")

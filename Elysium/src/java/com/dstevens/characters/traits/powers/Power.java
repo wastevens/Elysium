@@ -7,8 +7,8 @@ import com.dstevens.characters.traits.changes.TraitChange;
 
 public interface Power<T> extends ApplicableTrait {
 	
-	TraitChange set();
-	TraitChange set(int rating);
+	TraitChange<? extends Power<T>> set();
+	TraitChange<? extends ApplicableTrait> set(int rating);
 
 	
 }
