@@ -34,6 +34,10 @@ public class PlayerCharacterRepository {
 	public PlayerCharacter findNamed(String name) {
 		return dao.findUndeletedNamed(name);
 	}
+	
+	public Iterable<PlayerCharacter> findAllNamed(String name) {
+		return dao.findNamed(name);
+	}
 
 	public void hardDelete(PlayerCharacter pc) {
 		dao.delete(pc);

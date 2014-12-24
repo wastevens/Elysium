@@ -2,6 +2,8 @@ package com.dstevens.characters;
 
 import static com.dstevens.collections.Sets.set;
 
+import java.util.stream.StreamSupport;
+
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
@@ -46,16 +48,22 @@ public class AddAndModifyCharacterTest {
     @Before
     public void setUp() {
     	this.appConfig = ApplicationConfiguration.appConfig();
+    	deleteAllNamed();
     }
     
     @After
     public void tearDown() {
-        PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-       characterRepository.hardDelete(getMaryWollstonecraft());
+    	deleteAllNamed();
     }
+
+	private void deleteAllNamed() {
+		PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
+    	Iterable<PlayerCharacter> findAllNamed = characterRepository.findAllNamed("Mary Wollstonecraft");
+    	StreamSupport.stream(findAllNamed.spliterator(), false).forEach((PlayerCharacter p) -> characterRepository.hardDelete(p));
+	}
     
     @Test   
-    public void testCreateAndModify() {
+    public void createAndModify() {
         createMaryWollstonecraft();
         PlayerCharacter maryWollstonecraftWhenNewlyCreated = getMaryWollstonecraft();
         assertEquals(maryWollstonecraftWhenNewlyCreated.getClan(), Clan.TOREADOR);

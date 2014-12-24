@@ -32,13 +32,13 @@ class RemoveTrait extends TraitChange {
 
 	@Override
 	public PlayerCharacter apply(PlayerCharacter character) {
-		this.stream().forEach((TraitChange t) -> t.remove(character));
+		traitToRemove.stream().forEach((TraitChange t) -> t.remove(character));
         return character;
 	}
 	
 	@Override
 	public PlayerCharacter remove(PlayerCharacter character) {
-		this.stream().forEach((TraitChange t) -> t.apply(character));
+		traitToRemove.stream().forEach((TraitChange t) -> t.apply(character));
         return character;
 	}
 

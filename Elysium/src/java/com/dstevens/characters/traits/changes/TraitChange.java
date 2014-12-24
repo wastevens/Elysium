@@ -86,7 +86,7 @@ public abstract class TraitChange {
     	TraitChange traitToAdd = this;
     	while(traitToAdd != null) {
     		builder.add(traitToAdd);
-    		traitToAdd = this.child;
+    		traitToAdd = traitToAdd.child;
     	}
     	return builder.build();
     }
