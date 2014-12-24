@@ -82,10 +82,6 @@ public abstract class TraitChange {
     	}
         return character;
     }
-    
-    public boolean hasAssociatedTrait() {
-        return child != null;
-    }
 
     public TraitChange associatedTrait() {
         return child;
