@@ -2,6 +2,7 @@ package com.dstevens.characters.traits.changes;
 
 import static com.dstevens.collections.Sets.set;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
@@ -20,6 +21,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @SuppressWarnings("deprecation")
@@ -48,6 +50,11 @@ public abstract class TraitChange {
     @OneToOne(cascade={CascadeType.ALL})
     @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
     private TraitChange child;
+    
+    @ElementCollection
+    @OrderBy("order")
+    @ForeignKey(name= "TraitChanges_StatusChanges_FK")
+    protected List<StatusChange> statusChanges;
     
     //Hibernate only
     @Deprecated
