@@ -1,5 +1,7 @@
 package com.dstevens.characters.traits.changes;
 
+import static com.dstevens.collections.Lists.list;
+
 import static com.dstevens.collections.Sets.set;
 
 import java.util.List;
@@ -54,7 +56,7 @@ public abstract class TraitChange {
     @ElementCollection
     @OrderBy("order")
     @ForeignKey(name= "TraitChanges_StatusChanges_FK")
-    protected List<StatusChange> statusChanges;
+    private List<StatusChange> statusChanges;
     
     //Hibernate only
     @Deprecated
@@ -68,6 +70,7 @@ public abstract class TraitChange {
     	this.rating = rating;
 		this.specialization = specialization;
 		this.focuses = focuses;
+		this.statusChanges = list();
     }
     
     public final TraitChange and(TraitChange andTrait) {
