@@ -43,10 +43,9 @@ class RemoveTrait extends TraitChange {
 	@Override
 	public PlayerCharacter remove(PlayerCharacter character) {
 		TraitChange currentTraitToRemove = traitToRemove;
-		currentTraitToRemove.apply(character);
-		while(currentTraitToRemove.hasAssociatedTrait()) {
-			currentTraitToRemove = traitToRemove.associatedTrait();
+		while(currentTraitToRemove != null) {
 			currentTraitToRemove.apply(character);
+			currentTraitToRemove = traitToRemove.associatedTrait();
 		}
 		return character;
 	}
@@ -54,7 +53,7 @@ class RemoveTrait extends TraitChange {
 	@Override
 	public String describe() {
 		String removeTrait = String.format("Removing %1$s", traitToRemove.describe());
-		String nextTrait = (hasAssociatedTrait() ? String.format(", restoring %1$s", associatedTrait().describe()) : "");
+		String nextTrait = (associatedTrait() != null ? String.format(", restoring %1$s", associatedTrait().describe()) : "");
 		return String.format("%1$s%2$s", removeTrait, nextTrait);
 	}
 

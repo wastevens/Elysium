@@ -83,10 +83,6 @@ public abstract class TraitChange {
         return character;
     }
     
-    public final PlayerCharacter deny(PlayerCharacter character) {
-        return character;
-    }
-
     public boolean hasAssociatedTrait() {
         return child != null;
     }
