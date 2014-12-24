@@ -9,7 +9,6 @@
     
     <mapping class="com.dstevens.characters.PlayerCharacter"/>
     <mapping class="com.dstevens.characters.traits.changes.TraitChange"/>
-    <mapping class="com.dstevens.characters.traits.changes.RemoveTrait"/>
     <mapping class="com.dstevens.characters.traits.attributes.AttributeValue"/>
     <mapping class="com.dstevens.characters.traits.experience.Experience"/>
     
