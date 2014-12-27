@@ -181,14 +181,14 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     
     @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="order_by")
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChanges_id"}, name="PlayerCharacter_TraitChanges_UC")})
-    @ForeignKey(name="PlayerCharacter_TraitChanges_FK", inverseName="TraitChanges_PlayerCharacter_FK")
-    private final List<TraitChange<?>> traitChanges;
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChanges_id"}, name="PlayerCharacter_RequestedTraitChanges_UC")})
+    @ForeignKey(name="PlayerCharacter_RequestedTraitChanges_FK", inverseName="RequestedTraitChanges_PlayerCharacter_FK")
+    private final List<TraitChange<?>> requesedTraitChanges;
     
     @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="order_by")
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChanges_id"}, name="PlayerCharacter_TraitChanges_UC")})
-    @ForeignKey(name="PlayerCharacter_TraitChanges_FK", inverseName="TraitChanges_PlayerCharacter_FK")
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"appliedTraitChanges_id"}, name="PlayerCharacter_AppliedTraitChanges_UC")})
+    @ForeignKey(name="PlayerCharacter_AppliedTraitChanges_FK", inverseName="AppliedTraitChanges_PlayerCharacter_FK")
     private final List<TraitChange<?>> appliedTraitChanges;
     
     @OneToMany(cascade={CascadeType.ALL})
@@ -257,7 +257,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this.merits = merits;
         this.flaws = flaws;
 		this.status = status;
-        this.traitChanges = traitChanges;
+        this.requesedTraitChanges = traitChanges;
 		this.appliedTraitChanges = appliedTraitChanges;
 		this.experienceAwards = experienceAwards;
         this.deleteTimestamp = deleteTimestamp;
@@ -276,7 +276,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
-                                   traitChanges, appliedTraitChanges,
+                                   requesedTraitChanges, appliedTraitChanges,
                                    experienceAwards, 
                                    deleteTimestamp);
     }
@@ -294,7 +294,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                 necromanticRituals, merits, flaws, status,
-                traitChanges, appliedTraitChanges,
+                requesedTraitChanges, appliedTraitChanges,
                 experienceAwards,
                 deleteTimestamp);
     }
@@ -312,7 +312,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                 necromanticRituals, merits, flaws, status,
-                traitChanges, appliedTraitChanges,
+                requesedTraitChanges, appliedTraitChanges,
                 experienceAwards,
                 deleteTimestamp);
     }
@@ -326,7 +326,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
-                                   traitChanges, appliedTraitChanges,
+                                   requesedTraitChanges, appliedTraitChanges,
                                    experienceAwards,
                                    timestamp);
     }
@@ -340,7 +340,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
-                                   traitChanges, appliedTraitChanges,
+                                   requesedTraitChanges, appliedTraitChanges,
                                    experienceAwards,
                                    null);
     }
@@ -710,16 +710,16 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public List<TraitChange<?>> getTraitChanges() {
-        return traitChanges;
+        return requesedTraitChanges;
     }
     
     public PlayerCharacter addTraitChange(TraitChange<?> traitChange) {
-        this.traitChanges.add(traitChange);
+        this.requesedTraitChanges.add(traitChange);
         return this;
     }
     
     public PlayerCharacter apply(TraitChange<?> traitChange) {
-    	this.traitChanges.remove(traitChange);
+    	this.requesedTraitChanges.remove(traitChange);
     	this.appliedTraitChanges.add(traitChange);
     	
         traitChange.apply(this);
@@ -727,7 +727,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter approveAllOutstandingRequests(final TraitChangeStatus traitChangestatus) {
-        this.traitChanges.stream().filter((TraitChange<?> t) -> t.currentStatus().pending()).
+        this.requesedTraitChanges.stream().filter((TraitChange<?> t) -> t.currentStatus().pending()).
         forEach((TraitChange<?> t) -> {
         	t.apply(this);
         	t.withStatus(traitChangestatus);
