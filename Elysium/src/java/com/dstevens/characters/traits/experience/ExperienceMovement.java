@@ -2,7 +2,7 @@ package com.dstevens.characters.traits.experience;
 
 public enum ExperienceMovement {
 
-	EARN {
+	AWARD {
 		@Override
 		public Experience changeExperience(int xp) {
 			return new EarnExperience(xp);

@@ -72,7 +72,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     private int xpGranted;
     
     @Column(name="xpPendingSpent")
-    private int xpPendingSpent;
+    private int xpRequestedSpent;
     
     @Column(name="xpAppliedSpent")
     private int xpAppliedSpent;
@@ -641,6 +641,27 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     public PlayerCharacter setXp(int xp) {
         this.xp = xp;
         return this;
+    }
+    
+    public PlayerCharacter awardXp(int xp) {
+    	this.xpAwarded += xp;
+    	return this;
+    }
+    
+    public PlayerCharacter grantXp(int xp) {
+    	this.xpGranted += xp;
+    	return this;
+    }
+    
+    public PlayerCharacter requestXpSpend(int xp) {
+    	this.xpRequestedSpent += xp;
+    	return this;
+    }
+    
+    public PlayerCharacter applyXpSpend(int xp) {
+    	this.xpRequestedSpent -= xp;
+    	this.xpAppliedSpent += xp;
+    	return this;
     }
     
     public List<TraitChange<?>> getTraitChanges() {

@@ -33,7 +33,7 @@ public class ChangeExperience extends TraitChange<Experience> {
 		return new ChangeExperience(ExperienceMovement.GAIN, xp);
 	}
 	
-	public static ChangeExperience earn(int xp) {
-		return new ChangeExperience(ExperienceMovement.EARN, xp);
+	public static ChangeExperience award(int xp) {
+		return new ChangeExperience(ExperienceMovement.AWARD, xp);
 	}
 }
