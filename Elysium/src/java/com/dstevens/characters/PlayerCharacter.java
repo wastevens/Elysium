@@ -577,6 +577,20 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     	this.flaws.removeIf(flaw.matches());
         return this;
     }
+
+    public Set<CharacterStatus> getStatus() {
+    	return status;
+    }
+    
+	public PlayerCharacter withStatus(CharacterStatus characterStatus) {
+		this.status.add(characterStatus);
+		return this;
+	}
+	
+	public PlayerCharacter withoutStatus(CharacterStatus characterStatus) {
+		this.status.removeIf(characterStatus.matching());
+		return this;
+	}
     
     public PlayerCharacter delete(Date timestamp) {
         return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
@@ -668,18 +682,17 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return traitChanges;
     }
     
-    public PlayerCharacter withTraitChangeEvent(TraitChange<?> event) {
-        this.traitChanges.add(event);
+    public PlayerCharacter request(TraitChange<?> traitChange) {
+        this.traitChanges.add(traitChange);
         return this;
     }
     
-    public PlayerCharacter approvePendingChange(TraitChange<?> event, TraitChangeStatus traitChangestatus) {
-        event.apply(this);
-        event.statusChanged(traitChangestatus);
+    public PlayerCharacter approve(TraitChange<?> traitChange) {
+        traitChange.apply(this);
         return this;
     }
     
-    public PlayerCharacter approvePendingChanges(final TraitChangeStatus traitChangestatus) {
+    public PlayerCharacter approveAllOutstandingRequests(final TraitChangeStatus traitChangestatus) {
         this.traitChanges.stream().filter((TraitChange<?> t) -> t.currentStatus().pending()).
         forEach((TraitChange<?> t) -> {
         	t.apply(this);
@@ -687,18 +700,4 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         });
         return this;
     }
-
-    public Set<CharacterStatus> getStatus() {
-    	return status;
-    }
-    
-	public PlayerCharacter withStatus(CharacterStatus characterStatus) {
-		this.status.add(characterStatus);
-		return this;
-	}
-	
-	public PlayerCharacter withoutStatus(CharacterStatus characterStatus) {
-		this.status.removeIf(characterStatus.matching());
-		return this;
-	}
 }

@@ -253,40 +253,40 @@ public class AddAndModifyCharacterTest {
 		TraitChangeFactory experienceChart = TraitChangeFactoryProvider.buyTraitsFor(getMaryWollstonecraft());
         TraitChangeFactory traitFactory = TraitChangeFactoryProvider.giveTraits();
         
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS, 2, null, set("Philosophy", "Latin Poetry"))));
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.skill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry"))));
-        characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ARTISTS_BLESSING, "Poetry", traitFactory.skill(Skill.CRAFTS, 3, "Poetry", set()))));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.LUCKY, null, null)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.VERSATILE, "Wits", traitFactory.focus(MentalAttributeFocus.WITS))));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.CURIOUSITY, null, null)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.flaw(Flaw.LESSER_GENERATION_2, null, null)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(Attribute.PHYSICAL, getMaryWollstonecraft().getPhysicalAttribute()+1)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(Attribute.SOCIAL ,getMaryWollstonecraft().getSocialAttribute()+1)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.attribute(Attribute.MENTAL, getMaryWollstonecraft().getMentalAttribute()+1)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN, 1, "Luxury Home", set("Luxury"))));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.background(Background.HAVEN, 2, "Luxury Home", set("Luxury", "Location"))));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX, 2)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.AUSPEX, 3)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Discipline.ANIMALISM, 1)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD, 1)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD, 2)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Thaumaturgy.LURE_OF_FLAMES, 1)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH, 1)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.ASH_PATH, 2)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.power(Necromancy.BONE_PATH, 1)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(ThaumaturgicalRitual.CRAFT_BLOODSTONE)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(ThaumaturgicalRitual.BURNING_BLADE)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(NecromanticRitual.BLACK_BLOOD)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.ritual(NecromanticRitual.DARK_ASSISTANT)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.ARMOR_OF_DARKNESS)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.technique(Technique.CONTROL_THE_SAVAGE_BEAST)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.CLAIRVOYANCE)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.elderPower(ElderPower.ACID_BLOOD)));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", traitFactory.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION))));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", traitFactory.inClanPower(Necromancy.ASH_PATH))));
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(experienceChart.merit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", traitFactory.inClanPower(Discipline.DOMINATE))));
+        characterRepository.update(getMaryWollstonecraft().request(experienceChart.skill(Skill.ACADEMICS, 2, null, set("Philosophy", "Latin Poetry"))));
+        characterRepository.update(getMaryWollstonecraft().request(experienceChart.skill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry"))));
+        characterRepository.update(getMaryWollstonecraft().request(experienceChart.merit(Merit.ARTISTS_BLESSING, "Poetry", traitFactory.skill(Skill.CRAFTS, 3, "Poetry", set()))));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.merit(Merit.LUCKY, null, null)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.merit(Merit.VERSATILE, "Wits", traitFactory.focus(MentalAttributeFocus.WITS))));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.flaw(Flaw.CURIOUSITY, null, null)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.flaw(Flaw.LESSER_GENERATION_2, null, null)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.attribute(Attribute.PHYSICAL, getMaryWollstonecraft().getPhysicalAttribute()+1)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.attribute(Attribute.SOCIAL ,getMaryWollstonecraft().getSocialAttribute()+1)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.attribute(Attribute.MENTAL, getMaryWollstonecraft().getMentalAttribute()+1)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.background(Background.HAVEN, 1, "Luxury Home", set("Luxury"))));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.background(Background.HAVEN, 2, "Luxury Home", set("Luxury", "Location"))));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.power(Discipline.AUSPEX, 2)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.power(Discipline.AUSPEX, 3)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.power(Discipline.ANIMALISM, 1)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD, 1)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD, 2)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.power(Thaumaturgy.LURE_OF_FLAMES, 1)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.power(Necromancy.ASH_PATH, 1)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.power(Necromancy.ASH_PATH, 2)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.power(Necromancy.BONE_PATH, 1)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.ritual(ThaumaturgicalRitual.CRAFT_BLOODSTONE)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.ritual(ThaumaturgicalRitual.BURNING_BLADE)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.ritual(NecromanticRitual.BLACK_BLOOD)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.ritual(NecromanticRitual.DARK_ASSISTANT)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.technique(Technique.ARMOR_OF_DARKNESS)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.technique(Technique.CONTROL_THE_SAVAGE_BEAST)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.elderPower(ElderPower.CLAIRVOYANCE)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.elderPower(ElderPower.ACID_BLOOD)));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", traitFactory.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION))));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", traitFactory.inClanPower(Necromancy.ASH_PATH))));
+		characterRepository.update(getMaryWollstonecraft().request(experienceChart.merit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", traitFactory.inClanPower(Discipline.DOMINATE))));
 		
-		characterRepository.update(getMaryWollstonecraft().withTraitChangeEvent(traitFactory.status(Status.AWESOME, "So very awesome")));
+		characterRepository.update(getMaryWollstonecraft().request(traitFactory.status(Status.AWESOME, "So very awesome")));
     }
     
     private void earnXpForMaryWollstonecraft() {
@@ -338,6 +338,6 @@ public class AddAndModifyCharacterTest {
     private void approveChangesOnMary() {
         PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
         TraitChangeStatusFactory traitChangeStatusFactory = appConfig.getBean(TraitChangeStatusFactory.class);
-        characterRepository.update(getMaryWollstonecraft().approvePendingChanges(traitChangeStatusFactory.applied()));
+        characterRepository.update(getMaryWollstonecraft().approveAllOutstandingRequests(traitChangeStatusFactory.applied()));
     }
 }
