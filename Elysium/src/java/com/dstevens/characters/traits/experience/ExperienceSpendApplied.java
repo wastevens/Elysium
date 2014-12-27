@@ -1,5 +1,7 @@
 package com.dstevens.characters.traits.experience;
 
+import java.util.Date;
+
 import com.dstevens.characters.PlayerCharacter;
 
 import javax.persistence.DiscriminatorValue;
@@ -16,8 +18,8 @@ public class ExperienceSpendApplied extends ExperienceChange {
         super();
     }
 	
-	public ExperienceSpendApplied(int value) {
-		super(value);
+	public ExperienceSpendApplied(int value, Date changedOn) {
+		super(value, changedOn);
 	}
 
 	@Override
