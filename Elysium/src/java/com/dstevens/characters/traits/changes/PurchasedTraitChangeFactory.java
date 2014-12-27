@@ -91,7 +91,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     
     @Override
 	public TraitChange<?> flaw(Flaw flaw, String specialization, TraitChange<?> associatedTrait) {
-    	return traitChangeFactory.flaw(flaw, specialization, associatedTrait).costing(flaw.getPoints());
+    	return traitChangeFactory.flaw(flaw, specialization, associatedTrait).costing(-1 * flaw.getPoints());
     }
 
 	@Override

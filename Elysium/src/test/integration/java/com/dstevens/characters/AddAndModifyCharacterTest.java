@@ -138,7 +138,7 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getMerits());
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getFlaws());
 		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXpGained());
-		assertEquals(171, maryWollstonecraftWithExperienceSpentButNotYetApproved.getRequestedXpSpent());
+		assertEquals(163, maryWollstonecraftWithExperienceSpentButNotYetApproved.getRequestedXpSpent());
 		assertEquals(0, maryWollstonecraftWithExperienceSpentButNotYetApproved.getAppliedXpSpent());
 		
 		assertEquals(33, maryWollstonecraftWithExperienceSpentButNotYetApproved.getRequestedTraitChanges().size());
@@ -204,7 +204,7 @@ public class AddAndModifyCharacterTest {
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
 		assertEquals(200, maryWollstonecraftWithExperienceSpentAndApproved.getXpGained());
 		assertEquals(0, maryWollstonecraftWithExperienceSpentAndApproved.getRequestedXpSpent());
-		assertEquals(171, maryWollstonecraftWithExperienceSpentAndApproved.getAppliedXpSpent());
+		assertEquals(163, maryWollstonecraftWithExperienceSpentAndApproved.getAppliedXpSpent());
 		
 		//Double check this
 //		assertEquals(37, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
