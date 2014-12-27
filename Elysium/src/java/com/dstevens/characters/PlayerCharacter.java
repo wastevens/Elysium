@@ -66,11 +66,8 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @Column(name="xp")
     private int xp;
     
-    @Column(name="xpAwarded")
-    private int xpAwarded;
-    
-    @Column(name="xpGranted")
-    private int xpGranted;
+    @Column(name="xpGained")
+    private int xpGained;
     
     @Column(name="xpPendingSpent")
     private int xpRequestedSpent;
@@ -679,13 +676,8 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public PlayerCharacter awardXp(int xp) {
-    	this.xpAwarded += xp;
-    	return this;
-    }
-    
-    public PlayerCharacter grantXp(int xp) {
-    	this.xpGranted += xp;
+    public PlayerCharacter gainXp(int xp) {
+    	this.xpGained += xp;
     	return this;
     }
     

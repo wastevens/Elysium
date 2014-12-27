@@ -24,7 +24,7 @@ public class ExperienceGrant extends ExperienceChange {
 
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter playerCharacter) {
-		return playerCharacter.grantXp(getValue());
+		return playerCharacter.gainXp(getValue());
 	}
 
 }

@@ -1,30 +1,53 @@
 package com.dstevens.characters.traits.experience;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.suppliers.IdSupplier;
 
-import javax.persistence.DiscriminatorValue;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
-@DiscriminatorValue("Award")
-public class ExperienceAward extends ExperienceChange {
+public class ExperienceAward {
 
+	private static final ZoneId UTC = ZoneId.of("Z");
+	
+	@Id
+	private final String id;
+	
+	@Column(name="value")
+	private final int value;
+	
+	@Column(name="awardedOn")
+	private final Date awardedOn;
+
+	@Column(name="awardedFor")
+	private final String awardedFor;
+	
 	//Hibernate only
-    @Deprecated
     @SuppressWarnings("unused")
+	@Deprecated
     private ExperienceAward() {
-        super();
+    	this(0, null, null);
     }
 	
-	public ExperienceAward(int value, Date changedOn) {
-		super(value, changedOn);
+	public ExperienceAward(int value, Date awardedOn, String awardedFor) {
+		this.id = new IdSupplier().get();
+		this.value = value;
+		this.awardedOn = awardedOn;
+		this.awardedFor = awardedFor;
 	}
 
-	@Override
-	public PlayerCharacter applyTo(PlayerCharacter playerCharacter) {
-		return playerCharacter.awardXp(getValue());
+	public final LocalDate changedOn() {
+		return awardedOn.toInstant().atZone(UTC).toLocalDate();
+	}
+	
+	public PlayerCharacter award(PlayerCharacter playerCharacter) {
+		return playerCharacter.gainXp(value);
 	}
 
 }
