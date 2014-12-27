@@ -37,7 +37,7 @@ public final class ExperienceAward {
 	public ExperienceAward(int experience, LocalDate awardedOn, String awardedFor) {
 		this.id = new IdSupplier().get();
 		this.experience = experience;
-		this.awardedOn = fromLocalDateInUTC(awardedOn);
+		this.awardedOn = (awardedOn != null ? fromLocalDateInUTC(awardedOn) : null);
 		this.awardedFor = awardedFor;
 	}
 

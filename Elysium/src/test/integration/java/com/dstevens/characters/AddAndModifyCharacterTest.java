@@ -4,6 +4,8 @@ import static com.dstevens.collections.Sets.set;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.stream.StreamSupport;
 
 import org.junit.After;
@@ -19,6 +21,7 @@ import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
+import com.dstevens.characters.traits.changes.ExperienceAwardService;
 import com.dstevens.characters.traits.changes.TraitChangeFactory;
 import com.dstevens.characters.traits.changes.TraitChangeFactoryProvider;
 import com.dstevens.characters.traits.distinctions.flaws.CharacterFlaw;
@@ -95,7 +98,9 @@ public class AddAndModifyCharacterTest {
    		             maryWollstonecraftWhenNewlyCreated.getDisciplines());
 		assertEquals(set(), maryWollstonecraftWhenNewlyCreated.getMerits());
 		assertEquals(set(), maryWollstonecraftWhenNewlyCreated.getFlaws());
-		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
+		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXpGained());
+		assertEquals(0, maryWollstonecraftWhenNewlyCreated.getAppliedXpSpent());
+		assertEquals(0, maryWollstonecraftWhenNewlyCreated.getRequestedXpSpent());
 		
 		assertEquals(0, maryWollstonecraftWhenNewlyCreated.getRequestedTraitChanges().size());
 		assertEquals(0, maryWollstonecraftWhenNewlyCreated.getAppliedTraitChanges().size());
@@ -132,7 +137,9 @@ public class AddAndModifyCharacterTest {
    		             maryWollstonecraftWithExperienceSpentButNotYetApproved.getDisciplines());
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getMerits());
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getFlaws());
-		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXp());
+		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXpGained());
+		assertEquals(171, maryWollstonecraftWithExperienceSpentButNotYetApproved.getRequestedXpSpent());
+		assertEquals(0, maryWollstonecraftWithExperienceSpentButNotYetApproved.getAppliedXpSpent());
 		
 		assertEquals(33, maryWollstonecraftWithExperienceSpentButNotYetApproved.getRequestedTraitChanges().size());
 		assertEquals(0, maryWollstonecraftWithExperienceSpentButNotYetApproved.getAppliedTraitChanges().size());
@@ -195,6 +202,10 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(new CharacterFlaw(Flaw.CURIOUSITY),
 		                 new CharacterFlaw(Flaw.LESSER_GENERATION_2)), 
 		             maryWollstonecraftWithExperienceSpentAndApproved.getFlaws());
+		assertEquals(200, maryWollstonecraftWithExperienceSpentAndApproved.getXpGained());
+		assertEquals(0, maryWollstonecraftWithExperienceSpentAndApproved.getRequestedXpSpent());
+		assertEquals(171, maryWollstonecraftWithExperienceSpentAndApproved.getAppliedXpSpent());
+		
 		//Double check this
 //		assertEquals(37, maryWollstonecraftWithExperienceSpentAndApproved.getXp());
 		assertEquals(set(new CharacterStatus(Status.AWESOME, "So very awesome")), maryWollstonecraftWithExperienceSpentAndApproved.getStatus());
@@ -235,7 +246,7 @@ public class AddAndModifyCharacterTest {
                                              withDiscipline(new CharacterDiscipline(Discipline.PRESENCE, 2)).
                                              withDiscipline(new CharacterDiscipline(Discipline.CELERITY, 1)).
                                              withDiscipline(new CharacterDiscipline(Discipline.AUSPEX, 1)).
-                                             setXp(200));
+                                             gainXp(200));
         characterRepository.update(saved);
     }
 
@@ -277,25 +288,22 @@ public class AddAndModifyCharacterTest {
 		characterService.request(getMaryWollstonecraft(), experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", traitFactory.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION)));
 		characterService.request(getMaryWollstonecraft(), experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", traitFactory.inClanPower(Necromancy.ASH_PATH)));
 		characterService.request(getMaryWollstonecraft(), experienceChart.merit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", traitFactory.inClanPower(Discipline.DOMINATE)));
-		
 		characterService.request(getMaryWollstonecraft(), traitFactory.status(Status.AWESOME, "So very awesome"));
     }
     
     private void earnXpForMaryWollstonecraft() {
-//    	PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-//    	ExperienceAwardService awardService = appConfig.getBean(ExperienceAwardService.class);
-//    	assertEquals(37, getMaryWollstonecraft().getXp());
-//    	Instant july2022 = LocalDateTime.of(2022, Month.JULY.getValue(), 2, 10, 12).toInstant(ZoneOffset.UTC);
-//    	
-//    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 3, Date.from(july2022)));
-//    	assertEquals(40, getMaryWollstonecraft().getXp());
-//    	
-//    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 8, Date.from(july2022)));
-//    	assertEquals(47, getMaryWollstonecraft().getXp());
-//    	
-//    	Instant august2022 = LocalDateTime.of(2022, Month.AUGUST.getValue(), 2, 10, 12).toInstant(ZoneOffset.UTC);
-//    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 11, Date.from(august2022)));
-//    	assertEquals(57, getMaryWollstonecraft().getXp());
+    	PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
+    	ExperienceAwardService awardService = appConfig.getBean(ExperienceAwardService.class);
+    	assertEquals(200, getMaryWollstonecraft().getXpGained());
+		
+    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 3, LocalDate.of(2022, Month.JULY, 1), "Attendance"));
+    	assertEquals(203, getMaryWollstonecraft().getXpGained());
+    	
+    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 8, LocalDate.of(2022, Month.JULY, 1), "Attendance"));
+    	assertEquals(210, getMaryWollstonecraft().getXpGained());
+    	
+    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 11, LocalDate.of(2022, Month.AUGUST, 1), "Attendance"));
+    	assertEquals(220, getMaryWollstonecraft().getXpGained());
     }
 
 //    private void backoutSomeOfThoseChanges() {

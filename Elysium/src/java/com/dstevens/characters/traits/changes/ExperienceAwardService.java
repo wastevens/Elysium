@@ -13,9 +13,11 @@ public class ExperienceAwardService {
 	private static final int MAX_XP_EARNABLE_PER_MONTH = 10;
 	
 	public PlayerCharacter awardCharacter(PlayerCharacter character, int xp, LocalDate yearMonth, String awardFor) {
-		int xpToAward = Math.min(amountCharacterCanBeAwardedIn(character, yearMonth), xp);
-		ExperienceAward award = new ExperienceAward(xpToAward, yearMonth, awardFor);
-		return character.addExperienceAward(award);
+		return character.addExperienceAward(new ExperienceAward(xpToAward(character, xp, yearMonth), yearMonth, awardFor));
+	}
+
+	private int xpToAward(PlayerCharacter character, int xp, LocalDate yearMonth) {
+		return Math.min(amountCharacterCanBeAwardedIn(character, yearMonth), xp);
 	}
 	
 	private int amountCharacterCanBeAwardedIn(PlayerCharacter character, LocalDate yearMonth) {

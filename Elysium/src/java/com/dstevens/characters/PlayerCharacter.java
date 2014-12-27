@@ -674,13 +674,16 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                       compare(this, that);
     }
 
-    public int getXp() {
-        return xp;
+    public int getXpGained() {
+        return xpGained;
     }
     
-    public PlayerCharacter setXp(int xp) {
-        this.xp = xp;
-        return this;
+    public int getAppliedXpSpent() {
+    	return xpAppliedSpent;
+    }
+    
+    public int getRequestedXpSpent() {
+    	return xpRequestedSpent;
     }
     
     public PlayerCharacter gainXp(int xp) {
