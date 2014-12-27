@@ -65,8 +65,8 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @Column(name="xp")
     private int xp;
     
-    @Column(name="xpEarned")
-    private int xpEarned;
+    @Column(name="xpAwarded")
+    private int xpAwarded;
     
     @Column(name="xpGranted")
     private int xpGranted;
