@@ -713,14 +713,20 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return requesedTraitChanges;
     }
     
-    public PlayerCharacter addTraitChange(TraitChange<?> traitChange) {
+    public PlayerCharacter request(TraitChange<?> traitChange) {
         this.requesedTraitChanges.add(traitChange);
+        traitChange.costing().ifPresent((Integer xp) -> this.xpRequestedSpent += xp);
         return this;
     }
     
     public PlayerCharacter apply(TraitChange<?> traitChange) {
     	this.requesedTraitChanges.remove(traitChange);
     	this.appliedTraitChanges.add(traitChange);
+    	
+    	traitChange.costing().ifPresent((Integer xp) -> {
+    		this.xpRequestedSpent -= xp;
+    		this.xpAppliedSpent += xp;
+    	});
     	
         traitChange.apply(this);
         return this;

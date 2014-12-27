@@ -22,7 +22,7 @@ public class PlayerCharacterService {
 	}
 	
 	public PlayerCharacter request(PlayerCharacter character, TraitChange<?> traitChange) {
-		character.addTraitChange(traitChange.withStatus(traitChangeStatusFactory.requeted()));
+		character.request(traitChange.withStatus(traitChangeStatusFactory.requeted()));
 		return repository.update(character);
 	}
 	
