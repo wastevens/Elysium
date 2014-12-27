@@ -692,6 +692,16 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     	return this;
     }
     
+    public List<ExperienceAward> getExperienceAwards() {
+        return experienceAwards;
+    }
+    
+    public PlayerCharacter addExperienceAward(ExperienceAward award) {
+    	this.xpGained += award.experience();
+        this.experienceAwards.add(award);
+        return this;
+    }
+    
     public List<TraitChange<?>> getTraitChanges() {
         return traitChanges;
     }

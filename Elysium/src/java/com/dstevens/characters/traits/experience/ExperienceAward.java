@@ -1,11 +1,11 @@
 package com.dstevens.characters.traits.experience;
 
-import static com.dstevens.time.DateToLocalDateTransformer.asLocalDateInUTC;
+import static com.dstevens.time.DateTimeUtilities.asLocalDateInUTC;
+import static com.dstevens.time.DateTimeUtilities.fromLocalDateInUTC;
 
 import java.time.LocalDate;
 import java.util.Date;
 
-import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.suppliers.IdSupplier;
 
 import javax.persistence.Column;
@@ -13,13 +13,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class ExperienceAward {
+public final class ExperienceAward {
 
 	@Id
 	private final String id;
 	
-	@Column(name="value")
-	private final int value;
+	@Column(name="experience")
+	private final int experience;
 	
 	@Column(name="awardedOn")
 	private final Date awardedOn;
@@ -34,19 +34,23 @@ public class ExperienceAward {
     	this(0, null, null);
     }
 	
-	public ExperienceAward(int value, Date awardedOn, String awardedFor) {
+	public ExperienceAward(int experience, LocalDate awardedOn, String awardedFor) {
 		this.id = new IdSupplier().get();
-		this.value = value;
-		this.awardedOn = awardedOn;
+		this.experience = experience;
+		this.awardedOn = fromLocalDateInUTC(awardedOn);
 		this.awardedFor = awardedFor;
 	}
 
-	public final LocalDate changedOn() {
+	public final LocalDate awardedOn() {
 		return asLocalDateInUTC(awardedOn);
 	}
-	
-	public PlayerCharacter award(PlayerCharacter playerCharacter) {
-		return playerCharacter.gainXp(value);
+
+	public final int experience() {
+		return experience;
 	}
 
+	public final String awardedFor() {
+		return awardedFor;
+	}
+	
 }
