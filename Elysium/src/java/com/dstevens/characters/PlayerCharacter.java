@@ -24,6 +24,7 @@ import com.dstevens.characters.traits.changes.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.distinctions.flaws.CharacterFlaw;
 import com.dstevens.characters.traits.distinctions.merits.CharacterMerit;
+import com.dstevens.characters.traits.experience.ExperienceAward;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.disciplines.CharacterDiscipline;
 import com.dstevens.characters.traits.powers.disciplines.Discipline;
@@ -187,10 +188,16 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @ForeignKey(name="PlayerCharacter_TraitChanges_FK", inverseName="TraitChanges_PlayerCharacter_FK")
     private final List<TraitChange<?>> traitChanges;
     
+    @OneToMany(cascade={CascadeType.ALL})
+    @OrderColumn(name="changedOn")
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"experienceAward_id"}, name="PlayerCharacter_ExperienceAwards_UC")})
+    @ForeignKey(name="PlayerCharacter_ExperienceAwards_FK", inverseName="ExperienceAwards_PlayerCharacter_FK")
+    private final List<ExperienceAward> experienceAwards;
+    
     //Hibernate only
     @Deprecated
     public PlayerCharacter() {
-        this(null, 0, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, 0, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, String name) {
@@ -202,7 +209,9 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
              set(), set(), null,
              set(), set(), null,
              set(), set(), set(), set(),
-             list(), null);
+             list(),
+             list(),
+             null);
     }
     
     private PlayerCharacter(String id, int xp, String name, Clan clan, Bloodline bloodline, 
@@ -214,7 +223,9 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                             Set<Technique> techniques, Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, 
                             Set<ThaumaturgicalRitual> thaumaturgicalRituals, Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath,
                             Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
-                            List<TraitChange<?>> traitChanges, Date deleteTimestamp) {
+                            List<TraitChange<?>> traitChanges,
+                            List<ExperienceAward> experienceAwards,
+                            Date deleteTimestamp) {
         this.id = id;
         this.xp = xp;
         this.name = name;
@@ -244,6 +255,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this.flaws = flaws;
 		this.status = status;
         this.traitChanges = traitChanges;
+		this.experienceAwards = experienceAwards;
         this.deleteTimestamp = deleteTimestamp;
     }
     
@@ -260,7 +272,9 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
-                                   traitChanges, deleteTimestamp);
+                                   traitChanges,
+                                   experienceAwards,
+                                   deleteTimestamp);
     }
     
     public String getName() {
@@ -276,7 +290,9 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                 necromanticRituals, merits, flaws, status,
-                traitChanges, deleteTimestamp);
+                traitChanges,
+                experienceAwards,
+                deleteTimestamp);
     }
     
     public Clan getClan() {
@@ -292,7 +308,41 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                 necromanticRituals, merits, flaws, status,
-                traitChanges, deleteTimestamp);
+                traitChanges,
+                experienceAwards,
+                deleteTimestamp);
+    }
+    
+    public PlayerCharacter delete(Date timestamp) {
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
+                                   skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, 
+                                   inClanNecromanticPaths, disciplines, elderPowers, 
+                                   techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
+                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
+                                   necromanticRituals, merits, flaws, status,
+                                   traitChanges,
+                                   experienceAwards,
+                                   timestamp);
+    }
+
+    public PlayerCharacter undelete() {
+        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
+                                   skills, backgrounds, 
+                                   inClanDisciplines, inClanThaumaturgicalPaths, 
+                                   inClanNecromanticPaths, disciplines, elderPowers, 
+                                   techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
+                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
+                                   necromanticRituals, merits, flaws, status,
+                                   traitChanges,
+                                   experienceAwards,
+                                   null);
+    }
+    
+    public boolean isDeleted() {
+        return deleteTimestamp != null;
     }
     
     public Bloodline getBloodline() {
@@ -591,34 +641,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
 		this.status.removeIf(characterStatus.matching());
 		return this;
 	}
-    
-    public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
-                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
-                                   skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, 
-                                   inClanNecromanticPaths, disciplines, elderPowers, 
-                                   techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
-                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                                   necromanticRituals, merits, flaws, status,
-                                   traitChanges, timestamp);
-    }
-
-    public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
-                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
-                                   skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, 
-                                   inClanNecromanticPaths, disciplines, elderPowers, 
-                                   techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
-                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                                   necromanticRituals, merits, flaws, status,
-                                   traitChanges, null);
-    }
-    
-    public boolean isDeleted() {
-        return deleteTimestamp != null;
-    }
     
     @Override
     public boolean equals(Object obj) {

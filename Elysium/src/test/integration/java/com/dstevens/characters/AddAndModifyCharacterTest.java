@@ -4,11 +4,6 @@ import static com.dstevens.collections.Sets.set;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneOffset;
-import java.util.Date;
 import java.util.stream.StreamSupport;
 
 import org.junit.After;
@@ -24,7 +19,6 @@ import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
-import com.dstevens.characters.traits.changes.ExperienceAwardService;
 import com.dstevens.characters.traits.changes.TraitChange;
 import com.dstevens.characters.traits.changes.TraitChangeFactory;
 import com.dstevens.characters.traits.changes.TraitChangeFactoryProvider;
@@ -290,20 +284,20 @@ public class AddAndModifyCharacterTest {
     }
     
     private void earnXpForMaryWollstonecraft() {
-    	PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-    	ExperienceAwardService awardService = appConfig.getBean(ExperienceAwardService.class);
-    	assertEquals(37, getMaryWollstonecraft().getXp());
-    	Instant july2022 = LocalDateTime.of(2022, Month.JULY.getValue(), 2, 10, 12).toInstant(ZoneOffset.UTC);
-    	
-    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 3, Date.from(july2022)));
-    	assertEquals(40, getMaryWollstonecraft().getXp());
-    	
-    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 8, Date.from(july2022)));
-    	assertEquals(47, getMaryWollstonecraft().getXp());
-    	
-    	Instant august2022 = LocalDateTime.of(2022, Month.AUGUST.getValue(), 2, 10, 12).toInstant(ZoneOffset.UTC);
-    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 11, Date.from(august2022)));
-    	assertEquals(57, getMaryWollstonecraft().getXp());
+//    	PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
+//    	ExperienceAwardService awardService = appConfig.getBean(ExperienceAwardService.class);
+//    	assertEquals(37, getMaryWollstonecraft().getXp());
+//    	Instant july2022 = LocalDateTime.of(2022, Month.JULY.getValue(), 2, 10, 12).toInstant(ZoneOffset.UTC);
+//    	
+//    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 3, Date.from(july2022)));
+//    	assertEquals(40, getMaryWollstonecraft().getXp());
+//    	
+//    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 8, Date.from(july2022)));
+//    	assertEquals(47, getMaryWollstonecraft().getXp());
+//    	
+//    	Instant august2022 = LocalDateTime.of(2022, Month.AUGUST.getValue(), 2, 10, 12).toInstant(ZoneOffset.UTC);
+//    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 11, Date.from(august2022)));
+//    	assertEquals(57, getMaryWollstonecraft().getXp());
     }
 
 //    private void backoutSomeOfThoseChanges() {
