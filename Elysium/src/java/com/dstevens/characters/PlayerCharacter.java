@@ -186,6 +186,12 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     private final List<TraitChange<?>> traitChanges;
     
     @OneToMany(cascade={CascadeType.ALL})
+    @OrderColumn(name="order_by")
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChanges_id"}, name="PlayerCharacter_TraitChanges_UC")})
+    @ForeignKey(name="PlayerCharacter_TraitChanges_FK", inverseName="TraitChanges_PlayerCharacter_FK")
+    private final List<TraitChange<?>> appliedTraitChanges;
+    
+    @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="changedOn")
     @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"experienceAward_id"}, name="PlayerCharacter_ExperienceAwards_UC")})
     @ForeignKey(name="PlayerCharacter_ExperienceAwards_FK", inverseName="ExperienceAwards_PlayerCharacter_FK")
@@ -194,7 +200,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     //Hibernate only
     @Deprecated
     public PlayerCharacter() {
-        this(null, 0, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, 0, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, String name) {
@@ -206,7 +212,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
              set(), set(), null,
              set(), set(), null,
              set(), set(), set(), set(),
-             list(),
+             list(), list(),
              list(),
              null);
     }
@@ -220,7 +226,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                             Set<Technique> techniques, Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, 
                             Set<ThaumaturgicalRitual> thaumaturgicalRituals, Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath,
                             Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
-                            List<TraitChange<?>> traitChanges,
+                            List<TraitChange<?>> traitChanges, List<TraitChange<?>> appliedTraitChanges,
                             List<ExperienceAward> experienceAwards,
                             Date deleteTimestamp) {
         this.id = id;
@@ -252,6 +258,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this.flaws = flaws;
 		this.status = status;
         this.traitChanges = traitChanges;
+		this.appliedTraitChanges = appliedTraitChanges;
 		this.experienceAwards = experienceAwards;
         this.deleteTimestamp = deleteTimestamp;
     }
@@ -269,8 +276,8 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
-                                   traitChanges,
-                                   experienceAwards,
+                                   traitChanges, appliedTraitChanges,
+                                   experienceAwards, 
                                    deleteTimestamp);
     }
     
@@ -287,7 +294,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                 necromanticRituals, merits, flaws, status,
-                traitChanges,
+                traitChanges, appliedTraitChanges,
                 experienceAwards,
                 deleteTimestamp);
     }
@@ -305,7 +312,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                 techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                 necromanticRituals, merits, flaws, status,
-                traitChanges,
+                traitChanges, appliedTraitChanges,
                 experienceAwards,
                 deleteTimestamp);
     }
@@ -319,7 +326,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
-                                   traitChanges,
+                                   traitChanges, appliedTraitChanges,
                                    experienceAwards,
                                    timestamp);
     }
@@ -333,7 +340,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                                    techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
-                                   traitChanges,
+                                   traitChanges, appliedTraitChanges,
                                    experienceAwards,
                                    null);
     }
@@ -711,7 +718,10 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public PlayerCharacter approve(TraitChange<?> traitChange) {
+    public PlayerCharacter apply(TraitChange<?> traitChange) {
+    	this.traitChanges.remove(traitChange);
+    	this.appliedTraitChanges.add(traitChange);
+    	
         traitChange.apply(this);
         return this;
     }
