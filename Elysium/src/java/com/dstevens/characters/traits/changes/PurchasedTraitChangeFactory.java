@@ -8,7 +8,6 @@ import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.Merit;
-import com.dstevens.characters.traits.experience.ChangeExperience;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.disciplines.ElderPower;
 import com.dstevens.characters.traits.powers.disciplines.Technique;
@@ -30,7 +29,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public TraitChange<?> attribute(Attribute attribute, int rating) {
-		return ChangeExperience.spend(3).and(traitChangeFactory.attribute(attribute, rating)).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.attribute(attribute, rating).costing(3).withStatus(traitChangeStatusFactory.requeted());
 	}
     
     @Override
@@ -40,91 +39,89 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     
     @Override
 	public TraitChange<?> skill(Skill skill, int rating, String specialization, Set<String> focuses) {
-    	return costForSkill(rating).and(traitChangeFactory.skill(skill, rating, specialization, focuses)).withStatus(traitChangeStatusFactory.requeted());
+    	return traitChangeFactory.skill(skill, rating, specialization, focuses).costing(costForSkill(rating)).withStatus(traitChangeStatusFactory.requeted());
     }
 	
-	private ChangeExperience costForSkill(int rating) {
+	private int costForSkill(int rating) {
 		if(character.getGeneration().orElse(1) == 1) {
-			return ChangeExperience.spend(rating);
+			return rating;
 		} else {
-			return ChangeExperience.spend(rating * 2);
+			return rating * 2;
 		}
 	}
     
 	@Override
 	public TraitChange<?> background(Background background, int rating, String specialization, Set<String> focuses) {
-		return costForBackground(rating).and(traitChangeFactory.background(background, rating, specialization, focuses)).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.background(background, rating, specialization, focuses).costing(costForBackground(rating)).withStatus(traitChangeStatusFactory.requeted());
 	}
 	
-	private ChangeExperience costForBackground(int rating) {
+	private int costForBackground(int rating) {
 		if(character.getGeneration().orElse(1) == 1) {
-    		return ChangeExperience.spend(rating);
-    	} else {
-    		return ChangeExperience.spend(rating * 2);
-    	}
+			return rating;
+		} else {
+			return rating * 2;
+		}
 	}
     
 	@Override
 	public TraitChange<?> power(Power<?> power, int rating) {
-		return costForPower(power, rating).and(traitChangeFactory.power(power, rating)).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.power(power, rating).costing(costForPower(power, rating)).withStatus(traitChangeStatusFactory.requeted());
 	}
 	
-    private TraitChange<?> costForPower(Power<?> power, int rating) {
-    	int cost = 0;
+    private int costForPower(Power<?> power, int rating) {
     	boolean inClan = character.getInClanDisciplines().contains(power);
     	if(inClan) {
-    		cost = rating * 3;
+    		return rating * 3;
     	} else {
     		if(character.getGeneration().orElse(1) == 5) {
-        		cost = rating * 5;
+        		return rating * 5;
         	} else {
-        		cost = rating * 4;
+        		return rating * 4;
         	}	
     	}
-    	return ChangeExperience.spend(cost);
     }
 
 	@Override
 	public TraitChange<?> ritual(Ritual<?> ritual) {
-		return ChangeExperience.spend(ritual.rating() * 2).and(traitChangeFactory.ritual(ritual)).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.ritual(ritual).costing(ritual.rating() * 2).withStatus(traitChangeStatusFactory.requeted());
 	}
     
     @Override
 	public TraitChange<?> merit(Merit merit, String specialization, TraitChange<?> associatedTrait) {
-    	return ChangeExperience.spend(merit.getPoints()).and(traitChangeFactory.merit(merit, specialization, associatedTrait)).withStatus(traitChangeStatusFactory.requeted());
+    	return traitChangeFactory.merit(merit, specialization, associatedTrait).costing(merit.getPoints()).withStatus(traitChangeStatusFactory.requeted());
     }
     
     @Override
 	public TraitChange<?> flaw(Flaw flaw, String specialization, TraitChange<?> associatedTrait) {
-    	return ChangeExperience.gain(flaw.getPoints()).and(traitChangeFactory.flaw(flaw, specialization, associatedTrait)).withStatus(traitChangeStatusFactory.requeted());
+    	return traitChangeFactory.flaw(flaw, specialization, associatedTrait).costing(flaw.getPoints()).withStatus(traitChangeStatusFactory.requeted());
     }
 
 	@Override
 	public TraitChange<?> technique(Technique technique) {
-		return costForTechnique().and(traitChangeFactory.technique(technique)).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.technique(technique).costing(costForTechnique()).withStatus(traitChangeStatusFactory.requeted());
 	}
 	
-    private TraitChange<?> costForTechnique() {
+    private int costForTechnique() {
     	if(character.getGeneration().orElse(1) >= 3) {
-    		return ChangeExperience.spend(20);
+    		return 20;
     	} else {
-    		return ChangeExperience.spend(12);
+    		return 12;
     	}
     }
 
 	@Override
 	public TraitChange<?> elderPower(ElderPower power) {
-		return costForElderPower(power).and(traitChangeFactory.elderPower(power)).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.elderPower(power).costing(costForElderPower(power)).withStatus(traitChangeStatusFactory.requeted());
 	}
 
-    private TraitChange<?> costForElderPower(ElderPower power) {
+    private int costForElderPower(ElderPower power) {
     	if(character.getInClanDisciplines().contains(power.getPower())) {
-    		return ChangeExperience.spend(18);
+    		return 18;
     	} else {
     		if(character.getGeneration().orElse(1) == 5) {
-    			return ChangeExperience.spend(30);
+    			return 30;
     		} else {
-    			return ChangeExperience.spend(24);
+    			return 24;
     		}
     	}
     }

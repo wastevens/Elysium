@@ -53,6 +53,9 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     @ForeignKey(name= "TraitChanges_focuses_FK")
     protected Set<String> focuses;
     
+    @Column(name="cost")
+    protected Integer cost;
+    
     @OneToOne(cascade={CascadeType.ALL})
     @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
     private TraitChange<?> child;
@@ -88,6 +91,7 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     	this.specialization = specialization;
     	this.focuses = focuses;
     	this.traitChangeHistory = list();
+    	this.cost = null;
     }
     
     public final TraitChange<?> and(TraitChange<?> andTrait) {
@@ -122,7 +126,12 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     protected abstract T trait();
     
     public Optional<Integer> costing() {
-    	return Optional.empty();
+    	return Optional.ofNullable(cost);
+    }
+    
+    public TraitChange<T> costing(int xp) {
+    	this.cost = xp;
+    	return this;
     }
     
     public TraitChange<T> withStatus(TraitChangeStatus statusChanged) {
