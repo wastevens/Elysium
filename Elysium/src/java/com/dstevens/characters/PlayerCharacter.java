@@ -21,7 +21,6 @@ import com.dstevens.characters.traits.attributes.focuses.SocialAttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
 import com.dstevens.characters.traits.changes.TraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeStatus;
 import com.dstevens.characters.traits.distinctions.flaws.CharacterFlaw;
 import com.dstevens.characters.traits.distinctions.merits.CharacterMerit;
 import com.dstevens.characters.traits.experience.ExperienceAward;
@@ -729,15 +728,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     	});
     	
         traitChange.apply(this);
-        return this;
-    }
-    
-    public PlayerCharacter approveAllOutstandingRequests(final TraitChangeStatus traitChangestatus) {
-        this.requesedTraitChanges.stream().filter((TraitChange<?> t) -> t.currentStatus().pending()).
-        forEach((TraitChange<?> t) -> {
-        	t.apply(this);
-        	t.withStatus(traitChangestatus);
-        });
         return this;
     }
 }
