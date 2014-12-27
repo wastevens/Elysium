@@ -708,8 +708,12 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public List<TraitChange<?>> getTraitChanges() {
+    public List<TraitChange<?>> getRequestedTraitChanges() {
         return requesedTraitChanges;
+    }
+    
+    public List<TraitChange<?>> getAppliedTraitChanges() {
+    	return appliedTraitChanges;
     }
     
     public PlayerCharacter request(TraitChange<?> traitChange) {

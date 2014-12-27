@@ -229,6 +229,6 @@ public class PlayerCharacterTest {
 		PlayerCharacter character = new PlayerCharacter(ID, NAME).request(someTraitChangeEvent1).request(someTraitChangeEvent2);
 		
 		List<TraitChange<?>> list = list(someTraitChangeEvent1, someTraitChangeEvent2);
-		assertEquals(character.getTraitChanges(), list);
+		assertEquals(character.getRequestedTraitChanges(), list);
     }
 }

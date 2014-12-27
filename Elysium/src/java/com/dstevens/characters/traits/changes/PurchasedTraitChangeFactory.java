@@ -19,17 +19,15 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
     private final PlayerCharacter character;
     private final ProvidedTraitChangeFactory traitChangeFactory;
-	private final TraitChangeStatusFactory traitChangeStatusFactory;
     
-    PurchasedTraitChangeFactory(PlayerCharacter character, ProvidedTraitChangeFactory traitChangeFactory, TraitChangeStatusFactory traitChangeStatusFactory) {
+    PurchasedTraitChangeFactory(PlayerCharacter character, ProvidedTraitChangeFactory traitChangeFactory) {
         this.character = character;
 		this.traitChangeFactory = traitChangeFactory;
-		this.traitChangeStatusFactory = traitChangeStatusFactory;
     }
 
 	@Override
 	public TraitChange<?> attribute(Attribute attribute, int rating) {
-		return traitChangeFactory.attribute(attribute, rating).costing(3).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.attribute(attribute, rating).costing(3);
 	}
     
     @Override
@@ -39,7 +37,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     
     @Override
 	public TraitChange<?> skill(Skill skill, int rating, String specialization, Set<String> focuses) {
-    	return traitChangeFactory.skill(skill, rating, specialization, focuses).costing(costForSkill(rating)).withStatus(traitChangeStatusFactory.requeted());
+    	return traitChangeFactory.skill(skill, rating, specialization, focuses).costing(costForSkill(rating));
     }
 	
 	private int costForSkill(int rating) {
@@ -52,7 +50,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     
 	@Override
 	public TraitChange<?> background(Background background, int rating, String specialization, Set<String> focuses) {
-		return traitChangeFactory.background(background, rating, specialization, focuses).costing(costForBackground(rating)).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.background(background, rating, specialization, focuses).costing(costForBackground(rating));
 	}
 	
 	private int costForBackground(int rating) {
@@ -65,7 +63,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     
 	@Override
 	public TraitChange<?> power(Power<?> power, int rating) {
-		return traitChangeFactory.power(power, rating).costing(costForPower(power, rating)).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.power(power, rating).costing(costForPower(power, rating));
 	}
 	
     private int costForPower(Power<?> power, int rating) {
@@ -83,22 +81,22 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public TraitChange<?> ritual(Ritual<?> ritual) {
-		return traitChangeFactory.ritual(ritual).costing(ritual.rating() * 2).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.ritual(ritual).costing(ritual.rating() * 2);
 	}
     
     @Override
 	public TraitChange<?> merit(Merit merit, String specialization, TraitChange<?> associatedTrait) {
-    	return traitChangeFactory.merit(merit, specialization, associatedTrait).costing(merit.getPoints()).withStatus(traitChangeStatusFactory.requeted());
+    	return traitChangeFactory.merit(merit, specialization, associatedTrait).costing(merit.getPoints());
     }
     
     @Override
 	public TraitChange<?> flaw(Flaw flaw, String specialization, TraitChange<?> associatedTrait) {
-    	return traitChangeFactory.flaw(flaw, specialization, associatedTrait).costing(flaw.getPoints()).withStatus(traitChangeStatusFactory.requeted());
+    	return traitChangeFactory.flaw(flaw, specialization, associatedTrait).costing(flaw.getPoints());
     }
 
 	@Override
 	public TraitChange<?> technique(Technique technique) {
-		return traitChangeFactory.technique(technique).costing(costForTechnique()).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.technique(technique).costing(costForTechnique());
 	}
 	
     private int costForTechnique() {
@@ -111,7 +109,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public TraitChange<?> elderPower(ElderPower power) {
-		return traitChangeFactory.elderPower(power).costing(costForElderPower(power)).withStatus(traitChangeStatusFactory.requeted());
+		return traitChangeFactory.elderPower(power).costing(costForElderPower(power));
 	}
 
     private int costForElderPower(ElderPower power) {

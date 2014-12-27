@@ -2,7 +2,6 @@ package com.dstevens.characters.traits.changes;
 
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.traits.ApplicableTrait;
@@ -25,70 +24,63 @@ import com.dstevens.characters.traits.status.Status;
 @Service
 class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
-	private final TraitChangeStatusFactory traitChangeStatusFactory;
-
-	@Autowired
-	public ProvidedTraitChangeFactory(TraitChangeStatusFactory traitChangeStatusFactory) {
-		this.traitChangeStatusFactory = traitChangeStatusFactory;
-	}
-	
 	@Override
 	public TraitChange<AttributeValue> attribute(Attribute attribute, int rating) {
-		return attribute.set(rating).withStatus(traitChangeStatusFactory.requeted());
+		return attribute.set(rating);
 	}
 
 	@Override
 	public TraitChange<? extends AttributeFocus> focus(AttributeFocus focus) {
-		return focus.set().withStatus(traitChangeStatusFactory.requeted());
+		return focus.set();
 	}
 	
 	@Override
 	public TraitChange<CharacterSkill> skill(Skill skill, int rating, String specialization, Set<String> focuses) {
-		return skill.set(rating, specialization, focuses).withStatus(traitChangeStatusFactory.requeted());
+		return skill.set(rating, specialization, focuses);
 	}
 
 	@Override
 	public TraitChange<CharacterBackground> background(Background background, int rating, String specialization, Set<String> focuses) {
-		return background.set(rating, specialization, focuses).withStatus(traitChangeStatusFactory.requeted());
+		return background.set(rating, specialization, focuses);
 	}
 	
 	@Override
 	public TraitChange<? extends ApplicableTrait> power(Power<?> power, int rating) {
-		return power.set(rating).withStatus(traitChangeStatusFactory.requeted());
+		return power.set(rating);
 	}
 
 	@Override
 	public TraitChange<? extends ApplicableTrait> ritual(Ritual<?> ritual) {
-		return ritual.set().withStatus(traitChangeStatusFactory.requeted());
+		return ritual.set();
 	}
 	
 	@Override
 	public TraitChange<?> merit(Merit merit, String specialization, TraitChange<?> associatedTrait) {
-		 return merit.set(specialization).and(associatedTrait).withStatus(traitChangeStatusFactory.requeted());
+		 return merit.set(specialization).and(associatedTrait);
     }
     
     @Override
 	public TraitChange<?> flaw(Flaw flaw, String specialization, TraitChange<?> associatedTrait) {
-    	return flaw.set(specialization).and(associatedTrait).withStatus(traitChangeStatusFactory.requeted());
+    	return flaw.set(specialization).and(associatedTrait);
     }
 
 	@Override
 	public TraitChange<Technique> technique(Technique technique) {
-		return technique.set().withStatus(traitChangeStatusFactory.requeted());
+		return technique.set();
 	}
 
 	@Override
 	public TraitChange<ElderPower> elderPower(ElderPower power) {
-		return power.set().withStatus(traitChangeStatusFactory.requeted());
+		return power.set();
 	}
 
 	@Override
 	public TraitChange<? extends ApplicableTrait> inClanPower(Power<?> power) {
-		return power.set().withStatus(traitChangeStatusFactory.requeted());
+		return power.set();
 	}
 	
 	@Override
 	public TraitChange<CharacterStatus> status(Status trait, String specialization) {
-		return trait.set(specialization).withStatus(traitChangeStatusFactory.requeted());
+		return trait.set(specialization);
 	}
 }

@@ -1,10 +1,7 @@
 package com.dstevens.characters.traits.changes;
 
-import static com.dstevens.collections.Lists.list;
-
 import static com.dstevens.collections.Sets.set;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -18,16 +15,13 @@ import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @SuppressWarnings("deprecation")
@@ -60,12 +54,6 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
     private TraitChange<?> child;
     
-    @ElementCollection
-    @OrderBy("changedOn DESC")
-    @CollectionTable(name="TraitChangeStatus", joinColumns=@JoinColumn(name="traitChange_id"))
-    @ForeignKey(name="TraitChange_TraitChangeStatus_FK", inverseName="TraitChangeStatus_TraitChange_FK")
-    private List<TraitChangeStatus> traitChangeHistory;
-    
     //Hibernate only
     @Deprecated
     protected TraitChange() {
@@ -90,7 +78,6 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     	this.rating = rating;
     	this.specialization = specialization;
     	this.focuses = focuses;
-    	this.traitChangeHistory = list();
     	this.cost = null;
     }
     
@@ -132,15 +119,6 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     public TraitChange<T> costing(int xp) {
     	this.cost = xp;
     	return this;
-    }
-    
-    public TraitChange<T> withStatus(TraitChangeStatus statusChanged) {
-    	stream().forEach((TraitChange<?> t) -> t.traitChangeHistory.add(0, statusChanged));
-    	return this;
-    }
-    
-    public TraitChangeStatus currentStatus() {
-    	return traitChangeHistory.get(0);
     }
     
     @Override
