@@ -1,6 +1,7 @@
 package com.dstevens.characters;
 
 import static com.dstevens.collections.Lists.list;
+import static com.dstevens.collections.Lists.listFrom;
 
 import static com.dstevens.collections.Sets.set;
 
@@ -180,19 +181,19 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     
     @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="order_by")
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"traitChanges_id"}, name="PlayerCharacter_RequestedTraitChanges_UC")})
+    @JoinTable(name="PlayerCharacter_RequestedTraitChanges", uniqueConstraints={@UniqueConstraint(columnNames={"requesedTraitChanges_id"}, name="PlayerCharacter_RequestedTraitChanges_UC")})
     @ForeignKey(name="PlayerCharacter_RequestedTraitChanges_FK", inverseName="RequestedTraitChanges_PlayerCharacter_FK")
     private final List<TraitChange<?>> requesedTraitChanges;
     
     @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="order_by")
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"appliedTraitChanges_id"}, name="PlayerCharacter_AppliedTraitChanges_UC")})
+    @JoinTable(name="PlayerCharacter_AppliedTraitChanges", uniqueConstraints={@UniqueConstraint(columnNames={"appliedTraitChanges_id"}, name="PlayerCharacter_AppliedTraitChanges_UC")})
     @ForeignKey(name="PlayerCharacter_AppliedTraitChanges_FK", inverseName="AppliedTraitChanges_PlayerCharacter_FK")
     private final List<TraitChange<?>> appliedTraitChanges;
     
     @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="changedOn")
-    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"experienceAward_id"}, name="PlayerCharacter_ExperienceAwards_UC")})
+    @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"experienceAwards_id"}, name="PlayerCharacter_ExperienceAwards_UC")})
     @ForeignKey(name="PlayerCharacter_ExperienceAwards_FK", inverseName="ExperienceAwards_PlayerCharacter_FK")
     private final List<ExperienceAward> experienceAwards;
     
@@ -709,11 +710,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public List<TraitChange<?>> getRequestedTraitChanges() {
-        return requesedTraitChanges;
+        return listFrom(requesedTraitChanges);
     }
     
     public List<TraitChange<?>> getAppliedTraitChanges() {
-    	return appliedTraitChanges;
+    	return listFrom(appliedTraitChanges);
     }
     
     public PlayerCharacter request(TraitChange<?> traitChange) {
