@@ -27,7 +27,7 @@ public class TraitChangeStatus {
 	}
 	
 	public boolean pending() {
-		return status.equals(Status.PENDING);
+		return status.equals(Status.REQUESTED);
 	}
 	
 	public boolean applied() {

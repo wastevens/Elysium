@@ -23,7 +23,7 @@ public class TraitChangeStatusFactory {
 	}
 	
 	public TraitChangeStatus pendingAt(Date pendingOn) {
-		return new TraitChangeStatus(Status.PENDING, pendingOn);
+		return new TraitChangeStatus(Status.REQUESTED, pendingOn);
 	}
 	
 	public TraitChangeStatus applied() {
