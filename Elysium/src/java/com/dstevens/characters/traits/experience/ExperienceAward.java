@@ -1,7 +1,8 @@
 package com.dstevens.characters.traits.experience;
 
+import static com.dstevens.time.DateToLocalDateTransformer.asLocalDateInUTC;
+
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 
 import com.dstevens.characters.PlayerCharacter;
@@ -14,8 +15,6 @@ import javax.persistence.Id;
 @Entity
 public class ExperienceAward {
 
-	private static final ZoneId UTC = ZoneId.of("Z");
-	
 	@Id
 	private final String id;
 	
@@ -43,7 +42,7 @@ public class ExperienceAward {
 	}
 
 	public final LocalDate changedOn() {
-		return awardedOn.toInstant().atZone(UTC).toLocalDate();
+		return asLocalDateInUTC(awardedOn);
 	}
 	
 	public PlayerCharacter award(PlayerCharacter playerCharacter) {
