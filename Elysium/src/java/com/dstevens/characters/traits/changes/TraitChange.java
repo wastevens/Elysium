@@ -13,6 +13,7 @@ import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.experience.ExperienceChange;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -55,6 +56,10 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     @OneToOne(cascade={CascadeType.ALL})
     @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
     private TraitChange<?> child;
+    
+    @OneToOne(cascade={CascadeType.ALL})
+    @ForeignKey(name="TraitChange_ExperienceChange_FK", inverseName="ExperienceChange_TraitChange_FK")
+    private ExperienceChange experienceChange;
     
     @ElementCollection
     @OrderBy("changedOn DESC")
@@ -128,6 +133,10 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     public TraitChangeStatus currentStatus() {
     	return traitChangeHistory.get(0);
     }
+    
+	public ExperienceChange getExperienceChange() {
+		return experienceChange;
+	}
     
     @Override
     public final String toString() {
