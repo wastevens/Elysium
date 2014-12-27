@@ -42,7 +42,7 @@ public class ExperienceAwardService {
 	public PlayerCharacter awardCharacter(PlayerCharacter character, int xp, Date date) {
 		LocalDateTime yearMonth = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
 		int xpToAward = Math.min(amountCharacterCanBeAwardedIn(character, yearMonth), xp);
-		TraitChange<Experience> experienceEarned = ChangeExperience.award(xpToAward).statusChanged(traitChangeStatusFactory.pendingAt(date));
-		return character.request(experienceEarned).approve(experienceEarned);
+		TraitChange<Experience> experienceEarned = ChangeExperience.award(xpToAward).withStatus(traitChangeStatusFactory.requestedOn(date));
+		return character.addTraitChange(experienceEarned).approve(experienceEarned);
 	}
 }

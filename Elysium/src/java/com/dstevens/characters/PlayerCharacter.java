@@ -682,7 +682,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return traitChanges;
     }
     
-    public PlayerCharacter request(TraitChange<?> traitChange) {
+    public PlayerCharacter addTraitChange(TraitChange<?> traitChange) {
         this.traitChanges.add(traitChange);
         return this;
     }
@@ -696,7 +696,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this.traitChanges.stream().filter((TraitChange<?> t) -> t.currentStatus().pending()).
         forEach((TraitChange<?> t) -> {
         	t.apply(this);
-        	t.statusChanged(traitChangestatus);
+        	t.withStatus(traitChangestatus);
         });
         return this;
     }

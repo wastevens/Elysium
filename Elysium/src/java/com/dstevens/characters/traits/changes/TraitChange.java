@@ -120,7 +120,7 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     
     protected abstract T trait();
     
-    public TraitChange<T> statusChanged(TraitChangeStatus statusChanged) {
+    public TraitChange<T> withStatus(TraitChangeStatus statusChanged) {
     	stream().forEach((TraitChange<?> t) -> t.traitChangeHistory.add(0, statusChanged));
     	return this;
     }

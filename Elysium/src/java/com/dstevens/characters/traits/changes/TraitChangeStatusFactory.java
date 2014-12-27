@@ -18,11 +18,11 @@ public class TraitChangeStatusFactory {
 		this.clock = clockSupplier.get();
 	}
 	
-	public TraitChangeStatus pending() {
-		return pendingAt(now());
+	public TraitChangeStatus requeted() {
+		return requestedOn(now());
 	}
 	
-	public TraitChangeStatus pendingAt(Date pendingOn) {
+	public TraitChangeStatus requestedOn(Date pendingOn) {
 		return new TraitChangeStatus(Status.REQUESTED, pendingOn);
 	}
 	
