@@ -13,7 +13,6 @@ import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.Merit;
-import com.dstevens.characters.traits.experience.ChangeExperience;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.disciplines.ElderPower;
 import com.dstevens.characters.traits.powers.disciplines.Technique;

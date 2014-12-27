@@ -12,7 +12,6 @@ public class TraitChangeStatus {
 
 	private Status status;
 	
-	@SuppressWarnings("unused")
 	private Date changedOn;
 	
 	//Hibernate only
