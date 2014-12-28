@@ -38,6 +38,7 @@ import com.dstevens.characters.traits.powers.magic.thaumaturgy.ThaumaturgicalRit
 import com.dstevens.characters.traits.powers.magic.thaumaturgy.Thaumaturgy;
 import com.dstevens.characters.traits.skills.CharacterSkill;
 import com.dstevens.characters.traits.status.CharacterStatus;
+import com.dstevens.players.Setting;
 import com.dstevens.utilities.ObjectExtensions;
 
 import javax.persistence.CascadeType;
@@ -74,6 +75,9 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     
     @Column(name="xpAppliedSpent")
     private int xpAppliedSpent;
+    
+    @Column(name="setting")
+    private Setting setting;
     
     @Column(name="name")
     private final String name;
@@ -200,11 +204,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     //Hibernate only
     @Deprecated
     public PlayerCharacter() {
-        this(null, 0, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, 0, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
-    PlayerCharacter(String id, String name) {
-        this(id, 0, name, null, null, 0, 0, 0,
+    PlayerCharacter(String id, Setting setting, String name) {
+        this(id, 0, setting, name, null, null, 0, 0, 0,
              set(), set(), set(),
              set(), set(),
              set(), set(), 
@@ -217,7 +221,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
              null);
     }
     
-    private PlayerCharacter(String id, int xp, String name, Clan clan, Bloodline bloodline, 
+    private PlayerCharacter(String id, int xp, Setting setting, String name, Clan clan, Bloodline bloodline, 
                             int physicalAttribute, int mentalAttribute, int socialAttribute, 
                             Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
@@ -231,6 +235,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                             Date deleteTimestamp) {
         this.id = id;
         this.xp = xp;
+		this.setting = setting;
         this.name = name;
         this.clan = clan;
         this.bloodline = bloodline;
@@ -268,7 +273,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, xp, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -286,7 +291,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter ofClan(Clan clan) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, xp, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                 physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
                 skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -304,7 +309,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter ofBloodline(Bloodline bloodline) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, xp, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                 physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
                 skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -318,7 +323,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, xp, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -332,7 +337,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
 
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, xp, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, xp, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 

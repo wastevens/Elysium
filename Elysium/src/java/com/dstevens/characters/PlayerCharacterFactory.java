@@ -3,6 +3,7 @@ package com.dstevens.characters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dstevens.players.Setting;
 import com.dstevens.suppliers.IdSupplier;
 
 @Service
@@ -15,8 +16,8 @@ class PlayerCharacterFactory {
         this.idSupplier = idSupplier;
     }
     
-    public PlayerCharacter createPlayerCharacter(String name) {
-        return new PlayerCharacter(idSupplier.get(), name);
+    public PlayerCharacter createPlayerCharacter(String name, Setting setting) {
+        return new PlayerCharacter(idSupplier.get(), setting, name);
     }
     
 }

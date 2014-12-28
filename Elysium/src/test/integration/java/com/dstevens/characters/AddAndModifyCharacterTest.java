@@ -43,6 +43,7 @@ import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.characters.traits.status.CharacterStatus;
 import com.dstevens.characters.traits.status.Status;
 import com.dstevens.configuration.ApplicationConfiguration;
+import com.dstevens.players.Setting;
 
 public class AddAndModifyCharacterTest {
 
@@ -221,7 +222,7 @@ public class AddAndModifyCharacterTest {
     private void createMaryWollstonecraft() {
         PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
         
-        PlayerCharacter character = characterRepository.ensureExists("Mary Wollstonecraft");
+        PlayerCharacter character = characterRepository.ensureExists("Mary Wollstonecraft", Setting.CAMARILLA);
         PlayerCharacter saved = characterRepository.update(character.ofClan(Clan.TOREADOR).
                                              ofBloodline(Bloodline.TOREADOR).
                                              withInClanDiscipline(Discipline.PRESENCE).

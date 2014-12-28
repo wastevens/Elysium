@@ -3,6 +3,8 @@ package com.dstevens.characters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dstevens.players.Setting;
+
 @Service
 public class PlayerCharacterRepository {
 
@@ -15,12 +17,12 @@ public class PlayerCharacterRepository {
         this.factory = factory;
     }
     
-    public PlayerCharacter ensureExists(String name) {
-        return createNewCharacterFor(name);
+    public PlayerCharacter ensureExists(String name, Setting setting) {
+        return createNewCharacterFor(name, setting);
     }
 
-    private PlayerCharacter createNewCharacterFor(String name) {
-        return dao.save(factory.createPlayerCharacter(name));
+    private PlayerCharacter createNewCharacterFor(String name, Setting setting) {
+        return dao.save(factory.createPlayerCharacter(name, setting));
     }
 
 	public void delete(PlayerCharacter pc) {
