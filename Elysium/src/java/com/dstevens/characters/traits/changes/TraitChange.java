@@ -112,7 +112,7 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     
     protected abstract T trait();
     
-    public Optional<Integer> costing() {
+    public Optional<Integer> cost() {
     	return Optional.ofNullable(cost);
     }
     

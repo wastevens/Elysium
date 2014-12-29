@@ -6,7 +6,6 @@ import static com.dstevens.collections.Lists.listFrom;
 import static com.dstevens.collections.Sets.set;
 
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -14,6 +13,7 @@ import java.util.function.Function;
 
 import org.hibernate.annotations.ForeignKey;
 
+import com.dstevens.characters.activity.ActivityStatusChange;
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.traits.attributes.focuses.MentalAttributeFocus;
@@ -49,6 +49,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -61,29 +62,16 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @Id
     private final String id;
     
-    @Column(name="deleted_at")
-    private final Date deleteTimestamp;
-    
-    @Column(name="baseXp")
-    private int baseXp;
-    
-    @Column(name="groundXp")
-    private int groundXp;
-    
-    @Column(name="awardedXp")
-    private int awardedXp;
-    
-    @Column(name="pendingSpentXp")
-    private int xpRequestedSpent;
-    
-    @Column(name="appliedSpentXp")
-    private int xpAppliedSpent;
-    
-    @Column(name="setting")
-    private Setting setting;
-    
     @Column(name="name")
     private final String name;
+    
+    @ElementCollection
+    @OrderBy("order_by")
+    @ForeignKey(name="PlayerCharacter_ActivityStatusChanges_FK")
+    private final List<ActivityStatusChange> activityStatusChanges;
+    
+    @Column(name="setting")
+    private final Setting setting;
     
     @Column(name="clan")
     private final Clan clan;
@@ -204,14 +192,29 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @ForeignKey(name="PlayerCharacter_ExperienceAwards_FK", inverseName="ExperienceAwards_PlayerCharacter_FK")
     private final List<ExperienceAward> experienceAwards;
     
+    @Column(name="baseXp")
+    private int baseXp;
+    
+    @Column(name="groundXp")
+    private int groundXp;
+    
+    @Column(name="awardedXp")
+    private int awardedXp;
+    
+    @Column(name="pendingSpentXp")
+    private int xpRequestedSpent;
+    
+    @Column(name="appliedSpentXp")
+    private int xpAppliedSpent;
+    
     //Hibernate only
     @Deprecated
     public PlayerCharacter() {
-        this(null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Setting setting, String name) {
-        this(id, setting, name, null, null, 0, 0, 0,
+        this(id, name, list(), setting, null, null, 0, 0, 0,
              set(), set(), set(),
              set(), set(),
              set(), set(), 
@@ -220,11 +223,10 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
              set(), set(), null,
              set(), set(), set(), set(),
              list(), list(),
-             list(),
-             null);
+             list());
     }
     
-    private PlayerCharacter(String id, Setting setting, String name, Clan clan, Bloodline bloodline, 
+    private PlayerCharacter(String id, String name, List<ActivityStatusChange> activityStatusChanges, Setting setting, Clan clan, Bloodline bloodline, 
                             int physicalAttribute, int mentalAttribute, int socialAttribute, 
                             Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
@@ -234,11 +236,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                             Set<ThaumaturgicalRitual> thaumaturgicalRituals, Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath,
                             Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
                             List<TraitChange<?>> traitChanges, List<TraitChange<?>> appliedTraitChanges,
-                            List<ExperienceAward> experienceAwards,
-                            Date deleteTimestamp) {
+                            List<ExperienceAward> experienceAwards) {
         this.id = id;
-		this.setting = setting;
         this.name = name;
+        this.activityStatusChanges = activityStatusChanges;
+		this.setting = setting;
         this.clan = clan;
         this.bloodline = bloodline;
         this.physicalAttribute = physicalAttribute;
@@ -267,7 +269,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this.requesedTraitChanges = traitChanges;
 		this.appliedTraitChanges = appliedTraitChanges;
 		this.experienceAwards = experienceAwards;
-        this.deleteTimestamp = deleteTimestamp;
     }
     
     public String getId() {
@@ -275,7 +276,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, name, activityStatusChanges, setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -284,16 +285,29 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                                    thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                                    necromanticRituals, merits, flaws, status,
                                    requesedTraitChanges, appliedTraitChanges,
-                                   experienceAwards, 
-                                   deleteTimestamp);
+                                   experienceAwards);
     }
     
     public String getName() {
         return name;
     }
     
+    public ActivityStatusChange getCurrentStatus() {
+    	return activityStatusChanges.get(0);
+    }
+    
+    public List<ActivityStatusChange> getActivityStatusChangeHistory() {
+    	return activityStatusChanges;
+    }
+    
+    public PlayerCharacter changeActivityStatus(ActivityStatusChange activityStatusChange) {
+    	this.activityStatusChanges.add(0, activityStatusChange);
+    	return this;
+    }
+    
+    
     public PlayerCharacter ofClan(Clan clan) {
-        return new PlayerCharacter(id, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, name, activityStatusChanges, setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                 physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
                 skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -302,8 +316,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                 necromanticRituals, merits, flaws, status,
                 requesedTraitChanges, appliedTraitChanges,
-                experienceAwards,
-                deleteTimestamp);
+                experienceAwards);
     }
     
     public Clan getClan() {
@@ -311,7 +324,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter ofBloodline(Bloodline bloodline) {
-        return new PlayerCharacter(id, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, name, activityStatusChanges, setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                 physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
                 skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -320,40 +333,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                 thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
                 necromanticRituals, merits, flaws, status,
                 requesedTraitChanges, appliedTraitChanges,
-                experienceAwards,
-                deleteTimestamp);
-    }
-    
-    public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
-                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
-                                   skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, 
-                                   inClanNecromanticPaths, disciplines, elderPowers, 
-                                   techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
-                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                                   necromanticRituals, merits, flaws, status,
-                                   requesedTraitChanges, appliedTraitChanges,
-                                   experienceAwards,
-                                   timestamp);
-    }
-
-    public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
-                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
-                                   skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, 
-                                   inClanNecromanticPaths, disciplines, elderPowers, 
-                                   techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
-                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                                   necromanticRituals, merits, flaws, status,
-                                   requesedTraitChanges, appliedTraitChanges,
-                                   experienceAwards,
-                                   null);
-    }
-    
-    public boolean isDeleted() {
-        return deleteTimestamp != null;
+                experienceAwards);
     }
     
     public Bloodline getBloodline() {
@@ -657,34 +637,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
 		return setting;
 	}
 	
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof PlayerCharacter) {
-            PlayerCharacter that = PlayerCharacter.class.cast(obj);
-            return this.id.equals(that.id);
-        }
-        return false;
-    }
-    
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
-    
-    @Override
-    public String toString() {
-        return ObjectExtensions.toStringFor(this);
-    }
-
-    @Override
-    public int compareTo(PlayerCharacter that) {
-        Function<PlayerCharacter, Date>  byDeletedTimestamp = ((PlayerCharacter p) -> p.deleteTimestamp);
-        Function<PlayerCharacter, String> byName = ((PlayerCharacter p) -> p.name);
-        return Comparator.comparing(byDeletedTimestamp, Comparator.nullsFirst(Comparator.naturalOrder())).
-                      thenComparing(Comparator.comparing(byName)).
-                      compare(this, that);
-    }
-
     public PlayerCharacter withBaseXp(int xp) {
     	this.baseXp = xp;
     	return this;
@@ -750,7 +702,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     
     public PlayerCharacter request(TraitChange<?> traitChange) {
         this.requesedTraitChanges.add(traitChange);
-        traitChange.costing().ifPresent((Integer xp) -> this.xpRequestedSpent += xp);
+        traitChange.cost().ifPresent((Integer xp) -> this.xpRequestedSpent += xp);
         return this;
     }
     
@@ -758,12 +710,37 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     	this.requesedTraitChanges.remove(traitChange);
     	this.appliedTraitChanges.add(traitChange);
     	
-    	traitChange.costing().ifPresent((Integer xp) -> {
+    	traitChange.cost().ifPresent((Integer xp) -> {
     		this.xpRequestedSpent -= xp;
     		this.xpAppliedSpent += xp;
     	});
     	
         traitChange.apply(this);
         return this;
+    }
+	
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof PlayerCharacter) {
+            PlayerCharacter that = PlayerCharacter.class.cast(obj);
+            return this.id.equals(that.id);
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return ObjectExtensions.toStringFor(this);
+    }
+
+    @Override
+    public int compareTo(PlayerCharacter that) {
+        Function<PlayerCharacter, String> byName = ((PlayerCharacter p) -> p.name);
+        return Comparator.comparing(byName).compare(this, that);
     }
 }
