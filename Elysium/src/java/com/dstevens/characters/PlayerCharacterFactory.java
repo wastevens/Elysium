@@ -7,9 +7,9 @@ import com.dstevens.players.Setting;
 import com.dstevens.suppliers.IdSupplier;
 
 @Service
-class PlayerCharacterFactory {
+public class PlayerCharacterFactory {
 
-    private IdSupplier idSupplier;
+    private final IdSupplier idSupplier;
 
     @Autowired
     public PlayerCharacterFactory(IdSupplier idSupplier) {

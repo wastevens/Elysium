@@ -64,16 +64,19 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @Column(name="deleted_at")
     private final Date deleteTimestamp;
     
-    @Column(name="xp")
-    private int xp;
+    @Column(name="baseXp")
+    private int baseXp;
     
-    @Column(name="xpGained")
-    private int xpGained;
+    @Column(name="groundXp")
+    private int groundXp;
     
-    @Column(name="xpPendingSpent")
+    @Column(name="awardedXp")
+    private int awardedXp;
+    
+    @Column(name="pendingSpentXp")
     private int xpRequestedSpent;
     
-    @Column(name="xpAppliedSpent")
+    @Column(name="appliedSpentXp")
     private int xpAppliedSpent;
     
     @Column(name="setting")
@@ -204,11 +207,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     //Hibernate only
     @Deprecated
     public PlayerCharacter() {
-        this(null, 0, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Setting setting, String name) {
-        this(id, 0, setting, name, null, null, 0, 0, 0,
+        this(id, setting, name, null, null, 0, 0, 0,
              set(), set(), set(),
              set(), set(),
              set(), set(), 
@@ -221,7 +224,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
              null);
     }
     
-    private PlayerCharacter(String id, int xp, Setting setting, String name, Clan clan, Bloodline bloodline, 
+    private PlayerCharacter(String id, Setting setting, String name, Clan clan, Bloodline bloodline, 
                             int physicalAttribute, int mentalAttribute, int socialAttribute, 
                             Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
@@ -234,7 +237,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                             List<ExperienceAward> experienceAwards,
                             Date deleteTimestamp) {
         this.id = id;
-        this.xp = xp;
 		this.setting = setting;
         this.name = name;
         this.clan = clan;
@@ -273,7 +275,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, xp, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -291,7 +293,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter ofClan(Clan clan) {
-        return new PlayerCharacter(id, xp, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                 physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
                 skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -309,7 +311,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter ofBloodline(Bloodline bloodline) {
-        return new PlayerCharacter(id, xp, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                 physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
                 skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -323,7 +325,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter delete(Date timestamp) {
-        return new PlayerCharacter(id, xp, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -337,7 +339,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
 
     public PlayerCharacter undelete() {
-        return new PlayerCharacter(id, xp, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, setting, name, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -651,6 +653,10 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
 		return this;
 	}
     
+	public Setting getSetting() {
+		return setting;
+	}
+	
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof PlayerCharacter) {
@@ -679,8 +685,30 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                       compare(this, that);
     }
 
+    public PlayerCharacter withBaseXp(int xp) {
+    	this.baseXp = xp;
+    	return this;
+    }
+    
+    public int getBaseXp() {
+    	return baseXp;
+    }
+    
+    public PlayerCharacter withGroundXp(int xp) {
+    	this.groundXp = xp;
+    	return this;
+    }
+    
+    public int getGroundXp() {
+    	return groundXp;
+    }
+    
+    public int getAwardedXp() {
+    	return awardedXp;
+    }
+    
     public int getXpGained() {
-        return xpGained;
+        return baseXp + groundXp + awardedXp;
     }
     
     public int getAppliedXpSpent() {
@@ -689,11 +717,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     
     public int getRequestedXpSpent() {
     	return xpRequestedSpent;
-    }
-    
-    public PlayerCharacter gainXp(int xp) {
-    	this.xpGained += xp;
-    	return this;
     }
     
     public PlayerCharacter requestXpSpend(int xp) {
@@ -712,7 +735,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter addExperienceAward(ExperienceAward award) {
-    	this.xpGained += award.experience();
+    	this.awardedXp += award.experience();
         this.experienceAwards.add(award);
         return this;
     }

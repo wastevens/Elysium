@@ -247,7 +247,7 @@ public class AddAndModifyCharacterTest {
                                              withDiscipline(new CharacterDiscipline(Discipline.PRESENCE, 2)).
                                              withDiscipline(new CharacterDiscipline(Discipline.CELERITY, 1)).
                                              withDiscipline(new CharacterDiscipline(Discipline.AUSPEX, 1)).
-                                             gainXp(200));
+                                             withBaseXp(200));
         characterRepository.update(saved);
     }
 
