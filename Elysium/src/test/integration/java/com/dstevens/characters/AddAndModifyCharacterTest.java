@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
+import com.dstevens.characters.activity.ActivityStatus;
+import com.dstevens.characters.activity.ActivityStatusChange;
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.traits.attributes.Attribute;
@@ -44,6 +46,7 @@ import com.dstevens.characters.traits.status.CharacterStatus;
 import com.dstevens.characters.traits.status.Status;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.players.Setting;
+import com.dstevens.time.DateTimeUtilities;
 
 public class AddAndModifyCharacterTest {
 
@@ -247,6 +250,7 @@ public class AddAndModifyCharacterTest {
                                              withDiscipline(new CharacterDiscipline(Discipline.PRESENCE, 2)).
                                              withDiscipline(new CharacterDiscipline(Discipline.CELERITY, 1)).
                                              withDiscipline(new CharacterDiscipline(Discipline.AUSPEX, 1)).
+                                             changeActivityStatus(new ActivityStatusChange(ActivityStatus.PRIMARY, DateTimeUtilities.fromLocalDateInUTC(LocalDate.of(2014, 12, 1)))).
                                              withBaseXp(200));
         characterRepository.update(saved);
     }

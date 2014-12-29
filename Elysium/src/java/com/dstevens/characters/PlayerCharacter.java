@@ -49,7 +49,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -66,7 +65,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     private final String name;
     
     @ElementCollection
-    @OrderBy("order_by")
+    @OrderColumn(name="order_by")
     @ForeignKey(name="PlayerCharacter_ActivityStatusChanges_FK")
     private final List<ActivityStatusChange> activityStatusChanges;
     
@@ -187,7 +186,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     private final List<TraitChange<?>> appliedTraitChanges;
     
     @OneToMany(cascade={CascadeType.ALL})
-    @OrderColumn(name="changedOn")
     @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"experienceAwards_id"}, name="PlayerCharacter_ExperienceAwards_UC")})
     @ForeignKey(name="PlayerCharacter_ExperienceAwards_FK", inverseName="ExperienceAwards_PlayerCharacter_FK")
     private final List<ExperienceAward> experienceAwards;

@@ -15,6 +15,13 @@ public class ActivityStatusChange implements Comparable<ActivityStatusChange>{
 	private ActivityStatus status;
 	private Date changedOn;
 
+	//Hibernate only
+    @SuppressWarnings("unused")
+	@Deprecated
+    private ActivityStatusChange() {
+    	this(null, null);
+    }
+	
 	public ActivityStatusChange(ActivityStatus status, Date changedOn) {
 		this.status = status;
 		this.changedOn = changedOn;

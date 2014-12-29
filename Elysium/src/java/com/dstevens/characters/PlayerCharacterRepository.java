@@ -34,7 +34,7 @@ public class PlayerCharacterRepository {
 	}
 	
 	public PlayerCharacter findNamed(String name) {
-		return dao.findUndeletedNamed(name);
+		return dao.findNamed(name).iterator().next();
 	}
 	
 	public Iterable<PlayerCharacter> findAllNamed(String name) {
