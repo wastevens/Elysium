@@ -215,8 +215,8 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this(null, null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
-    PlayerCharacter(String id, String name, ApprovalStatus approvalStatus, Setting setting) {
-        this(id, name, list(), approvalStatus, setting, null, null, 0, 0, 0,
+    PlayerCharacter(String id, String name, Setting setting) {
+        this(id, name, list(), null, setting, null, null, 0, 0, 0,
              set(), set(), set(),
              set(), set(),
              set(), set(), 
@@ -328,6 +328,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     
     public PlayerCharacter requestApproval() {
     	this.approvalStatus = ApprovalStatus.APPROVAL_REQUESTED;
+    	return this;
+    }
+    
+    public PlayerCharacter beginCreation() {
+    	this.approvalStatus = ApprovalStatus.IN_CREATION;
     	return this;
     }
     
