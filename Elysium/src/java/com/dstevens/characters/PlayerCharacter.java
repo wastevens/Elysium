@@ -15,6 +15,7 @@ import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
+import com.dstevens.characters.status.ApprovalStatus;
 import com.dstevens.characters.status.PlayerStatusChange;
 import com.dstevens.characters.traits.attributes.focuses.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
@@ -68,6 +69,9 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @OrderColumn(name="order_by")
     @ForeignKey(name="PlayerCharacter_PlayerStatusChanges_FK")
     private final List<PlayerStatusChange> playerStatusChanges;
+    
+    @Column(name="approvalStatus")
+    private ApprovalStatus approvalStatus;
     
     @Column(name="setting")
     private final Setting setting;
@@ -208,11 +212,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     //Hibernate only
     @Deprecated
     public PlayerCharacter() {
-        this(null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, Setting setting, String name) {
-        this(id, name, list(), setting, null, null, 0, 0, 0,
+        this(id, name, list(), null, setting, null, null, 0, 0, 0,
              set(), set(), set(),
              set(), set(),
              set(), set(), 
@@ -224,7 +228,8 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
              list());
     }
     
-    private PlayerCharacter(String id, String name, List<PlayerStatusChange> activityStatusChanges, Setting setting, Clan clan, Bloodline bloodline, 
+    private PlayerCharacter(String id, String name, List<PlayerStatusChange> activityStatusChanges, ApprovalStatus approvalStatus, 
+    		                Setting setting, Clan clan, Bloodline bloodline, 
                             int physicalAttribute, int mentalAttribute, int socialAttribute, 
                             Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
@@ -274,7 +279,8 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, name, playerStatusChanges, setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, name, playerStatusChanges, approvalStatus,  
+        		                   setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
                                    skills, backgrounds, 
                                    inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -303,9 +309,31 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     	return this;
     }
     
+    public ApprovalStatus getApprovalStatus() {
+    	return approvalStatus;
+    }
+    
+    public boolean isApproved() {
+    	return approvalStatus.equals(ApprovalStatus.APPROVED);
+    }
+    
+    public boolean hasRequestedApproval() {
+    	return approvalStatus.equals(ApprovalStatus.APPROVAL_REQUESTED);
+    }
+    
+    public PlayerCharacter approve() {
+    	this.approvalStatus = ApprovalStatus.APPROVED;
+    	return this;
+    }
+    
+    public PlayerCharacter requestApproval() {
+    	this.approvalStatus = ApprovalStatus.APPROVAL_REQUESTED;
+    	return this;
+    }
     
     public PlayerCharacter ofClan(Clan clan) {
-        return new PlayerCharacter(id, name, playerStatusChanges, setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, name, playerStatusChanges, approvalStatus,  
+        		setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                 physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
                 skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, 
@@ -322,7 +350,8 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter ofBloodline(Bloodline bloodline) {
-        return new PlayerCharacter(id, name, playerStatusChanges, setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
+        return new PlayerCharacter(id, name, playerStatusChanges, approvalStatus,  
+        		setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                 physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
                 skills, backgrounds, 
                 inClanDisciplines, inClanThaumaturgicalPaths, 
