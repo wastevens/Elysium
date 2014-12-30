@@ -6,7 +6,7 @@ import java.time.Period;
 import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.activity.ActivityStatus;
+import com.dstevens.characters.status.ActivityStatus;
 import com.dstevens.characters.traits.experience.ExperienceAward;
 
 @Service

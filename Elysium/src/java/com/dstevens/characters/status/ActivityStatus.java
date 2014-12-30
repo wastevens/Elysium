@@ -1,11 +1,9 @@
-package com.dstevens.characters.activity;
+package com.dstevens.characters.status;
 
 public enum ActivityStatus {
 
 	PRIMARY(10),
 	SECONDARY(4),
-	AWAITING_APPROVAL(0),
-	BEING_CREATED(0),
 	INACTIVE(0);
 	
 	private int maxXpPerMonth;

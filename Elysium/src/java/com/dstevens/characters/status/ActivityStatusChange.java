@@ -1,4 +1,4 @@
-package com.dstevens.characters.activity;
+package com.dstevens.characters.status;
 
 import static com.dstevens.time.DateTimeUtilities.asLocalDateInUTC;
 

@@ -13,9 +13,9 @@ import java.util.function.Function;
 
 import org.hibernate.annotations.ForeignKey;
 
-import com.dstevens.characters.activity.ActivityStatusChange;
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
+import com.dstevens.characters.status.ActivityStatusChange;
 import com.dstevens.characters.traits.attributes.focuses.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.SocialAttributeFocus;
