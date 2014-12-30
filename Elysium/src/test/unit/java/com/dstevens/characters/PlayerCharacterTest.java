@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.dstevens.characters.status.ApprovalStatus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
 import com.dstevens.characters.traits.changes.TraitChange;
@@ -24,19 +25,21 @@ public class PlayerCharacterTest {
     private static final String ID = "some id";
     private static final String NAME = "some name";
     private static final Setting SETTING = Setting.ANARCH;
+    private static final ApprovalStatus APPROVAL_STATUS = ApprovalStatus.APPROVAL_REQUESTED;
     
     @Test
     public void testIdentityEquality() {
-        EqualityTester.testing(new PlayerCharacter(ID, SETTING, NAME)).
-                 assertEqualTo(new PlayerCharacter(ID, SETTING, NAME)).
-                 assertEqualTo(new PlayerCharacter(ID, Setting.values()[SETTING.ordinal()+1], NAME)).
-                 assertEqualTo(new PlayerCharacter(ID, SETTING, "another " + NAME)).
-              assertNotEqualTo(new PlayerCharacter("another " + ID, SETTING, NAME));
+        EqualityTester.testing(new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS)).
+                 assertEqualTo(new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS)).
+                 assertEqualTo(new PlayerCharacter(ID, NAME, Setting.values()[SETTING.ordinal()+1], APPROVAL_STATUS)).
+                 assertEqualTo(new PlayerCharacter(ID, "another " + NAME, SETTING, APPROVAL_STATUS)).
+                 assertEqualTo(new PlayerCharacter(ID, NAME, SETTING, ApprovalStatus.values()[APPROVAL_STATUS.ordinal()+1])).
+              assertNotEqualTo(new PlayerCharacter("another " + ID, NAME, SETTING, APPROVAL_STATUS));
     }
     
     @Test
     public void testWithSkill() {
-    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withSkill(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set())).
     			withSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar"))).
     			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set()));
@@ -49,7 +52,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithSkillWillReplaceExistingSkills() {
-    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withSkill(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set())).
     			withSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar"))).
     			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set()));
@@ -68,7 +71,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithoutSkill() {
-    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withSkill(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set())).
     			withSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar"))).
     			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set()));
@@ -82,7 +85,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithoutSkillWhenSkillHasSpeciality() {
-    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set())).
     			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Painting", set()));
     	
@@ -95,7 +98,7 @@ public class PlayerCharacterTest {
     @Test
     public void testWithoutSkillDoesNotConsiderRating() {
     	int rating = 3;
-    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withSkill(new CharacterSkill(Skill.CRAFTS, rating, "Poetry", set())).
     			withSkill(new CharacterSkill(Skill.CRAFTS, rating, "Painting", set()));
     	
@@ -107,7 +110,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithoutSkillDoesNotConsiderFocuses() {
-    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar")));
     	
     	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("baz")));
@@ -117,7 +120,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithoutSkillWhenNoMatchingSkillFound() {
-    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withSkill(new CharacterSkill(Skill.ANIMAL_KEN, 2, null, set())).
     			withSkill(new CharacterSkill(Skill.ACADEMICS, 3, null, set("foo", "bar"))).
     			withSkill(new CharacterSkill(Skill.CRAFTS, 4, "Poetry", set()));
@@ -132,7 +135,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithBackground() {
-    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 2)).
     			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar"))).
     			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy"));
@@ -145,7 +148,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithBackgroundWillReplaceExistingSkills() {
-    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 2)).
     			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar"))).
     			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy"));
@@ -164,7 +167,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithoutBackground() {
-    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 2)).
     			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar"))).
     			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy"));
@@ -178,7 +181,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithoutBackgroundWhenBackgroundHasSpeciality() {
-    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 3, "Totally awesome guy")).
     			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Another Totally awesome guy"));
     	
@@ -191,7 +194,7 @@ public class PlayerCharacterTest {
     @Test
     public void testWithoutBackgroundDoesNotConsiderRating() {
     	int rating = 3;
-    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, rating, "Totally awesome guy")).
     			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, rating, "Another Totally awesome guy"));
     	
@@ -203,7 +206,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithoutBackgroundDoesNotConsiderFocuses() {
-    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithSkills = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar")));
     	
     	PlayerCharacter characterWithoutAnimalKen = characterWithSkills.withoutBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("baz")));
@@ -213,7 +216,7 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithoutBackgroundWhenNoMatchingBackgroundFound() {
-    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, SETTING, NAME).
+    	PlayerCharacter characterWithBackgrounds = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).
     			withBackground(CharacterBackground.backgroundFor(Background.GENERATION, 2)).
     			withBackground(CharacterBackground.backgroundFor(Background.ALLIES, 3, set("foo", "bar"))).
     			withBackground(CharacterBackground.backgroundFor(Background.ALTERNATE_IDENTITY, 4, "Totally awesome guy"));
@@ -230,7 +233,7 @@ public class PlayerCharacterTest {
     public void testWithTraitChangeEvent() {
     	TraitChange<?> someTraitChangeEvent1 = mock(TraitChange.class);
     	TraitChange<?> someTraitChangeEvent2 = mock(TraitChange.class);
-		PlayerCharacter character = new PlayerCharacter(ID, SETTING, NAME).request(someTraitChangeEvent1).request(someTraitChangeEvent2);
+		PlayerCharacter character = new PlayerCharacter(ID, NAME, SETTING, APPROVAL_STATUS).request(someTraitChangeEvent1).request(someTraitChangeEvent2);
 		
 		List<TraitChange<?>> list = list(someTraitChangeEvent1, someTraitChangeEvent2);
 		assertEquals(character.getRequestedTraitChanges(), list);
