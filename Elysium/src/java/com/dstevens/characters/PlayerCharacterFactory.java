@@ -18,7 +18,7 @@ public class PlayerCharacterFactory {
     }
     
     public PlayerCharacter createPlayerCharacter(String name, Setting setting) {
-        return new PlayerCharacter(idSupplier.get(), name, setting, ApprovalStatus.IN_CREATION);
+        return new PlayerCharacter(idSupplier.get(), name, ApprovalStatus.IN_CREATION, setting);
     }
     
 }

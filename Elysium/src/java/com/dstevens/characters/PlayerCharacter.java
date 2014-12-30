@@ -215,7 +215,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this(null, null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
-    PlayerCharacter(String id, String name, Setting setting, ApprovalStatus approvalStatus) {
+    PlayerCharacter(String id, String name, ApprovalStatus approvalStatus, Setting setting) {
         this(id, name, list(), approvalStatus, setting, null, null, 0, 0, 0,
              set(), set(), set(),
              set(), set(),
