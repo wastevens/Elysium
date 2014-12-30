@@ -16,7 +16,7 @@ import org.springframework.context.ApplicationContext;
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.status.PlayerStatus;
-import com.dstevens.characters.status.ApprovalStatusChange;
+import com.dstevens.characters.status.PlayerStatusChange;
 import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.focuses.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
@@ -250,7 +250,7 @@ public class AddAndModifyCharacterTest {
                                              withDiscipline(new CharacterDiscipline(Discipline.PRESENCE, 2)).
                                              withDiscipline(new CharacterDiscipline(Discipline.CELERITY, 1)).
                                              withDiscipline(new CharacterDiscipline(Discipline.AUSPEX, 1)).
-                                             changeActivityStatus(new ApprovalStatusChange(PlayerStatus.PRIMARY, DateTimeUtilities.fromLocalDateInUTC(LocalDate.of(2014, 12, 1)))).
+                                             changeActivityStatus(new PlayerStatusChange(PlayerStatus.PRIMARY, DateTimeUtilities.fromLocalDateInUTC(LocalDate.of(2014, 12, 1)))).
                                              withBaseXp(200));
         characterRepository.update(saved);
     }
