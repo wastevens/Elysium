@@ -1,6 +1,6 @@
 package com.dstevens.characters.status;
 
-public enum ActivityStatus {
+public enum PlayerStatus {
 
 	PRIMARY(10, 4),
 	SECONDARY(4, 0),
@@ -9,7 +9,7 @@ public enum ActivityStatus {
 	private int maxXpPerMonth;
 	private int groundXpPerMonth;
 
-	private ActivityStatus(int maxXpPerMonth, int groundXpPerMonth) {
+	private PlayerStatus(int maxXpPerMonth, int groundXpPerMonth) {
 		this.maxXpPerMonth = maxXpPerMonth;
 		this.groundXpPerMonth = groundXpPerMonth;
 	}

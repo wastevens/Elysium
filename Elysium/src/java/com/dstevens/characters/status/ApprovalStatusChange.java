@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ApprovalStatusChange implements Comparable<ApprovalStatusChange>{
 
-	private ActivityStatus status;
+	private PlayerStatus status;
 	private Date changedOn;
 
 	//Hibernate only
@@ -22,12 +22,12 @@ public class ApprovalStatusChange implements Comparable<ApprovalStatusChange>{
     	this(null, null);
     }
 	
-	public ApprovalStatusChange(ActivityStatus status, Date changedOn) {
+	public ApprovalStatusChange(PlayerStatus status, Date changedOn) {
 		this.status = status;
 		this.changedOn = changedOn;
 	}
 	
-	public ActivityStatus status() {
+	public PlayerStatus status() {
 		return status;
 	}
 	

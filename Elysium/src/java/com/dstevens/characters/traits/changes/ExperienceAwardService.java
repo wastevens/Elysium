@@ -6,7 +6,7 @@ import java.time.Period;
 import org.springframework.stereotype.Service;
 
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.status.ActivityStatus;
+import com.dstevens.characters.status.PlayerStatus;
 import com.dstevens.characters.traits.experience.ExperienceAward;
 
 @Service
@@ -16,7 +16,7 @@ public class ExperienceAwardService {
 	private static final LocalDate CHRONICLE_START = LocalDate.of(2014, 2, 1);
 
 	public PlayerCharacter setGroundExperienceOn(PlayerCharacter character, LocalDate now) {
-		if(character.getCurrentStatus().status().equals(ActivityStatus.PRIMARY)) {
+		if(character.getCurrentStatus().status().equals(PlayerStatus.PRIMARY)) {
 			return character.withGroundXp(monthsBetweenChronicleStartAndBecomingPrimary(character) * GROUND_XP_PER_MONTH);
 		}
 		return character.withGroundXp(0);
