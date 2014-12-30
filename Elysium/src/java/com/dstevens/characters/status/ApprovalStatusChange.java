@@ -10,7 +10,7 @@ import com.dstevens.utilities.ObjectExtensions;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class ActivityStatusChange implements Comparable<ActivityStatusChange>{
+public class ApprovalStatusChange implements Comparable<ApprovalStatusChange>{
 
 	private ActivityStatus status;
 	private Date changedOn;
@@ -18,11 +18,11 @@ public class ActivityStatusChange implements Comparable<ActivityStatusChange>{
 	//Hibernate only
     @SuppressWarnings("unused")
 	@Deprecated
-    private ActivityStatusChange() {
+    private ApprovalStatusChange() {
     	this(null, null);
     }
 	
-	public ActivityStatusChange(ActivityStatus status, Date changedOn) {
+	public ApprovalStatusChange(ActivityStatus status, Date changedOn) {
 		this.status = status;
 		this.changedOn = changedOn;
 	}
@@ -51,7 +51,7 @@ public class ActivityStatusChange implements Comparable<ActivityStatusChange>{
 	}
 	
 	@Override
-	public int compareTo(ActivityStatusChange that) {
+	public int compareTo(ApprovalStatusChange that) {
 		return this.changedOn.compareTo(that.changedOn);
 	}
 	

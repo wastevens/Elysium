@@ -15,7 +15,7 @@ import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
-import com.dstevens.characters.status.ActivityStatusChange;
+import com.dstevens.characters.status.ApprovalStatusChange;
 import com.dstevens.characters.traits.attributes.focuses.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.SocialAttributeFocus;
@@ -67,7 +67,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @ElementCollection
     @OrderColumn(name="order_by")
     @ForeignKey(name="PlayerCharacter_ActivityStatusChanges_FK")
-    private final List<ActivityStatusChange> activityStatusChanges;
+    private final List<ApprovalStatusChange> activityStatusChanges;
     
     @Column(name="setting")
     private final Setting setting;
@@ -224,7 +224,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
              list());
     }
     
-    private PlayerCharacter(String id, String name, List<ActivityStatusChange> activityStatusChanges, Setting setting, Clan clan, Bloodline bloodline, 
+    private PlayerCharacter(String id, String name, List<ApprovalStatusChange> activityStatusChanges, Setting setting, Clan clan, Bloodline bloodline, 
                             int physicalAttribute, int mentalAttribute, int socialAttribute, 
                             Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
@@ -290,15 +290,15 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return name;
     }
     
-    public ActivityStatusChange getCurrentStatus() {
+    public ApprovalStatusChange getCurrentStatus() {
     	return activityStatusChanges.get(0);
     }
     
-    public List<ActivityStatusChange> getActivityStatusChangeHistory() {
+    public List<ApprovalStatusChange> getActivityStatusChangeHistory() {
     	return activityStatusChanges;
     }
     
-    public PlayerCharacter changeActivityStatus(ActivityStatusChange activityStatusChange) {
+    public PlayerCharacter changeActivityStatus(ApprovalStatusChange activityStatusChange) {
     	this.activityStatusChanges.add(0, activityStatusChange);
     	return this;
     }
