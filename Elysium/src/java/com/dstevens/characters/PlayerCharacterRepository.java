@@ -33,6 +33,10 @@ public class PlayerCharacterRepository {
 		return dao.save(pc);
 	}
 	
+	public PlayerCharacter findWithId(String id) {
+		return dao.findOne(id);
+	}
+	
 	public PlayerCharacter findNamed(String name) {
 		return dao.findNamed(name).iterator().next();
 	}
