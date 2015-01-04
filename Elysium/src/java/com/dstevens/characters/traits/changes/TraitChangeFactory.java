@@ -2,6 +2,8 @@ package com.dstevens.characters.traits.changes;
 
 import java.util.Set;
 
+import com.dstevens.characters.clans.Bloodline;
+import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
@@ -16,6 +18,9 @@ import com.dstevens.characters.traits.status.Status;
 
 public interface TraitChangeFactory {
 
+	TraitChange<?> clan(Clan clan);
+	TraitChange<?> bloodline(Bloodline bloodline);
+	
 	TraitChange<?> attribute(Attribute attribute, int rating);
 	
 	TraitChange<?> focus(AttributeFocus focus);

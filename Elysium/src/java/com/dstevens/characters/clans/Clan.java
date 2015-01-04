@@ -1,10 +1,13 @@
 package com.dstevens.characters.clans;
 
-import static com.dstevens.collections.Sets.set;
-
 import java.util.Set;
 
-public enum Clan {
+import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
+
+import static com.dstevens.collections.Sets.set;
+
+public enum Clan implements ApplicableTrait {
 
     ASSAMITE(Bloodline.ASSAMITE, Bloodline.VIZIER, Bloodline.SORCERER),
     BRUJAH(Bloodline.BRUJAH, Bloodline.TRUE_BRUJAH),
@@ -35,4 +38,14 @@ public enum Clan {
     public Set<Bloodline> getBloodlines() {
         return bloodlines;
     }
+
+	@Override
+	public PlayerCharacter applyTo(PlayerCharacter character) {
+		return character.withClan(this);
+	}
+
+	@Override
+	public PlayerCharacter removeFrom(PlayerCharacter character) {
+		return character.withClan(null);
+	}
 }

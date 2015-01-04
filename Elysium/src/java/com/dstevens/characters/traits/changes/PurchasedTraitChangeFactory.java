@@ -3,6 +3,8 @@ package com.dstevens.characters.traits.changes;
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.clans.Bloodline;
+import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
@@ -132,5 +134,15 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 	@Override
 	public TraitChange<?> status(Status awesome, String string) {
 		throw new IllegalStateException("Cannot buy status");
+	}
+
+	@Override
+	public TraitChange<?> clan(Clan clan) {
+		throw new IllegalStateException("Cannot purchase new clan");
+	}
+
+	@Override
+	public TraitChange<?> bloodline(Bloodline bloodline) {
+		throw new IllegalStateException("Cannot purchase new bloodline");
 	}
 }

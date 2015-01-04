@@ -4,12 +4,14 @@ import static com.dstevens.collections.Sets.set;
 
 import java.util.Set;
 
+import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.disciplines.Discipline;
 import com.dstevens.characters.traits.powers.magic.necromancy.Necromancy;
 import com.dstevens.characters.traits.powers.magic.thaumaturgy.Thaumaturgy;
 
-public enum Bloodline {
+public enum Bloodline implements ApplicableTrait {
 
     ASSAMITE(set(Discipline.CELERITY, Discipline.OBFUSCATE, Discipline.QUIETUS)),
     VIZIER(set(Discipline.AUSPEX, Discipline.CELERITY, Discipline.QUIETUS)),
@@ -97,5 +99,15 @@ public enum Bloodline {
     public int getPotentialDisciplinesToSelect() {
         return potentialDisciplinesToSelect;
     }
+
+	@Override
+	public PlayerCharacter applyTo(PlayerCharacter character) {
+		return character.withBloodline(this);
+	}
+
+	@Override
+	public PlayerCharacter removeFrom(PlayerCharacter character) {
+		return character.withBloodline(null);
+	}
     
 }

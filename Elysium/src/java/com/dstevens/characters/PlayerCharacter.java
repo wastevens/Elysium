@@ -77,10 +77,10 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     private final Setting setting;
     
     @Column(name="clan")
-    private final Clan clan;
+    private Clan clan;
     
     @Column(name="bloodline")
-    private final Bloodline bloodline;
+    private Bloodline bloodline;
     
     @Column(name="physical_attribute")
     private int physicalAttribute;
@@ -336,36 +336,18 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     	return this;
     }
     
-    public PlayerCharacter ofClan(Clan clan) {
-        return new PlayerCharacter(id, name, playerStatusChanges, approvalStatus,  
-        		setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
-                physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
-                skills, backgrounds, 
-                inClanDisciplines, inClanThaumaturgicalPaths, 
-                inClanNecromanticPaths, disciplines, elderPowers, 
-                techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
-                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                necromanticRituals, merits, flaws, status,
-                requesedTraitChanges, appliedTraitChanges,
-                experienceAwards);
+    public PlayerCharacter withClan(Clan clan) {
+    	this.clan = clan;
+    	return this;
     }
     
     public Clan getClan() {
         return clan;
     }
     
-    public PlayerCharacter ofBloodline(Bloodline bloodline) {
-        return new PlayerCharacter(id, name, playerStatusChanges, approvalStatus,  
-        		setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
-                physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses, 
-                skills, backgrounds, 
-                inClanDisciplines, inClanThaumaturgicalPaths, 
-                inClanNecromanticPaths, disciplines, elderPowers, 
-                techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
-                thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                necromanticRituals, merits, flaws, status,
-                requesedTraitChanges, appliedTraitChanges,
-                experienceAwards);
+    public PlayerCharacter withBloodline(Bloodline bloodline) {
+    	this.bloodline = bloodline;
+    	return this;
     }
     
     public Bloodline getBloodline() {

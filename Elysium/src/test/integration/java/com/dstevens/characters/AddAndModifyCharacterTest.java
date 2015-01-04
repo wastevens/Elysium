@@ -227,8 +227,9 @@ public class AddAndModifyCharacterTest {
         PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
         
         PlayerCharacter character = characterRepository.ensureExists("Mary Wollstonecraft", Setting.CAMARILLA);
-        PlayerCharacter saved = characterRepository.update(character.ofClan(Clan.TOREADOR).
-                                             ofBloodline(Bloodline.TOREADOR).
+        PlayerCharacter saved = characterRepository.update(character.
+        		                             withClan(Clan.TOREADOR).
+                                             withBloodline(Bloodline.TOREADOR).
                                              withInClanDiscipline(Discipline.PRESENCE).
                                              withInClanDiscipline(Discipline.CELERITY).
                                              withInClanDiscipline(Discipline.AUSPEX).

@@ -4,12 +4,16 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.dstevens.characters.clans.Bloodline;
+import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.AttributeValue;
 import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.backgrounds.CharacterBackground;
+import com.dstevens.characters.traits.distinctions.SetBloodline;
+import com.dstevens.characters.traits.distinctions.SetClan;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.Merit;
 import com.dstevens.characters.traits.powers.Power;
@@ -23,6 +27,16 @@ import com.dstevens.characters.traits.status.Status;
 
 @Service
 class ProvidedTraitChangeFactory implements TraitChangeFactory {
+	
+	@Override
+	public TraitChange<?> clan(Clan clan) {
+		return new SetClan(clan.ordinal());
+	}
+
+	@Override
+	public TraitChange<?> bloodline(Bloodline bloodline) {
+		return new SetBloodline(bloodline.ordinal());
+	}
 	
 	@Override
 	public TraitChange<AttributeValue> attribute(Attribute attribute, int rating) {
