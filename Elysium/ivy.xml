@@ -13,8 +13,9 @@
       <artifact name="${project.name}-sources" type="source" ext="jar" conf="sources"/>
     </publications>
     <dependencies>
-        <dependency org="com.dstevens" name="TheWheel" rev="1.1.0" conf="default;sources"/>
+        <dependency org="com.dstevens" name="TheWheel" rev="1.1.2" conf="default;sources"/>
         <dependency org="com.dstevens" name="CommonServices" rev="1.0.0" conf="default;sources"/>
+        <dependency org="com.dstevens" name="TestUtilities" rev="1.0.0" conf="default;sources"/>
         <dependency org="org.hibernate" name="hibernate-core" rev="4.3.7.Final" conf="default;sources;javadoc"/>
         <dependency org="org.hibernate" name="hibernate-entitymanager" rev="4.3.7.Final" conf="default;sources;javadoc"/>
         <dependency org="org.hibernate" name="hibernate-tools" rev="4.3.1.CR1" conf="default;sources;javadoc"/>
