@@ -10,7 +10,6 @@ alter table PlayerCharacter_ExperienceAward drop foreign key ExperienceAwards_Pl
 alter table PlayerCharacter_ExperienceAward drop foreign key PlayerCharacter_ExperienceAwards_FK;
 alter table PlayerCharacter_RequestedTraitChanges drop foreign key RequestedTraitChanges_PlayerCharacter_FK;
 alter table PlayerCharacter_RequestedTraitChanges drop foreign key PlayerCharacter_RequestedTraitChanges_FK;
-alter table PlayerCharacter_activityStatusChanges drop foreign key PlayerCharacter_ActivityStatusChanges_FK;
 alter table PlayerCharacter_elderPowers drop foreign key PlayerCharacter_ElderPowers_FK;
 alter table PlayerCharacter_inClanDisciplines drop foreign key PlayerCharacter_InClanDisciplines_FK;
 alter table PlayerCharacter_inClanNecromanticPaths drop foreign key PlayerCharacter_InClanNecromanticPaths_FK;
@@ -18,6 +17,7 @@ alter table PlayerCharacter_inClanThaumaturgicalPaths drop foreign key PlayerCha
 alter table PlayerCharacter_mentalAttrbuteFocuses drop foreign key PlayerCharacter_MentalAttributeFocuses_FK;
 alter table PlayerCharacter_necromanticRituals drop foreign key PlayerCharacter_CharacterNecromanticRituals_FK;
 alter table PlayerCharacter_physicalAttributeFocuses drop foreign key PlayerCharacter_PhysicalAttributeFocuses_FK;
+alter table PlayerCharacter_playerStatusChanges drop foreign key PlayerCharacter_PlayerStatusChanges_FK;
 alter table PlayerCharacter_socialAttributeFocuses drop foreign key PlayerCharacter_SocialAttributeFocuses_FK;
 alter table PlayerCharacter_techniques drop foreign key PlayerCharacter_Techniques_FK;
 alter table PlayerCharacter_thaumaturgicalRituals drop foreign key PlayerCharacter_CharacterThaumaturgicalRituals_FK;
@@ -39,7 +39,6 @@ drop table if exists PlayerCharacter;
 drop table if exists PlayerCharacter_AppliedTraitChanges;
 drop table if exists PlayerCharacter_ExperienceAward;
 drop table if exists PlayerCharacter_RequestedTraitChanges;
-drop table if exists PlayerCharacter_activityStatusChanges;
 drop table if exists PlayerCharacter_elderPowers;
 drop table if exists PlayerCharacter_inClanDisciplines;
 drop table if exists PlayerCharacter_inClanNecromanticPaths;
@@ -47,6 +46,7 @@ drop table if exists PlayerCharacter_inClanThaumaturgicalPaths;
 drop table if exists PlayerCharacter_mentalAttrbuteFocuses;
 drop table if exists PlayerCharacter_necromanticRituals;
 drop table if exists PlayerCharacter_physicalAttributeFocuses;
+drop table if exists PlayerCharacter_playerStatusChanges;
 drop table if exists PlayerCharacter_socialAttributeFocuses;
 drop table if exists PlayerCharacter_techniques;
 drop table if exists PlayerCharacter_thaumaturgicalRituals;
@@ -64,11 +64,10 @@ create table ExperienceAward (id varchar(255) not null, awardedFor varchar(255),
 create table Flaws (id varchar(255) not null, specialization varchar(255), trait integer not null, character_id varchar(255), primary key (id));
 create table Merits (id varchar(255) not null, specialization varchar(255), trait integer not null, character_id varchar(255), primary key (id));
 create table NecromanticPaths (id varchar(255) not null, rating integer, trait integer not null, character_id varchar(255), primary key (id));
-create table PlayerCharacter (id varchar(255) not null, awardedXp integer, baseXp integer, bloodline integer, clan integer, groundXp integer, mental_attribute integer, name varchar(255), physical_attribute integer, primary_necromantic_path integer, primary_thaumaturgical_path integer, setting integer, social_attribute integer, appliedSpentXp integer, pendingSpentXp integer, primary key (id));
+create table PlayerCharacter (id varchar(255) not null, approvalStatus integer, awardedXp integer, baseXp integer, bloodline integer, clan integer, groundXp integer, mental_attribute integer, name varchar(255), physical_attribute integer, primary_necromantic_path integer, primary_thaumaturgical_path integer, setting integer, social_attribute integer, appliedSpentXp integer, pendingSpentXp integer, primary key (id));
 create table PlayerCharacter_AppliedTraitChanges (PlayerCharacter_id varchar(255) not null, appliedTraitChanges_id varchar(255) not null, order_by integer not null, primary key (PlayerCharacter_id, order_by));
 create table PlayerCharacter_ExperienceAward (PlayerCharacter_id varchar(255) not null, experienceAwards_id varchar(255) not null);
 create table PlayerCharacter_RequestedTraitChanges (PlayerCharacter_id varchar(255) not null, requesedTraitChanges_id varchar(255) not null, order_by integer not null, primary key (PlayerCharacter_id, order_by));
-create table PlayerCharacter_activityStatusChanges (PlayerCharacter_id varchar(255) not null, changedOn datetime, status integer, order_by integer not null, primary key (PlayerCharacter_id, order_by));
 create table PlayerCharacter_elderPowers (PlayerCharacter_id varchar(255) not null, elderPowers integer);
 create table PlayerCharacter_inClanDisciplines (PlayerCharacter_id varchar(255) not null, inClanDisciplines integer);
 create table PlayerCharacter_inClanNecromanticPaths (PlayerCharacter_id varchar(255) not null, inClanNecromanticPaths integer);
@@ -76,6 +75,7 @@ create table PlayerCharacter_inClanThaumaturgicalPaths (PlayerCharacter_id varch
 create table PlayerCharacter_mentalAttrbuteFocuses (PlayerCharacter_id varchar(255) not null, mentalAttrbuteFocuses integer);
 create table PlayerCharacter_necromanticRituals (PlayerCharacter_id varchar(255) not null, necromanticRituals integer);
 create table PlayerCharacter_physicalAttributeFocuses (PlayerCharacter_id varchar(255) not null, physicalAttributeFocuses integer);
+create table PlayerCharacter_playerStatusChanges (PlayerCharacter_id varchar(255) not null, changedOn datetime, status integer, order_by integer not null, primary key (PlayerCharacter_id, order_by));
 create table PlayerCharacter_socialAttributeFocuses (PlayerCharacter_id varchar(255) not null, socialAttributeFocuses integer);
 create table PlayerCharacter_techniques (PlayerCharacter_id varchar(255) not null, techniques integer);
 create table PlayerCharacter_thaumaturgicalRituals (PlayerCharacter_id varchar(255) not null, thaumaturgicalRituals integer);
@@ -100,7 +100,6 @@ alter table PlayerCharacter_ExperienceAward add constraint ExperienceAwards_Play
 alter table PlayerCharacter_ExperienceAward add constraint PlayerCharacter_ExperienceAwards_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_RequestedTraitChanges add constraint RequestedTraitChanges_PlayerCharacter_FK foreign key (requesedTraitChanges_id) references TraitChanges (id);
 alter table PlayerCharacter_RequestedTraitChanges add constraint PlayerCharacter_RequestedTraitChanges_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
-alter table PlayerCharacter_activityStatusChanges add constraint PlayerCharacter_ActivityStatusChanges_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_elderPowers add constraint PlayerCharacter_ElderPowers_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_inClanDisciplines add constraint PlayerCharacter_InClanDisciplines_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_inClanNecromanticPaths add constraint PlayerCharacter_InClanNecromanticPaths_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
@@ -108,6 +107,7 @@ alter table PlayerCharacter_inClanThaumaturgicalPaths add constraint PlayerChara
 alter table PlayerCharacter_mentalAttrbuteFocuses add constraint PlayerCharacter_MentalAttributeFocuses_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_necromanticRituals add constraint PlayerCharacter_CharacterNecromanticRituals_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_physicalAttributeFocuses add constraint PlayerCharacter_PhysicalAttributeFocuses_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
+alter table PlayerCharacter_playerStatusChanges add constraint PlayerCharacter_PlayerStatusChanges_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_socialAttributeFocuses add constraint PlayerCharacter_SocialAttributeFocuses_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_techniques add constraint PlayerCharacter_Techniques_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
 alter table PlayerCharacter_thaumaturgicalRituals add constraint PlayerCharacter_CharacterThaumaturgicalRituals_FK foreign key (PlayerCharacter_id) references PlayerCharacter (id);
