@@ -9,7 +9,7 @@ import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.Merit;
-import com.dstevens.characters.traits.powers.Power;
+import com.dstevens.characters.traits.powers.disciplines.Discipline;
 import com.dstevens.characters.traits.powers.disciplines.ElderPower;
 import com.dstevens.characters.traits.powers.disciplines.Technique;
 import com.dstevens.characters.traits.powers.magic.Ritual;
@@ -29,7 +29,7 @@ public interface TraitChangeFactory {
 
 	TraitChange<?> background(Background background, int rating, String specialization, Set<String> focuses);
 
-	TraitChange<?> power(Power<?> power, int rating);
+	TraitChange<?> power(Discipline power, int rating);
 
 	TraitChange<?> ritual(Ritual<?> ritual);
 
@@ -37,7 +37,7 @@ public interface TraitChangeFactory {
 
 	TraitChange<?> elderPower(ElderPower power);
 
-	TraitChange<?> inClanPower(Power<?> power);
+	TraitChange<?> inClanPower(Discipline power);
 	
 	TraitChange<?> merit(Merit merit, String specialization, TraitChange<?> associatedTrait);
 	

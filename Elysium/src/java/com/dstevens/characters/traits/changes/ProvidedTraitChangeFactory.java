@@ -16,7 +16,8 @@ import com.dstevens.characters.traits.distinctions.SetBloodline;
 import com.dstevens.characters.traits.distinctions.SetClan;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.Merit;
-import com.dstevens.characters.traits.powers.Power;
+import com.dstevens.characters.traits.powers.disciplines.CharacterDiscipline;
+import com.dstevens.characters.traits.powers.disciplines.Discipline;
 import com.dstevens.characters.traits.powers.disciplines.ElderPower;
 import com.dstevens.characters.traits.powers.disciplines.Technique;
 import com.dstevens.characters.traits.powers.magic.Ritual;
@@ -59,7 +60,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	}
 	
 	@Override
-	public TraitChange<? extends ApplicableTrait> power(Power<?> power, int rating) {
+	public TraitChange<CharacterDiscipline> power(Discipline power, int rating) {
 		return power.set(rating);
 	}
 
@@ -89,7 +90,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	}
 
 	@Override
-	public TraitChange<? extends ApplicableTrait> inClanPower(Power<?> power) {
+	public TraitChange<Discipline> inClanPower(Discipline power) {
 		return power.set();
 	}
 	

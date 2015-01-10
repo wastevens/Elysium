@@ -84,4 +84,8 @@ public class CharacterDiscipline implements ApplicableTrait, RatedTrait, Compara
 	public Predicate<CharacterDiscipline> matches() {
 		return ((Predicate<CharacterDiscipline>)(CharacterDiscipline t) -> t.trait.equals(this.trait));
 	}
+
+	public Discipline getTrait() {
+		return trait;
+	}
 }

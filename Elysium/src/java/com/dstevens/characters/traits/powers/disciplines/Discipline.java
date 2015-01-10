@@ -1,12 +1,12 @@
 package com.dstevens.characters.traits.powers.disciplines;
 
 import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.changes.TraitChange;
-import com.dstevens.characters.traits.powers.Power;
 import com.dstevens.characters.traits.powers.PowerType;
 
 
-public enum Discipline implements Power<Discipline> {
+public enum Discipline implements ApplicableTrait {
 
     ANIMALISM(PowerType.DISCIPLINE),
     AUSPEX(PowerType.DISCIPLINE),
@@ -62,17 +62,15 @@ public enum Discipline implements Power<Discipline> {
 		return character.withoutInClanDiscipline(this);
 	}
 	
-	@Override
+	public PowerType getPowerType() {
+		return powerType;
+	}
+	
 	public TraitChange<Discipline> set() {
 		return new SetInClanDiscipline(this.ordinal());
 	}
 	
-	@Override
 	public TraitChange<CharacterDiscipline> set(int rating) {
 		return new SetDiscipline(this.ordinal(), rating);
-	}
-
-	public PowerType getPowerType() {
-		return powerType;
 	}
 }

@@ -15,8 +15,6 @@
     <mapping class="com.dstevens.characters.traits.backgrounds.CharacterBackground"/>
     <mapping class="com.dstevens.characters.traits.skills.CharacterSkill"/>
     <mapping class="com.dstevens.characters.traits.powers.disciplines.CharacterDiscipline"/>
-    <mapping class="com.dstevens.characters.traits.powers.magic.thaumaturgy.CharacterThaumaturgy"/>
-    <mapping class="com.dstevens.characters.traits.powers.magic.necromancy.CharacterNecromancy"/>
     <mapping class="com.dstevens.characters.traits.distinctions.flaws.CharacterFlaw"/>
     <mapping class="com.dstevens.characters.traits.distinctions.merits.CharacterMerit"/>
     <mapping class="com.dstevens.characters.traits.status.CharacterStatus"/>

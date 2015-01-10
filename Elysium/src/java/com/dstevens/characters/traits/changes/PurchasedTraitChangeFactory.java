@@ -10,7 +10,7 @@ import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
 import com.dstevens.characters.traits.backgrounds.Background;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.Merit;
-import com.dstevens.characters.traits.powers.Power;
+import com.dstevens.characters.traits.powers.disciplines.Discipline;
 import com.dstevens.characters.traits.powers.disciplines.ElderPower;
 import com.dstevens.characters.traits.powers.disciplines.Technique;
 import com.dstevens.characters.traits.powers.magic.Ritual;
@@ -64,11 +64,11 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 	}
     
 	@Override
-	public TraitChange<?> power(Power<?> power, int rating) {
+	public TraitChange<?> power(Discipline power, int rating) {
 		return traitChangeFactory.power(power, rating).costing(costForPower(power, rating));
 	}
 	
-    private int costForPower(Power<?> power, int rating) {
+    private int costForPower(Discipline power, int rating) {
     	boolean inClan = character.getInClanDisciplines().contains(power);
     	if(inClan) {
     		return rating * 3;
@@ -127,7 +127,7 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     }
 	
 	@Override
-	public TraitChange<?> inClanPower(Power<?> power) {
+	public TraitChange<?> inClanPower(Discipline power) {
 		throw new IllegalStateException("Cannot buy additional in clan powers");
 	}
 

@@ -2,7 +2,6 @@ package com.dstevens.characters;
 
 import static com.dstevens.collections.Lists.list;
 import static com.dstevens.collections.Lists.listFrom;
-
 import static com.dstevens.collections.Sets.set;
 
 import java.util.Comparator;
@@ -10,6 +9,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.ForeignKey;
 
@@ -26,33 +38,17 @@ import com.dstevens.characters.traits.changes.TraitChange;
 import com.dstevens.characters.traits.distinctions.flaws.CharacterFlaw;
 import com.dstevens.characters.traits.distinctions.merits.CharacterMerit;
 import com.dstevens.characters.traits.experience.ExperienceAward;
-import com.dstevens.characters.traits.powers.Power;
+import com.dstevens.characters.traits.powers.PowerType;
 import com.dstevens.characters.traits.powers.disciplines.CharacterDiscipline;
 import com.dstevens.characters.traits.powers.disciplines.Discipline;
 import com.dstevens.characters.traits.powers.disciplines.ElderPower;
 import com.dstevens.characters.traits.powers.disciplines.Technique;
-import com.dstevens.characters.traits.powers.magic.necromancy.CharacterNecromancy;
-import com.dstevens.characters.traits.powers.magic.necromancy.Necromancy;
 import com.dstevens.characters.traits.powers.magic.necromancy.NecromanticRitual;
-import com.dstevens.characters.traits.powers.magic.thaumaturgy.CharacterThaumaturgy;
 import com.dstevens.characters.traits.powers.magic.thaumaturgy.ThaumaturgicalRitual;
-import com.dstevens.characters.traits.powers.magic.thaumaturgy.Thaumaturgy;
 import com.dstevens.characters.traits.skills.CharacterSkill;
 import com.dstevens.characters.traits.status.CharacterStatus;
 import com.dstevens.players.Setting;
 import com.dstevens.utilities.ObjectExtensions;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @SuppressWarnings("deprecation")
 @Entity
@@ -123,14 +119,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     private final Set<Discipline> inClanDisciplines;
 
     @ElementCollection
-    @ForeignKey(name="PlayerCharacter_InClanThaumaturgicalPaths_FK")
-    private final Set<Thaumaturgy> inClanThaumaturgicalPaths;
-    
-    @ElementCollection
-    @ForeignKey(name="PlayerCharacter_InClanNecromanticPaths_FK")
-    private final Set<Necromancy> inClanNecromanticPaths;
-    
-    @ElementCollection
     @ForeignKey(name="PlayerCharacter_ElderPowers_FK")
     private final Set<ElderPower> elderPowers;
     
@@ -138,25 +126,15 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @ForeignKey(name="PlayerCharacter_Techniques_FK")
     private final Set<Technique> techniques;
     
-    @OneToMany(cascade={CascadeType.ALL})
-    @JoinColumn(name="character_id", referencedColumnName="id")
-    @ForeignKey(name="PlayerCharacter_ThaumaturgicalPaths_FK", inverseName="ThaumaturgicalPaths_PlayerCharacter_FK")
-    private final Set<CharacterThaumaturgy> thaumaturgicalPaths;
-    
     @Column(name="primary_thaumaturgical_path")
-    private Thaumaturgy primaryThaumaturgicalPath;
+    private Discipline primaryThaumaturgicalPath;
     
     @ElementCollection
     @ForeignKey(name="PlayerCharacter_CharacterThaumaturgicalRituals_FK")
     private final Set<ThaumaturgicalRitual> thaumaturgicalRituals;
     
-    @OneToMany(cascade={CascadeType.ALL})
-    @JoinColumn(name="character_id", referencedColumnName="id")
-    @ForeignKey(name="PlayerCharacter_NecromanticPaths_FK", inverseName="NecromanticPaths_PlayerCharacter_FK")
-    private final Set<CharacterNecromancy> necromanticPaths;
-    
     @Column(name="primary_necromantic_path")
-    private Necromancy primaryNecromanticPath;
+    private Discipline primaryNecromanticPath;
     
     @ElementCollection
     @ForeignKey(name="PlayerCharacter_CharacterNecromanticRituals_FK")
@@ -212,7 +190,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     //Hibernate only
     @Deprecated
     public PlayerCharacter() {
-        this(null, null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String id, String name, Setting setting) {
@@ -220,12 +198,10 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
              set(), set(), set(),
              set(), set(),
              set(), set(), 
+             set(), set(), null,
+             set(), null, set(),
              set(), set(), set(),
-             set(), set(), null,
-             set(), set(), null,
-             set(), set(), set(), set(),
-             list(), list(),
-             list());
+             list(), list(), list());
     }
     
     private PlayerCharacter(String id, String name, List<PlayerStatusChange> activityStatusChanges, ApprovalStatus approvalStatus, 
@@ -233,13 +209,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                             int physicalAttribute, int mentalAttribute, int socialAttribute, 
                             Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
-                            Set<Discipline> inClanDisciplines, Set<Thaumaturgy> inClanThaumaturgicalPaths, 
-                            Set<Necromancy> inClanNecromanticPaths, Set<CharacterDiscipline> disciplines, Set<ElderPower> elderPowers,
-                            Set<Technique> techniques, Set<CharacterThaumaturgy> thaumaturgicalPaths, Thaumaturgy primaryThaumaturgicalPath, 
-                            Set<ThaumaturgicalRitual> thaumaturgicalRituals, Set<CharacterNecromancy> necromanticPaths, Necromancy primaryNecromanticPath,
-                            Set<NecromanticRitual> necromanticRituals, Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
-                            List<TraitChange<?>> traitChanges, List<TraitChange<?>> appliedTraitChanges,
-                            List<ExperienceAward> experienceAwards) {
+                            Set<Discipline> inClanDisciplines, Set<CharacterDiscipline> disciplines, 
+                            Set<ElderPower> elderPowers, Set<Technique> techniques, Discipline primaryThaumaturgicalPath,
+                            Set<ThaumaturgicalRitual> thaumaturgicalRituals, Discipline primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals, 
+                            Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
+                            List<TraitChange<?>> traitChanges, List<TraitChange<?>> appliedTraitChanges, List<ExperienceAward> experienceAwards) {
         this.id = id;
         this.name = name;
         this.playerStatusChanges = activityStatusChanges;
@@ -255,15 +229,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this.skills = skills;
         this.backgrounds = backgrounds;
         this.inClanDisciplines = inClanDisciplines;
-        this.inClanThaumaturgicalPaths = inClanThaumaturgicalPaths;
-        this.inClanNecromanticPaths = inClanNecromanticPaths;
         this.disciplines = disciplines;
         this.elderPowers = elderPowers;
         this.techniques = techniques;
-        this.thaumaturgicalPaths = thaumaturgicalPaths;
         this.primaryThaumaturgicalPath = primaryThaumaturgicalPath;
         this.thaumaturgicalRituals = thaumaturgicalRituals;
-        this.necromanticPaths = necromanticPaths;
         this.primaryNecromanticPath = primaryNecromanticPath;
         this.necromanticRituals = necromanticRituals;
         this.merits = merits;
@@ -283,13 +253,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         		                   setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
                                    physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
                                    skills, backgrounds, 
-                                   inClanDisciplines, inClanThaumaturgicalPaths, 
-                                   inClanNecromanticPaths, disciplines, elderPowers, 
-                                   techniques, thaumaturgicalPaths, primaryThaumaturgicalPath,
-                                   thaumaturgicalRituals, necromanticPaths, primaryNecromanticPath,
-                                   necromanticRituals, merits, flaws, status,
-                                   requesedTraitChanges, appliedTraitChanges,
-                                   experienceAwards);
+                                   inClanDisciplines, disciplines, 
+                                   elderPowers, techniques, primaryThaumaturgicalPath, 
+                                   thaumaturgicalRituals, primaryNecromanticPath, necromanticRituals,
+                                   merits, flaws, status,
+                                   requesedTraitChanges, appliedTraitChanges, experienceAwards);
     }
     
     public String getName() {
@@ -465,38 +433,18 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public Set<Power<?>> getInClanDisciplines() {
-        Set<Power<?>> powers = set();
-        powers.addAll(inClanDisciplines);
-        powers.addAll(inClanThaumaturgicalPaths);
-        powers.addAll(inClanNecromanticPaths);
-        return powers;
+    public Set<Discipline> getInClanDisciplines() {
+        return inClanDisciplines;
     }
     
-    public PlayerCharacter withInClanDiscipline(Power<?> power) {
-        if (power instanceof Discipline) {
-            inClanDisciplines.add((Discipline) power);
-        }
-        if (power instanceof Thaumaturgy) {
-            inClanThaumaturgicalPaths.add((Thaumaturgy) power);
-        }
-        if (power instanceof Necromancy) {
-            inClanNecromanticPaths.add((Necromancy) power);
-        }
+    public PlayerCharacter withInClanDiscipline(Discipline power) {
+    	inClanDisciplines.add(power);
         return this;
     }
     
-    public PlayerCharacter withoutInClanDiscipline(Power<?> power) {
-        if (power instanceof Discipline) {
-            inClanDisciplines.remove((Discipline) power);
-        }
-        if (power instanceof Thaumaturgy) {
-            inClanThaumaturgicalPaths.remove((Thaumaturgy) power);
-        }
-        if (power instanceof Necromancy) {
-            inClanNecromanticPaths.remove((Necromancy) power);
-        }
-        return this;
+    public PlayerCharacter withoutInClanDiscipline(Discipline power) {
+    	inClanDisciplines.remove(power);
+    	return this;
     }
     
     public Set<CharacterDiscipline> getDisciplines() {
@@ -541,25 +489,15 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public Set<CharacterThaumaturgy> getThaumaturgicalPaths() {
-        return thaumaturgicalPaths;
+    public Set<CharacterDiscipline> getThaumaturgicalPaths() {
+    	return disciplines.stream().filter((CharacterDiscipline t) -> t.getTrait().getPowerType().equals(PowerType.THAUMATURGY)).collect(Collectors.toSet());
     }
     
-    public PlayerCharacter withThaumaturgicalPath(CharacterThaumaturgy path) {
-        this.withoutThaumaturgicalPath(path).thaumaturgicalPaths.add(path);
-        return this;
-    }
-    
-    public PlayerCharacter withoutThaumaturgicalPath(CharacterThaumaturgy path) {
-    	this.thaumaturgicalPaths.removeIf(path.matches());
-        return this;
-    }
-    
-    public Thaumaturgy getPrimaryThaumaturgicalPath() {
+    public Discipline getPrimaryThaumaturgicalPath() {
         return primaryThaumaturgicalPath;
     }
     
-    public PlayerCharacter setPrimaryThaumaturgicalPath(Thaumaturgy path) {
+    public PlayerCharacter setPrimaryThaumaturgicalPath(Discipline path) {
         this.primaryThaumaturgicalPath = path;
         return this;
     }
@@ -578,25 +516,15 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public Set<CharacterNecromancy> getNecromanticPaths() {
-        return necromanticPaths;
+    public Set<CharacterDiscipline> getNecromanticPaths() {
+        return disciplines.stream().filter((CharacterDiscipline t) -> t.getTrait().getPowerType().equals(PowerType.NECROMANCY)).collect(Collectors.toSet());
     }
     
-    public PlayerCharacter withNecromanticPath(CharacterNecromancy path) {
-        this.withoutNecromanticPath(path).necromanticPaths.add(path);
-        return this;
-    }
-    
-    public PlayerCharacter withoutNecromanticPath(CharacterNecromancy path) {
-    	this.necromanticPaths.removeIf(path.matches());
-        return this;
-    }
-    
-    public Necromancy getPrimaryNecromanticPath() {
+    public Discipline getPrimaryNecromanticPath() {
         return primaryNecromanticPath;
     }
     
-    public PlayerCharacter setPrimaryNecromanticPath(Necromancy path) {
+    public PlayerCharacter setPrimaryNecromanticPath(Discipline path) {
         this.primaryNecromanticPath = path;
         return this;
     }

@@ -1,7 +1,6 @@
 package com.dstevens.characters;
 
 import static com.dstevens.collections.Sets.set;
-
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
@@ -35,12 +34,8 @@ import com.dstevens.characters.traits.powers.disciplines.CharacterDiscipline;
 import com.dstevens.characters.traits.powers.disciplines.Discipline;
 import com.dstevens.characters.traits.powers.disciplines.ElderPower;
 import com.dstevens.characters.traits.powers.disciplines.Technique;
-import com.dstevens.characters.traits.powers.magic.necromancy.CharacterNecromancy;
-import com.dstevens.characters.traits.powers.magic.necromancy.Necromancy;
 import com.dstevens.characters.traits.powers.magic.necromancy.NecromanticRitual;
-import com.dstevens.characters.traits.powers.magic.thaumaturgy.CharacterThaumaturgy;
 import com.dstevens.characters.traits.powers.magic.thaumaturgy.ThaumaturgicalRitual;
-import com.dstevens.characters.traits.powers.magic.thaumaturgy.Thaumaturgy;
 import com.dstevens.characters.traits.skills.CharacterSkill;
 import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.characters.traits.status.CharacterStatus;
@@ -75,7 +70,7 @@ public class AddAndModifyCharacterTest {
         createMaryWollstonecraft();
         PlayerCharacter maryWollstonecraftWhenNewlyCreated = getMaryWollstonecraft();
         assertEquals(maryWollstonecraftWhenNewlyCreated.getClan(), Clan.TOREADOR);
-        assertEquals(maryWollstonecraftWhenNewlyCreated.getBloodline(), Bloodline.TOREADOR);
+        assertEquals(maryWollstonecraftWhenNewlyCreated.getBloodline(), Bloodline.NONE);
 		assertEquals(3, maryWollstonecraftWhenNewlyCreated.getPhysicalAttribute());
 		assertEquals(set(PhysicalAttributeFocus.DEXTERITY), maryWollstonecraftWhenNewlyCreated.getPhysicalAttributeFocuses());
 		assertEquals(5, maryWollstonecraftWhenNewlyCreated.getSocialAttribute());
@@ -114,7 +109,7 @@ public class AddAndModifyCharacterTest {
         
         PlayerCharacter maryWollstonecraftWithExperienceSpentButNotYetApproved = getMaryWollstonecraft();
         assertEquals(maryWollstonecraftWithExperienceSpentButNotYetApproved.getClan(), Clan.TOREADOR);
-        assertEquals(maryWollstonecraftWithExperienceSpentButNotYetApproved.getBloodline(), Bloodline.TOREADOR);
+        assertEquals(maryWollstonecraftWithExperienceSpentButNotYetApproved.getBloodline(), Bloodline.NONE);
 		assertEquals(3, maryWollstonecraftWithExperienceSpentButNotYetApproved.getPhysicalAttribute());
 		assertEquals(set(PhysicalAttributeFocus.DEXTERITY), maryWollstonecraftWithExperienceSpentButNotYetApproved.getPhysicalAttributeFocuses());
 		assertEquals(5, maryWollstonecraftWithExperienceSpentButNotYetApproved.getSocialAttribute());
@@ -154,7 +149,7 @@ public class AddAndModifyCharacterTest {
         PlayerCharacter maryWollstonecraftWithExperienceSpentAndApproved = getMaryWollstonecraft();
         
         assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getClan(), Clan.TOREADOR);
-        assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getBloodline(), Bloodline.TOREADOR);
+        assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getBloodline(), Bloodline.NONE);
 		assertEquals(4, maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttribute());
 		assertEquals(set(PhysicalAttributeFocus.DEXTERITY), maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttributeFocuses());
 		assertEquals(6, maryWollstonecraftWithExperienceSpentAndApproved.getSocialAttribute());
@@ -181,14 +176,12 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(new CharacterDiscipline(Discipline.AUSPEX, 3), 
 				         new CharacterDiscipline(Discipline.CELERITY, 1), 
 				         new CharacterDiscipline(Discipline.PRESENCE, 2),
-				         new CharacterDiscipline(Discipline.ANIMALISM, 1)), 
+				         new CharacterDiscipline(Discipline.ANIMALISM, 1),
+				         new CharacterDiscipline(Discipline.PATH_OF_BLOOD, 2),
+				         new CharacterDiscipline(Discipline.LURE_OF_FLAMES, 1),
+				         new CharacterDiscipline(Discipline.ASH_PATH, 2),
+		                 new CharacterDiscipline(Discipline.BONE_PATH, 1)), 
    		             maryWollstonecraftWithExperienceSpentAndApproved.getDisciplines());
-		assertEquals(set(new CharacterThaumaturgy(Thaumaturgy.PATH_OF_BLOOD, 2),
-				         new CharacterThaumaturgy(Thaumaturgy.LURE_OF_FLAMES, 1)), 
-	                 maryWollstonecraftWithExperienceSpentAndApproved.getThaumaturgicalPaths());
-		assertEquals(set(new CharacterNecromancy(Necromancy.ASH_PATH, 2),
-		                 new CharacterNecromancy(Necromancy.BONE_PATH, 1)), 
-                     maryWollstonecraftWithExperienceSpentAndApproved.getNecromanticPaths());
 		assertEquals(set(ThaumaturgicalRitual.CRAFT_BLOODSTONE, ThaumaturgicalRitual.BURNING_BLADE),
                      maryWollstonecraftWithExperienceSpentAndApproved.getThaumaturgicalRituals());
         assertEquals(set(NecromanticRitual.BLACK_BLOOD, NecromanticRitual.DARK_ASSISTANT), 
@@ -229,7 +222,7 @@ public class AddAndModifyCharacterTest {
         PlayerCharacter character = characterRepository.ensureExists("Mary Wollstonecraft", Setting.CAMARILLA);
         PlayerCharacter saved = characterRepository.update(character.
         		                             withClan(Clan.TOREADOR).
-                                             withBloodline(Bloodline.TOREADOR).
+                                             withBloodline(Bloodline.NONE).
                                              withInClanDiscipline(Discipline.PRESENCE).
                                              withInClanDiscipline(Discipline.CELERITY).
                                              withInClanDiscipline(Discipline.AUSPEX).
@@ -279,12 +272,12 @@ public class AddAndModifyCharacterTest {
 		                        request(experienceChart.power(Discipline.AUSPEX, 2)).
 		                        request(experienceChart.power(Discipline.AUSPEX, 3)).
 		                        request(experienceChart.power(Discipline.ANIMALISM, 1)).
-		                        request(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD, 1)).
-		                        request(experienceChart.power(Thaumaturgy.PATH_OF_BLOOD, 2)).
-		                        request(experienceChart.power(Thaumaturgy.LURE_OF_FLAMES, 1)).
-		                        request(experienceChart.power(Necromancy.ASH_PATH, 1)).
-		                        request(experienceChart.power(Necromancy.ASH_PATH, 2)).
-		                        request(experienceChart.power(Necromancy.BONE_PATH, 1)).
+		                        request(experienceChart.power(Discipline.PATH_OF_BLOOD, 1)).
+		                        request(experienceChart.power(Discipline.PATH_OF_BLOOD, 2)).
+		                        request(experienceChart.power(Discipline.LURE_OF_FLAMES, 1)).
+		                        request(experienceChart.power(Discipline.ASH_PATH, 1)).
+		                        request(experienceChart.power(Discipline.ASH_PATH, 2)).
+		                        request(experienceChart.power(Discipline.BONE_PATH, 1)).
 		                        request(experienceChart.ritual(ThaumaturgicalRitual.CRAFT_BLOODSTONE)).
 		                        request(experienceChart.ritual(ThaumaturgicalRitual.BURNING_BLADE)).
 		                        request(experienceChart.ritual(NecromanticRitual.BLACK_BLOOD)).
@@ -293,8 +286,8 @@ public class AddAndModifyCharacterTest {
 		                        request(experienceChart.technique(Technique.CONTROL_THE_SAVAGE_BEAST)).
 		                        request(experienceChart.elderPower(ElderPower.CLAIRVOYANCE)).
 		                        request(experienceChart.elderPower(ElderPower.ACID_BLOOD)).
-		                        request(experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", traitFactory.inClanPower(Thaumaturgy.PATH_OF_CORRUPTION))).
-		                        request(experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", traitFactory.inClanPower(Necromancy.ASH_PATH))).
+		                        request(experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", traitFactory.inClanPower(Discipline.PATH_OF_CORRUPTION))).
+		                        request(experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", traitFactory.inClanPower(Discipline.ASH_PATH))).
 		                        request(experienceChart.merit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", traitFactory.inClanPower(Discipline.DOMINATE))).
 		                        request(traitFactory.status(Status.AWESOME, "So very awesome")));
     }
