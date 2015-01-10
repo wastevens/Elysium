@@ -70,7 +70,7 @@ public class AddAndModifyCharacterTest {
         createMaryWollstonecraft();
         PlayerCharacter maryWollstonecraftWhenNewlyCreated = getMaryWollstonecraft();
         assertEquals(maryWollstonecraftWhenNewlyCreated.getClan(), Clan.TOREADOR);
-        assertEquals(maryWollstonecraftWhenNewlyCreated.getBloodline(), Bloodline.NONE);
+        assertEquals(maryWollstonecraftWhenNewlyCreated.getBloodline(), Bloodline.TOREADOR);
 		assertEquals(3, maryWollstonecraftWhenNewlyCreated.getPhysicalAttribute());
 		assertEquals(set(PhysicalAttributeFocus.DEXTERITY), maryWollstonecraftWhenNewlyCreated.getPhysicalAttributeFocuses());
 		assertEquals(5, maryWollstonecraftWhenNewlyCreated.getSocialAttribute());
@@ -109,7 +109,7 @@ public class AddAndModifyCharacterTest {
         
         PlayerCharacter maryWollstonecraftWithExperienceSpentButNotYetApproved = getMaryWollstonecraft();
         assertEquals(maryWollstonecraftWithExperienceSpentButNotYetApproved.getClan(), Clan.TOREADOR);
-        assertEquals(maryWollstonecraftWithExperienceSpentButNotYetApproved.getBloodline(), Bloodline.NONE);
+        assertEquals(maryWollstonecraftWithExperienceSpentButNotYetApproved.getBloodline(), Bloodline.TOREADOR);
 		assertEquals(3, maryWollstonecraftWithExperienceSpentButNotYetApproved.getPhysicalAttribute());
 		assertEquals(set(PhysicalAttributeFocus.DEXTERITY), maryWollstonecraftWithExperienceSpentButNotYetApproved.getPhysicalAttributeFocuses());
 		assertEquals(5, maryWollstonecraftWithExperienceSpentButNotYetApproved.getSocialAttribute());
@@ -149,7 +149,7 @@ public class AddAndModifyCharacterTest {
         PlayerCharacter maryWollstonecraftWithExperienceSpentAndApproved = getMaryWollstonecraft();
         
         assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getClan(), Clan.TOREADOR);
-        assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getBloodline(), Bloodline.NONE);
+        assertEquals(maryWollstonecraftWithExperienceSpentAndApproved.getBloodline(), Bloodline.TOREADOR);
 		assertEquals(4, maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttribute());
 		assertEquals(set(PhysicalAttributeFocus.DEXTERITY), maryWollstonecraftWithExperienceSpentAndApproved.getPhysicalAttributeFocuses());
 		assertEquals(6, maryWollstonecraftWithExperienceSpentAndApproved.getSocialAttribute());
@@ -222,7 +222,7 @@ public class AddAndModifyCharacterTest {
         PlayerCharacter character = characterRepository.ensureExists("Mary Wollstonecraft", Setting.CAMARILLA);
         PlayerCharacter saved = characterRepository.update(character.
         		                             withClan(Clan.TOREADOR).
-                                             withBloodline(Bloodline.NONE).
+                                             withBloodline(Bloodline.TOREADOR).
                                              withInClanDiscipline(Discipline.PRESENCE).
                                              withInClanDiscipline(Discipline.CELERITY).
                                              withInClanDiscipline(Discipline.AUSPEX).
