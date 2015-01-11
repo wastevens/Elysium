@@ -7,13 +7,6 @@ import java.util.Set;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
-import org.hibernate.annotations.ForeignKey;
-
-import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.suppliers.IdSupplier;
-import com.dstevens.utilities.ObjectExtensions;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -23,6 +16,13 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
+
+import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.suppliers.IdSupplier;
+import com.dstevens.utilities.ObjectExtensions;
 
 @SuppressWarnings("deprecation")
 @Entity
@@ -49,6 +49,9 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     
     @Column(name="cost")
     protected Integer cost;
+    
+    @Column(name="remove")
+    protected boolean remove;
     
     @OneToOne(cascade={CascadeType.ALL})
     @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
@@ -79,6 +82,7 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     	this.specialization = specialization;
     	this.focuses = focuses;
     	this.cost = null;
+    	this.remove = false;
     }
     
     public final TraitChange<?> and(TraitChange<?> andTrait) {
@@ -101,11 +105,27 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     }
     
 	public final PlayerCharacter apply(final PlayerCharacter character) {
+		if(!remove) {
+			return applyTraitsTo(character);
+		} else {
+			return removeTraitsFrom(character);
+		}
+	}
+	
+	public final PlayerCharacter remove(PlayerCharacter character) {
+		if(!remove) {
+			return removeTraitsFrom(character);
+		} else {
+			return applyTraitsTo(character);
+		}
+	}
+
+	private PlayerCharacter applyTraitsTo(final PlayerCharacter character) {
 		stream().forEach((TraitChange<?> t) -> t.trait().applyTo(character));
 		return character;
 	}
 
-	public final PlayerCharacter remove(PlayerCharacter character) {
+	private PlayerCharacter removeTraitsFrom(PlayerCharacter character) {
 		stream().forEach((TraitChange<?> t) -> t.trait().removeFrom(character));
 		return character;
 	}
@@ -118,6 +138,16 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     
     public TraitChange<T> costing(int xp) {
     	this.cost = xp;
+    	return this;
+    }
+    
+    public TraitChange<T> remove() {
+    	this.remove = true;
+    	return this;
+    }
+    
+    public TraitChange<T> restore() {
+    	this.remove = false;
     	return this;
     }
     

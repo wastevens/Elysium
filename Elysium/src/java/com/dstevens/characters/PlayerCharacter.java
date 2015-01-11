@@ -439,17 +439,17 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter withInClanDiscipline(Discipline power) {
-    	inClanDisciplines.add(power);
+    	this.inClanDisciplines.add(power);
         return this;
     }
     
     public PlayerCharacter withoutInClanDiscipline(Discipline power) {
-    	inClanDisciplines.remove(power);
+    	this.inClanDisciplines.remove(power);
     	return this;
     }
     
     public Set<CharacterDiscipline> getDisciplines() {
-        return disciplines;
+        return this.disciplines;
     }
     
     public PlayerCharacter withDiscipline(CharacterDiscipline power) {
