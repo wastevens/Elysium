@@ -115,8 +115,9 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     private final Set<CharacterDiscipline> disciplines;
     
     @ElementCollection
+    @OrderColumn(name="order_by")
     @ForeignKey(name="PlayerCharacter_InClanDisciplines_FK")
-    private final Set<Discipline> inClanDisciplines;
+    private final List<Discipline> inClanDisciplines;
 
     @ElementCollection
     @ForeignKey(name="PlayerCharacter_ElderPowers_FK")
@@ -197,7 +198,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this(id, name, list(), null, setting, null, null, 0, 0, 0,
              set(), set(), set(),
              set(), set(),
-             set(), set(), 
+             list(), set(), 
              set(), set(), null,
              set(), null, set(),
              set(), set(), set(),
@@ -209,7 +210,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                             int physicalAttribute, int mentalAttribute, int socialAttribute, 
                             Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
                             Set<CharacterSkill> skills, Set<CharacterBackground> backgrounds, 
-                            Set<Discipline> inClanDisciplines, Set<CharacterDiscipline> disciplines, 
+                            List<Discipline> inClanDisciplines, Set<CharacterDiscipline> disciplines, 
                             Set<ElderPower> elderPowers, Set<Technique> techniques, Discipline primaryThaumaturgicalPath,
                             Set<ThaumaturgicalRitual> thaumaturgicalRituals, Discipline primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals, 
                             Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
@@ -433,7 +434,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public Set<Discipline> getInClanDisciplines() {
+    public List<Discipline> getInClanDisciplines() {
         return inClanDisciplines;
     }
     
