@@ -17,7 +17,8 @@ public enum Background {
     ELITE_INFLUENCE(DetailLevel.REQUIRES_FOCUS),
     UNDERWORLD_INFLUENCE(DetailLevel.REQUIRES_FOCUS),
     RESOURCES,
-    RETAINER(DetailLevel.REQUIRES_SPECIALIZATION_AND_FOCUS);
+    RETAINER(DetailLevel.REQUIRES_SPECIALIZATION_AND_FOCUS),
+    RITUALS(DetailLevel.REQUIRES_FOCUS);
     
     private final DetailLevel detailLevel;
 
