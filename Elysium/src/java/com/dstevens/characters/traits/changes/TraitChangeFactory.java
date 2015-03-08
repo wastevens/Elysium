@@ -25,6 +25,8 @@ public interface TraitChangeFactory {
 	
 	TraitChange<?> focus(AttributeFocus focus);
 
+//	TraitChange<?> trait(Enum<?> trait, int rating, String specialization, Set<String> focuses);
+	
 	TraitChange<?> skill(Skill skill, int rating, String specialization, Set<String> focuses);
 
 	TraitChange<?> background(Background background, int rating, String specialization, Set<String> focuses);

@@ -4,8 +4,9 @@ import java.util.Set;
 
 import com.dstevens.characters.traits.DetailLevel;
 import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.changes.TraitChangeSource;
 
-public enum Skill {
+public enum Skill implements TraitChangeSource<CharacterSkill> {
     
     ACADEMICS(DetailLevel.REQUIRES_FOCUS),
     ANIMAL_KEN,

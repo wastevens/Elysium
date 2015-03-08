@@ -49,9 +49,13 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 		return focus.set();
 	}
 	
+	private <E extends ApplicableTrait> TraitChange<E> trait(TraitChangeSource<E> trait, int rating, String specialization, Set<String> focuses) {
+		return trait.set(rating, specialization, focuses);
+	}
+	
 	@Override
 	public TraitChange<CharacterSkill> skill(Skill skill, int rating, String specialization, Set<String> focuses) {
-		return skill.set(rating, specialization, focuses);
+		return trait(skill, rating, specialization, focuses);
 	}
 
 	@Override
