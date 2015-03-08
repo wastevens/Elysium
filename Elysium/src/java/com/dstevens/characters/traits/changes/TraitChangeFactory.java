@@ -2,10 +2,10 @@ package com.dstevens.characters.traits.changes;
 
 import com.dstevens.characters.traits.Trait;
 import com.dstevens.characters.traits.TraitQualities;
-import com.dstevens.characters.traits.Traits;
+import com.dstevens.characters.traits.TraitType;
 
 public interface TraitChangeFactory {
 	
-	TraitChange traitChange(Traits traitType, Enum<? extends Trait> trait, TraitQualities qualities);
+	TraitChange traitChange(TraitType traitType, Enum<? extends Trait> trait, TraitQualities qualities);
 
 }

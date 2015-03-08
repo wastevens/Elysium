@@ -17,15 +17,15 @@ import com.dstevens.characters.traits.powers.magic.thaumaturgy.ThaumaturgicalRit
 import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.characters.traits.status.Status;
 
-public enum Traits {
+public enum TraitType {
 
-	CLANS(Clan.values()),
-	BLOODLINES(Bloodline.values()),
+	CLAN(Clan.values()),
+	BLOODLINE(Bloodline.values()),
 	ATTRIBUTE(Attribute.values()),
 	MENTAL_FOCUS(MentalAttributeFocus.values()),
 	PHYSICAL_FOCUS(PhysicalAttributeFocus.values()),
 	SOCIAL_FOCUS(SocialAttributeFocus.values()),
-	BACKGROUNDS(Background.values()),
+	BACKGROUND(Background.values()),
 	FLAW(Flaw.values()),
 	MERIT(Merit.values()),
 	DISCIPLINE(Discipline.values()),
@@ -33,13 +33,13 @@ public enum Traits {
 	TECHNIQUE(Technique.values()),
 	NECROMANTIC_RITUAL(NecromanticRitual.values()),
 	THAUMATURGICAL_RITUAL(ThaumaturgicalRitual.values()),
-	SKILLS(Skill.values()),
+	SKILL(Skill.values()),
 	STATUS(Status.values()),
 	;
 	
 	public final Trait[] traits;
 
-	private Traits(Trait[] traits) {
+	private TraitType(Trait[] traits) {
 		this.traits = traits;
 	}
 }

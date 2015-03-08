@@ -18,7 +18,7 @@ import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.Trait;
 import com.dstevens.characters.traits.TraitQualities;
-import com.dstevens.characters.traits.Traits;
+import com.dstevens.characters.traits.TraitType;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
@@ -31,7 +31,7 @@ public class TraitChange {
     private final String id;
     
     @Column(name="traitTypeOrdinal")
-    protected final Traits traitType;
+    protected final TraitType traitType;
     
     @Column(name="traitOrdinal")
     protected final int trait;
@@ -55,7 +55,7 @@ public class TraitChange {
     	this(null, -1, null);
     }
     
-    protected TraitChange(Traits traitType, int trait, TraitQualities qualities) {
+    protected TraitChange(TraitType traitType, int trait, TraitQualities qualities) {
 		this.id = new IdSupplier().get();
     	this.traitType = traitType;
 		this.trait = trait;

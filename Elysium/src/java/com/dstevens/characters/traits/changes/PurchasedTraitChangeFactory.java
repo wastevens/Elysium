@@ -3,7 +3,7 @@ package com.dstevens.characters.traits.changes;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.Trait;
 import com.dstevens.characters.traits.TraitQualities;
-import com.dstevens.characters.traits.Traits;
+import com.dstevens.characters.traits.TraitType;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.Merit;
 import com.dstevens.characters.traits.powers.disciplines.Discipline;
@@ -23,17 +23,17 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
 
 	@Override
-	public TraitChange traitChange(Traits traitType, Enum<? extends Trait> trait, TraitQualities qualities) {
+	public TraitChange traitChange(TraitType traitType, Enum<? extends Trait> trait, TraitQualities qualities) {
 		return traitChangeFactory.traitChange(traitType, trait, qualities).costing(costFor(traitType, trait, qualities));
 	}
     
-	private int costFor(Traits traitType, Enum<? extends Trait> trait, TraitQualities qualities) {
+	private int costFor(TraitType traitType, Enum<? extends Trait> trait, TraitQualities qualities) {
 		switch (traitType) {
 		case ATTRIBUTE:             return 3;
 		case PHYSICAL_FOCUS:        throw new IllegalStateException("Cannot purchase attribute focuses");
 		case SOCIAL_FOCUS:          throw new IllegalStateException("Cannot purchase attribute focuses");
-		case SKILLS:                return costForSkill(qualities.rating);
-		case BACKGROUNDS:           return costForBackground(qualities.rating);
+		case SKILL:                return costForSkill(qualities.rating);
+		case BACKGROUND:           return costForBackground(qualities.rating);
 		case DISCIPLINE:            return costForPower((Discipline)trait, qualities.rating);
 		case NECROMANTIC_RITUAL:    return ((NecromanticRitual)trait).rating() * 2;
 		case THAUMATURGICAL_RITUAL: return ((ThaumaturgicalRitual)trait).rating() * 2;
