@@ -1,12 +1,11 @@
 package com.dstevens.characters.traits.skills;
 
-import java.util.Set;
-
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.DetailLevel;
-import com.dstevens.characters.traits.changes.TraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeSource;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 
-public enum Skill implements TraitChangeSource<CharacterSkill> {
+public enum Skill implements Trait {
     
     ACADEMICS(DetailLevel.REQUIRES_FOCUS),
     ANIMAL_KEN,
@@ -49,7 +48,7 @@ public enum Skill implements TraitChangeSource<CharacterSkill> {
     	return detailLevel;
     }
     
-    public TraitChange<CharacterSkill> set(int rating, String specialization, Set<String> focuses) {
-    	return new SetSkill(this.ordinal(), rating, specialization, focuses);
+    public ApplicableTrait applyWith(TraitQualities qualities) {
+    	return new CharacterSkill(this, qualities.rating, qualities.specialization, qualities.focuses);
     }
 }

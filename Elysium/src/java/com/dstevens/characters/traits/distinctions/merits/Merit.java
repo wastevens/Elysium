@@ -7,11 +7,13 @@ import java.util.stream.Stream;
 
 import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
-import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 import com.dstevens.characters.traits.distinctions.DistinctionType;
 import com.dstevens.players.Setting;
 
-public enum Merit {
+public enum Merit implements Trait {
 	//General merits
 	ACUTE_SENSE(DistinctionType.GENERAL, 1),
     ADDITIONAL_COMMON_DISCIPLINE(DistinctionType.GENERAL, 4),
@@ -294,7 +296,8 @@ public enum Merit {
     			             collect(Collectors.toList());
     }
     
-    public TraitChange<CharacterMerit> set(String specialization) {
-    	return new SetMerit(this.ordinal(), specialization);
-    }
+	@Override
+	public ApplicableTrait applyWith(TraitQualities qualities) {
+		return new CharacterMerit(this, qualities.specialization);
+	}
 }

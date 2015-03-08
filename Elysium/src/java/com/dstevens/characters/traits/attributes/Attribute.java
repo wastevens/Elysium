@@ -1,32 +1,35 @@
 package com.dstevens.characters.traits.attributes;
 
-import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 
-public enum Attribute {
+public enum Attribute implements Trait {
 
 	PHYSICAL {
 		@Override
-		public AttributeValue setAttributeTo(int value) {
+		public ApplicableTrait setAttributeTo(int value) {
 			return new PhysicalAttributeValue(value);
 		}
 	},
 	SOCIAL {
 		@Override
-		public AttributeValue setAttributeTo(int value) {
+		public ApplicableTrait setAttributeTo(int value) {
 			return new SocialAttributeValue(value);
 		}
 	},
 	MENTAL {
 		@Override
-		public AttributeValue setAttributeTo(int value) {
+		public ApplicableTrait setAttributeTo(int value) {
 			return new MentalAttributeValue(value);
 		}
 	};
 
-	public TraitChange<AttributeValue> set(int rating) {
-		return new SetAttributeValue(this.ordinal(), rating);
+	@Override
+	public ApplicableTrait applyWith(TraitQualities qualities) {
+		return this.setAttributeTo(qualities.rating);
 	}
 	
-	public abstract AttributeValue setAttributeTo(int value);
+	public abstract ApplicableTrait setAttributeTo(int value);
 	
 }

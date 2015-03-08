@@ -1,15 +1,16 @@
 package com.dstevens.characters.traits.powers.disciplines;
 
-import static com.dstevens.characters.traits.powers.disciplines.TechniqueRequirement.required;
-
 import java.util.Set;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 import com.dstevens.collections.Sets;
 
-public enum Technique implements ApplicableTrait {
+import static com.dstevens.characters.traits.powers.disciplines.TechniqueRequirement.required;
+
+public enum Technique implements Trait, ApplicableTrait {
 
     AN_DA_SHEALLADH(required(Discipline.DEMENTATION, 3), required(Discipline.AUSPEX, 2)),
     ANIMAL_SUCCULENCE(required(Discipline.ANIMALISM, 2), required(Discipline.FORTITUDE, 1)),
@@ -69,8 +70,9 @@ public enum Technique implements ApplicableTrait {
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutTechnique(this);
 	}
-	
-	public TraitChange<Technique> set() {
-		return new SetTechnique(this.ordinal());
+
+	@Override
+	public ApplicableTrait applyWith(TraitQualities qualities) {
+		return this;
 	}
 }

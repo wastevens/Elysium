@@ -60,7 +60,7 @@ create table PlayerCharacter_AppliedTraitChanges (PlayerCharacter_id varchar(255
 create table PlayerCharacter_ExperienceAward (PlayerCharacter_id varchar(255) not null, experienceAwards_id varchar(255) not null);
 create table PlayerCharacter_RequestedTraitChanges (PlayerCharacter_id varchar(255) not null, requesedTraitChanges_id varchar(255) not null, order_by integer not null, primary key (PlayerCharacter_id, order_by));
 create table PlayerCharacter_elderPowers (PlayerCharacter_id varchar(255) not null, elderPowers integer);
-create table PlayerCharacter_inClanDisciplines (PlayerCharacter_id varchar(255) not null, inClanDisciplines integer);
+create table PlayerCharacter_inClanDisciplines (PlayerCharacter_id varchar(255) not null, inClanDisciplines integer, order_by integer not null, primary key (PlayerCharacter_id, order_by));
 create table PlayerCharacter_mentalAttrbuteFocuses (PlayerCharacter_id varchar(255) not null, mentalAttrbuteFocuses integer);
 create table PlayerCharacter_necromanticRituals (PlayerCharacter_id varchar(255) not null, necromanticRituals integer);
 create table PlayerCharacter_physicalAttributeFocuses (PlayerCharacter_id varchar(255) not null, physicalAttributeFocuses integer);
@@ -72,7 +72,7 @@ create table Skills (id varchar(255) not null, rating integer, specialization va
 create table Skills_Focuses (CharacterSkill_id varchar(255) not null, focuses varchar(255));
 create table Status (id varchar(255) not null, specialization varchar(255), trait integer not null, character_id varchar(255), primary key (id));
 create table TraitChange_focuses (TraitChange_id varchar(255) not null, focuses varchar(255));
-create table TraitChanges (trait_change_type varchar(31) not null, id varchar(255) not null, cost integer, ordinal integer, rating integer, specialization varchar(255), child_id varchar(255), primary key (id));
+create table TraitChanges (id varchar(255) not null, cost integer, rating integer, specialization varchar(255), remove bit, traitOrdinal integer, traitTypeOrdinal integer, child_id varchar(255), primary key (id));
 alter table PlayerCharacter_AppliedTraitChanges add constraint PlayerCharacter_AppliedTraitChanges_UC  unique (appliedTraitChanges_id);
 alter table PlayerCharacter_ExperienceAward add constraint PlayerCharacter_ExperienceAwards_UC  unique (experienceAwards_id);
 alter table PlayerCharacter_RequestedTraitChanges add constraint PlayerCharacter_RequestedTraitChanges_UC  unique (requesedTraitChanges_id);

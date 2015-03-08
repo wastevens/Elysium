@@ -1,9 +1,5 @@
 package com.dstevens.characters;
 
-import static com.dstevens.collections.Lists.list;
-import static com.dstevens.collections.Lists.listFrom;
-import static com.dstevens.collections.Sets.set;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +45,11 @@ import com.dstevens.characters.traits.skills.CharacterSkill;
 import com.dstevens.characters.traits.status.CharacterStatus;
 import com.dstevens.players.Setting;
 import com.dstevens.utilities.ObjectExtensions;
+
+import static com.dstevens.collections.Lists.list;
+import static com.dstevens.collections.Lists.listFrom;
+
+import static com.dstevens.collections.Sets.set;
 
 @SuppressWarnings("deprecation")
 @Entity
@@ -160,13 +161,13 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     @OrderColumn(name="order_by")
     @JoinTable(name="PlayerCharacter_RequestedTraitChanges", uniqueConstraints={@UniqueConstraint(columnNames={"requesedTraitChanges_id"}, name="PlayerCharacter_RequestedTraitChanges_UC")})
     @ForeignKey(name="PlayerCharacter_RequestedTraitChanges_FK", inverseName="RequestedTraitChanges_PlayerCharacter_FK")
-    private final List<TraitChange<?>> requesedTraitChanges;
+    private final List<TraitChange> requesedTraitChanges;
     
     @OneToMany(cascade={CascadeType.ALL})
     @OrderColumn(name="order_by")
     @JoinTable(name="PlayerCharacter_AppliedTraitChanges", uniqueConstraints={@UniqueConstraint(columnNames={"appliedTraitChanges_id"}, name="PlayerCharacter_AppliedTraitChanges_UC")})
     @ForeignKey(name="PlayerCharacter_AppliedTraitChanges_FK", inverseName="AppliedTraitChanges_PlayerCharacter_FK")
-    private final List<TraitChange<?>> appliedTraitChanges;
+    private final List<TraitChange> appliedTraitChanges;
     
     @OneToMany(cascade={CascadeType.ALL})
     @JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"experienceAwards_id"}, name="PlayerCharacter_ExperienceAwards_UC")})
@@ -214,7 +215,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                             Set<ElderPower> elderPowers, Set<Technique> techniques, Discipline primaryThaumaturgicalPath,
                             Set<ThaumaturgicalRitual> thaumaturgicalRituals, Discipline primaryNecromanticPath, Set<NecromanticRitual> necromanticRituals, 
                             Set<CharacterMerit> merits, Set<CharacterFlaw> flaws, Set<CharacterStatus> status,
-                            List<TraitChange<?>> traitChanges, List<TraitChange<?>> appliedTraitChanges, List<ExperienceAward> experienceAwards) {
+                            List<TraitChange> traitChanges, List<TraitChange> appliedTraitChanges, List<ExperienceAward> experienceAwards) {
         this.id = id;
         this.name = name;
         this.playerStatusChanges = activityStatusChanges;
@@ -491,7 +492,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public Set<CharacterDiscipline> getThaumaturgicalPaths() {
-    	return disciplines.stream().filter((CharacterDiscipline t) -> t.getTrait().getPowerType().equals(PowerType.THAUMATURGY)).collect(Collectors.toSet());
+    	return disciplines.stream().filter((CharacterDiscipline t) -> t.getTrait().powerType.equals(PowerType.THAUMATURGY)).collect(Collectors.toSet());
     }
     
     public Discipline getPrimaryThaumaturgicalPath() {
@@ -518,7 +519,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public Set<CharacterDiscipline> getNecromanticPaths() {
-        return disciplines.stream().filter((CharacterDiscipline t) -> t.getTrait().getPowerType().equals(PowerType.NECROMANCY)).collect(Collectors.toSet());
+        return disciplines.stream().filter((CharacterDiscipline t) -> t.getTrait().powerType.equals(PowerType.NECROMANCY)).collect(Collectors.toSet());
     }
     
     public Discipline getPrimaryNecromanticPath() {
@@ -635,21 +636,21 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         return this;
     }
     
-    public List<TraitChange<?>> getRequestedTraitChanges() {
+    public List<TraitChange> getRequestedTraitChanges() {
         return listFrom(requesedTraitChanges);
     }
     
-    public List<TraitChange<?>> getAppliedTraitChanges() {
+    public List<TraitChange> getAppliedTraitChanges() {
     	return listFrom(appliedTraitChanges);
     }
     
-    public PlayerCharacter request(TraitChange<?> traitChange) {
+    public PlayerCharacter request(TraitChange traitChange) {
         this.requesedTraitChanges.add(traitChange);
         traitChange.cost().ifPresent((Integer xp) -> this.xpRequestedSpent += xp);
         return this;
     }
     
-    public PlayerCharacter apply(TraitChange<?> traitChange) {
+    public PlayerCharacter apply(TraitChange traitChange) {
     	this.requesedTraitChanges.remove(traitChange);
     	this.appliedTraitChanges.add(traitChange);
     	

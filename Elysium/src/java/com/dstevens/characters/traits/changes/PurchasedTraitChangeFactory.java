@@ -1,21 +1,15 @@
 package com.dstevens.characters.traits.changes;
 
-import java.util.Set;
-
 import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.clans.Bloodline;
-import com.dstevens.characters.clans.Clan;
-import com.dstevens.characters.traits.attributes.Attribute;
-import com.dstevens.characters.traits.attributes.focuses.AttributeFocus;
-import com.dstevens.characters.traits.backgrounds.Background;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
+import com.dstevens.characters.traits.Traits;
 import com.dstevens.characters.traits.distinctions.flaws.Flaw;
 import com.dstevens.characters.traits.distinctions.merits.Merit;
 import com.dstevens.characters.traits.powers.disciplines.Discipline;
 import com.dstevens.characters.traits.powers.disciplines.ElderPower;
-import com.dstevens.characters.traits.powers.disciplines.Technique;
-import com.dstevens.characters.traits.powers.magic.Ritual;
-import com.dstevens.characters.traits.skills.Skill;
-import com.dstevens.characters.traits.status.Status;
+import com.dstevens.characters.traits.powers.magic.necromancy.NecromanticRitual;
+import com.dstevens.characters.traits.powers.magic.thaumaturgy.ThaumaturgicalRitual;
 
 class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
@@ -27,21 +21,31 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 		this.traitChangeFactory = traitChangeFactory;
     }
 
+
 	@Override
-	public TraitChange<?> attribute(Attribute attribute, int rating) {
-		return traitChangeFactory.attribute(attribute, rating).costing(3);
+	public TraitChange traitChange(Traits traitType, Enum<? extends Trait> trait, TraitQualities qualities) {
+		return traitChangeFactory.traitChange(traitType, trait, qualities).costing(costFor(traitType, trait, qualities));
 	}
     
-    @Override
-	public TraitChange<?> focus(AttributeFocus focus) {
-    	throw new IllegalStateException("Cannot purchase attribute focuses");
-    }
-    
-    @Override
-	public TraitChange<?> skill(Skill skill, int rating, String specialization, Set<String> focuses) {
-    	return traitChangeFactory.skill(skill, rating, specialization, focuses).costing(costForSkill(rating));
-    }
-	
+	private int costFor(Traits traitType, Enum<? extends Trait> trait, TraitQualities qualities) {
+		switch (traitType) {
+		case ATTRIBUTE:             return 3;
+		case PHYSICAL_FOCUS:        throw new IllegalStateException("Cannot purchase attribute focuses");
+		case SOCIAL_FOCUS:          throw new IllegalStateException("Cannot purchase attribute focuses");
+		case SKILLS:                return costForSkill(qualities.rating);
+		case BACKGROUNDS:           return costForBackground(qualities.rating);
+		case DISCIPLINE:            return costForPower((Discipline)trait, qualities.rating);
+		case NECROMANTIC_RITUAL:    return ((NecromanticRitual)trait).rating() * 2;
+		case THAUMATURGICAL_RITUAL: return ((ThaumaturgicalRitual)trait).rating() * 2;
+		case MERIT:                 return costForMerit((Merit)trait);
+		case FLAW:                  return costForFlaw((Flaw)trait);
+		case TECHNIQUE:             return costForTechnique();
+		case ELDER_POWER:           return costForElderPower((ElderPower)trait);
+		default:
+			throw new IllegalStateException("Cannot purchase " + traitType.name());
+		}
+	}
+
 	private int costForSkill(int rating) {
 		if(character.getGeneration().orElse(1) == 1) {
 			return rating;
@@ -50,11 +54,6 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 		}
 	}
     
-	@Override
-	public TraitChange<?> background(Background background, int rating, String specialization, Set<String> focuses) {
-		return traitChangeFactory.background(background, rating, specialization, focuses).costing(costForBackground(rating));
-	}
-	
 	private int costForBackground(int rating) {
 		if(character.getGeneration().orElse(1) == 1) {
 			return rating;
@@ -63,11 +62,6 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 		}
 	}
     
-	@Override
-	public TraitChange<?> power(Discipline power, int rating) {
-		return traitChangeFactory.power(power, rating).costing(costForPower(power, rating));
-	}
-	
     private int costForPower(Discipline power, int rating) {
     	boolean inClan = character.getInClanDisciplines().contains(power);
     	if(inClan) {
@@ -80,27 +74,15 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
         	}	
     	}
     }
-
-	@Override
-	public TraitChange<?> ritual(Ritual<?> ritual) {
-		return traitChangeFactory.ritual(ritual).costing(ritual.rating() * 2);
-	}
     
-    @Override
-	public TraitChange<?> merit(Merit merit, String specialization, TraitChange<?> associatedTrait) {
-    	return traitChangeFactory.merit(merit, specialization, associatedTrait).costing(merit.getPoints());
-    }
-    
-    @Override
-	public TraitChange<?> flaw(Flaw flaw, String specialization, TraitChange<?> associatedTrait) {
-    	return traitChangeFactory.flaw(flaw, specialization, associatedTrait).costing(-1 * flaw.getPoints());
-    }
-
-	@Override
-	public TraitChange<?> technique(Technique technique) {
-		return traitChangeFactory.technique(technique).costing(costForTechnique());
+	private int costForMerit(Merit merit) {
+		return merit.getPoints();
 	}
 	
+	private int costForFlaw(Flaw flaw) {
+		return -1 * flaw.getPoints();
+	}
+
     private int costForTechnique() {
     	if(character.getGeneration().orElse(1) >= 3) {
     		return 20;
@@ -108,11 +90,6 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     		return 12;
     	}
     }
-
-	@Override
-	public TraitChange<?> elderPower(ElderPower power) {
-		return traitChangeFactory.elderPower(power).costing(costForElderPower(power));
-	}
 
     private int costForElderPower(ElderPower power) {
     	if(character.getInClanDisciplines().contains(power.getPower())) {
@@ -125,24 +102,4 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
     		}
     	}
     }
-	
-	@Override
-	public TraitChange<?> inClanPower(Discipline power) {
-		throw new IllegalStateException("Cannot buy additional in clan powers");
-	}
-
-	@Override
-	public TraitChange<?> status(Status awesome, String string) {
-		throw new IllegalStateException("Cannot buy status");
-	}
-
-	@Override
-	public TraitChange<?> clan(Clan clan) {
-		throw new IllegalStateException("Cannot purchase new clan");
-	}
-
-	@Override
-	public TraitChange<?> bloodline(Bloodline bloodline) {
-		throw new IllegalStateException("Cannot purchase new bloodline");
-	}
 }

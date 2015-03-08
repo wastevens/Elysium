@@ -1,19 +1,14 @@
 package com.dstevens.characters.traits.changes;
 
-import static com.dstevens.collections.Sets.set;
-
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,71 +16,55 @@ import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
+import com.dstevens.characters.traits.Traits;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 @SuppressWarnings("deprecation")
 @Entity
-@Inheritance
-@DiscriminatorColumn(name="trait_change_type")
 @Table(name="TraitChanges")
-public abstract class TraitChange<T extends ApplicableTrait> {
+public class TraitChange {
 
     @Id
     private final String id;
     
-    @Column(name="ordinal")
-    protected final int ordinal;
+    @Column(name="traitTypeOrdinal")
+    protected final Traits traitType;
     
-    @Column(name="rating")
-    protected final int rating;
-    
-    @Column(name="specialization")
-    protected final String specialization;
-    
-    @ElementCollection
-    @ForeignKey(name= "TraitChanges_focuses_FK")
-    protected Set<String> focuses;
-    
-    @Column(name="cost")
-    protected Integer cost;
+    @Column(name="traitOrdinal")
+    protected final int trait;
+
+    @Embedded
+    private TraitQualities qualities;
     
     @Column(name="remove")
     protected boolean remove;
     
     @OneToOne(cascade={CascadeType.ALL})
     @ForeignKey(name="TraitChange_ChildTraitChange_FK", inverseName="ChildTraitChange_TraitChange_FK")
-    private TraitChange<?> child;
+    private TraitChange child;
+    
+    @Column(name="cost")
+    public Integer cost;
     
     //Hibernate only
     @Deprecated
     protected TraitChange() {
-    	this(-1, -1, null, set());
+    	this(null, -1, null);
     }
     
-    protected TraitChange(int ordinal) {
-    	this(ordinal, -1, null, set());
-    }
-    
-    protected TraitChange(int ordinal, int rating) {
-    	this(ordinal, rating, null, set());
-    }
-    
-    protected TraitChange(int ordinal, String specialization) {
-    	this(ordinal, -1, specialization, set());
-    }
-    
-    protected TraitChange(int ordinal, int rating, String specialization, Set<String> focuses) {
-    	this.id = new IdSupplier().get();
-    	this.ordinal = ordinal;
-    	this.rating = rating;
-    	this.specialization = specialization;
-    	this.focuses = focuses;
-    	this.cost = null;
+    protected TraitChange(Traits traitType, int trait, TraitQualities qualities) {
+		this.id = new IdSupplier().get();
+    	this.traitType = traitType;
+		this.trait = trait;
+		this.qualities = qualities;
     	this.remove = false;
+    	
     }
     
-    public final TraitChange<?> and(TraitChange<?> andTrait) {
+    public final TraitChange and(TraitChange andTrait) {
     	if(child != null) {
     		this.child.and(andTrait);
     	} else {
@@ -94,9 +73,9 @@ public abstract class TraitChange<T extends ApplicableTrait> {
     	return this;
     }
     
-    private final Stream<TraitChange<?>> stream() {
-    	Builder<TraitChange<?>> builder = Stream.builder();
-    	TraitChange<?> traitToAdd = this;
+    private final Stream<TraitChange> stream() {
+    	Builder<TraitChange> builder = Stream.builder();
+    	TraitChange traitToAdd = this;
     	while(traitToAdd != null) {
     		builder.add(traitToAdd);
     		traitToAdd = traitToAdd.child;
@@ -121,32 +100,38 @@ public abstract class TraitChange<T extends ApplicableTrait> {
 	}
 
 	private PlayerCharacter applyTraitsTo(final PlayerCharacter character) {
-		stream().forEach((TraitChange<?> t) -> t.trait().applyTo(character));
+		stream().forEach((TraitChange t) -> t.characterTrait().applyTo(character));
 		return character;
 	}
 
 	private PlayerCharacter removeTraitsFrom(PlayerCharacter character) {
-		stream().forEach((TraitChange<?> t) -> t.trait().removeFrom(character));
+		stream().forEach((TraitChange t) -> t.characterTrait().removeFrom(character));
 		return character;
 	}
     
-    protected abstract T trait();
+    protected ApplicableTrait characterTrait() {
+    	return trait().applyWith(qualities);
+    }
+
+	private Trait trait() {
+		return traitType.traits[trait];
+	}
     
     public Optional<Integer> cost() {
     	return Optional.ofNullable(cost);
     }
     
-    public TraitChange<T> costing(int xp) {
+    public TraitChange costing(int xp) {
     	this.cost = xp;
     	return this;
     }
     
-    public TraitChange<T> remove() {
+    public TraitChange remove() {
     	this.remove = true;
     	return this;
     }
     
-    public TraitChange<T> restore() {
+    public TraitChange restore() {
     	this.remove = false;
     	return this;
     }

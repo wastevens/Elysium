@@ -1,14 +1,17 @@
 package com.dstevens.characters.traits.status;
 
-import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 
-public enum Status {
+public enum Status implements Trait {
 
 	AWESOME,
 	NOT_AWESOME;
 	
-	public TraitChange<CharacterStatus> set(String specialization) {
-		return new SetStatus(this.ordinal(), specialization);
+	@Override
+	public ApplicableTrait applyWith(TraitQualities qualities) {
+		return new CharacterStatus(this, qualities.specialization);
 	};
 	
 }

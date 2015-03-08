@@ -2,10 +2,11 @@ package com.dstevens.characters.traits.powers.magic.necromancy;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 import com.dstevens.characters.traits.powers.magic.Ritual;
 
-public enum NecromanticRitual implements Ritual<NecromanticRitual>, ApplicableTrait {
+public enum NecromanticRitual implements Ritual, Trait, ApplicableTrait {
 
     CALL_OF_THE_HUNGRY_DEAD(1),
     CIRCLE_OF_CERBERUS(1),
@@ -53,9 +54,9 @@ public enum NecromanticRitual implements Ritual<NecromanticRitual>, ApplicableTr
     	return character.withoutNecromanticRitual(this);
     }
     
-    @Override
-    public TraitChange<NecromanticRitual> set() {
-    	return new SetNecromanticRitual(this.ordinal());
-    }
+	@Override
+	public ApplicableTrait applyWith(TraitQualities qualities) {
+		return this;
+	}
     
 }

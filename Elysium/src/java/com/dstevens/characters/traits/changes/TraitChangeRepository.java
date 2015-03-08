@@ -13,7 +13,7 @@ public class TraitChangeRepository {
 		this.dao = dao;
 	}
 	
-	public TraitChange<?> update(TraitChange<?> traitChange) {
+	public TraitChange update(TraitChange traitChange) {
 		return dao.save(traitChange);
 	}
 	

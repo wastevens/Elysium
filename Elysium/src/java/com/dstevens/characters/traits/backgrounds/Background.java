@@ -1,12 +1,11 @@
 package com.dstevens.characters.traits.backgrounds;
 
-import java.util.Set;
-
+import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.DetailLevel;
-import com.dstevens.characters.traits.changes.TraitChange;
-import com.dstevens.characters.traits.changes.TraitChangeSource;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 
-public enum Background implements TraitChangeSource<CharacterBackground> {
+public enum Background implements Trait {
 
     ALLIES(DetailLevel.REQUIRES_FOCUS),
     ALTERNATE_IDENTITY(DetailLevel.REQUIRES_SPECIALIZATION),
@@ -35,7 +34,7 @@ public enum Background implements TraitChangeSource<CharacterBackground> {
     	return detailLevel;
     }
     
-    public TraitChange<CharacterBackground> set(int rating, String specialization, Set<String> focuses) {
-    	return new SetBackground(this.ordinal(), rating, specialization, focuses);
+    public ApplicableTrait applyWith(TraitQualities qualities) {
+    	return CharacterBackground.backgroundFor(this, qualities.rating, qualities.specialization, qualities.focuses);
     }
 }

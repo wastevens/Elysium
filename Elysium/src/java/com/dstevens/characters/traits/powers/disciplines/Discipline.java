@@ -2,11 +2,12 @@ package com.dstevens.characters.traits.powers.disciplines;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 import com.dstevens.characters.traits.powers.PowerType;
 
 
-public enum Discipline implements ApplicableTrait {
+public enum Discipline implements Trait, ApplicableTrait {
 
     ANIMALISM(PowerType.DISCIPLINE),
     AUSPEX(PowerType.DISCIPLINE),
@@ -46,12 +47,20 @@ public enum Discipline implements ApplicableTrait {
     PATH_OF_TECHNOMANCY(PowerType.THAUMATURGY),
     PATH_OF_WEATHER_MASTERY(PowerType.THAUMATURGY);
 
-    private final PowerType powerType;
+    public final PowerType powerType;
 
 	private Discipline(PowerType powerType) {
 		this.powerType = powerType;
     }
-    
+
+	@Override
+	public ApplicableTrait applyWith(TraitQualities qualities) {
+		if(qualities.rating == -1) {
+			return this;
+		} 
+		return new CharacterDiscipline(this, qualities.rating);
+	}
+	
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {
 		return character.withInClanDiscipline(this);
@@ -60,17 +69,5 @@ public enum Discipline implements ApplicableTrait {
 	@Override
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutInClanDiscipline(this);
-	}
-	
-	public PowerType getPowerType() {
-		return powerType;
-	}
-	
-	public TraitChange<Discipline> set() {
-		return new SetInClanDiscipline(this.ordinal());
-	}
-	
-	public TraitChange<CharacterDiscipline> set(int rating) {
-		return new SetDiscipline(this.ordinal(), rating);
 	}
 }

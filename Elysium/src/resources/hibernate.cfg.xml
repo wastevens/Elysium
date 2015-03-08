@@ -9,6 +9,7 @@
     
     <mapping class="com.dstevens.characters.PlayerCharacter"/>
     <mapping class="com.dstevens.characters.traits.changes.TraitChange"/>
+    <mapping class="com.dstevens.characters.traits.TraitQualities"/>
     <mapping class="com.dstevens.characters.traits.attributes.AttributeValue"/>
     <mapping class="com.dstevens.characters.traits.experience.ExperienceAward"/>
     
@@ -18,8 +19,6 @@
     <mapping class="com.dstevens.characters.traits.distinctions.flaws.CharacterFlaw"/>
     <mapping class="com.dstevens.characters.traits.distinctions.merits.CharacterMerit"/>
     <mapping class="com.dstevens.characters.traits.status.CharacterStatus"/>
-    <mapping class="com.dstevens.characters.traits.attributes.focuses.SetPhysicalFocus"/>
-    <mapping class="com.dstevens.characters.traits.attributes.SetAttributeValue"/>
     
   </session-factory>
 </hibernate-configuration>

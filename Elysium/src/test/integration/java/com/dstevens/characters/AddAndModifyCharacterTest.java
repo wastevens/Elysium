@@ -1,8 +1,5 @@
 package com.dstevens.characters;
 
-import static com.dstevens.collections.Sets.set;
-import static org.junit.Assert.assertEquals;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.stream.StreamSupport;
@@ -16,6 +13,9 @@ import com.dstevens.characters.clans.Bloodline;
 import com.dstevens.characters.clans.Clan;
 import com.dstevens.characters.status.PlayerStatus;
 import com.dstevens.characters.status.PlayerStatusChange;
+import com.dstevens.characters.traits.TraitQualities;
+import com.dstevens.characters.traits.TraitQualitiesBuilder;
+import com.dstevens.characters.traits.Traits;
 import com.dstevens.characters.traits.attributes.Attribute;
 import com.dstevens.characters.traits.attributes.focuses.MentalAttributeFocus;
 import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
@@ -43,6 +43,10 @@ import com.dstevens.characters.traits.status.Status;
 import com.dstevens.configuration.ApplicationConfiguration;
 import com.dstevens.players.Setting;
 import com.dstevens.time.DateTimeUtilities;
+
+import static com.dstevens.collections.Sets.set;
+
+import static org.junit.Assert.assertEquals;
 
 public class AddAndModifyCharacterTest {
 
@@ -138,7 +142,7 @@ public class AddAndModifyCharacterTest {
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getMerits());
 		assertEquals(set(), maryWollstonecraftWithExperienceSpentButNotYetApproved.getFlaws());
 		assertEquals(200, maryWollstonecraftWhenNewlyCreated.getXpGained());
-		assertEquals(163, maryWollstonecraftWithExperienceSpentButNotYetApproved.getRequestedXpSpent());
+		assertEquals(162, maryWollstonecraftWithExperienceSpentButNotYetApproved.getRequestedXpSpent());
 		assertEquals(0, maryWollstonecraftWithExperienceSpentButNotYetApproved.getAppliedXpSpent());
 		
 		assertEquals(33, maryWollstonecraftWithExperienceSpentButNotYetApproved.getRequestedTraitChanges().size());
@@ -256,40 +260,41 @@ public class AddAndModifyCharacterTest {
 		TraitChangeFactory experienceChart = TraitChangeFactoryProvider.buyTraitsFor(getMaryWollstonecraft());
         TraitChangeFactory traitFactory = TraitChangeFactoryProvider.giveTraits();
         
-        repository.update(getMaryWollstonecraft().
-        						request(experienceChart.skill(Skill.ACADEMICS, 2, null, set("Philosophy", "Latin Poetry"))).
-                                request(experienceChart.skill(Skill.ACADEMICS, 3, null, set("Philosophy", "Latin Poetry", "Greek Poetry"))).
-                                request(experienceChart.merit(Merit.ARTISTS_BLESSING, "Poetry", traitFactory.skill(Skill.CRAFTS, 3, "Poetry", set()))).
-		                        request(experienceChart.merit(Merit.LUCKY, null, null)).
-		                        request(experienceChart.merit(Merit.VERSATILE, "Wits", traitFactory.focus(MentalAttributeFocus.WITS))).
-		                        request(experienceChart.flaw(Flaw.CURIOUSITY, null, null)).
-		                        request(experienceChart.flaw(Flaw.LESSER_GENERATION_2, null, null)).
-		                        request(experienceChart.attribute(Attribute.PHYSICAL, getMaryWollstonecraft().getPhysicalAttribute()+1)).
-		                        request(experienceChart.attribute(Attribute.SOCIAL ,getMaryWollstonecraft().getSocialAttribute()+1)).
-		                        request(experienceChart.attribute(Attribute.MENTAL, getMaryWollstonecraft().getMentalAttribute()+1)).
-		                        request(experienceChart.background(Background.HAVEN, 1, "Luxury Home", set("Luxury"))).
-		                        request(experienceChart.background(Background.HAVEN, 2, "Luxury Home", set("Luxury", "Location"))).
-		                        request(experienceChart.power(Discipline.AUSPEX, 2)).
-		                        request(experienceChart.power(Discipline.AUSPEX, 3)).
-		                        request(experienceChart.power(Discipline.ANIMALISM, 1)).
-		                        request(experienceChart.power(Discipline.PATH_OF_BLOOD, 1)).
-		                        request(experienceChart.power(Discipline.PATH_OF_BLOOD, 2)).
-		                        request(experienceChart.power(Discipline.LURE_OF_FLAMES, 1)).
-		                        request(experienceChart.power(Discipline.ASH_PATH, 1)).
-		                        request(experienceChart.power(Discipline.ASH_PATH, 2)).
-		                        request(experienceChart.power(Discipline.BONE_PATH, 1)).
-		                        request(experienceChart.ritual(ThaumaturgicalRitual.CRAFT_BLOODSTONE)).
-		                        request(experienceChart.ritual(ThaumaturgicalRitual.BURNING_BLADE)).
-		                        request(experienceChart.ritual(NecromanticRitual.BLACK_BLOOD)).
-		                        request(experienceChart.ritual(NecromanticRitual.DARK_ASSISTANT)).
-		                        request(experienceChart.technique(Technique.ARMOR_OF_DARKNESS)).
-		                        request(experienceChart.technique(Technique.CONTROL_THE_SAVAGE_BEAST)).
-		                        request(experienceChart.elderPower(ElderPower.CLAIRVOYANCE)).
-		                        request(experienceChart.elderPower(ElderPower.ACID_BLOOD)).
-		                        request(experienceChart.merit(Merit.THAUMATURGIC_TRAINING, "Path of Corruption", traitFactory.inClanPower(Discipline.PATH_OF_CORRUPTION))).
-		                        request(experienceChart.merit(Merit.NECROMANTIC_TRAINING, "Ash Path", traitFactory.inClanPower(Discipline.ASH_PATH))).
-		                        request(experienceChart.merit(Merit.ADDITIONAL_COMMON_DISCIPLINE, "Dominate", traitFactory.inClanPower(Discipline.DOMINATE))).
-		                        request(traitFactory.status(Status.AWESOME, "So very awesome")));
+        repository.update(getMaryWollstonecraft()
+        						.request(experienceChart.traitChange(Traits.SKILLS, Skill.ACADEMICS, new TraitQualitiesBuilder().rated(2).focused(set("Philosophy", "Latin Poetry")).build()))
+                                .request(experienceChart.traitChange(Traits.SKILLS, Skill.ACADEMICS, new TraitQualitiesBuilder().rated(3).focused(set("Philosophy", "Latin Poetry", "Greek Poetry")).build()))
+                                .request(experienceChart.traitChange(Traits.MERIT, Merit.ARTISTS_BLESSING, new TraitQualitiesBuilder().specialized("Poetry").build()).and(traitFactory.traitChange(Traits.SKILLS, Skill.CRAFTS, new TraitQualitiesBuilder().rated(3).specialized("Poetry").build())))
+        						.request(experienceChart.traitChange(Traits.MERIT, Merit.LUCKY, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.MERIT, Merit.VERSATILE, new TraitQualitiesBuilder().specialized("Wits").build()).and(traitFactory.traitChange(Traits.MENTAL_FOCUS, MentalAttributeFocus.WITS, TraitQualities.NONE)))
+		                        .request(experienceChart.traitChange(Traits.FLAW, Flaw.CURIOUSITY, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.FLAW, Flaw.LESSER_GENERATION_2, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.ATTRIBUTE, Attribute.PHYSICAL,new TraitQualitiesBuilder().rated(getMaryWollstonecraft().getPhysicalAttribute()+1).build()))
+		                        .request(experienceChart.traitChange(Traits.ATTRIBUTE, Attribute.SOCIAL,new TraitQualitiesBuilder().rated(getMaryWollstonecraft().getSocialAttribute()+1).build()))
+		                        .request(experienceChart.traitChange(Traits.ATTRIBUTE, Attribute.MENTAL,new TraitQualitiesBuilder().rated(getMaryWollstonecraft().getMentalAttribute()+1).build()))
+		                        .request(experienceChart.traitChange(Traits.BACKGROUNDS,Background.HAVEN, new TraitQualitiesBuilder().rated(1).specialized("Luxury Home").focused(set("Luxury")).build()))
+		                        .request(experienceChart.traitChange(Traits.BACKGROUNDS,Background.HAVEN, new TraitQualitiesBuilder().rated(1).specialized("Luxury Home").focused(set("Luxury", "Location")).build()))
+		                        .request(experienceChart.traitChange(Traits.DISCIPLINE,Discipline.AUSPEX, new TraitQualitiesBuilder().rated(2).build()))
+		                        .request(experienceChart.traitChange(Traits.DISCIPLINE,Discipline.AUSPEX, new TraitQualitiesBuilder().rated(3).build()))
+		                        .request(experienceChart.traitChange(Traits.DISCIPLINE,Discipline.ANIMALISM, new TraitQualitiesBuilder().rated(1).build()))
+		                        .request(experienceChart.traitChange(Traits.DISCIPLINE,Discipline.PATH_OF_BLOOD, new TraitQualitiesBuilder().rated(1).build()))
+		                        .request(experienceChart.traitChange(Traits.DISCIPLINE,Discipline.PATH_OF_BLOOD, new TraitQualitiesBuilder().rated(2).build()))
+		                        .request(experienceChart.traitChange(Traits.DISCIPLINE,Discipline.LURE_OF_FLAMES, new TraitQualitiesBuilder().rated(1).build()))
+		                        .request(experienceChart.traitChange(Traits.DISCIPLINE,Discipline.ASH_PATH, new TraitQualitiesBuilder().rated(1).build()))
+		                        .request(experienceChart.traitChange(Traits.DISCIPLINE,Discipline.ASH_PATH, new TraitQualitiesBuilder().rated(2).build()))
+		                        .request(experienceChart.traitChange(Traits.DISCIPLINE,Discipline.BONE_PATH, new TraitQualitiesBuilder().rated(1).build()))
+		                        .request(experienceChart.traitChange(Traits.THAUMATURGICAL_RITUAL, ThaumaturgicalRitual.CRAFT_BLOODSTONE, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.THAUMATURGICAL_RITUAL, ThaumaturgicalRitual.BURNING_BLADE, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.NECROMANTIC_RITUAL, NecromanticRitual.BLACK_BLOOD, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.NECROMANTIC_RITUAL, NecromanticRitual.DARK_ASSISTANT, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.TECHNIQUE, Technique.ARMOR_OF_DARKNESS, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.TECHNIQUE, Technique.CONTROL_THE_SAVAGE_BEAST, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.ELDER_POWER, ElderPower.CLAIRVOYANCE, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.ELDER_POWER, ElderPower.ACID_BLOOD, TraitQualities.NONE))
+		                        .request(experienceChart.traitChange(Traits.MERIT, Merit.THAUMATURGIC_TRAINING, new TraitQualitiesBuilder().specialized("Path of Corruption").build()).and(traitFactory.traitChange(Traits.DISCIPLINE, Discipline.PATH_OF_CORRUPTION, TraitQualities.NONE)))
+		                        .request(experienceChart.traitChange(Traits.MERIT, Merit.NECROMANTIC_TRAINING, new TraitQualitiesBuilder().specialized("Ash Path").build()).and(traitFactory.traitChange(Traits.DISCIPLINE, Discipline.ASH_PATH, TraitQualities.NONE)))
+		                        .request(experienceChart.traitChange(Traits.MERIT, Merit.ADDITIONAL_COMMON_DISCIPLINE, new TraitQualitiesBuilder().specialized("Dominate").build()).and(traitFactory.traitChange(Traits.DISCIPLINE, Discipline.DOMINATE, TraitQualities.NONE)))
+		                        .request(traitFactory.traitChange(Traits.STATUS, Status.AWESOME, new TraitQualitiesBuilder().specialized("So very awesome").build())
+                                ));
     }
     
     private void earnXpForMaryWollstonecraft() {
@@ -339,7 +344,7 @@ public class AddAndModifyCharacterTest {
     private void approveChangesOnMary() {
         PlayerCharacter character = getMaryWollstonecraft();
 		PlayerCharacterRepository repository = appConfig.getBean(PlayerCharacterRepository.class);
-		character.getRequestedTraitChanges().forEach((TraitChange<?> t) -> character.apply(t));
+		character.getRequestedTraitChanges().forEach((TraitChange t) -> character.apply(t));
 		repository.update(character);
     }
 }

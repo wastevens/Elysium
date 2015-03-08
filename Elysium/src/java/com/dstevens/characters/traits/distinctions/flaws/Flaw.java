@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 import com.dstevens.characters.traits.distinctions.DistinctionType;
 import com.dstevens.players.Setting;
 
-public enum Flaw {
+public enum Flaw implements Trait {
 
 	ADDICTION(DistinctionType.GENERAL, 2),
     AMNESIA(DistinctionType.GENERAL, 1),
@@ -145,9 +147,10 @@ public enum Flaw {
     			             filter((Flaw f) -> f.getSetting() == setting).
     			             collect(Collectors.toList());
     }
-    
-    public TraitChange<CharacterFlaw> set(String specialization) {
-    	return new SetFlaw(this.ordinal(), specialization);
-    }
+
+	@Override
+	public ApplicableTrait applyWith(TraitQualities qualities) {
+		return new CharacterFlaw(this, qualities.specialization);
+	}
 	
 }

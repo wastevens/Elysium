@@ -1,12 +1,5 @@
 package com.dstevens.characters;
 
-import static com.dstevens.collections.Lists.list;
-
-import static com.dstevens.collections.Sets.set;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-
 import java.util.List;
 
 import org.junit.Test;
@@ -18,6 +11,13 @@ import com.dstevens.characters.traits.skills.CharacterSkill;
 import com.dstevens.characters.traits.skills.Skill;
 import com.dstevens.players.Setting;
 import com.dstevens.testing.EqualityTester;
+
+import static com.dstevens.collections.Lists.list;
+
+import static com.dstevens.collections.Sets.set;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class PlayerCharacterTest {
 
@@ -228,11 +228,11 @@ public class PlayerCharacterTest {
     
     @Test
     public void testWithTraitChangeEvent() {
-    	TraitChange<?> someTraitChangeEvent1 = mock(TraitChange.class);
-    	TraitChange<?> someTraitChangeEvent2 = mock(TraitChange.class);
+    	TraitChange someTraitChangeEvent1 = mock(TraitChange.class);
+    	TraitChange someTraitChangeEvent2 = mock(TraitChange.class);
 		PlayerCharacter character = new PlayerCharacter(ID, NAME, SETTING).request(someTraitChangeEvent1).request(someTraitChangeEvent2);
 		
-		List<TraitChange<?>> list = list(someTraitChangeEvent1, someTraitChangeEvent2);
+		List<TraitChange> list = list(someTraitChangeEvent1, someTraitChangeEvent2);
 		assertEquals(character.getRequestedTraitChanges(), list);
     }
 }

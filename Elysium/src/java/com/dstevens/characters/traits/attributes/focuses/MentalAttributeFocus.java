@@ -2,15 +2,22 @@ package com.dstevens.characters.traits.attributes.focuses;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 
 
-public enum MentalAttributeFocus implements ApplicableTrait, AttributeFocus {
+public enum MentalAttributeFocus implements AttributeFocus, Trait, ApplicableTrait {
 
     INTELLIGENCE,
     WITS,
     PERCEPTION;
 
+
+	@Override
+	public ApplicableTrait applyWith(TraitQualities qualities) {
+		return this;
+	}
+    
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {
 		return character.withMentalAttributeFocus(this);
@@ -20,10 +27,4 @@ public enum MentalAttributeFocus implements ApplicableTrait, AttributeFocus {
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withoutMentalAttributeFocus(this);
 	}
-	
-	@Override
-	public TraitChange<MentalAttributeFocus> set() {
-		return new SetMentalFocus(this.ordinal());
-	}
-    
 }

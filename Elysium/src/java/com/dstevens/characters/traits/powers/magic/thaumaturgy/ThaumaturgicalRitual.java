@@ -2,10 +2,11 @@ package com.dstevens.characters.traits.powers.magic.thaumaturgy;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 import com.dstevens.characters.traits.powers.magic.Ritual;
 
-public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, ApplicableTrait {
+public enum ThaumaturgicalRitual implements Ritual, Trait, ApplicableTrait {
 
     BLOOD_MASTERY(1),
     BIND_THE_ACCUSING_TONGUE(1),
@@ -62,8 +63,8 @@ public enum ThaumaturgicalRitual implements Ritual<ThaumaturgicalRitual>, Applic
     	return character.withoutThaumaturgicalRitual(this);
     }
     
-    @Override
-    public TraitChange<? extends ApplicableTrait> set() {
-    	return new SetThaumaturgicalRitual(this.ordinal());
-    }
+	@Override
+	public ApplicableTrait applyWith(TraitQualities qualities) {
+		return this;
+	}
 }

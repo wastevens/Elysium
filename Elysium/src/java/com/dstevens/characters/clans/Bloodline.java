@@ -2,8 +2,10 @@ package com.dstevens.characters.clans;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.Trait;
+import com.dstevens.characters.traits.TraitQualities;
 
-public enum Bloodline implements ApplicableTrait {
+public enum Bloodline implements ApplicableTrait, Trait {
 
 	ASSAMITE,
     VIZIER,
@@ -74,6 +76,11 @@ public enum Bloodline implements ApplicableTrait {
 	@Override
 	public PlayerCharacter removeFrom(PlayerCharacter character) {
 		return character.withBloodline(null);
+	}
+
+	@Override
+	public ApplicableTrait applyWith(TraitQualities qualities) {
+		return this;
 	}
     
 }
