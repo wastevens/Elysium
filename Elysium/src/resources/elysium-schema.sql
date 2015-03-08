@@ -21,7 +21,7 @@ alter table PlayerCharacter_thaumaturgicalRituals drop foreign key PlayerCharact
 alter table Skills drop foreign key PlayerCharacter_Skills_FK;
 alter table Skills_Focuses drop foreign key CharacterSkill_focuses_FK;
 alter table Status drop foreign key PlayerCharacter_Status_FK;
-alter table TraitChange_focuses drop foreign key TraitChanges_focuses_FK;
+alter table TraitChange_focuses drop foreign key TraitQualities_focuses_FK;
 alter table TraitChanges drop foreign key TraitChange_ChildTraitChange_FK;
 drop table if exists AttributeValue;
 drop table if exists Backgrounds;
@@ -99,5 +99,5 @@ alter table PlayerCharacter_thaumaturgicalRituals add constraint PlayerCharacter
 alter table Skills add constraint PlayerCharacter_Skills_FK foreign key (character_id) references PlayerCharacter (id);
 alter table Skills_Focuses add constraint CharacterSkill_focuses_FK foreign key (CharacterSkill_id) references Skills (id);
 alter table Status add constraint PlayerCharacter_Status_FK foreign key (character_id) references PlayerCharacter (id);
-alter table TraitChange_focuses add constraint TraitChanges_focuses_FK foreign key (TraitChange_id) references TraitChanges (id);
+alter table TraitChange_focuses add constraint TraitQualities_focuses_FK foreign key (TraitChange_id) references TraitChanges (id);
 alter table TraitChanges add constraint TraitChange_ChildTraitChange_FK foreign key (child_id) references TraitChanges (id);
