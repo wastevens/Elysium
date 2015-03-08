@@ -60,7 +60,7 @@ class ProvidedTraitChangeFactory implements TraitChangeFactory {
 
 	@Override
 	public TraitChange<CharacterBackground> background(Background background, int rating, String specialization, Set<String> focuses) {
-		return background.set(rating, specialization, focuses);
+		return trait(background, rating, specialization, focuses);
 	}
 	
 	@Override

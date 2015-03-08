@@ -4,8 +4,9 @@ import java.util.Set;
 
 import com.dstevens.characters.traits.DetailLevel;
 import com.dstevens.characters.traits.changes.TraitChange;
+import com.dstevens.characters.traits.changes.TraitChangeSource;
 
-public enum Background {
+public enum Background implements TraitChangeSource<CharacterBackground> {
 
     ALLIES(DetailLevel.REQUIRES_FOCUS),
     ALTERNATE_IDENTITY(DetailLevel.REQUIRES_SPECIALIZATION),
