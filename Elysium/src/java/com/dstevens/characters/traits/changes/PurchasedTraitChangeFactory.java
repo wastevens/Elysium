@@ -23,11 +23,11 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 
 
 	@Override
-	public TraitChange traitChange(TraitType traitType, Enum<? extends Trait> trait, TraitQualities qualities) {
+	public TraitChange traitChange(TraitType traitType, Trait trait, TraitQualities qualities) {
 		return traitChangeFactory.traitChange(traitType, trait, qualities).costing(costFor(traitType, trait, qualities));
 	}
     
-	private int costFor(TraitType traitType, Enum<? extends Trait> trait, TraitQualities qualities) {
+	private int costFor(TraitType traitType, Trait trait, TraitQualities qualities) {
 		switch (traitType) {
 		case ATTRIBUTE:             return 3;
 		case PHYSICAL_FOCUS:        throw new IllegalStateException("Cannot purchase attribute focuses");

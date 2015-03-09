@@ -9,7 +9,7 @@ import com.dstevens.characters.traits.TraitType;
 @Service
 class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
-	public TraitChange traitChange(TraitType traitType, Enum<? extends Trait> trait, TraitQualities qualities) {
+	public TraitChange traitChange(TraitType traitType, Trait trait, TraitQualities qualities) {
 		return new TraitChange(traitType, trait.ordinal(), qualities);
 	}
 }
