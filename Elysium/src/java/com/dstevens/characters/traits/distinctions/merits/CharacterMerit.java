@@ -3,6 +3,12 @@ package com.dstevens.characters.traits.distinctions.merits;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -12,12 +18,6 @@ import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
 import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 @Table(name="Merits")
@@ -52,6 +52,10 @@ public class CharacterMerit implements ApplicableTrait, CharacterSpecializedTrai
 	@Override
 	public String getSpecialization() {
 		return specialization;
+	}
+	
+	public Merit trait() {
+		return trait;
 	}
 	
 	@Override
