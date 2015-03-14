@@ -69,7 +69,7 @@
 	<classpathentry kind="lib" path="Elysium/lib/test/testDefault/mockito-all.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/test/testDefault/spring-core.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/test/testDefault/spring-test.jar"/>
-	<classpathentry kind="lib" path="Elysium/lib/default/TestUtilities.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="Elysium/lib/test/testDefault/hamcrest-core.jar"/>
+	<classpathentry kind="lib" path="Elysium/lib/test/testDefault/junit.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

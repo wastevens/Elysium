@@ -15,7 +15,6 @@
     <dependencies>
         <dependency org="com.dstevens" name="TheWheel" rev="1.1.2" conf="default;sources"/>
         <dependency org="com.dstevens" name="CommonServices" rev="1.0.0" conf="default;sources"/>
-        <dependency org="com.dstevens" name="TestUtilities" rev="1.0.0" conf="default;sources"/>
         <dependency org="org.hibernate" name="hibernate-core" rev="4.3.7.Final" conf="default;sources;javadoc"/>
         <dependency org="org.hibernate" name="hibernate-entitymanager" rev="4.3.7.Final" conf="default;sources;javadoc"/>
         <dependency org="org.hibernate" name="hibernate-tools" rev="4.3.1.CR1" conf="default;sources;javadoc"/>
@@ -37,6 +36,7 @@
     	<dependency org="com.google.code.gson" name="gson" rev="2.2.4" conf="default;sources;javadoc"/>
     	<dependency org="org.reflections" name="reflections" rev="0.9.8" conf="default;sources;javadoc"/>
     	
+    	<dependency org="junit" name="junit" rev="4.12" conf="testDefault->default;testSources->sources;testJavadoc->javadoc"/>
     	<dependency org="org.springframework" name="spring-test" rev="4.0.3.RELEASE" conf="testDefault->default;testSources->sources;testJavadoc->javadoc"/>
         <dependency org="org.mockito" name="mockito-all" rev="1.8.4" conf="testDefault->default;testSources->sources;testJavadoc->javadoc"/>
     </dependencies>
