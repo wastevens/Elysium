@@ -72,11 +72,11 @@ public class PersistanceConfiguration {
     }
     
     private String dbUser() {
-    	return System.getProperty("DB_USERNAME", "admin");
+    	return System.getProperty("DB_USERNAME", "root");
     }
     
     private String dbPassword() {
-    	return System.getProperty("DB_PASSWORD", "admin");
+    	return System.getProperty("DB_PASSWORD", "password");
     }
     
     @Bean
