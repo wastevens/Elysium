@@ -1,22 +1,26 @@
 package com.dstevens.characters.traits.experience;
 
-import static com.dstevens.time.DateTimeUtilities.asLocalDateInUTC;
-import static com.dstevens.time.DateTimeUtilities.fromLocalDateInUTC;
-
 import java.time.LocalDate;
 import java.util.Date;
 
-import com.dstevens.suppliers.IdSupplier;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.TableGenerator;
+
+import static com.dstevens.time.DateTimeUtilities.asLocalDateInUTC;
+import static com.dstevens.time.DateTimeUtilities.fromLocalDateInUTC;
 
 @Entity
 public final class ExperienceAward {
 
 	@Id
-	private final String id;
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen")
+	@TableGenerator(name = "tableGen", pkColumnValue = "characterExperienceAward", table="ID_Sequences", allocationSize=1 )
+	@Column(name="id", nullable=false, unique=true)
+    private final Integer id;
 	
 	@Column(name="experience")
 	private final int experience;
@@ -35,7 +39,7 @@ public final class ExperienceAward {
     }
 	
 	public ExperienceAward(int experience, LocalDate awardedOn, String awardedFor) {
-		this.id = new IdSupplier().get();
+		this.id = null;
 		this.experience = experience;
 		this.awardedOn = (awardedOn != null ? fromLocalDateInUTC(awardedOn) : null);
 		this.awardedFor = awardedFor;

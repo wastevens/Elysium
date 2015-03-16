@@ -11,12 +11,15 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.ForeignKey;
@@ -56,8 +59,11 @@ import static com.dstevens.collections.Sets.set;
 @Table(name="PlayerCharacter")
 public class PlayerCharacter implements Comparable<PlayerCharacter> {
 
-    @Id
-    private final String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen")
+	@TableGenerator(name = "tableGen", pkColumnValue = "playerCharacter", table="ID_Sequences", allocationSize=1 )
+	@Column(name="id", nullable=false, unique=true)
+    private final Integer id;
     
     @Column(name="name")
     private final String name;
@@ -195,7 +201,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this(null, null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
-    PlayerCharacter(String id, String name, Setting setting) {
+    PlayerCharacter(Integer id, String name, Setting setting) {
         this(id, name, list(), null, setting, null, null, 0, 0, 0,
              set(), set(), set(),
              set(), set(),
@@ -206,7 +212,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
              list(), list(), list());
     }
     
-    private PlayerCharacter(String id, String name, List<PlayerStatusChange> activityStatusChanges, ApprovalStatus approvalStatus, 
+    private PlayerCharacter(Integer id, String name, List<PlayerStatusChange> activityStatusChanges, ApprovalStatus approvalStatus, 
     		                Setting setting, Clan clan, Bloodline bloodline, 
                             int physicalAttribute, int mentalAttribute, int socialAttribute, 
                             Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
@@ -246,7 +252,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
 		this.experienceAwards = experienceAwards;
     }
     
-    public String getId() {
+    public Integer getId() {
         return id;
     }
     
@@ -665,16 +671,19 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
 	
     @Override
     public boolean equals(Object obj) {
+    	if(this.id == null) {
+    		return false;
+    	}
         if (obj instanceof PlayerCharacter) {
             PlayerCharacter that = PlayerCharacter.class.cast(obj);
-            return this.id.equals(that.id);
+            return this.id == that.id;
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return id;
     }
     
     @Override

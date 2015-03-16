@@ -1,15 +1,17 @@
 package com.dstevens.characters.traits.attributes;
 
-import com.dstevens.characters.PlayerCharacter;
-import com.dstevens.characters.traits.ApplicableTrait;
-import com.dstevens.suppliers.IdSupplier;
-
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+import com.dstevens.characters.PlayerCharacter;
+import com.dstevens.characters.traits.ApplicableTrait;
 
 @Entity
 @Inheritance
@@ -17,8 +19,11 @@ import javax.persistence.Table;
 @Table(name="AttributeValue")
 public abstract class AttributeValue implements ApplicableTrait {
 
-    @Id
-    private final String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen")
+	@TableGenerator(name = "tableGen", pkColumnValue = "characterAttribute", table="ID_Sequences", allocationSize=1 )
+	@Column(name="id", nullable=false, unique=true)
+    private final Integer id;
     
 	@Column(name="value")
     private final int value;
@@ -31,7 +36,7 @@ public abstract class AttributeValue implements ApplicableTrait {
     }
 	
 	public AttributeValue(int value) {
-		this.id = new IdSupplier().get();
+		this.id = null;
 		this.value = value;
 	}
 	

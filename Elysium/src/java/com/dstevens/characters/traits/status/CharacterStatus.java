@@ -2,6 +2,15 @@ package com.dstevens.characters.traits.status;
 
 import java.util.function.Predicate;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -9,21 +18,17 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
-import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 @Table(name="Status")
 public class CharacterStatus implements ApplicableTrait, CharacterSpecializedTrait, Comparable<CharacterStatus> {
 
 	@Id
-    private final String id;
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen")
+	@TableGenerator(name = "tableGen", pkColumnValue = "characterStatus", table="ID_Sequences", allocationSize=1 )
+	@Column(name="id", nullable=false, unique=true)
+    private final Integer id;
 	
 	@Basic(optional=false)
     private Status trait;
@@ -39,7 +44,7 @@ public class CharacterStatus implements ApplicableTrait, CharacterSpecializedTra
     }
 	
 	public CharacterStatus(Status trait, String specialization) {
-		this.id = new IdSupplier().get();
+		this.id = null;
 		this.trait = trait;
 		this.specialization = specialization;
 	}

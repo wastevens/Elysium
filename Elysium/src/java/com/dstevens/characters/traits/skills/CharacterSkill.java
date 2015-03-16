@@ -1,10 +1,18 @@
 package com.dstevens.characters.traits.skills;
 
-import static com.dstevens.collections.Sets.set;
-
 import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -16,23 +24,20 @@ import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterFocusedTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
 import com.dstevens.characters.traits.RatedTrait;
-import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import static com.dstevens.collections.Sets.set;
 
 @SuppressWarnings("deprecation")
 @Entity
 @Table(name="Skills")
 public class CharacterSkill implements ApplicableTrait, RatedTrait, CharacterSpecializedTrait, CharacterFocusedTrait, Comparable<CharacterSkill> {
     
-    @Id
-    private final String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen")
+	@TableGenerator(name = "tableGen", pkColumnValue = "characterSkill", table="ID_Sequences", allocationSize=1 )
+	@Column(name="id", nullable=false, unique=true)
+    private final Integer id;
     
     @Column(name="skill")
     private final Skill trait;
@@ -56,7 +61,7 @@ public class CharacterSkill implements ApplicableTrait, RatedTrait, CharacterSpe
     }
     
     public CharacterSkill(Skill trait, int rating, String specialization, Set<String> focuses) {
-        this.id = new IdSupplier().get();
+        this.id = null;
         this.trait = trait;
         this.rating = rating;
         this.specialization = specialization;

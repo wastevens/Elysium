@@ -6,8 +6,11 @@ import java.util.function.Predicate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -16,7 +19,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.CharacterSpecializedTrait;
-import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 @Entity
@@ -24,7 +26,10 @@ import com.dstevens.utilities.ObjectExtensions;
 public class CharacterFlaw implements ApplicableTrait, CharacterSpecializedTrait, Comparable<CharacterFlaw> {
 
 	@Id
-    private final String id;
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen")
+	@TableGenerator(name = "tableGen", pkColumnValue = "characterFlaw", table="ID_Sequences", allocationSize=1 )
+	@Column(name="id", nullable=false, unique=true)
+    private final Integer id;
 	
 	@Basic(optional=false)
 	private Flaw trait;
@@ -44,7 +49,7 @@ public class CharacterFlaw implements ApplicableTrait, CharacterSpecializedTrait
 	}
 	
 	public CharacterFlaw(Flaw trait, String specialization) {
-		this.id = new IdSupplier().get();
+		this.id = null;
 		this.trait = trait;
 		this.specialization = specialization;
 	}

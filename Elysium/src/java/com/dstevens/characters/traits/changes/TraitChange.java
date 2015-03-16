@@ -8,9 +8,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import org.hibernate.annotations.ForeignKey;
 
@@ -19,7 +22,6 @@ import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.Trait;
 import com.dstevens.characters.traits.TraitQualities;
 import com.dstevens.characters.traits.TraitType;
-import com.dstevens.suppliers.IdSupplier;
 import com.dstevens.utilities.ObjectExtensions;
 
 @SuppressWarnings("deprecation")
@@ -27,8 +29,11 @@ import com.dstevens.utilities.ObjectExtensions;
 @Table(name="TraitChanges")
 public class TraitChange {
 
-    @Id
-    private final String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen")
+	@TableGenerator(name = "tableGen", pkColumnValue = "traitChange", table="ID_Sequences", allocationSize=1 )
+	@Column(name="id", nullable=false, unique=true)
+    private final Integer id;
     
     @Column(name="traitTypeOrdinal")
     protected final TraitType traitType;
@@ -56,7 +61,7 @@ public class TraitChange {
     }
     
     protected TraitChange(TraitType traitType, int trait, TraitQualities qualities) {
-		this.id = new IdSupplier().get();
+		this.id = null;
     	this.traitType = traitType;
 		this.trait = trait;
 		this.qualities = qualities;
