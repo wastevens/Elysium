@@ -33,7 +33,7 @@ public class TraitChange {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen")
 	@TableGenerator(name = "tableGen", pkColumnValue = "traitChange", table="ID_Sequences", allocationSize=1 )
 	@Column(name="id", nullable=false, unique=true)
-    private final Integer id;
+    private final Long id;
     
     @Column(name="traitTypeOrdinal")
     protected final TraitType traitType;

@@ -34,5 +34,11 @@
       <annotationConfiguration configurationfile="${basedir}/src/resources/hibernate.cfg.xml"/>
       <hbm2ddl outputfilename="${project.name}-schema.sql" export="false" update="false" drop="true" create="true"/>
     </hibernatetool>
+    <replace file="${basedir}/src/resources/${project.name}-schema.sql">
+    	<replacefilter token="create table ID_Sequences ( sequence_name varchar(255),  sequence_next_hi_value integer );" value="create table ID_Sequences ( sequence_name varchar(255),  sequence_next_hi_value bigint );"/>
+    </replace>
+</target>
+	
+<target name="replace">
 </target>
 </project>

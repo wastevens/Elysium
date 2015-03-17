@@ -8,7 +8,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="Elysium/lib/default/ant.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/antlr.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/aopalliance.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/app.jar"/>
@@ -25,10 +24,10 @@
 	<classpathentry kind="lib" path="Elysium/lib/default/freemarker.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/gson.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/guava.jar"/>
-	<classpathentry kind="lib" path="Elysium/lib/default/hibernate-commons-annotations.jar"/>
-	<classpathentry kind="lib" path="Elysium/lib/default/hibernate-core.jar"/>
+	<classpathentry kind="lib" path="Elysium/lib/default/hibernate-commons-annotations.jar" sourcepath="Elysium/lib/sources/hibernate-commons-annotations-sources.jar"/>
+	<classpathentry kind="lib" path="Elysium/lib/default/hibernate-core.jar" sourcepath="Elysium/lib/sources/hibernate-core-sources.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/hibernate-entitymanager.jar"/>
-	<classpathentry kind="lib" path="Elysium/lib/default/hibernate-jpa-2.1-api.jar"/>
+	<classpathentry kind="lib" path="Elysium/lib/default/hibernate-jpa-2.1-api.jar" sourcepath="Elysium/lib/sources/hibernate-jpa-2.1-api-sources.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/hibernate-tools.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/jandex.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/javassist.jar"/>
@@ -71,5 +70,6 @@
 	<classpathentry kind="lib" path="Elysium/lib/test/testDefault/spring-test.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/test/testDefault/hamcrest-core.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/test/testDefault/junit.jar"/>
+	<classpathentry kind="lib" path="Elysium/lib/default/ant.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
