@@ -33,7 +33,7 @@ public class PlayerCharacterRepository {
 		return dao.save(pc);
 	}
 	
-	public PlayerCharacter findWithId(String id) {
+	public PlayerCharacter findWithId(Integer id) {
 		return dao.findOne(id);
 	}
 	
