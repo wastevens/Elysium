@@ -90,7 +90,8 @@ public class CharacterDiscipline implements ApplicableTrait, RatedTrait, Compara
 		return ((Predicate<CharacterDiscipline>)(CharacterDiscipline t) -> t.trait.equals(this.trait));
 	}
 
-	public Discipline getTrait() {
+	@Override
+	public final Discipline trait() {
 		return trait;
 	}
 }

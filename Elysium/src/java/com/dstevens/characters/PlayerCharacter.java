@@ -498,7 +498,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public Set<CharacterDiscipline> getThaumaturgicalPaths() {
-    	return disciplines.stream().filter((CharacterDiscipline t) -> t.getTrait().powerType.equals(PowerType.THAUMATURGY)).collect(Collectors.toSet());
+    	return disciplines.stream().filter((CharacterDiscipline t) -> t.trait().powerType.equals(PowerType.THAUMATURGY)).collect(Collectors.toSet());
     }
     
     public Discipline getPrimaryThaumaturgicalPath() {
@@ -525,7 +525,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public Set<CharacterDiscipline> getNecromanticPaths() {
-        return disciplines.stream().filter((CharacterDiscipline t) -> t.getTrait().powerType.equals(PowerType.NECROMANCY)).collect(Collectors.toSet());
+        return disciplines.stream().filter((CharacterDiscipline t) -> t.trait().powerType.equals(PowerType.NECROMANCY)).collect(Collectors.toSet());
     }
     
     public Discipline getPrimaryNecromanticPath() {
