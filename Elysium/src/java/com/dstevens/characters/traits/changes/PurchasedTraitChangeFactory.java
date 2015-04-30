@@ -31,9 +31,10 @@ class PurchasedTraitChangeFactory implements TraitChangeFactory {
 		switch (traitType) {
 		case ATTRIBUTE:             return 3;
 		case PHYSICAL_FOCUS:        throw new IllegalStateException("Cannot purchase attribute focuses");
+		case MENTAL_FOCUS:          throw new IllegalStateException("Cannot purchase attribute focuses");
 		case SOCIAL_FOCUS:          throw new IllegalStateException("Cannot purchase attribute focuses");
-		case SKILL:                return costForSkill(qualities.rating);
-		case BACKGROUND:           return costForBackground(qualities.rating);
+		case SKILL:                 return costForSkill(qualities.rating);
+		case BACKGROUND:            return costForBackground(qualities.rating);
 		case DISCIPLINE:            return costForPower((Discipline)trait, qualities.rating);
 		case NECROMANTIC_RITUAL:    return ((NecromanticRitual)trait).rating() * 2;
 		case THAUMATURGICAL_RITUAL: return ((ThaumaturgicalRitual)trait).rating() * 2;
