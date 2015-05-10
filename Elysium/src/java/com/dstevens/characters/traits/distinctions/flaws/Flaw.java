@@ -95,6 +95,7 @@ public enum Flaw implements Trait {
     ESCAPED_SHOVELHEAD(76, DistinctionType.SETTING, Setting.ANARCH, 2),
     ONCE_ENSLAVED(77, DistinctionType.SETTING, Setting.ANARCH, 2);
 	
+	private final int id;
     private final int points;
 	private final DistinctionType type;
 	private final Setting setting;
@@ -108,14 +109,15 @@ public enum Flaw implements Trait {
     }
 	
     private Flaw(int id, DistinctionType type, int points, Setting setting) {
-        this.points = points;
+        this.id = id;
+		this.points = points;
 		this.type = type;
 		this.setting = setting;
     }
 	
 	@Override
 	public int id() {
-		return 0;
+		return id;
 	}
     
     public int getPoints() {
