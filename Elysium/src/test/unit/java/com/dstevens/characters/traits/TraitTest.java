@@ -2,22 +2,23 @@ package com.dstevens.characters.traits;
 
 import org.junit.Test;
 
-import com.dstevens.characters.clans.Bloodline;
-import com.dstevens.characters.clans.Clan;
-import com.dstevens.characters.traits.attributes.Attribute;
-import com.dstevens.characters.traits.attributes.focuses.MentalAttributeFocus;
-import com.dstevens.characters.traits.attributes.focuses.PhysicalAttributeFocus;
-import com.dstevens.characters.traits.attributes.focuses.SocialAttributeFocus;
-import com.dstevens.characters.traits.backgrounds.Background;
-import com.dstevens.characters.traits.distinctions.flaws.Flaw;
-import com.dstevens.characters.traits.distinctions.merits.Merit;
-import com.dstevens.characters.traits.powers.disciplines.Discipline;
-import com.dstevens.characters.traits.powers.disciplines.ElderPower;
-import com.dstevens.characters.traits.powers.disciplines.Technique;
-import com.dstevens.characters.traits.powers.magic.necromancy.NecromanticRitual;
-import com.dstevens.characters.traits.powers.magic.thaumaturgy.ThaumaturgicalRitual;
-import com.dstevens.characters.traits.skills.Skill;
-import com.dstevens.characters.traits.status.Status;
+import com.dstevens.character.clan.Bloodline;
+import com.dstevens.character.clan.Clan;
+import com.dstevens.character.trait.Trait;
+import com.dstevens.character.trait.attribute.Attribute;
+import com.dstevens.character.trait.attribute.focus.MentalAttributeFocus;
+import com.dstevens.character.trait.attribute.focus.PhysicalAttributeFocus;
+import com.dstevens.character.trait.attribute.focus.SocialAttributeFocus;
+import com.dstevens.character.trait.background.Background;
+import com.dstevens.character.trait.distinction.flaw.Flaw;
+import com.dstevens.character.trait.distinction.merit.Merit;
+import com.dstevens.character.trait.power.discipline.Discipline;
+import com.dstevens.character.trait.power.discipline.ElderPower;
+import com.dstevens.character.trait.power.discipline.Technique;
+import com.dstevens.character.trait.power.magic.necromancy.NecromanticRitual;
+import com.dstevens.character.trait.power.magic.thaumaturgy.ThaumaturgicalRitual;
+import com.dstevens.character.trait.skill.Skill;
+import com.dstevens.character.trait.status.Status;
 
 import static org.junit.Assert.assertEquals;
 
