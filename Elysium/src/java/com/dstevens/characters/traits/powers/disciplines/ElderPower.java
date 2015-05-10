@@ -8,78 +8,80 @@ import com.dstevens.characters.traits.TraitQualities;
 
 public enum ElderPower implements Trait, ApplicableTrait {
 
-    CRIMSON_FURY(Discipline.ANIMALISM),
-    INTIMIDATE_THE_BEAST(Discipline.ANIMALISM),
+    CRIMSON_FURY(0, Discipline.ANIMALISM),
+    INTIMIDATE_THE_BEAST(1, Discipline.ANIMALISM),
     
-    CLAIRVOYANCE(Discipline.AUSPEX),
-    PSYCHIC_ASSAULT(Discipline.AUSPEX),
+    CLAIRVOYANCE(2, Discipline.AUSPEX),
+    PSYCHIC_ASSAULT(3, Discipline.AUSPEX),
     
-    QUICKNESS(Discipline.CELERITY),
-    PROJECTILE(Discipline.CELERITY),
+    QUICKNESS(4, Discipline.CELERITY),
+    PROJECTILE(5, Discipline.CELERITY),
     
-    SHARED_NIGHTMARE(Discipline.CHIMERSTRY),
-    ARMY_OF_APPARITIONS(Discipline.CHIMERSTRY),
+    SHARED_NIGHTMARE(6, Discipline.CHIMERSTRY),
+    ARMY_OF_APPARITIONS(7, Discipline.CHIMERSTRY),
     
-    INFERNAL_COMPACT(Discipline.DAIMOINON),
+    INFERNAL_COMPACT(8, Discipline.DAIMOINON),
     
-    LINGERING_MALAISE(Discipline.DEMENTATION),
-    DENY(Discipline.DEMENTATION),
+    LINGERING_MALAISE(9, Discipline.DEMENTATION),
+    DENY(10, Discipline.DEMENTATION),
     
-    MASS_MANIPULATION(Discipline.DOMINATE),
-    TYRANTS_GAZE(Discipline.DOMINATE),
+    MASS_MANIPULATION(11, Discipline.DOMINATE),
+    TYRANTS_GAZE(12, Discipline.DOMINATE),
     
-    PERSONAL_ARMOR(Discipline.FORTITUDE),
-    REPAIR_THE_UNDEAD_FLESH(Discipline.FORTITUDE),
+    PERSONAL_ARMOR(13, Discipline.FORTITUDE),
+    REPAIR_THE_UNDEAD_FLESH(14, Discipline.FORTITUDE),
     
-    SHATTERING_CRESCENDO(Discipline.MELPOMINEE),
-    PERSISTENT_ECHO(Discipline.MELPOMINEE),
+    SHATTERING_CRESCENDO(15, Discipline.MELPOMINEE),
+    PERSISTENT_ECHO(16, Discipline.MELPOMINEE),
     
-    STEAL_THE_MIND(Discipline.MYTHERCERIA),
+    STEAL_THE_MIND(17, Discipline.MYTHERCERIA),
     
-    UNBURDEN_THE_BEASTIAL_SOUL(Discipline.OBEAH),
+    UNBURDEN_THE_BEASTIAL_SOUL(18, Discipline.OBEAH),
     
-    CACHE(Discipline.OBFUSCATE),
-    PHANTOM_HUNTER(Discipline.OBFUSCATE),
+    CACHE(19, Discipline.OBFUSCATE),
+    PHANTOM_HUNTER(20, Discipline.OBFUSCATE),
     
-    SHADOWSTEP(Discipline.OBTENEBRATION),
-    SHADOW_TWIN(Discipline.OBTENEBRATION),
+    SHADOWSTEP(21, Discipline.OBTENEBRATION),
+    SHADOW_TWIN(22, Discipline.OBTENEBRATION),
     
-    FORCE(Discipline.POTENCE),
-    FLICK(Discipline.POTENCE),
+    FORCE(23, Discipline.POTENCE),
+    FLICK(24, Discipline.POTENCE),
     
-    PARALYZING_GLANCE(Discipline.PRESENCE),
-    LOVE(Discipline.PRESENCE),
+    PARALYZING_GLANCE(25, Discipline.PRESENCE),
+    LOVE(26, Discipline.PRESENCE),
     
-    EARTH_CONTROL(Discipline.PROTEAN),
-    SHAPE_MASTERY(Discipline.PROTEAN),
+    EARTH_CONTROL(27, Discipline.PROTEAN),
+    SHAPE_MASTERY(28, Discipline.PROTEAN),
     
-    BLOOD_SWEAT(Discipline.QUIETUS),
-    BAALS_BLOODY_TALONS(Discipline.QUIETUS),
+    BLOOD_SWEAT(29, Discipline.QUIETUS),
+    BAALS_BLOODY_TALONS(30, Discipline.QUIETUS),
     
-    SEED_OF_CORRUPTION(Discipline.SERPENTIS),
-    DIVINE_IMAGE(Discipline.SERPENTIS),
+    SEED_OF_CORRUPTION(31, Discipline.SERPENTIS),
+    DIVINE_IMAGE(32, Discipline.SERPENTIS),
     
-    KISS_OF_LACHESIS(Discipline.TEMPORSIS),
+    KISS_OF_LACHESIS(33, Discipline.TEMPORSIS),
     
-    CORRUPT_THE_FLESH(Discipline.THANATOSIS),
+    CORRUPT_THE_FLESH(34, Discipline.THANATOSIS),
     
-    FIERY_AGONY(Discipline.VALEREN),
+    FIERY_AGONY(35, Discipline.VALEREN),
     
-    BREATH_OF_THE_DRAGON(Discipline.VICISSITUDE),
-    ACID_BLOOD(Discipline.VICISSITUDE),
+    BREATH_OF_THE_DRAGON(36, Discipline.VICISSITUDE),
+    ACID_BLOOD(37, Discipline.VICISSITUDE),
     
-    BULWARK(Discipline.VISCERATIKA),
-    FURNACE_OF_STEEL(Discipline.VISCERATIKA);
+    BULWARK(38, Discipline.VISCERATIKA),
+    FURNACE_OF_STEEL(39, Discipline.VISCERATIKA);
     
-    private Discipline power;
+    private final int id;
+    private final Discipline power;
     
-    private ElderPower(Discipline power) {
-    	this.power = power;
+    private ElderPower(int id, Discipline power) {
+    	this.id = id;
+		this.power = power;
     }
 
 	@Override
 	public int id() {
-		return 0;
+		return id;
 	}
     
     public Discipline getPower() {
