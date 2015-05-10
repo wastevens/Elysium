@@ -11,31 +11,37 @@ import static com.dstevens.collections.Sets.set;
 
 public enum Clan implements ApplicableTrait, Trait {
 
-    ASSAMITE(Bloodline.ASSAMITE, Bloodline.VIZIER, Bloodline.SORCERER),
-    BRUJAH(Bloodline.BRUJAH, Bloodline.TRUE_BRUJAH),
-    FOLLOWER_OF_SET(Bloodline.FOLLOWER_OF_SET, Bloodline.TLACLQUE, Bloodline.VIPER),
-    GANGREL(Bloodline.GANGREL, Bloodline.COYOTE, Bloodline.NOIAD, Bloodline.AHRIMANE),
-    GIOVANNI(Bloodline.GIOVANNI, Bloodline.PREMASCINE),
-    LASOMBRA(Bloodline.LASOMBRA, Bloodline.KISAYD),
-    MALKAVIAN(Bloodline.MALKAVIAN, Bloodline.ANANKE, Bloodline.KNIGHT_OF_THE_MOON),
-    NOSFERATU(Bloodline.NOSFERATU),
-    TOREADOR(Bloodline.TOREADOR, Bloodline.ISHTARRI, Bloodline.VOLGIRRE),
-    TREMERE(Bloodline.TREMERE, Bloodline.TELYAV),
-    TZIMISCE(Bloodline.TZIMISCE, Bloodline.CARPATHIAN, Bloodline.KOLDUN),
-    VENTRUE(Bloodline.VENTRUE, Bloodline.CRUSADER),
-    CATIFF(Bloodline.CATIFF),
-    BAALI(Bloodline.BAALI, Bloodline.ANGELLIS_ATER),
-    CAPPADOCIAN(Bloodline.CAPPADOCIAN, Bloodline.SAMEDI, Bloodline.LAMIA),
-    RAVNOS(Bloodline.RAVNOS, Bloodline.BRAHMAN),
-    SALUBRI(Bloodline.SALUBRI, Bloodline.HEALER),
-    DAUGHTER_OF_CACOPHONY(Bloodline.DAUGHTER_OF_CACOPHONY),
-    GARGOYLE(Bloodline.GARGOYLE);
+    ASSAMITE(0, Bloodline.ASSAMITE, Bloodline.VIZIER, Bloodline.SORCERER),
+    BRUJAH(1, Bloodline.BRUJAH, Bloodline.TRUE_BRUJAH),
+    FOLLOWER_OF_SET(2, Bloodline.FOLLOWER_OF_SET, Bloodline.TLACLQUE, Bloodline.VIPER),
+    GANGREL(3, Bloodline.GANGREL, Bloodline.COYOTE, Bloodline.NOIAD, Bloodline.AHRIMANE),
+    GIOVANNI(4, Bloodline.GIOVANNI, Bloodline.PREMASCINE),
+    LASOMBRA(5, Bloodline.LASOMBRA, Bloodline.KISAYD),
+    MALKAVIAN(6, Bloodline.MALKAVIAN, Bloodline.ANANKE, Bloodline.KNIGHT_OF_THE_MOON),
+    NOSFERATU(7, Bloodline.NOSFERATU),
+    TOREADOR(8, Bloodline.TOREADOR, Bloodline.ISHTARRI, Bloodline.VOLGIRRE),
+    TREMERE(9, Bloodline.TREMERE, Bloodline.TELYAV),
+    TZIMISCE(10, Bloodline.TZIMISCE, Bloodline.CARPATHIAN, Bloodline.KOLDUN),
+    VENTRUE(11, Bloodline.VENTRUE, Bloodline.CRUSADER),
+    CATIFF(12, Bloodline.CATIFF),
+    BAALI(13, Bloodline.BAALI, Bloodline.ANGELLIS_ATER),
+    CAPPADOCIAN(14, Bloodline.CAPPADOCIAN, Bloodline.SAMEDI, Bloodline.LAMIA),
+    RAVNOS(15, Bloodline.RAVNOS, Bloodline.BRAHMAN),
+    SALUBRI(16, Bloodline.SALUBRI, Bloodline.HEALER),
+    DAUGHTER_OF_CACOPHONY(17, Bloodline.DAUGHTER_OF_CACOPHONY),
+    GARGOYLE(18, Bloodline.GARGOYLE);
     
+    private final int id;
     private final Set<Bloodline> bloodlines;
 
-    private Clan(Bloodline...bloodlines) {
-        this.bloodlines = set(bloodlines);
+    private Clan(int id, Bloodline...bloodlines) {
+        this.id = id;
+		this.bloodlines = set(bloodlines);
     }
+
+	public int id() {
+		return id;
+	};
     
     public Set<Bloodline> getBloodlines() {
         return bloodlines;

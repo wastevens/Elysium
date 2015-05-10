@@ -10,6 +10,11 @@ public enum Status implements Trait {
 	NOT_AWESOME;
 	
 	@Override
+	public int id() {
+		return 0;
+	}
+	
+	@Override
 	public ApplicableTrait applyWith(TraitQualities qualities) {
 		return new CharacterStatus(this, qualities.specialization);
 	};

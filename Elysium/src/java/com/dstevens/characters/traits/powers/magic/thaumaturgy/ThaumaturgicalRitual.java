@@ -4,9 +4,8 @@ import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
 import com.dstevens.characters.traits.Trait;
 import com.dstevens.characters.traits.TraitQualities;
-import com.dstevens.characters.traits.powers.magic.Ritual;
 
-public enum ThaumaturgicalRitual implements Ritual, Trait, ApplicableTrait {
+public enum ThaumaturgicalRitual implements Trait, ApplicableTrait {
 
     BLOOD_MASTERY(1),
     BIND_THE_ACCUSING_TONGUE(1),
@@ -48,6 +47,11 @@ public enum ThaumaturgicalRitual implements Ritual, Trait, ApplicableTrait {
     private ThaumaturgicalRitual(int rating) {
         this.rating = rating;
     }
+    
+	@Override
+	public int id() {
+		return 0;
+	}
     
     public int rating() {
         return rating;

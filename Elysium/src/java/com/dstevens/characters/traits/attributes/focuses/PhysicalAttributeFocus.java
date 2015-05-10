@@ -2,9 +2,10 @@ package com.dstevens.characters.traits.attributes.focuses;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.Trait;
 import com.dstevens.characters.traits.TraitQualities;
 
-public enum PhysicalAttributeFocus implements AttributeFocus, ApplicableTrait {
+public enum PhysicalAttributeFocus implements Trait, ApplicableTrait {
 
     STRENGTH(0),
     DEXTERITY(1),
@@ -16,7 +17,7 @@ public enum PhysicalAttributeFocus implements AttributeFocus, ApplicableTrait {
 		this.id = id;
 	}
 	
-	public int getId() {
+	public int id() {
 		return id;
 	}
     

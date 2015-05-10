@@ -7,27 +7,34 @@ import com.dstevens.characters.traits.TraitQualities;
 
 public enum Background implements Trait {
 
-    ALLIES(DetailLevel.REQUIRES_FOCUS),
-    ALTERNATE_IDENTITY(DetailLevel.REQUIRES_SPECIALIZATION),
-    CONTACTS(DetailLevel.REQUIRES_FOCUS),
-    FAME(DetailLevel.REQUIRES_SPECIALIZATION),
-    GENERATION,
-    HAVEN(DetailLevel.REQUIRES_SPECIALIZATION_AND_FOCUS),
-    HERD,
-    ELITE_INFLUENCE(DetailLevel.REQUIRES_FOCUS),
-    UNDERWORLD_INFLUENCE(DetailLevel.REQUIRES_FOCUS),
-    RESOURCES,
-    RETAINER(DetailLevel.REQUIRES_SPECIALIZATION_AND_FOCUS),
-    RITUALS(DetailLevel.REQUIRES_FOCUS);
+    ALLIES(0, DetailLevel.REQUIRES_FOCUS),
+    ALTERNATE_IDENTITY(1, DetailLevel.REQUIRES_SPECIALIZATION),
+    CONTACTS(2, DetailLevel.REQUIRES_FOCUS),
+    FAME(3, DetailLevel.REQUIRES_SPECIALIZATION),
+    GENERATION(4),
+    HAVEN(5, DetailLevel.REQUIRES_SPECIALIZATION_AND_FOCUS),
+    HERD(6),
+    ELITE_INFLUENCE(7, DetailLevel.REQUIRES_FOCUS),
+    UNDERWORLD_INFLUENCE(8, DetailLevel.REQUIRES_FOCUS),
+    RESOURCES(9),
+    RETAINER(10, DetailLevel.REQUIRES_SPECIALIZATION_AND_FOCUS),
+    RITUALS(11, DetailLevel.REQUIRES_FOCUS);
     
     private final DetailLevel detailLevel;
+	private final int id;
 
-    private Background() {
-        this(DetailLevel.NONE);
+    private Background(int id) {
+        this(id, DetailLevel.NONE);
     }
 
-    private Background(DetailLevel detailLevel) {
-        this.detailLevel = detailLevel;
+    private Background(int id, DetailLevel detailLevel) {
+        this.id = id;
+		this.detailLevel = detailLevel;
+    }
+    
+    @Override
+    public int id() {
+    	return id;
     }
     
     public DetailLevel detailLevel() {

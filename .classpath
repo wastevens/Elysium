@@ -3,11 +3,6 @@
 	<classpathentry kind="src" path="Elysium/src/java"/>
 	<classpathentry kind="src" path="Elysium/src/test/integration/java"/>
 	<classpathentry kind="src" path="Elysium/src/test/unit/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
-		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="Elysium/lib/default/antlr.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/aopalliance.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/app.jar"/>
@@ -71,5 +66,6 @@
 	<classpathentry kind="lib" path="Elysium/lib/test/testDefault/hamcrest-core.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/test/testDefault/junit.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/ant.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

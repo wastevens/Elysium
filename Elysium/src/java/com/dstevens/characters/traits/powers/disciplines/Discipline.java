@@ -54,6 +54,11 @@ public enum Discipline implements Trait, ApplicableTrait {
     }
 
 	@Override
+	public int id() {
+		return 0;
+	}
+	
+	@Override
 	public ApplicableTrait applyWith(TraitQualities qualities) {
 		if(qualities.rating == -1) {
 			return this;

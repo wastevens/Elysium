@@ -57,6 +57,11 @@ public enum Technique implements Trait, ApplicableTrait {
         this.requirements = Sets.set(requirements);
     }
     
+	@Override
+	public int id() {
+		return 0;
+	}
+    
     public Set<TechniqueRequirement> requirements() {
         return requirements;
     }

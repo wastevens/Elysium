@@ -68,6 +68,10 @@ public enum Bloodline implements ApplicableTrait, Trait {
     
     GARGOYLE;                  
     
+	public int id() {
+		return 0;
+	};
+	
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {
 		return character.withBloodline(this);

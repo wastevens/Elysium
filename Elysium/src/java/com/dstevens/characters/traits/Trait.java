@@ -4,5 +4,6 @@ public interface Trait {
 
 	ApplicableTrait applyWith(TraitQualities qualities);
 	int ordinal();
+	int id();
 	
 }

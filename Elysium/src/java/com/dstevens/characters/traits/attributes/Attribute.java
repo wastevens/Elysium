@@ -6,25 +6,36 @@ import com.dstevens.characters.traits.TraitQualities;
 
 public enum Attribute implements Trait {
 
-	PHYSICAL {
+	PHYSICAL(0) {
 		@Override
 		public ApplicableTrait setAttributeTo(int value) {
 			return new PhysicalAttributeValue(value);
 		}
 	},
-	SOCIAL {
+	SOCIAL(1) {
 		@Override
 		public ApplicableTrait setAttributeTo(int value) {
 			return new SocialAttributeValue(value);
 		}
 	},
-	MENTAL {
+	MENTAL(2) {
 		@Override
 		public ApplicableTrait setAttributeTo(int value) {
 			return new MentalAttributeValue(value);
 		}
 	};
 
+	private final int id;
+
+	private Attribute(int id) {
+		this.id = id;
+	}
+	
+	@Override
+	public int id() {
+		return id;
+	}
+	
 	@Override
 	public ApplicableTrait applyWith(TraitQualities qualities) {
 		return this.setAttributeTo(qualities.rating);

@@ -113,6 +113,11 @@ public enum Flaw implements Trait {
 		this.setting = setting;
     }
 	
+	@Override
+	public int id() {
+		return 0;
+	}
+    
     public int getPoints() {
         return points;
     }

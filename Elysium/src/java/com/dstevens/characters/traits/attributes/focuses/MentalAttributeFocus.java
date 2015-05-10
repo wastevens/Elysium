@@ -2,10 +2,11 @@ package com.dstevens.characters.traits.attributes.focuses;
 
 import com.dstevens.characters.PlayerCharacter;
 import com.dstevens.characters.traits.ApplicableTrait;
+import com.dstevens.characters.traits.Trait;
 import com.dstevens.characters.traits.TraitQualities;
 
 
-public enum MentalAttributeFocus implements AttributeFocus, ApplicableTrait {
+public enum MentalAttributeFocus implements Trait, ApplicableTrait {
 
     INTELLIGENCE(0),
     WITS(1),
@@ -17,7 +18,7 @@ public enum MentalAttributeFocus implements AttributeFocus, ApplicableTrait {
 		this.id = id;
 	}
 	
-	public int getId() {
+	public int id() {
 		return id;
 	}
 

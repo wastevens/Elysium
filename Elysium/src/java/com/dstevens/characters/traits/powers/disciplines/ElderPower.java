@@ -72,13 +72,18 @@ public enum ElderPower implements Trait, ApplicableTrait {
     FURNACE_OF_STEEL(Discipline.VISCERATIKA);
     
     private Discipline power;
-
-    public Discipline getPower() {
-        return power;
-    }
     
     private ElderPower(Discipline power) {
-        this.power = power;
+    	this.power = power;
+    }
+
+	@Override
+	public int id() {
+		return 0;
+	}
+    
+    public Discipline getPower() {
+        return power;
     }
 
 	@Override

@@ -39,9 +39,14 @@ public enum Skill implements Trait {
     private Skill() {
         this(DetailLevel.NONE);
     }
-
+    
     private Skill(DetailLevel detailLevel) {
         this.detailLevel = detailLevel;
+    }
+    
+    @Override
+    public int id() {
+    	return 0;
     }
     
     public DetailLevel detailLevel() {
