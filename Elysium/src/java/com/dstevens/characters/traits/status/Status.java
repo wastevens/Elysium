@@ -6,12 +6,18 @@ import com.dstevens.characters.traits.TraitQualities;
 
 public enum Status implements Trait {
 
-	AWESOME,
-	NOT_AWESOME;
+	AWESOME(0),
+	NOT_AWESOME(1);
+	
+	private final int id;
+
+	private Status(int id) {
+		this.id = id;
+	}
 	
 	@Override
 	public int id() {
-		return 0;
+		return id;
 	}
 	
 	@Override
