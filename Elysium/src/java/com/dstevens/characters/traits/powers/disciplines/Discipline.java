@@ -9,53 +9,59 @@ import com.dstevens.characters.traits.powers.PowerType;
 
 public enum Discipline implements Trait, ApplicableTrait {
 
-    ANIMALISM(PowerType.DISCIPLINE),
-    AUSPEX(PowerType.DISCIPLINE),
-    CELERITY(PowerType.DISCIPLINE),
-    CHIMERSTRY(PowerType.DISCIPLINE),
-    DAIMOINON(PowerType.DISCIPLINE),
-    DEMENTATION(PowerType.DISCIPLINE),
-    DOMINATE(PowerType.DISCIPLINE),
-    FORTITUDE(PowerType.DISCIPLINE),
-    MELPOMINEE(PowerType.DISCIPLINE),
-    MYTHERCERIA(PowerType.DISCIPLINE),
-    OBEAH(PowerType.DISCIPLINE),
-    OBFUSCATE(PowerType.DISCIPLINE),
-    OBTENEBRATION(PowerType.DISCIPLINE),
-    POTENCE(PowerType.DISCIPLINE),
-    PRESENCE(PowerType.DISCIPLINE),
-    PROTEAN(PowerType.DISCIPLINE),
-    QUIETUS(PowerType.DISCIPLINE),
-    SERPENTIS(PowerType.DISCIPLINE),
-    TEMPORSIS(PowerType.DISCIPLINE),
-    THANATOSIS(PowerType.DISCIPLINE),
-    VALEREN(PowerType.DISCIPLINE),
-    VICISSITUDE(PowerType.DISCIPLINE),
-    VISCERATIKA(PowerType.DISCIPLINE),
+    ANIMALISM(0, PowerType.DISCIPLINE),
+    AUSPEX(1, PowerType.DISCIPLINE),
+    CELERITY(2, PowerType.DISCIPLINE),
+    CHIMERSTRY(3, PowerType.DISCIPLINE),
+    DAIMOINON(4, PowerType.DISCIPLINE),
+    DEMENTATION(5, PowerType.DISCIPLINE),
+    DOMINATE(6, PowerType.DISCIPLINE),
+    FORTITUDE(7, PowerType.DISCIPLINE),
+    MELPOMINEE(8, PowerType.DISCIPLINE),
+    MYTHERCERIA(9, PowerType.DISCIPLINE),
+    OBEAH(10, PowerType.DISCIPLINE),
+    OBFUSCATE(11, PowerType.DISCIPLINE),
+    OBTENEBRATION(12, PowerType.DISCIPLINE),
+    POTENCE(13, PowerType.DISCIPLINE),
+    PRESENCE(14, PowerType.DISCIPLINE),
+    PROTEAN(15, PowerType.DISCIPLINE),
+    QUIETUS(16, PowerType.DISCIPLINE),
+    SERPENTIS(17, PowerType.DISCIPLINE),
+    TEMPORSIS(18, PowerType.DISCIPLINE),
+    THANATOSIS(19, PowerType.DISCIPLINE),
+    VALEREN(20, PowerType.DISCIPLINE),
+    VICISSITUDE(21, PowerType.DISCIPLINE),
+    VISCERATIKA(22, PowerType.DISCIPLINE),
     
-    SEPULCHRE_PATH(PowerType.NECROMANCY),
-    BONE_PATH(PowerType.NECROMANCY),
-    ASH_PATH(PowerType.NECROMANCY),
-    MORTIS_PATH(PowerType.NECROMANCY),
+    SEPULCHRE_PATH(23, PowerType.NECROMANCY),
+    BONE_PATH(24, PowerType.NECROMANCY),
+    ASH_PATH(25, PowerType.NECROMANCY),
+    MORTIS_PATH(26, PowerType.NECROMANCY),
     
-    PATH_OF_BLOOD(PowerType.THAUMATURGY),
-    PATH_OF_CONJURING(PowerType.THAUMATURGY),
-    PATH_OF_CORRUPTION(PowerType.THAUMATURGY),
-    PATH_OF_ELEMENTAL_MASTERY(PowerType.THAUMATURGY),
-    LURE_OF_FLAMES(PowerType.THAUMATURGY),
-    MOVEMENT_OF_THE_MIND(PowerType.THAUMATURGY),
-    PATH_OF_TECHNOMANCY(PowerType.THAUMATURGY),
-    PATH_OF_WEATHER_MASTERY(PowerType.THAUMATURGY);
+    PATH_OF_BLOOD(27, PowerType.THAUMATURGY),
+    PATH_OF_CONJURING(28, PowerType.THAUMATURGY),
+    PATH_OF_CORRUPTION(29, PowerType.THAUMATURGY),
+    PATH_OF_ELEMENTAL_MASTERY(30, PowerType.THAUMATURGY),
+    LURE_OF_FLAMES(31, PowerType.THAUMATURGY),
+    MOVEMENT_OF_THE_MIND(32, PowerType.THAUMATURGY),
+    PATH_OF_TECHNOMANCY(33, PowerType.THAUMATURGY),
+    PATH_OF_WEATHER_MASTERY(34, PowerType.THAUMATURGY);
 
-    public final PowerType powerType;
+    private final PowerType powerType;
+	private final int id;
 
-	private Discipline(PowerType powerType) {
+	private Discipline(int id, PowerType powerType) {
+		this.id = id;
 		this.powerType = powerType;
     }
 
 	@Override
 	public int id() {
-		return 0;
+		return id;
+	}
+	
+	public PowerType powerType() {
+		return powerType;
 	}
 	
 	@Override

@@ -7,69 +7,75 @@ import com.dstevens.characters.traits.TraitQualities;
 
 public enum Bloodline implements ApplicableTrait, Trait {
 
-	ASSAMITE,
-    VIZIER,
-	SORCERER,
+	ASSAMITE(0),
+    VIZIER(1),
+	SORCERER(2),
 	
-	BRUJAH,
-    TRUE_BRUJAH,
+	BRUJAH(3),
+    TRUE_BRUJAH(4),
     
-    FOLLOWER_OF_SET,
-    TLACLQUE, 
-    VIPER,
+    FOLLOWER_OF_SET(5),
+    TLACLQUE(6), 
+    VIPER(7),
     
-    GANGREL,
-    COYOTE, 
-    NOIAD, 
-    AHRIMANE,
+    GANGREL(8),
+    COYOTE(9), 
+    NOIAD(10), 
+    AHRIMANE(11),
     
-    GIOVANNI,
-    PREMASCINE,
+    GIOVANNI(12),
+    PREMASCINE(13),
     
-    LASOMBRA,
-    KISAYD,
+    LASOMBRA(14),
+    KISAYD(15),
     
-    MALKAVIAN,
-    ANANKE,
-    KNIGHT_OF_THE_MOON,
+    MALKAVIAN(16),
+    ANANKE(17),
+    KNIGHT_OF_THE_MOON(18),
     
-    NOSFERATU,
+    NOSFERATU(19),
     
-    TOREADOR,
-    ISHTARRI,
-    VOLGIRRE,
+    TOREADOR(20),
+    ISHTARRI(21),
+    VOLGIRRE(22),
 
-    TREMERE,
-    TELYAV,
+    TREMERE(23),
+    TELYAV(24),
 
-    TZIMISCE,
-    CARPATHIAN,
-    KOLDUN,
+    TZIMISCE(25),
+    CARPATHIAN(26),
+    KOLDUN(27),
 
-    VENTRUE,
-    CRUSADER,
+    VENTRUE(28),
+    CRUSADER(29),
 
-    CATIFF,
+    CATIFF(30),
     
-    BAALI,
-    ANGELLIS_ATER,
+    BAALI(31),
+    ANGELLIS_ATER(32),
 
-    CAPPADOCIAN,
-    SAMEDI,
-    LAMIA,
+    CAPPADOCIAN(33),
+    SAMEDI(34),
+    LAMIA(35),
     
-    RAVNOS,
-    BRAHMAN,                  
+    RAVNOS(36),
+    BRAHMAN(37),                  
     
-    SALUBRI,
-    HEALER,
+    SALUBRI(38),
+    HEALER(39),
     
-    DAUGHTER_OF_CACOPHONY,
+    DAUGHTER_OF_CACOPHONY(40),
     
-    GARGOYLE;                  
+    GARGOYLE(41);                  
     
+	private final int id;
+
+	private Bloodline(int id) {
+		this.id = id;
+	}
+	
 	public int id() {
-		return 0;
+		return id;
 	};
 	
 	@Override
