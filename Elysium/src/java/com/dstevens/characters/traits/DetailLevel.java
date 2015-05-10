@@ -1,11 +1,24 @@
 package com.dstevens.characters.traits;
 
-public enum DetailLevel {
+import com.dstevens.utilities.Identified;
 
-    NONE,
-    ALLOWS_FOCUS,
-    REQUIRES_FOCUS,
-    REQUIRES_SPECIALIZATION,
-    REQUIRES_SPECIALIZATION_AND_FOCUS;
+public enum DetailLevel implements Identified<Integer> {
+
+    NONE(0),
+    ALLOWS_FOCUS(1),
+    REQUIRES_FOCUS(2),
+    REQUIRES_SPECIALIZATION(3),
+    REQUIRES_SPECIALIZATION_AND_FOCUS(4);
+    
+    private final int id;
+
+	private DetailLevel(int id) {
+		this.id = id;
+	}
+    
+	@Override
+	public Integer getId() {
+		return id;
+	}
     
 }

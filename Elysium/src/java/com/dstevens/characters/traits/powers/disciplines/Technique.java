@@ -60,7 +60,7 @@ public enum Technique implements Trait, ApplicableTrait {
     }
     
 	@Override
-	public int id() {
+	public Integer getId() {
 		return id;
 	}
     

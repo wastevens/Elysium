@@ -1,8 +1,9 @@
 package com.dstevens.characters.traits;
 
-public interface Trait {
+import com.dstevens.utilities.Identified;
+
+public interface Trait extends Identified<Integer> {
 
 	ApplicableTrait applyWith(TraitQualities qualities);
-	int id();
 	
 }

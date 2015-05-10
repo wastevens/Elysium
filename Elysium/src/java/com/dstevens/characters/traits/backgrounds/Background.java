@@ -32,10 +32,10 @@ public enum Background implements Trait {
 		this.detailLevel = detailLevel;
     }
     
-    @Override
-    public int id() {
-    	return id;
-    }
+	@Override
+	public Integer getId() {
+		return id;
+	}
     
     public DetailLevel detailLevel() {
     	return detailLevel;

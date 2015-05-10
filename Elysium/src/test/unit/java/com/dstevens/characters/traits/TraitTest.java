@@ -48,7 +48,7 @@ public class TraitTest {
 		E[] values = klazz.getEnumConstants();
 		for (E value : values) {
 			assertEquals(true, Trait.class.isAssignableFrom(value.getClass()));
-			assertEquals(Trait.class.cast(value).id(), value.ordinal());
+			assertEquals(Trait.class.cast(value).getId().intValue(), value.ordinal());
 		}
 	}
 	

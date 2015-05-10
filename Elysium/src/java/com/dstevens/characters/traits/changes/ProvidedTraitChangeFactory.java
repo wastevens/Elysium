@@ -10,6 +10,6 @@ import com.dstevens.characters.traits.TraitType;
 class ProvidedTraitChangeFactory implements TraitChangeFactory {
 	
 	public TraitChange traitChange(TraitType traitType, Trait trait, TraitQualities qualities) {
-		return new TraitChange(traitType, trait.id(), qualities);
+		return new TraitChange(traitType, trait.getId(), qualities);
 	}
 }

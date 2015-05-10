@@ -51,7 +51,7 @@ public enum ThaumaturgicalRitual implements Trait, ApplicableTrait {
     }
     
 	@Override
-	public int id() {
+	public Integer getId() {
 		return id;
 	}
     

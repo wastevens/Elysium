@@ -1,9 +1,22 @@
 package com.dstevens.characters.status;
 
-public enum ApprovalStatus {
+import com.dstevens.utilities.Identified;
 
-	IN_CREATION,
-	APPROVAL_REQUESTED,
-	APPROVED;
+public enum ApprovalStatus implements Identified<Integer> {
+
+	IN_CREATION(0),
+	APPROVAL_REQUESTED(1),
+	APPROVED(2);
+	
+	private final int id;
+
+	private ApprovalStatus(int id) {
+		this.id = id;
+	}
+	
+	@Override
+	public Integer getId() {
+		return id;
+	}
 	
 }

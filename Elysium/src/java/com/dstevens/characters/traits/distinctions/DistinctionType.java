@@ -1,12 +1,25 @@
 package com.dstevens.characters.traits.distinctions;
 
-public enum DistinctionType {
+import com.dstevens.utilities.Identified;
 
-	GENERAL,
-	MORALITY,
-	RARITY,
-	CLAN,
-	BLOODLINE,
-	SETTING;
+public enum DistinctionType implements Identified<Integer> {
+
+	GENERAL(0),
+	MORALITY(1),
+	RARITY(2),
+	CLAN(3),
+	BLOODLINE(4),
+	SETTING(5);
+	
+	private final int id;
+
+	private DistinctionType(int id) {
+		this.id = id;
+	}
+	
+	@Override
+	public Integer getId() {
+		return id;
+	}
 	
 }

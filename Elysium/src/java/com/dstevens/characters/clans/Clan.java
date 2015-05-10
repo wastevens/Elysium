@@ -39,9 +39,10 @@ public enum Clan implements ApplicableTrait, Trait {
 		this.bloodlines = set(bloodlines);
     }
 
-	public int id() {
+	@Override
+	public Integer getId() {
 		return id;
-	};
+	}
     
     public Set<Bloodline> getBloodlines() {
         return bloodlines;

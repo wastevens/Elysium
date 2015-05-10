@@ -116,7 +116,7 @@ public enum Flaw implements Trait {
     }
 	
 	@Override
-	public int id() {
+	public Integer getId() {
 		return id;
 	}
     

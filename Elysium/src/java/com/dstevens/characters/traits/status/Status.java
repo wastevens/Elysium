@@ -16,7 +16,7 @@ public enum Status implements Trait {
 	}
 	
 	@Override
-	public int id() {
+	public Integer getId() {
 		return id;
 	}
 	

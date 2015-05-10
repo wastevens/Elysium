@@ -32,7 +32,7 @@ public enum Attribute implements Trait {
 	}
 	
 	@Override
-	public int id() {
+	public Integer getId() {
 		return id;
 	}
 	

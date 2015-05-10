@@ -74,9 +74,10 @@ public enum Bloodline implements ApplicableTrait, Trait {
 		this.id = id;
 	}
 	
-	public int id() {
+	@Override
+	public Integer getId() {
 		return id;
-	};
+	}
 	
 	@Override
 	public PlayerCharacter applyTo(PlayerCharacter character) {

@@ -18,7 +18,8 @@ public enum MentalAttributeFocus implements Trait, ApplicableTrait {
 		this.id = id;
 	}
 	
-	public int id() {
+	@Override
+	public Integer getId() {
 		return id;
 	}
 

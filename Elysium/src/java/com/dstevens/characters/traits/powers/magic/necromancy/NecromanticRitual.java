@@ -42,7 +42,7 @@ public enum NecromanticRitual implements Trait, ApplicableTrait {
     }
 
 	@Override
-	public int id() {
+	public Integer getId() {
 		return id;
 	}
     
