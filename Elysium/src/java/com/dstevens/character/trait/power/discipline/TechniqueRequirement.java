@@ -2,7 +2,7 @@ package com.dstevens.character.trait.power.discipline;
 
 import com.dstevens.utilities.ObjectExtensions;
 
-class TechniqueRequirement {
+public class TechniqueRequirement {
 
     private final Discipline power;
     private final int rating;
