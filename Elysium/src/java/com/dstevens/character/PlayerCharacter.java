@@ -46,7 +46,6 @@ import com.dstevens.character.trait.power.magic.necromancy.NecromanticRitual;
 import com.dstevens.character.trait.power.magic.thaumaturgy.ThaumaturgicalRitual;
 import com.dstevens.character.trait.skill.CharacterSkill;
 import com.dstevens.character.trait.status.CharacterStatus;
-import com.dstevens.player.Setting;
 import com.dstevens.utilities.ObjectExtensions;
 
 import static com.dstevens.collections.Lists.list;

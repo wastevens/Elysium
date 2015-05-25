@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.dstevens.character.PlayerCharacter;
 import com.dstevens.character.PlayerCharacterRepository;
+import com.dstevens.character.Setting;
 import com.dstevens.character.clan.Bloodline;
 import com.dstevens.character.clan.Clan;
 import com.dstevens.character.status.PlayerStatus;
@@ -43,7 +44,6 @@ import com.dstevens.character.trait.skill.Skill;
 import com.dstevens.character.trait.status.CharacterStatus;
 import com.dstevens.character.trait.status.Status;
 import com.dstevens.configuration.ApplicationConfiguration;
-import com.dstevens.player.Setting;
 import com.dstevens.time.DateTimeUtilities;
 
 import static com.dstevens.collections.Sets.set;

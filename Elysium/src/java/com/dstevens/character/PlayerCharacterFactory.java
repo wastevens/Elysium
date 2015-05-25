@@ -2,8 +2,6 @@ package com.dstevens.character;
 
 import org.springframework.stereotype.Service;
 
-import com.dstevens.player.Setting;
-
 @Service
 public class PlayerCharacterFactory {
 

@@ -1,4 +1,4 @@
-package com.dstevens.player;
+package com.dstevens.character;
 
 import com.dstevens.utilities.Identified;
 
