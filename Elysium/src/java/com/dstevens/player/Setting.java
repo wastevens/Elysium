@@ -6,7 +6,8 @@ public enum Setting implements Identified<Integer> {
 
     CAMARILLA(0),
     ANARCH(1),
-    SABBAT(2);
+    SABBAT(2),
+    INDEPENDENT_ALLIANCE(3);
 
     private final int id;
 
