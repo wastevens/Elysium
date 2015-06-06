@@ -27,7 +27,6 @@ import org.hibernate.annotations.ForeignKey;
 import com.dstevens.character.clan.Bloodline;
 import com.dstevens.character.clan.Clan;
 import com.dstevens.character.status.ApprovalStatus;
-import com.dstevens.character.status.PlayerStatusChange;
 import com.dstevens.character.trait.attribute.focus.MentalAttributeFocus;
 import com.dstevens.character.trait.attribute.focus.PhysicalAttributeFocus;
 import com.dstevens.character.trait.attribute.focus.SocialAttributeFocus;
@@ -66,11 +65,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     
     @Column(name="name")
     private String name;
-    
-    @ElementCollection
-    @OrderColumn(name="order_by")
-    @ForeignKey(name="PlayerCharacter_PlayerStatusChanges_FK")
-    private final List<PlayerStatusChange> playerStatusChanges;
     
     @Column(name="approvalStatus")
     private ApprovalStatus approvalStatus;
@@ -197,11 +191,11 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     //Hibernate only
     @Deprecated
     public PlayerCharacter() {
-        this(null, null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
     PlayerCharacter(String name, Setting setting) {
-        this(null, name, list(), null, setting, null, null, 0, 0, 0,
+        this(null, name, null, setting, null, null, 0, 0, 0,
              set(), set(), set(),
              set(), set(),
              list(), set(), 
@@ -211,7 +205,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
              list(), list(), list());
     }
     
-    private PlayerCharacter(Integer id, String name, List<PlayerStatusChange> activityStatusChanges, ApprovalStatus approvalStatus, 
+    private PlayerCharacter(Integer id, String name, ApprovalStatus approvalStatus, 
     		                Setting setting, Clan clan, Bloodline bloodline, 
                             int physicalAttribute, int mentalAttribute, int socialAttribute, 
                             Set<PhysicalAttributeFocus> physicalAttrbuteFocuses, Set<MentalAttributeFocus> mentalAttrbuteFocuses,  Set<SocialAttributeFocus> socialAttrbuteFocuses,   
@@ -223,7 +217,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
                             List<TraitChange> traitChanges, List<TraitChange> appliedTraitChanges, List<ExperienceAward> experienceAwards) {
         this.id = id;
         this.name = name;
-        this.playerStatusChanges = activityStatusChanges;
 		this.setting = setting;
         this.clan = clan;
         this.bloodline = bloodline;
@@ -262,19 +255,6 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     
     public String getName() {
         return name;
-    }
-    
-    public PlayerStatusChange getCurrentStatus() {
-    	return playerStatusChanges.get(0);
-    }
-    
-    public List<PlayerStatusChange> getActivityStatusChangeHistory() {
-    	return playerStatusChanges;
-    }
-    
-    public PlayerCharacter changeActivityStatus(PlayerStatusChange activityStatusChange) {
-    	this.playerStatusChanges.add(0, activityStatusChange);
-    	return this;
     }
     
     public ApprovalStatus getApprovalStatus() {

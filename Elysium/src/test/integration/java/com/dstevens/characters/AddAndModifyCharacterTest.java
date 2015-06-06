@@ -1,7 +1,6 @@
 package com.dstevens.characters;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.stream.StreamSupport;
 
 import org.junit.After;
@@ -14,8 +13,6 @@ import com.dstevens.character.PlayerCharacterRepository;
 import com.dstevens.character.Setting;
 import com.dstevens.character.clan.Bloodline;
 import com.dstevens.character.clan.Clan;
-import com.dstevens.character.status.PlayerStatus;
-import com.dstevens.character.status.PlayerStatusChange;
 import com.dstevens.character.trait.TraitQualities;
 import com.dstevens.character.trait.TraitQualitiesBuilder;
 import com.dstevens.character.trait.TraitType;
@@ -25,7 +22,6 @@ import com.dstevens.character.trait.attribute.focus.PhysicalAttributeFocus;
 import com.dstevens.character.trait.attribute.focus.SocialAttributeFocus;
 import com.dstevens.character.trait.background.Background;
 import com.dstevens.character.trait.background.CharacterBackground;
-import com.dstevens.character.trait.change.ExperienceAwardService;
 import com.dstevens.character.trait.change.TraitChange;
 import com.dstevens.character.trait.change.TraitChangeFactory;
 import com.dstevens.character.trait.change.TraitChangeFactoryProvider;
@@ -33,6 +29,7 @@ import com.dstevens.character.trait.distinction.flaw.CharacterFlaw;
 import com.dstevens.character.trait.distinction.flaw.Flaw;
 import com.dstevens.character.trait.distinction.merit.CharacterMerit;
 import com.dstevens.character.trait.distinction.merit.Merit;
+import com.dstevens.character.trait.experience.ExperienceAward;
 import com.dstevens.character.trait.power.discipline.CharacterDiscipline;
 import com.dstevens.character.trait.power.discipline.Discipline;
 import com.dstevens.character.trait.power.discipline.ElderPower;
@@ -44,7 +41,6 @@ import com.dstevens.character.trait.skill.Skill;
 import com.dstevens.character.trait.status.CharacterStatus;
 import com.dstevens.character.trait.status.Status;
 import com.dstevens.configuration.ApplicationConfiguration;
-import com.dstevens.time.DateTimeUtilities;
 
 import static com.dstevens.collections.Sets.set;
 
@@ -251,7 +247,6 @@ public class AddAndModifyCharacterTest {
                                              withDiscipline(new CharacterDiscipline(Discipline.PRESENCE, 2)).
                                              withDiscipline(new CharacterDiscipline(Discipline.CELERITY, 1)).
                                              withDiscipline(new CharacterDiscipline(Discipline.AUSPEX, 1)).
-                                             changeActivityStatus(new PlayerStatusChange(PlayerStatus.PRIMARY, DateTimeUtilities.fromLocalDateInUTC(LocalDate.of(2014, 12, 1)))).
                                              withBaseXp(200));
         characterRepository.update(saved);
     }
@@ -301,17 +296,10 @@ public class AddAndModifyCharacterTest {
     
     private void earnXpForMaryWollstonecraft() {
     	PlayerCharacterRepository characterRepository = appConfig.getBean(PlayerCharacterRepository.class);
-    	ExperienceAwardService awardService = appConfig.getBean(ExperienceAwardService.class);
     	assertEquals(200, getMaryWollstonecraft().getXpGained());
 		
-    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 3, LocalDate.of(2022, Month.JULY, 1), "Attendance"));
+    	characterRepository.update(getMaryWollstonecraft().addExperienceAward(new ExperienceAward(3, LocalDate.now(), "")));
     	assertEquals(203, getMaryWollstonecraft().getXpGained());
-    	
-    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 8, LocalDate.of(2022, Month.JULY, 1), "Attendance"));
-    	assertEquals(210, getMaryWollstonecraft().getXpGained());
-    	
-    	characterRepository.update(awardService.awardCharacter(getMaryWollstonecraft(), 11, LocalDate.of(2022, Month.AUGUST, 1), "Attendance"));
-    	assertEquals(220, getMaryWollstonecraft().getXpGained());
     }
 
 //    private void backoutSomeOfThoseChanges() {
