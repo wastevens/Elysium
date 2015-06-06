@@ -65,7 +65,7 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     private final Integer id;
     
     @Column(name="name")
-    private final String name;
+    private String name;
     
     @ElementCollection
     @OrderColumn(name="order_by")
@@ -200,8 +200,8 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
         this(null, null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
     
-    PlayerCharacter(Integer id, String name, Setting setting) {
-        this(id, name, list(), null, setting, null, null, 0, 0, 0,
+    PlayerCharacter(String name, Setting setting) {
+        this(null, name, list(), null, setting, null, null, 0, 0, 0,
              set(), set(), set(),
              set(), set(),
              list(), set(), 
@@ -256,15 +256,8 @@ public class PlayerCharacter implements Comparable<PlayerCharacter> {
     }
     
     public PlayerCharacter withName(String name) {
-        return new PlayerCharacter(id, name, playerStatusChanges, approvalStatus,  
-        		                   setting, clan, bloodline, physicalAttribute, mentalAttribute, socialAttribute,
-                                   physicalAttributeFocuses, mentalAttrbuteFocuses, socialAttributeFocuses,
-                                   skills, backgrounds, 
-                                   inClanDisciplines, disciplines, 
-                                   elderPowers, techniques, primaryThaumaturgicalPath, 
-                                   thaumaturgicalRituals, primaryNecromanticPath, necromanticRituals,
-                                   merits, flaws, status,
-                                   requesedTraitChanges, appliedTraitChanges, experienceAwards);
+    	this.name = name;
+    	return this;
     }
     
     public String getName() {

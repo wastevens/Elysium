@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class PlayerCharacterFactory {
 
     public PlayerCharacter createPlayerCharacter(String name, Setting setting) {
-        return new PlayerCharacter(null, name, setting);
+        return new PlayerCharacter(name, setting);
     }
     
 }
