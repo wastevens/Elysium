@@ -15,6 +15,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.character.PlayerCharacter;
@@ -22,12 +25,12 @@ import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
 import com.dstevens.character.trait.TraitType;
-import com.dstevens.utilities.ObjectExtensions;
+import com.dstevens.utilities.Identified;
 
 @SuppressWarnings("deprecation")
 @Entity
 @Table(name="TraitChanges")
-public class TraitChange {
+public class TraitChange implements Identified<Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen")
@@ -140,9 +143,24 @@ public class TraitChange {
     	this.remove = false;
     	return this;
     }
+
+	@Override
+	public Long getId() {
+		return id;
+	}
     
-    @Override
-    public final String toString() {
-        return ObjectExtensions.toStringFor(this);
-    }
+	@Override
+	public boolean equals(Object that) {
+		return EqualsBuilder.reflectionEquals(this, that);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 }
