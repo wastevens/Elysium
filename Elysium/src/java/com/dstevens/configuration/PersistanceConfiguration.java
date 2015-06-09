@@ -2,6 +2,9 @@ package com.dstevens.configuration;
 
 import java.util.Properties;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -13,13 +16,18 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableJpaRepositories("com.dstevens")
 @EnableTransactionManagement
 public class PersistanceConfiguration {
     
+	@Value("${db.driver:com.mysql.jdbc.Driver}") private String driver;
+	@Value("${db.host:localhost}") private String host;
+	@Value("${db.name:elysium}") private String name;
+	@Value("${db.port:3306}") private String port;
+	@Value("${db.user:root}") private String user;
+	@Value("${db.password:password}") private String password;
+	
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -58,27 +66,27 @@ public class PersistanceConfiguration {
     }
 
 	private String driver() {
-		return System.getProperty("DB_DRIVER", "com.mysql.jdbc.Driver");
+		return driver;
 	}
     
     private String hostName() {
-    	return System.getProperty("DB_HOSTNAME", "localhost");
+    	return host;
     }
     
     private String dbName() {
-    	return System.getProperty("DB_NAME", "elysium");
+    	return name;
     }
     
     private String dbPort() {
-    	return System.getProperty("DB_PORT", "3306");
+    	return port;
     }
     
     private String dbUser() {
-    	return System.getProperty("DB_USERNAME", "root");
+    	return user;
     }
     
     private String dbPassword() {
-    	return System.getProperty("DB_PASSWORD", "password");
+    	return password;
     }
     
     @Bean

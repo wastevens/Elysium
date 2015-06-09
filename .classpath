@@ -46,15 +46,27 @@
 	<classpathentry kind="lib" path="Elysium/lib/default/slf4j-log4j12.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/spring-aop.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/spring-aspects.jar"/>
-	<classpathentry kind="lib" path="Elysium/lib/default/spring-beans.jar"/>
-	<classpathentry kind="lib" path="Elysium/lib/default/spring-context.jar"/>
+	<classpathentry kind="lib" path="Elysium/lib/default/spring-beans.jar" sourcepath="Elysium/lib/sources/spring-beans-sources.jar"/>
+	<classpathentry kind="lib" path="Elysium/lib/default/spring-context.jar" sourcepath="Elysium/lib/sources/spring-context-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Elysium/Elysium/lib/javadoc/spring-context-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="Elysium/lib/default/spring-core.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/spring-data-commons.jar"/>
-	<classpathentry kind="lib" path="Elysium/lib/default/spring-data-jpa.jar"/>
+	<classpathentry kind="lib" path="Elysium/lib/default/spring-data-jpa.jar" sourcepath="Elysium/lib/sources/spring-data-jpa-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Elysium/Elysium/lib/javadoc/spring-data-jpa-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="Elysium/lib/default/spring-expression.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/spring-instrument.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/spring-jdbc.jar"/>
-	<classpathentry kind="lib" path="Elysium/lib/default/spring-orm.jar"/>
+	<classpathentry kind="lib" path="Elysium/lib/default/spring-orm.jar" sourcepath="Elysium/lib/sources/spring-orm-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Elysium/Elysium/lib/javadoc/spring-orm-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="Elysium/lib/default/spring-tx.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/text.jar"/>
 	<classpathentry kind="lib" path="Elysium/lib/default/TheWheel.jar"/>
