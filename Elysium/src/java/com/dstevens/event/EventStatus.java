@@ -1,6 +1,9 @@
 package com.dstevens.event;
 
-public enum EventStatus {
+import com.dstevens.utilities.Identified;
+import com.dstevens.utilities.IdentityUtilities;
+
+public enum EventStatus implements Identified<Integer> {
 
 	PENDING(0),
 	ACTIVE(1),
@@ -14,15 +17,11 @@ public enum EventStatus {
 	}
 	
 	public static EventStatus from(int id) {
-		for (EventStatus status : EventStatus.values()) {
-			if(status.id == id) {
-				return status;
-			}
-		}
-		throw new IllegalArgumentException("Could not find an event status with id " + id);
+		return IdentityUtilities.withId(id, EventStatus.values());
 	}
 	
-	public int getId() {
+	@Override
+	public Integer getId() {
 		return id;
 	}
 	

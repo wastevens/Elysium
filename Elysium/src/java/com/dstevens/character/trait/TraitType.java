@@ -17,6 +17,7 @@ import com.dstevens.character.trait.power.magic.thaumaturgy.ThaumaturgicalRitual
 import com.dstevens.character.trait.skill.Skill;
 import com.dstevens.character.trait.status.Status;
 import com.dstevens.utilities.Identified;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum TraitType implements Identified<Integer> {
 
@@ -44,6 +45,10 @@ public enum TraitType implements Identified<Integer> {
 	private TraitType(int id, Trait[] traits) {
 		this.id = id;
 		this.traits = traits;
+	}
+	
+	public static TraitType from(int id) {
+		return IdentityUtilities.withId(id, TraitType.values());
 	}
 	
 	@Override

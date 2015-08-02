@@ -1,6 +1,7 @@
 package com.dstevens.character.trait;
 
 import com.dstevens.utilities.Identified;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum DetailLevel implements Identified<Integer> {
 
@@ -16,6 +17,10 @@ public enum DetailLevel implements Identified<Integer> {
 		this.id = id;
 	}
     
+	public static DetailLevel from(int id) {
+		return IdentityUtilities.withId(id, DetailLevel.values());
+	}
+	
 	@Override
 	public Integer getId() {
 		return id;

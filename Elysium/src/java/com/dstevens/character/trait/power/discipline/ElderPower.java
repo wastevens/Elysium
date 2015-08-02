@@ -4,6 +4,7 @@ import com.dstevens.character.PlayerCharacter;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 
 public enum ElderPower implements Trait, ApplicableTrait {
@@ -79,6 +80,10 @@ public enum ElderPower implements Trait, ApplicableTrait {
 		this.power = power;
     }
 
+	public static ElderPower from(int id) {
+		return IdentityUtilities.withId(id, ElderPower.values());
+	}
+    
 	@Override
 	public Integer getId() {
 		return id;

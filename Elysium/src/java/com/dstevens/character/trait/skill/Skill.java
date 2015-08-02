@@ -4,6 +4,7 @@ import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.DetailLevel;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum Skill implements Trait {
     
@@ -45,6 +46,10 @@ public enum Skill implements Trait {
         this.id = id;
 		this.detailLevel = detailLevel;
     }
+    
+	public static Skill from(int id) {
+		return IdentityUtilities.withId(id, Skill.values());
+	}
     
 	@Override
 	public Integer getId() {

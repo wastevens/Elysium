@@ -12,6 +12,7 @@ import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
 import com.dstevens.character.trait.distinction.DistinctionType;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum Merit implements Trait {
 	//General merits
@@ -252,6 +253,10 @@ public enum Merit implements Trait {
 		this.bloodline = bloodline;
 		this.setting = setting;
     }
+    
+	public static Merit from(int id) {
+		return IdentityUtilities.withId(id, Merit.values());
+	}
     
 	@Override
 	public Integer getId() {

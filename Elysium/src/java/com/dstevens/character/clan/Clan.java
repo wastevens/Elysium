@@ -6,6 +6,7 @@ import com.dstevens.character.PlayerCharacter;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 import static com.dstevens.collections.Sets.set;
 
@@ -39,6 +40,10 @@ public enum Clan implements ApplicableTrait, Trait {
 		this.bloodlines = set(bloodlines);
     }
 
+    public static Clan from(int id) {
+		return IdentityUtilities.withId(id, Clan.values());
+	}
+    
 	@Override
 	public Integer getId() {
 		return id;

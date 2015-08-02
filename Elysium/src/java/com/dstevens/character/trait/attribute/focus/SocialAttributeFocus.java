@@ -4,6 +4,7 @@ import com.dstevens.character.PlayerCharacter;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum SocialAttributeFocus implements Trait, ApplicableTrait {
 
@@ -15,6 +16,10 @@ public enum SocialAttributeFocus implements Trait, ApplicableTrait {
 
 	private SocialAttributeFocus(int id) {
 		this.id = id;
+	}
+	
+	public static SocialAttributeFocus from(int id) {
+		return IdentityUtilities.withId(id, SocialAttributeFocus.values());
 	}
 	
 	@Override

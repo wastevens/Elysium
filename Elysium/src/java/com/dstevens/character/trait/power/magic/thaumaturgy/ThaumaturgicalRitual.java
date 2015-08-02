@@ -4,6 +4,7 @@ import com.dstevens.character.PlayerCharacter;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum ThaumaturgicalRitual implements Trait, ApplicableTrait {
 
@@ -49,6 +50,10 @@ public enum ThaumaturgicalRitual implements Trait, ApplicableTrait {
         this.id = id;
 		this.rating = rating;
     }
+    
+	public static ThaumaturgicalRitual from(int id) {
+		return IdentityUtilities.withId(id, ThaumaturgicalRitual.values());
+	}
     
 	@Override
 	public Integer getId() {

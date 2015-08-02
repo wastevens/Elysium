@@ -7,6 +7,7 @@ import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
 import com.dstevens.character.trait.power.discipline.Discipline;
+import com.dstevens.utilities.IdentityUtilities;
 
 import static com.dstevens.collections.Lists.list;
 
@@ -96,6 +97,10 @@ public enum Bloodline implements ApplicableTrait, Trait {
 	private Bloodline(int id, List<Discipline>... disciplines) {
 		this.id = id;
 		this.disciplines = list(disciplines);
+	}
+	
+	public static Bloodline from(int id) {
+		return IdentityUtilities.withId(id, Bloodline.values());
 	}
 	
 	@Override

@@ -1,10 +1,12 @@
 package com.dstevens.character.trait.power.discipline;
 
 import com.dstevens.character.PlayerCharacter;
+import com.dstevens.character.clan.Bloodline;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
 import com.dstevens.character.trait.power.PowerType;
+import com.dstevens.utilities.IdentityUtilities;
 
 
 public enum Discipline implements Trait, ApplicableTrait {
@@ -55,6 +57,10 @@ public enum Discipline implements Trait, ApplicableTrait {
 		this.powerType = powerType;
     }
 
+	public static Discipline from(int id) {
+		return IdentityUtilities.withId(id, Discipline.values());
+	}
+	
 	@Override
 	public Integer getId() {
 		return id;

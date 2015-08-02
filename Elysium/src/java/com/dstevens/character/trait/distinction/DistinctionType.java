@@ -1,6 +1,7 @@
 package com.dstevens.character.trait.distinction;
 
 import com.dstevens.utilities.Identified;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum DistinctionType implements Identified<Integer> {
 
@@ -15,6 +16,10 @@ public enum DistinctionType implements Identified<Integer> {
 
 	private DistinctionType(int id) {
 		this.id = id;
+	}
+	
+	public static DistinctionType from(int id) {
+		return IdentityUtilities.withId(id, DistinctionType.values());
 	}
 	
 	@Override

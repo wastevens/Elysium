@@ -4,6 +4,7 @@ import com.dstevens.character.PlayerCharacter;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 
 public enum MentalAttributeFocus implements Trait, ApplicableTrait {
@@ -16,6 +17,10 @@ public enum MentalAttributeFocus implements Trait, ApplicableTrait {
 
 	private MentalAttributeFocus(int id) {
 		this.id = id;
+	}
+	
+	public static MentalAttributeFocus from(int id) {
+		return IdentityUtilities.withId(id, MentalAttributeFocus.values());
 	}
 	
 	@Override

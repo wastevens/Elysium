@@ -3,6 +3,7 @@ package com.dstevens.character.trait.attribute;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum Attribute implements Trait {
 
@@ -29,6 +30,10 @@ public enum Attribute implements Trait {
 
 	private Attribute(int id) {
 		this.id = id;
+	}
+	
+	public static Attribute from(int id) {
+		return IdentityUtilities.withId(id, Attribute.values());
 	}
 	
 	@Override

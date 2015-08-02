@@ -4,6 +4,7 @@ import com.dstevens.character.PlayerCharacter;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum PhysicalAttributeFocus implements Trait, ApplicableTrait {
 
@@ -15,6 +16,10 @@ public enum PhysicalAttributeFocus implements Trait, ApplicableTrait {
 
 	private PhysicalAttributeFocus(int id) {
 		this.id = id;
+	}
+	
+	public static PhysicalAttributeFocus from(int id) {
+		return IdentityUtilities.withId(id, PhysicalAttributeFocus.values());
 	}
 	
 	@Override

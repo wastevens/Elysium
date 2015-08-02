@@ -1,6 +1,7 @@
 package com.dstevens.character.status;
 
 import com.dstevens.utilities.Identified;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum ApprovalStatus implements Identified<Integer> {
 
@@ -12,6 +13,10 @@ public enum ApprovalStatus implements Identified<Integer> {
 
 	private ApprovalStatus(int id) {
 		this.id = id;
+	}
+	
+	public static ApprovalStatus from(int id) {
+		return IdentityUtilities.withId(id, ApprovalStatus.values());
 	}
 	
 	@Override

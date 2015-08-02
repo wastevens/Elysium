@@ -7,6 +7,7 @@ import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
 import com.dstevens.collections.Sets;
+import com.dstevens.utilities.IdentityUtilities;
 
 import static com.dstevens.character.trait.power.discipline.TechniqueRequirement.required;
 
@@ -58,6 +59,10 @@ public enum Technique implements Trait, ApplicableTrait {
         this.id = id;
 		this.requirements = Sets.set(requirements);
     }
+    
+	public static Technique from(int id) {
+		return IdentityUtilities.withId(id, Technique.values());
+	}
     
 	@Override
 	public Integer getId() {

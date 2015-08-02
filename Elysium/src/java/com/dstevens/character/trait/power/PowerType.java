@@ -1,6 +1,7 @@
 package com.dstevens.character.trait.power;
 
 import com.dstevens.utilities.Identified;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum PowerType implements Identified<Integer> {
 
@@ -12,6 +13,10 @@ public enum PowerType implements Identified<Integer> {
 
 	private PowerType(int id) {
 		this.id = id;
+	}
+	
+	public static PowerType from(int id) {
+		return IdentityUtilities.withId(id, PowerType.values());
 	}
 	
 	@Override

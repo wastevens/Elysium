@@ -10,6 +10,7 @@ import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
 import com.dstevens.character.trait.distinction.DistinctionType;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum Flaw implements Trait {
 
@@ -115,6 +116,10 @@ public enum Flaw implements Trait {
 		this.setting = setting;
     }
 	
+	public static Flaw from(int id) {
+		return IdentityUtilities.withId(id, Flaw.values());
+	}
+    
 	@Override
 	public Integer getId() {
 		return id;

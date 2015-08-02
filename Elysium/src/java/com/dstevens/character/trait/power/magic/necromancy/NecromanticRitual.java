@@ -4,6 +4,7 @@ import com.dstevens.character.PlayerCharacter;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum NecromanticRitual implements Trait, ApplicableTrait {
 
@@ -41,6 +42,10 @@ public enum NecromanticRitual implements Trait, ApplicableTrait {
 		this.rating = rating;
     }
 
+	public static NecromanticRitual from(int id) {
+		return IdentityUtilities.withId(id, NecromanticRitual.values());
+	}
+    
 	@Override
 	public Integer getId() {
 		return id;

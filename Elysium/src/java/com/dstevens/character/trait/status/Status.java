@@ -3,6 +3,7 @@ package com.dstevens.character.trait.status;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum Status implements Trait {
 
@@ -13,6 +14,10 @@ public enum Status implements Trait {
 
 	private Status(int id) {
 		this.id = id;
+	}
+	
+	public static Status from(int id) {
+		return IdentityUtilities.withId(id, Status.values());
 	}
 	
 	@Override

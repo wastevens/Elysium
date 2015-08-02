@@ -4,6 +4,7 @@ import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.DetailLevel;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
+import com.dstevens.utilities.IdentityUtilities;
 
 public enum Background implements Trait {
 
@@ -31,6 +32,10 @@ public enum Background implements Trait {
         this.id = id;
 		this.detailLevel = detailLevel;
     }
+    
+	public static Background from(int id) {
+		return IdentityUtilities.withId(id, Background.values());
+	}
     
 	@Override
 	public Integer getId() {
