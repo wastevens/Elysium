@@ -30,4 +30,8 @@ public class EventRepository {
     public Iterable<Event> findAll() {
     	return dao.findAll();
     }
+    
+    public Event save(Event event) {
+    	return dao.save(event);
+    }
 }
