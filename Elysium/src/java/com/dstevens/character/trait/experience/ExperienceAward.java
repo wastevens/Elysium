@@ -8,13 +8,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
+
+import org.hibernate.annotations.ForeignKey;
 
 import com.dstevens.event.Event;
 
 import static com.dstevens.time.DateTimeUtilities.asLocalDateInUTC;
 import static com.dstevens.time.DateTimeUtilities.fromLocalDateInUTC;
 
+@SuppressWarnings("deprecation")
 @Entity
 public final class ExperienceAward {
 
@@ -33,7 +38,9 @@ public final class ExperienceAward {
 	@Column(name="awardedFor")
 	private final String awardedFor;
 	
-	@Column(name="eventAttended")
+	@OneToOne(optional=true)
+	@JoinColumn(name="event_id", referencedColumnName="id")
+	@ForeignKey(name="ExperienceAward_Event_FK", inverseName="Event_ExperienceAward_FK")
 	private final Event attended;
 	
 	//Hibernate only
