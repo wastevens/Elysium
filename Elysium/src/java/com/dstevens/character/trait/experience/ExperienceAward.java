@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.TableGenerator;
 
+import com.dstevens.event.Event;
+
 import static com.dstevens.time.DateTimeUtilities.asLocalDateInUTC;
 import static com.dstevens.time.DateTimeUtilities.fromLocalDateInUTC;
 
@@ -31,14 +33,26 @@ public final class ExperienceAward {
 	@Column(name="awardedFor")
 	private final String awardedFor;
 	
+	@Column(name="eventAttended")
+	private final Event attended;
+	
 	//Hibernate only
     @SuppressWarnings("unused")
 	@Deprecated
     private ExperienceAward() {
-    	this(0, null, null);
+    	this(0, null, null, null);
+    }
+    
+    public ExperienceAward(int experience, LocalDate awardedOn, Event attended) {
+    	this(experience, awardedOn, null, attended);
+    }
+    
+    public ExperienceAward(int experience, LocalDate awardedOn, String awardedFor) {
+    	this(experience, awardedOn, awardedFor, null);
     }
 	
-	public ExperienceAward(int experience, LocalDate awardedOn, String awardedFor) {
+	public ExperienceAward(int experience, LocalDate awardedOn, String awardedFor, Event attended) {
+		this.attended = attended;
 		this.id = null;
 		this.experience = experience;
 		this.awardedOn = (awardedOn != null ? fromLocalDateInUTC(awardedOn) : null);
@@ -55,6 +69,17 @@ public final class ExperienceAward {
 
 	public final String awardedFor() {
 		return awardedFor;
+	}
+	
+	public final Event attended() {
+		return attended;
+	}
+	
+	public final Date effectiveAwardDate() {
+		if(attended != null) {
+			return attended.getEventDate();
+		}
+		return awardedOn;
 	}
 	
 }
