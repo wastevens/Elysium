@@ -7,18 +7,20 @@
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <mapping package="com.dstevens"/>
     
-    <mapping class="com.dstevens.characters.PlayerCharacter"/>
-    <mapping class="com.dstevens.characters.traits.changes.TraitChange"/>
-    <mapping class="com.dstevens.characters.traits.TraitQualities"/>
-    <mapping class="com.dstevens.characters.traits.attributes.AttributeValue"/>
-    <mapping class="com.dstevens.characters.traits.experience.ExperienceAward"/>
+    <mapping class="com.dstevens.character.PlayerCharacter"/>
+    <mapping class="com.dstevens.character.traits.changes.TraitChange"/>
+    <mapping class="com.dstevens.character.traits.TraitQualities"/>
+    <mapping class="com.dstevens.character.traits.attributes.AttributeValue"/>
+    <mapping class="com.dstevens.character.traits.experience.ExperienceAward"/>
     
-    <mapping class="com.dstevens.characters.traits.backgrounds.CharacterBackground"/>
-    <mapping class="com.dstevens.characters.traits.skills.CharacterSkill"/>
-    <mapping class="com.dstevens.characters.traits.powers.disciplines.CharacterDiscipline"/>
-    <mapping class="com.dstevens.characters.traits.distinctions.flaws.CharacterFlaw"/>
-    <mapping class="com.dstevens.characters.traits.distinctions.merits.CharacterMerit"/>
-    <mapping class="com.dstevens.characters.traits.status.CharacterStatus"/>
+    <mapping class="com.dstevens.character.traits.backgrounds.CharacterBackground"/>
+    <mapping class="com.dstevens.character.traits.skills.CharacterSkill"/>
+    <mapping class="com.dstevens.character.traits.powers.disciplines.CharacterDiscipline"/>
+    <mapping class="com.dstevens.character.traits.distinctions.flaws.CharacterFlaw"/>
+    <mapping class="com.dstevens.character.traits.distinctions.merits.CharacterMerit"/>
+    <mapping class="com.dstevens.character.traits.status.CharacterStatus"/>
+    
+    <mapping class="com.dstevens.event.Event"/>
     
   </session-factory>
 </hibernate-configuration>
