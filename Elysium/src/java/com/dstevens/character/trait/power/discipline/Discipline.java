@@ -1,7 +1,6 @@
 package com.dstevens.character.trait.power.discipline;
 
 import com.dstevens.character.PlayerCharacter;
-import com.dstevens.character.clan.Bloodline;
 import com.dstevens.character.trait.ApplicableTrait;
 import com.dstevens.character.trait.Trait;
 import com.dstevens.character.trait.TraitQualities;
