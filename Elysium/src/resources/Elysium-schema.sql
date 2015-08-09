@@ -1,8 +1,6 @@
 alter table Backgrounds drop foreign key PlayerCharacter_Backgrounds_FK;
 alter table Backgrounds_Focuses drop foreign key CharacterBackground_focuses_FK;
 alter table Disciplines drop foreign key PlayerCharacter_Disciplines_FK;
-alter table Event_PlayerCharacters drop foreign key PlayerCharacters_Event_FK;
-alter table Event_PlayerCharacters drop foreign key Event_PlayerCharacters_FK;
 alter table ExperienceAward drop foreign key ExperienceAward_Event_FK;
 alter table Flaws drop foreign key PlayerCharacter_Flaws_FK;
 alter table Merits drop foreign key PlayerCharacter_Merits_FK;
@@ -30,7 +28,6 @@ drop table if exists Backgrounds;
 drop table if exists Backgrounds_Focuses;
 drop table if exists Disciplines;
 drop table if exists Event;
-drop table if exists Event_PlayerCharacters;
 drop table if exists ExperienceAward;
 drop table if exists Flaws;
 drop table if exists Merits;
@@ -56,8 +53,7 @@ create table AttributeValue (attribute_type varchar(31) not null, id integer not
 create table Backgrounds (id integer not null, rating integer, specialization varchar(255), background integer, character_id integer, primary key (id));
 create table Backgrounds_Focuses (CharacterBackground_id integer not null, focuses varchar(255));
 create table Disciplines (id integer not null, rating integer, trait integer not null, character_id integer, primary key (id));
-create table Event (eventType varchar(31) not null, id integer not null, eventDate datetime, status integer, name varchar(255), primary key (id));
-create table Event_PlayerCharacters (event_id integer not null, playerCharacter_id integer not null, primary key (event_id, playerCharacter_id));
+create table Event (id integer not null, eventDate datetime, status integer, name varchar(255), primary key (id));
 create table ExperienceAward (id integer not null, awardedFor varchar(255), awardedOn datetime, experience integer, event_id integer, primary key (id));
 create table Flaws (id integer not null, specialization varchar(255), trait integer not null, character_id integer, primary key (id));
 create table Merits (id integer not null, specialization varchar(255), trait integer not null, character_id integer, primary key (id));
@@ -84,8 +80,6 @@ alter table PlayerCharacter_RequestedTraitChanges add constraint PlayerCharacter
 alter table Backgrounds add constraint PlayerCharacter_Backgrounds_FK foreign key (character_id) references PlayerCharacter (id);
 alter table Backgrounds_Focuses add constraint CharacterBackground_focuses_FK foreign key (CharacterBackground_id) references Backgrounds (id);
 alter table Disciplines add constraint PlayerCharacter_Disciplines_FK foreign key (character_id) references PlayerCharacter (id);
-alter table Event_PlayerCharacters add constraint PlayerCharacters_Event_FK foreign key (playerCharacter_id) references PlayerCharacter (id);
-alter table Event_PlayerCharacters add constraint Event_PlayerCharacters_FK foreign key (event_id) references Event (id);
 alter table ExperienceAward add constraint ExperienceAward_Event_FK foreign key (event_id) references Event (id);
 alter table Flaws add constraint PlayerCharacter_Flaws_FK foreign key (character_id) references PlayerCharacter (id);
 alter table Merits add constraint PlayerCharacter_Merits_FK foreign key (character_id) references PlayerCharacter (id);
